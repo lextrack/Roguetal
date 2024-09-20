@@ -8,7 +8,6 @@ func _ready() -> void:
 	MusicDungeon.stop_music()
 	MusicMainLevel.play_music_level()
 	
-
 func instance_portal_dungeon():
 	var portaldungeon = dungeon_portal.instantiate()
 	add_child(portaldungeon)

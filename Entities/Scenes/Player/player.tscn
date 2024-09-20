@@ -12,7 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://chf2546e33apu" path="res://SoundEffects/AudioStreamM16Shot.ogg" id="10_emtum"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpujb"]
-size = Vector2(14.2857, 23.9286)
+size = Vector2(14.2857, 22.1429)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7das3"]
 shader = ExtResource("2_dwf4p")
@@ -203,7 +203,9 @@ _data = {
 "RESET": SubResource("Animation_h3ykm")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1fmo4"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_40p5x"]
+radius = 7.14286
+height = 28.5714
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
@@ -215,7 +217,7 @@ script = ExtResource("1_ukrib")
 speed = 100
 
 [node name="player_colider" type="CollisionShape2D" parent="."]
-position = Vector2(2.12874e-07, 12.4286)
+position = Vector2(2.12874e-07, 13.1429)
 scale = Vector2(0.8, 0.8)
 shape = SubResource("RectangleShape2D_cpujb")
 disabled = true
@@ -241,7 +243,7 @@ collision_mask = 32
 [node name="hitbox_colider" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(0, 10)
 scale = Vector2(0.8, 0.8)
-shape = SubResource("CapsuleShape2D_1fmo4")
+shape = SubResource("CapsuleShape2D_40p5x")
 disabled = true
 debug_color = Color(0.904192, 0.253779, 0.443605, 0.42)
 
