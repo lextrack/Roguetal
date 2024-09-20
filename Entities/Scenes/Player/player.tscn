@@ -217,7 +217,7 @@ script = ExtResource("1_ukrib")
 speed = 100
 
 [node name="player_colider" type="CollisionShape2D" parent="."]
-position = Vector2(2.12874e-07, 13.1429)
+position = Vector2(1.42109e-14, 11.4286)
 scale = Vector2(0.8, 0.8)
 shape = SubResource("RectangleShape2D_cpujb")
 disabled = true
@@ -286,22 +286,21 @@ position = Vector2(21.4286, -0.394957)
 position = Vector2(0, -6)
 scale = Vector2(0.7, 0.714)
 stream = ExtResource("8_01fvg")
-volume_db = 6.0
+volume_db = 4.0
 panning_strength = 0.0
 
 [node name="AudioStreamBazookaShot" type="AudioStreamPlayer2D" parent="Sounds"]
 position = Vector2(0, -6)
 scale = Vector2(0.7, 0.714)
 stream = ExtResource("7_tfnia")
-volume_db = 5.0
+volume_db = 1.0
 panning_strength = 0.0
 
 [node name="AudioStreamM16Shot" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("10_emtum")
-volume_db = 4.0
+volume_db = 2.0
 
 [node name="mouse_icon" parent="." instance=ExtResource("4_v52kv")]
-position = Vector2(0, 12.605)
 scale = Vector2(0.640001, 0.68)
 
 [node name="trail_timer" type="Timer" parent="."]

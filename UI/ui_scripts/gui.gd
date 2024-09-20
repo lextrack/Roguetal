@@ -2,27 +2,36 @@ extends CanvasLayer
 
 const HEART_ROW_SIZE = 8
 const HEART_OFFSET = 16
+const MAX_HEARTS = 4
+
+@onready var heart_container = $heart
+@onready var heart_texture = $heart.texture
 
 func _ready() -> void:
-	for i in range(player_data.health):
+	create_hearts()
+
+func create_hearts():
+	for i in range(MAX_HEARTS):
 		var new_heart = Sprite2D.new()
-		new_heart.texture = $heart.texture
+		new_heart.texture = heart_texture
 		new_heart.hframes = $heart.hframes
-		$heart.add_child(new_heart)
+		heart_container.add_child(new_heart)
 
 func _process(delta: float) -> void:
 	$ammo_amount.text = var_to_str(player_data.ammo)
 	
-	for heart in $heart.get_children():
-		var index = heart.get_index()
-		var x = (index % HEART_ROW_SIZE) * HEART_OFFSET
-		var y = (index / HEART_ROW_SIZE) * HEART_OFFSET
-		heart.position = Vector2(x, y)
+	update_hearts()
+
+func update_hearts():
+	var health = player_data.health
+	for i in range(MAX_HEARTS):
+		var heart = heart_container.get_child(i)
 		
-		var last_heart = floor(player_data.health)
-		if index > last_heart:
-			heart.frame = 0
-		if index == last_heart:
-			heart.frame = (player_data.health - last_heart) * 4 
-		if index < last_heart:
+		if i < health:
 			heart.frame = 4
+		else:
+			heart.frame = 0
+
+		var x = (i % HEART_ROW_SIZE) * HEART_OFFSET
+		var y = (i / HEART_ROW_SIZE) * HEART_OFFSET
+		heart.position = Vector2(x, y)

@@ -46,7 +46,7 @@ func move_in_direction(direction: Vector2, animation: String) -> void:
 	$anim.play(animation)
 	move_and_slide()
 	
-	if is_on_wall() or is_on_ceiling():
+	if is_on_wall() or is_on_ceiling() or is_on_floor():
 		is_stuck = true
 
 func chosee_direction():

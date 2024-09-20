@@ -166,7 +166,7 @@ func instance_bullet() -> void:
 	var bullet_scene = bullet_scenes.get(bullet_type, bullet_scenes["bazooka"])
 	
 	var bullet = bullet_scene.instantiate()
-	bullet.damage = weapon_damage[bullet_type]  # Asignar el daño correspondiente
+	bullet.damage = weapon_damage[bullet_type]
 	var bullet_point = current_weapon.get_node("bullet_point")
 	bullet.direction = (bullet_point.global_position - weapons_container.global_position).normalized()
 	bullet.global_position = bullet_point.global_position

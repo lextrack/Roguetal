@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvvwvuwv8b4p5"]
+[gd_scene load_steps=8 format=3 uid="uid://dvvwvuwv8b4p5"]
 
 [ext_resource type="Script" path="res://Interactables/interatables_scripts/health_pickup.gd" id="1_4e3fp"]
 [ext_resource type="Texture2D" uid="uid://drwjcknf34x5e" path="res://Sprites/Heart_Animation.png" id="2_dtcyc"]
+[ext_resource type="AudioStream" uid="uid://ctqttxk85lbl" path="res://SoundEffects/pickup_object_sound.ogg" id="3_b655e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eghl4"]
 size = Vector2(12, 14)
@@ -45,6 +46,8 @@ _data = {
 }
 
 [node name="health_pickup" type="Area2D"]
+z_index = 1
+y_sort_enabled = true
 script = ExtResource("1_4e3fp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -62,6 +65,10 @@ libraries = {
 "": SubResource("AnimationLibrary_l161v")
 }
 autoplay = "Active"
+
+[node name="pickup_object" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_b655e")
+volume_db = 5.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

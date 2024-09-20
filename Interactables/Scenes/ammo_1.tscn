@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsdcr7v5kbgto"]
+[gd_scene load_steps=8 format=3 uid="uid://dsdcr7v5kbgto"]
 
 [ext_resource type="Texture2D" uid="uid://b64bmhm85x3bb" path="res://Sprites/ammo.png" id="1_cjx7h"]
 [ext_resource type="Script" path="res://Interactables/interatables_scripts/ammo_1.gd" id="1_dlm0t"]
+[ext_resource type="AudioStream" uid="uid://ctqttxk85lbl" path="res://SoundEffects/pickup_object_sound.ogg" id="3_3li0o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_32bj7"]
 radius = 7.5
@@ -46,7 +47,7 @@ _data = {
 }
 
 [node name="ammo_1" type="Area2D"]
-z_index = 5
+z_index = 1
 y_sort_enabled = true
 scale = Vector2(0.8, 0.8)
 script = ExtResource("1_dlm0t")
@@ -73,6 +74,11 @@ autoplay = "Active"
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="pickup_ammo" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_3li0o")
+volume_db = -6.0
+panning_strength = 0.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
