@@ -1,3 +1,6 @@
+res://SoundEffects/sound_scenes
+res://SoundEffects/sound_scripts
+res://
 C:/Users/ariel/Documents/C2_Roguelike
 res://Interactables/interatables_scripts
 res://Interactables/Scenes
@@ -6,7 +9,6 @@ res://Entities/Scenes/Bullets
 res://UI/ui_scripts
 res://UI/ui_shaders
 res://UI/ui_scenes
-res://
 res://Entities/Scenes/Characters
 res://Levels/level_generator_scripts
 res://Levels/Scenes

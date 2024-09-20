@@ -57,7 +57,7 @@ hframes = 8
 y_sort_enabled = true
 shape = SubResource("RectangleShape2D_eghl4")
 
-[node name="anim" type="AnimationPlayer" parent="."]
+[node name="animation_heart" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_l161v")
 }

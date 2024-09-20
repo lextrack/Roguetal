@@ -27,7 +27,9 @@ scale = Vector2(0.8, 0.4)
 
 [node name="AudioStreamImpactBazooka" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_8skf3")
+volume_db = -4.0
 max_distance = 3000.0
+panning_strength = 0.0
 area_mask = 40
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

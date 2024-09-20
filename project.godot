@@ -19,11 +19,13 @@ config/icon="res://espadas.png"
 [autoload]
 
 Globals="*res://Global.gd"
+MusicDungeon="*res://SoundEffects/sound_scenes/music_dungeon.tscn"
 
 [display]
 
-window/size/viewport_width=1366
-window/size/viewport_height=768
+window/size/viewport_width=1600
+window/size/viewport_height=900
+window/size/mode=4
 window/stretch/mode="viewport"
 
 [input]

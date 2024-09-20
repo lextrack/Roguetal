@@ -25,9 +25,9 @@ scale = Vector2(0.3, 0.1)
 
 [node name="AudioStreamImpactRapid" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_wuusc")
-volume_db = -5.288
+volume_db = -4.0
 max_distance = 3000.0
-panning_strength = 0.5
+panning_strength = 0.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="visible" to="." method="_on_visible_screen_exited"]

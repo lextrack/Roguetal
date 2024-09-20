@@ -51,6 +51,7 @@ scale = Vector2(0.8, 0.8)
 script = ExtResource("1_dlm0t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 5
 y_sort_enabled = true
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("1_cjx7h")
@@ -58,6 +59,8 @@ hframes = 5
 frame = 1
 
 [node name="ammo_collider" type="CollisionShape2D" parent="."]
+z_index = 5
+y_sort_enabled = true
 shape = SubResource("CircleShape2D_32bj7")
 
 [node name="anim" type="AnimationPlayer" parent="."]

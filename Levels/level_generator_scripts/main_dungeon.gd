@@ -20,7 +20,7 @@ const min_distance_from_player = 5
 func _ready() -> void:
 	randomize()
 	generate_level()
-	background_music_player.play()
+	MusicDungeon.play_music_level()
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("restart_level"):
