@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8pehrtx6ws1f"]
+
+[ext_resource type="Script" path="res://Entities/entities_scripts/bullet_rapid.gd" id="1_qaf3j"]
+[ext_resource type="Texture2D" uid="uid://cav73d1mdwdop" path="res://Sprites/bullet_rapid.png" id="2_ek60d"]
+[ext_resource type="AudioStream" uid="uid://cugdfuci0psae" path="res://SoundEffects/impact_rapid_bullet_2.ogg" id="3_wuusc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mfedp"]
+size = Vector2(6, 2)
+
+[node name="bullet_rapid" type="Area2D" groups=["Bullet"]]
+collision_layer = 2
+collision_mask = 40
+script = ExtResource("1_qaf3j")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.01125, 0.0160714)
+texture = ExtResource("2_ek60d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mfedp")
+
+[node name="visible" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2.38419e-07, -5.96046e-08)
+scale = Vector2(0.3, 0.1)
+
+[node name="AudioStreamImpactRapid" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_wuusc")
+volume_db = -5.288
+max_distance = 3000.0
+panning_strength = 0.5
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="visible" to="." method="_on_visible_screen_exited"]

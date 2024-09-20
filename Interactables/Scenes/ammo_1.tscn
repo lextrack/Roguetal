@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://dsdcr7v5kbgto"]
+
+[ext_resource type="Texture2D" uid="uid://b64bmhm85x3bb" path="res://Sprites/ammo.png" id="1_cjx7h"]
+[ext_resource type="Script" path="res://Interactables/interatables_scripts/ammo_1.gd" id="1_dlm0t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_32bj7"]
+radius = 7.5
+
+[sub_resource type="Animation" id="Animation_e05gj"]
+resource_name = "Active"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_uivvr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2h6ys"]
+_data = {
+"Active": SubResource("Animation_e05gj"),
+"RESET": SubResource("Animation_uivvr")
+}
+
+[node name="ammo_1" type="Area2D"]
+y_sort_enabled = true
+scale = Vector2(0.8, 0.8)
+script = ExtResource("1_dlm0t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_cjx7h")
+hframes = 5
+frame = 1
+
+[node name="ammo_collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_32bj7")
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2h6ys")
+}
+autoplay = "Active"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

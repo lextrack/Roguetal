@@ -1,0 +1,104 @@
+extends Node
+
+# Defines the name of the class to be able to instantiate it in other scripts.
+class_name Walker_room
+
+const DIRECTIONS = [Vector2.RIGHT, Vector2.UP, Vector2.LEFT, Vector2.DOWN]
+
+var position = Vector2.ZERO
+var direction = Vector2.RIGHT
+var borders = Rect2()
+var step_history = []
+var steps_since_turn = 0
+var rooms = []
+
+func _init(starting_position, new_border) -> void:
+	assert(new_border.has_point(starting_position))
+	position = starting_position
+	step_history.append(position)
+	borders = new_border
+	
+func walk(steps):
+	place_room(position)
+	
+	for step in steps:
+		if steps_since_turn >= 7.5:
+			change_direction()
+		if step():
+			step_history.append(position)
+		else:
+			change_direction()
+	return step_history.reduce(func(accum, item): return accum if item in accum else accum + [item], [])
+	
+
+func step() -> bool:
+	var target_position = position + direction
+	if borders.has_point(target_position):
+		steps_since_turn += 1
+		position = target_position
+		return true
+	return false
+
+func change_direction():
+	place_room(position)
+	
+	steps_since_turn = 0
+	var valid_directions = []
+	
+	for dir in DIRECTIONS:
+		if borders.has_point(position + dir):
+			valid_directions.append(dir)
+	
+	# Cambiar 'empty()' por 'is_empty()'
+	if valid_directions.is_empty():
+		return  # No hay direcciones válidas, el walker debería detenerse
+	
+	valid_directions.shuffle()
+	direction = valid_directions.front()
+
+
+
+func create_room(position, size):
+	return {position = position, size = size}
+	
+func place_room(position: Vector2) -> void:
+	var size = Vector2(randi() % 4 + 2, randi() % 4 + 2)
+	var top_left_corner = (position - size / 2).floor()
+
+	if is_too_close(position) or not is_room_within_bounds(top_left_corner, size):
+		return
+
+	rooms.append(create_room(position, size))
+	mark_room_on_history(top_left_corner, size)
+
+func is_room_within_bounds(top_left_corner: Vector2, size: Vector2) -> bool:
+	for y in range(size.y):
+		for x in range(size.x):
+			var new_step = top_left_corner + Vector2(x, y)
+			if not borders.has_point(new_step):
+				return false
+	return true
+
+
+
+func is_too_close(position: Vector2) -> bool:
+	for room in rooms:
+		if room.position.distance_to(position) < 5:
+			return true
+	return false
+
+func mark_room_on_history(top_left_corner: Vector2, size: Vector2) -> void:
+	for y in range(size.y):
+		for x in range(size.x):
+			var new_step = top_left_corner + Vector2(x, y)
+			if borders.has_point(new_step):
+				step_history.append(new_step)
+
+func get_end_room():
+	var end_room = rooms.pop_back()
+	var starting_position = step_history.front()
+	
+	for room in rooms:
+		if starting_position.distance_to(room.position) > starting_position.distance_to(end_room.position):
+			end_room = room
+	return end_room
