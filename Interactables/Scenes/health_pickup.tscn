@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvvwvuwv8b4p5"]
+
+[ext_resource type="Script" path="res://Interactables/interatables_scripts/health_pickup.gd" id="1_4e3fp"]
+[ext_resource type="Texture2D" uid="uid://drwjcknf34x5e" path="res://Sprites/Heart_Animation.png" id="2_dtcyc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eghl4"]
+size = Vector2(12, 14)
+
+[sub_resource type="Animation" id="Animation_laecc"]
+resource_name = "Active"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_qp3be"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l161v"]
+_data = {
+"Active": SubResource("Animation_laecc"),
+"RESET": SubResource("Animation_qp3be")
+}
+
+[node name="health_pickup" type="Area2D"]
+script = ExtResource("1_4e3fp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2.38419e-07, -9.53674e-07)
+scale = Vector2(0.25, 0.2)
+texture = ExtResource("2_dtcyc")
+hframes = 8
+
+[node name="heart_collider" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+shape = SubResource("RectangleShape2D_eghl4")
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_l161v")
+}
+autoplay = "Active"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

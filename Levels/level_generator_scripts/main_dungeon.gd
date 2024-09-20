@@ -10,6 +10,7 @@ const min_distance_from_player = 5
 @onready var exit_scene = preload("res://Interactables/Scenes/exit.tscn")
 @onready var next_level_scene = preload("res://Interactables/Scenes/next_level.tscn")
 @onready var enemy_scene = preload("res://Entities/Scenes/Enemies/enemy_1.tscn")
+@onready var health_pickup_scene = preload("res://Interactables/Scenes/health_pickup.tscn")
 @onready var tilemap = $Tiles/TileMap
 @onready var background_music_player = $BackgroundMusicPlayer
 
@@ -32,6 +33,30 @@ func generate_level() -> void:
 	instance_player()
 	instance_portal()
 	instance_enemy()
+	instance_health_pickup()
+	
+func instance_health_pickup() -> void:
+	var player_node = get_node("Player")
+	if not player_node:
+		return
+
+	var player_position = tilemap.local_to_map(player_node.position)
+	var attempts = 0
+	var max_attempts = 100
+	var health_pickup_spawned = false
+	
+	while not health_pickup_spawned and attempts < max_attempts:
+		var random_position = map[randi() % len(map)]
+		var world_position = tilemap.map_to_local(random_position)
+		
+		# Evita que aparezca demasiado cerca del jugador
+		if random_position.distance_to(player_position) >= min_distance_from_player and not is_tile_occupied(world_position):
+			var health_pickup = health_pickup_scene.instantiate()
+			health_pickup.position = world_position
+			add_child(health_pickup)
+			health_pickup_spawned = true
+		
+		attempts += 1
 
 func clear_and_set_tiles() -> void:
 	var using_cells: Array = []

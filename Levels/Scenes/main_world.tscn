@@ -1384,8 +1384,6 @@ position = Vector2(225, 38)
 
 [node name="Player" parent="Characters" instance=ExtResource("2_yswwr")]
 position = Vector2(160, 90)
-walk_sound_interval = 0.5
-rapid_shoot_delay = 0.1
 
 [node name="CanvasInstructions" type="CanvasLayer" parent="."]
 script = ExtResource("2_kpvk5")

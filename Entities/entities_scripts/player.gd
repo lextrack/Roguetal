@@ -47,6 +47,11 @@ func setup_weapons():
 			weapon.set_meta("bullet_type", "bazooka")
 		elif i == 1:
 			weapon.set_meta("bullet_type", "m16")
+			
+func increase_health(amount: int) -> void:
+	player_data.health += amount
+	if player_data.health > 4:  # Si la vida máxima es 4, ajusta este valor según lo que necesites
+		player_data.health = 4
 
 func _process(delta: float) -> void:
 	if player_data.health <= 0 and current_state != player_states.DEAD:

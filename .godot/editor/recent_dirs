@@ -1,3 +1,5 @@
+res://Interactables/interatables_scripts
+res://Interactables/Scenes
 res://Entities/entities_scripts
 res://Entities/Scenes/Bullets
 res://UI/ui_scripts
@@ -6,8 +8,6 @@ res://UI/ui_scenes
 C:/Users/ariel/OneDrive/Documents/new-game-project/Export
 res://
 C:/Users/ariel/OneDrive/Documents/new-game-project
-res://Interactables/interatables_scripts
-res://Interactables/Scenes
 res://Entities/Scenes/Characters
 res://Levels/level_generator_scripts
 res://Levels/Scenes

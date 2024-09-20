@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var fx_scene = preload("res://Entities/Scenes/FX/fx_scene.tscn")
 @onready var ammo_scene = preload("res://Interactables/Scenes/ammo_1.tscn")
 @export var speed = 30
-@export var stuck_time_limit = 0.6
+@export var stuck_time_limit = 0.5
 
 enum enemy_direction {RIGHT, LEFT, UP, DOWN, CHASE}
 var new_direction = enemy_direction.RIGHT
@@ -69,15 +69,15 @@ func _on_timer_timeout() -> void:
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet"):
-		take_damage(area.damage) 
+		take_damage(area.damage)
 
-func take_damage(damage: int):  
+func take_damage(damage: int):
 	current_health -= damage
 	if current_health <= 0:
 		die()
 	else:
 		# add sound
-		flash_damage()  
+		flash_damage()
 
 func die():
 	instance_fx()
@@ -95,9 +95,11 @@ func instance_fx():
 	get_tree().root.call_deferred("add_child", fx)
 
 func instance_ammo():
-	var ammo = ammo_scene.instantiate()
-	ammo.global_position = global_position
-	get_tree().root.call_deferred("add_child", ammo)
+	var drop_chance = randf()
+	if drop_chance < 0.4:
+		var ammo = ammo_scene.instantiate()
+		ammo.global_position = global_position
+		get_tree().root.call_deferred("add_child", ammo)
 
 func chase_state():
 	var chase_speed = 80
