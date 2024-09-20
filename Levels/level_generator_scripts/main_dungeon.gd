@@ -12,7 +12,6 @@ const min_distance_from_player = 5
 @onready var enemy_scene = preload("res://Entities/Scenes/Enemies/enemy_1.tscn")
 @onready var health_pickup_scene = preload("res://Interactables/Scenes/health_pickup.tscn")
 @onready var tilemap = $Tiles/TileMap
-@onready var background_music_player = $BackgroundMusicPlayer
 
 @export var borders = Rect2(1, 1, 70, 50)
 @export var exit_portal_spawn_chance: float = 0.5  # 50%

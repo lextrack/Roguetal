@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://clpbi8jhg3xp3"]
+[gd_scene load_steps=13 format=3 uid="uid://clpbi8jhg3xp3"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/enemy_1.gd" id="1_mv8l7"]
 [ext_resource type="Texture2D" uid="uid://duj4wedhxeg3w" path="res://Sprites/orc3_run_full.png" id="2_ris0n"]
+[ext_resource type="AudioStream" uid="uid://ch1gxwwlpqohp" path="res://SoundEffects/Hit_bullet_damage.ogg" id="3_xycxj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rfigo"]
 
@@ -152,6 +153,11 @@ debug_color = Color(0.723951, 0.477191, 0.00940225, 0.42)
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="hit_damage" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_xycxj")
+volume_db = 10.0
+panning_strength = 0.0
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_entered" from="chase_box" to="." method="_on_chase_box_area_entered"]

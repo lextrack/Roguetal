@@ -12,6 +12,7 @@ var stuck_timer = 0.0
 var is_stuck = false
 var current_health
 @export var max_health = 5
+@onready var hit_damage: AudioStreamPlayer2D = $hit_damage
 
 @onready var target = get_node("../Player")
 
@@ -76,7 +77,7 @@ func take_damage(damage: int):
 	if current_health <= 0:
 		die()
 	else:
-		# add sound
+		hit_damage.play()
 		flash_damage()
 
 func die():

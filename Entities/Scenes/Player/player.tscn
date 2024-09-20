@@ -273,8 +273,8 @@ position = Vector2(21.4286, -0.394957)
 
 [node name="gun_sprite" type="Sprite2D" parent="weapons_container/m16"]
 z_index = 1
-position = Vector2(10.2232, 0.589341)
-scale = Vector2(0.0391071, 0.0358473)
+position = Vector2(10.9375, -0.124947)
+scale = Vector2(0.0419643, 0.0406092)
 texture = ExtResource("6_r20b8")
 
 [node name="bullet_point" type="Marker2D" parent="weapons_container/m16"]
