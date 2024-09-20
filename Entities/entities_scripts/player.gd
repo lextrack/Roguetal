@@ -31,7 +31,7 @@ var current_weapon_index = 0
 
 var weapon_damage = {
 	"bazooka": 3,
-	"m16": 1
+	"m16": 2
 }
 
 func _ready() -> void:
@@ -50,7 +50,7 @@ func setup_weapons():
 			
 func increase_health(amount: int) -> void:
 	player_data.health += amount
-	if player_data.health > 4:  # Si la vida máxima es 4, ajusta este valor según lo que necesites
+	if player_data.health > 4:
 		player_data.health = 4
 
 func _process(delta: float) -> void:

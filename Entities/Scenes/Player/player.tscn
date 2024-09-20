@@ -203,7 +203,7 @@ _data = {
 "RESET": SubResource("Animation_h3ykm")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8l8g7"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1fmo4"]
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
@@ -239,8 +239,9 @@ autoplay = "Idle"
 collision_mask = 32
 
 [node name="hitbox_colider" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(0, 11.8421)
-shape = SubResource("CircleShape2D_8l8g7")
+position = Vector2(0, 10)
+scale = Vector2(0.8, 0.8)
+shape = SubResource("CapsuleShape2D_1fmo4")
 disabled = true
 debug_color = Color(0.904192, 0.253779, 0.443605, 0.42)
 
@@ -270,8 +271,8 @@ position = Vector2(21.4286, -0.394957)
 
 [node name="gun_sprite" type="Sprite2D" parent="weapons_container/m16"]
 z_index = 1
-position = Vector2(10.2232, 4.27961e-05)
-scale = Vector2(0.0391071, 0.0319186)
+position = Vector2(10.2232, 0.589341)
+scale = Vector2(0.0391071, 0.0358473)
 texture = ExtResource("6_r20b8")
 
 [node name="bullet_point" type="Marker2D" parent="weapons_container/m16"]

@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var ammo = 5
+@export var ammo = 10
 
 func _ready() -> void:
 	pass 

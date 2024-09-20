@@ -49,7 +49,6 @@ func instance_health_pickup() -> void:
 		var random_position = map[randi() % len(map)]
 		var world_position = tilemap.map_to_local(random_position)
 		
-		# Evita que aparezca demasiado cerca del jugador
 		if random_position.distance_to(player_position) >= min_distance_from_player and not is_tile_occupied(world_position):
 			var health_pickup = health_pickup_scene.instantiate()
 			health_pickup.position = world_position

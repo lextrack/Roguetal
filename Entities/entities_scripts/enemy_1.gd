@@ -96,7 +96,7 @@ func instance_fx():
 
 func instance_ammo():
 	var drop_chance = randf()
-	if drop_chance < 0.4:
+	if drop_chance < 0.5:
 		var ammo = ammo_scene.instantiate()
 		ammo.global_position = global_position
 		get_tree().root.call_deferred("add_child", ammo)
