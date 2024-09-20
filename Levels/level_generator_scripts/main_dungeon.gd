@@ -21,6 +21,7 @@ func _ready() -> void:
 	randomize()
 	generate_level()
 	MusicDungeon.play_music_level()
+	MusicMainLevel.stop()
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("restart_level"):

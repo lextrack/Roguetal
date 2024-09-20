@@ -20,12 +20,12 @@ config/icon="res://espadas.png"
 
 Globals="*res://Global.gd"
 MusicDungeon="*res://SoundEffects/sound_scenes/music_dungeon.tscn"
+MusicMainLevel="*res://SoundEffects/sound_scenes/music_main_level.tscn"
 
 [display]
 
-window/size/viewport_width=1600
-window/size/viewport_height=900
-window/size/mode=4
+window/size/viewport_width=1366
+window/size/viewport_height=768
 window/stretch/mode="viewport"
 
 [input]

@@ -5,8 +5,9 @@ extends Node2D
 
 func _ready() -> void:
 	instance_portal_dungeon()
-	background_music_player.play()
 	MusicDungeon.stop_music()
+	MusicMainLevel.play_music_level()
+	
 
 func instance_portal_dungeon():
 	var portaldungeon = dungeon_portal.instantiate()

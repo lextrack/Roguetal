@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhxhcrgxkwiqy"]
+
+[ext_resource type="AudioStream" uid="uid://cd42tf3udd5u6" path="res://SoundEffects/Forest_ambience.ogg" id="1_46ue7"]
+[ext_resource type="Script" path="res://SoundEffects/sound_scripts/music_main_level.gd" id="2_des2l"]
+
+[node name="music_main_level" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_46ue7")
+volume_db = 5.0
+panning_strength = 0.0
+parameters/looping = true
+script = ExtResource("2_des2l")
