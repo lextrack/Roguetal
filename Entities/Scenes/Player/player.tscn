@@ -249,6 +249,7 @@ disabled = true
 debug_color = Color(0.904192, 0.253779, 0.443605, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
 script = ExtResource("4_jek05")
 
 [node name="camera_shake" type="Timer" parent="Camera2D"]

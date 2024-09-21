@@ -10,6 +10,7 @@ const min_distance_from_player = 5
 @onready var exit_scene = preload("res://Interactables/Scenes/exit.tscn")
 @onready var next_level_scene = preload("res://Interactables/Scenes/next_level.tscn")
 @onready var enemy_scene = preload("res://Entities/Scenes/Enemies/enemy_1.tscn")
+@onready var enemy_2_scene = preload("res://Entities/Scenes/Enemies/enemy_2.tscn")
 @onready var health_pickup_scene = preload("res://Interactables/Scenes/health_pickup.tscn")
 @onready var tilemap = $Tiles/TileMap
 
@@ -29,11 +30,11 @@ func _input(event: InputEvent) -> void:
 func generate_level() -> void:
 	#Size of the map
 	walker = Walker_room.new(Vector2(25,25), borders)
-	map = walker.walk(500)
+	map = walker.walk(600)
 	clear_and_set_tiles()
 	instance_player()
 	instance_portal()
-	instance_enemy()
+	instance_enemies()
 	instance_health_pickup()
 	
 func instance_health_pickup() -> void:
@@ -90,7 +91,7 @@ func instance_portal():
 	add_child(portal)
 	portal.position = walker.get_end_room().position * 16
 
-func instance_enemy() -> void:
+func instance_enemies() -> void:
 	var player_node = get_node("Player")
 	if not player_node:
 		return
@@ -100,24 +101,48 @@ func instance_enemy() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	# Quantity of enemies
-	var total_enemies_to_spawn = randi_range(20, 50)
+	# Cantidad total de enemigos
+	var total_enemies_to_spawn = randi_range(20, 40)
+	
+	var min_enemies_per_type = 5
+	var enemy_1_count = 0
+	var enemy_2_count = 0
 
 	var max_attempts_per_enemy = 10
-	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts and max_attempts_per_enemy > 0:
+	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
 		var random_position = map[randi() % len(map)]
 		var world_position = tilemap.map_to_local(random_position)
 		
 		if random_position.distance_to(player_position) >= min_distance_from_player:
-			var enemy = enemy_scene.instantiate()
+			var enemy
+			# Asegurar que se spawnen al menos el mínimo de cada tipo
+			if enemy_1_count < min_enemies_per_type:
+				enemy = enemy_scene.instantiate()
+				enemy_1_count += 1
+			elif enemy_2_count < min_enemies_per_type:
+				enemy = enemy_2_scene.instantiate()
+				enemy_2_count += 1
+			else:
+				# Una vez que se ha alcanzado el mínimo, spawn aleatorio
+				if randf() < 0.5:
+					enemy = enemy_scene.instantiate()
+					enemy_1_count += 1
+				else:
+					enemy = enemy_2_scene.instantiate()
+					enemy_2_count += 1
+			
 			enemy.position = world_position
 			add_child(enemy)
 			enemies_spawned += 1
 			max_attempts_per_enemy = 10
 		else:
 			max_attempts_per_enemy -= 1
+			if max_attempts_per_enemy <= 0:
+				break
 		
 		attempts += 1
+	
+	print("Spawned enemies - Type 1: ", enemy_1_count, ", Type 2: ", enemy_2_count)
 
 func is_tile_occupied(position: Vector2) -> bool:
 	var cell_coords = tilemap.local_to_map(position)
