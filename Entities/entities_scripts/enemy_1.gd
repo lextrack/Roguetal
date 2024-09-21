@@ -103,7 +103,7 @@ func instance_ammo():
 		get_tree().root.call_deferred("add_child", ammo)
 
 func chase_state():
-	var chase_speed = 80
+	var chase_speed = 85
 	var direction_vector = target.global_position - global_position
 	var direction_to_target = direction_vector.normalized()
 	velocity = direction_to_target * chase_speed

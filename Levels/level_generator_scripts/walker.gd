@@ -10,6 +10,7 @@ var borders = Rect2()
 var step_history = []
 var steps_since_turn = 0
 var rooms = []
+var corridor_width = 2
 
 func _init(starting_position, new_border) -> void:
 	assert(new_border.has_point(starting_position))
@@ -34,8 +35,20 @@ func step() -> bool:
 	if borders.has_point(target_position):
 		steps_since_turn += 1
 		position = target_position
+		place_wide_corridor(position, direction, corridor_width)
 		return true
 	return false
+
+func place_wide_corridor(current_position: Vector2, current_direction: Vector2, width: int) -> void:
+	for i in range(1, width):
+		var side_direction = current_direction.orthogonal().normalized() * i
+		var side_tile_1 = current_position + side_direction
+		var side_tile_2 = current_position - side_direction
+		
+		if borders.has_point(side_tile_1):
+			step_history.append(side_tile_1)
+		if borders.has_point(side_tile_2):
+			step_history.append(side_tile_2)
 
 func change_direction():
 	place_room(position)

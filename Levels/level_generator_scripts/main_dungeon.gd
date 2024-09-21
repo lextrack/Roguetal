@@ -27,6 +27,7 @@ func _input(event: InputEvent) -> void:
 		get_tree().reload_current_scene()
 
 func generate_level() -> void:
+	#Size of the map
 	walker = Walker_room.new(Vector2(25,25), borders)
 	map = walker.walk(500)
 	clear_and_set_tiles()
@@ -99,6 +100,7 @@ func instance_enemy() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
+	# Quantity of enemies
 	var total_enemies_to_spawn = randi_range(20, 50)
 
 	var max_attempts_per_enemy = 10
