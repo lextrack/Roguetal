@@ -1,6 +1,5 @@
 extends Node
 
-# Defines the name of the class to be able to instantiate it in other scripts.
 class_name Walker_room
 
 const DIRECTIONS = [Vector2.RIGHT, Vector2.UP, Vector2.LEFT, Vector2.DOWN]
@@ -30,7 +29,6 @@ func walk(steps):
 			change_direction()
 	return step_history.reduce(func(accum, item): return accum if item in accum else accum + [item], [])
 	
-
 func step() -> bool:
 	var target_position = position + direction
 	if borders.has_point(target_position):
@@ -49,14 +47,11 @@ func change_direction():
 		if borders.has_point(position + dir):
 			valid_directions.append(dir)
 	
-	# Cambiar 'empty()' por 'is_empty()'
 	if valid_directions.is_empty():
-		return  # No hay direcciones válidas, el walker debería detenerse
+		return
 	
 	valid_directions.shuffle()
 	direction = valid_directions.front()
-
-
 
 func create_room(position, size):
 	return {position = position, size = size}
@@ -78,8 +73,6 @@ func is_room_within_bounds(top_left_corner: Vector2, size: Vector2) -> bool:
 			if not borders.has_point(new_step):
 				return false
 	return true
-
-
 
 func is_too_close(position: Vector2) -> bool:
 	for room in rooms:

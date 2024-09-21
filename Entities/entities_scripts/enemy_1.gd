@@ -18,7 +18,7 @@ var current_health
 
 func _ready() -> void:
 	chosee_direction()
-	$Timer.start()
+	$timer_direction.start()
 	current_health = max_health
 
 func _process(delta: float) -> void:
@@ -66,7 +66,7 @@ func random_direction():
 
 func _on_timer_timeout() -> void:
 	chosee_direction()
-	$Timer.start()
+	$timer_direction.start()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet"):

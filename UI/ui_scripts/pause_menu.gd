@@ -32,13 +32,13 @@ func resume():
 	get_tree().paused = false
 	$AnimationPlayer.play_backwards("blur")
 	is_menu_visible = false
-	hide()  # Oculta todo el nodo Control
+	hide()
 
 func pause():
 	get_tree().paused = true
 	$AnimationPlayer.play("blur")
 	is_menu_visible = true
-	show()  # Muestra todo el nodo Control
+	show()
 	current_selection = 0
 	if buttons.size() > 0:
 		update_selection()
