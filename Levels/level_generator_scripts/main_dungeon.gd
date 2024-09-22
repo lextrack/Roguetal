@@ -101,8 +101,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	# Cantidad total de enemigos
-	var total_enemies_to_spawn = randi_range(20, 40)
+	var total_enemies_to_spawn = randi_range(20, 50)
 	
 	var min_enemies_per_type = 5
 	var enemy_1_count = 0
@@ -115,7 +114,6 @@ func instance_enemies() -> void:
 		
 		if random_position.distance_to(player_position) >= min_distance_from_player:
 			var enemy
-			# Asegurar que se spawnen al menos el mínimo de cada tipo
 			if enemy_1_count < min_enemies_per_type:
 				enemy = enemy_scene.instantiate()
 				enemy_1_count += 1
@@ -123,7 +121,6 @@ func instance_enemies() -> void:
 				enemy = enemy_2_scene.instantiate()
 				enemy_2_count += 1
 			else:
-				# Una vez que se ha alcanzado el mínimo, spawn aleatorio
 				if randf() < 0.5:
 					enemy = enemy_scene.instantiate()
 					enemy_1_count += 1

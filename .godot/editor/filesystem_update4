@@ -1,6 +1,8 @@
 res://Entities/Scenes/Player/player.tscn
 res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
-res://UI/ui_scenes/pause_menu.tscn
 res://Levels/Scenes/main_dungeon.tscn
 res://Entities/Scenes/Enemies/enemy_2.tscn
+res://Entities/entities_scripts/player.gd
+res://Levels/level_generator_scripts/main_dungeon.gd
+res://Interactables/Scenes/ammo_1.tscn

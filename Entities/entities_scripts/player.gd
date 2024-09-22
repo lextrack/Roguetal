@@ -13,8 +13,8 @@ var walk_sound_timer = 0.0
 var shoot_timer: float = 0.0
 
 @export var speed: int
-@export var walk_sound_interval = 0.5
-@export var rapid_shoot_delay: float = 0.1
+@export var walk_sound_interval = 0.4
+@export var rapid_shoot_delay: float = 0.15
 
 @onready var bullet_scenes = {
 	"bazooka": preload("res://Entities/Scenes/Bullets/bullet_1.tscn"),
@@ -25,6 +25,8 @@ var shoot_timer: float = 0.0
 @onready var sprite = $Sprite2D
 @onready var walk_sound_player = $Sounds/WalkSoundPlayer
 @onready var cursor_script = $mouse_icon
+@onready var audio_stream_dead_player: AudioStreamPlayer2D = $Sounds/AudioStreamDeadPlayer
+
 
 var weapons = []
 var current_weapon_index = 0
@@ -201,6 +203,7 @@ func dead() -> void:
 		is_dead = true
 		velocity = Vector2.ZERO
 		weapons_container.visible = false
+		audio_stream_dead_player.play()
 		$anim.play("Dead")
 
 func reset_state():
