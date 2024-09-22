@@ -95,6 +95,9 @@ func check_level_and_set_weapon() -> void:
 		update_animation_without_gun()
 
 func movement(delta: float) -> void:
+	if current_state == player_states.DEAD:
+		return  # Salir de la función si el personaje está muerto
+	
 	input_movement = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
 	if input_movement != Vector2.ZERO:

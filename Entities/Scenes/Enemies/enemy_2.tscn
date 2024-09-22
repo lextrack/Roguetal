@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bfcnb2yir40br"]
+[gd_scene load_steps=14 format=3 uid="uid://bfcnb2yir40br"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/enemy_1.gd" id="1_sm0wu"]
 [ext_resource type="Texture2D" uid="uid://jhnrsdmhw6n5" path="res://Sprites/orc1_run_full.png" id="2_dqu1u"]
 [ext_resource type="AudioStream" uid="uid://ch1gxwwlpqohp" path="res://SoundEffects/Hit_bullet_damage.ogg" id="3_khll3"]
+[ext_resource type="AudioStream" uid="uid://de5u1e46i3340" path="res://SoundEffects/goblin_die_01.ogg" id="4_vj180"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rfigo"]
 
@@ -156,9 +157,13 @@ debug_color = Color(0.723951, 0.477191, 0.00940225, 0.42)
 wait_time = 0.6
 autostart = true
 
-[node name="hit_damage" type="AudioStreamPlayer2D" parent="."]
+[node name="hit_damage_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_khll3")
 volume_db = 10.0
+panning_strength = 0.0
+
+[node name="die_enemy_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_vj180")
 panning_strength = 0.0
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

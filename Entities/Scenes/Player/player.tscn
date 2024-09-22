@@ -307,7 +307,7 @@ panning_strength = 0.0
 
 [node name="AudioStreamDeadPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("10_aj7pw")
-volume_db = 2.0
+volume_db = 3.0
 panning_strength = 0.0
 
 [node name="mouse_icon" parent="." instance=ExtResource("4_v52kv")]

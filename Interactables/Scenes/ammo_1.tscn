@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b64bmhm85x3bb" path="res://Sprites/ammo.png" id="1_cjx7h"]
 [ext_resource type="Script" path="res://Interactables/interatables_scripts/ammo_1.gd" id="1_dlm0t"]
-[ext_resource type="AudioStream" uid="uid://ctqttxk85lbl" path="res://SoundEffects/pickup_object_sound.ogg" id="3_3li0o"]
+[ext_resource type="AudioStream" uid="uid://dt6po1sawfoyt" path="res://SoundEffects/metal_03.ogg" id="3_3xb82"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_32bj7"]
 radius = 7.5
@@ -74,8 +74,8 @@ wait_time = 3.0
 autostart = true
 
 [node name="pickup_ammo" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_3li0o")
-volume_db = -6.0
+stream = ExtResource("3_3xb82")
+volume_db = -3.0
 panning_strength = 0.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

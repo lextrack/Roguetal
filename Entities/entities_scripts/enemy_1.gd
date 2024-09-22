@@ -12,7 +12,8 @@ var stuck_timer = 0.0
 var is_stuck = false
 var current_health
 @export var max_health = 5
-@onready var hit_damage: AudioStreamPlayer2D = $hit_damage
+@onready var hit_damage_sound: AudioStreamPlayer2D = $hit_damage_sound
+@onready var die_enemy_sound: AudioStreamPlayer2D = $die_enemy_sound
 
 @onready var target = get_node("../Player")
 
@@ -52,7 +53,7 @@ func move_in_direction(direction: Vector2, animation: String) -> void:
 func chosee_direction():
 	change_direction = randi() % 4
 	random_direction()
-	
+
 func random_direction():
 	match change_direction:
 		0:
@@ -70,21 +71,24 @@ func _on_timer_timeout() -> void:
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet"):
-		take_damage(area.damage)
+		take_damage(area.damage, area)
 
-func take_damage(damage: int):
+func take_damage(damage: int, bullet: Area2D):
 	current_health -= damage
 	if current_health <= 0:
 		die()
 	else:
-		hit_damage.play()
+		hit_damage_sound.play()
 		flash_damage()
+	
+	bullet.queue_free()  # Aquí es donde se elimina la bala
+
 
 func die():
 	instance_fx()
 	instance_ammo()
 	queue_free()
-	
+
 func flash_damage():
 	$Sprite2D.modulate = Color(1, 0, 0)
 	await get_tree().create_timer(0.1).timeout

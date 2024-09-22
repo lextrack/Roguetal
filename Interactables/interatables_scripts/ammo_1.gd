@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		pickup_ammo.play()
-		await pickup_ammo.finished
+		await get_tree().create_timer(0.2).timeout 
 		player_data.ammo += ammo
 		queue_free()
 
