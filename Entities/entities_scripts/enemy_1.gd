@@ -81,7 +81,7 @@ func take_damage(damage: int, bullet: Area2D):
 		hit_damage_sound.play()
 		flash_damage()
 	
-	bullet.queue_free()  # Aquí es donde se elimina la bala
+	bullet.queue_free()
 
 
 func die():

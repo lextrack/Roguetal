@@ -154,7 +154,7 @@ shape = SubResource("RectangleShape2D_k3ijx")
 debug_color = Color(0.723951, 0.477191, 0.00940225, 0.42)
 
 [node name="timer_direction" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 2.0
 autostart = true
 
 [node name="hit_damage_sound" type="AudioStreamPlayer2D" parent="."]

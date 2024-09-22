@@ -1,6 +1,6 @@
 extends AudioStreamPlayer2D
 
-func _play_music(volume = 0.0):
+func _play_music(volume = 10.0):
 	if stream == null:
 		return
 	
