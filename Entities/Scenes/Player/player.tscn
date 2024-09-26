@@ -253,7 +253,6 @@ disabled = true
 debug_color = Color(0.904192, 0.253779, 0.443605, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
 script = ExtResource("4_jek05")
 
 [node name="camera_shake" type="Timer" parent="Camera2D"]
@@ -297,17 +296,16 @@ panning_strength = 0.0
 position = Vector2(0, -6)
 scale = Vector2(0.7, 0.714)
 stream = ExtResource("7_tfnia")
-volume_db = 6.0
 panning_strength = 0.0
 
 [node name="AudioStreamM16Shot" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("10_emtum")
-volume_db = 3.0
+volume_db = 2.0
 panning_strength = 0.0
 
 [node name="AudioStreamDeadPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("10_aj7pw")
-volume_db = 4.0
+volume_db = 3.0
 panning_strength = 0.0
 
 [node name="mouse_icon" parent="." instance=ExtResource("4_v52kv")]

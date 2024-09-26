@@ -88,15 +88,18 @@ func _process(delta: float) -> void:
 
 func check_level_and_set_weapon() -> void:
 	var current_scene = get_tree().current_scene
-	if current_scene.name == "main_dungeon":
+	var visible_levels = ["main_dungeon", "main_dungeon_2"]
+	
+	if current_scene.name in visible_levels:
 		weapons_container.visible = true
 	else:
 		weapons_container.visible = false
 		update_animation_without_gun()
 
+
 func movement(delta: float) -> void:
 	if current_state == player_states.DEAD:
-		return  # Salir de la función si el personaje está muerto
+		return
 	
 	input_movement = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	

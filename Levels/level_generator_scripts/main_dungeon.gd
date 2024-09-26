@@ -78,18 +78,35 @@ func instance_player():
 	player.position = map.pop_front() * 16
 
 func instance_portal():
-	var random_value = randf()
-	var portal
+	var exit_portal = exit_scene.instantiate()
+	var next_level_portal = next_level_scene.instantiate()
 	
-	if random_value < exit_portal_spawn_chance:
-		portal = exit_scene.instantiate()
-		print("Exit portal spawned!")
-	else:
-		portal = next_level_scene.instantiate()
-		print("Next level portal spawned!")
+	add_child(exit_portal)
+	add_child(next_level_portal)
 	
-	add_child(portal)
-	portal.position = walker.get_end_room().position * 16
+	# Obtener dos posiciones diferentes para los portales
+	var end_room_position = walker.get_end_room().position * 16
+	var other_position = get_other_portal_position(end_room_position)
+	
+	exit_portal.position = end_room_position
+	next_level_portal.position = other_position
+	
+	#print("Exit portal spawned at: ", exit_portal.position)
+	#print("Next level portal spawned at: ", next_level_portal.position)
+
+func get_other_portal_position(existing_position):
+	var attempts = 0
+	var max_attempts = 100
+	var min_distance = 160  # Distancia mínima entre portales (10 tiles * 16 pixels)
+	
+	while attempts < max_attempts:
+		var random_position = map[randi() % len(map)] * 16
+		if random_position.distance_to(existing_position) >= min_distance:
+			return random_position
+		attempts += 1
+	
+	# Si no se encuentra una posición adecuada, devolver una posición aleatoria
+	return map[randi() % len(map)] * 16
 
 func instance_enemies() -> void:
 	var player_node = get_node("Player")
