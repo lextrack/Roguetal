@@ -84,7 +84,6 @@ func instance_portal():
 	add_child(exit_portal)
 	add_child(next_level_portal)
 	
-	# Obtener dos posiciones diferentes para los portales
 	var end_room_position = walker.get_end_room().position * 16
 	var other_position = get_other_portal_position(end_room_position)
 	
@@ -96,8 +95,9 @@ func instance_portal():
 
 func get_other_portal_position(existing_position):
 	var attempts = 0
+	# 10 tiles * 16 pixels)
 	var max_attempts = 100
-	var min_distance = 160  # Distancia mínima entre portales (10 tiles * 16 pixels)
+	var min_distance = 160
 	
 	while attempts < max_attempts:
 		var random_position = map[randi() % len(map)] * 16
