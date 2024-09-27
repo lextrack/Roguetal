@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1727442940
+::res://::1727452366
 espadas.png::CompressedTexture2D::7675543735631496191::1727364835::1727364846::1::::<><>::
 export_presets.cfg::TextFile::-1::1727364835::0::1::::<><>::
 Global.gd::GDScript::-1::1727364834::0::1::::<>Node<>::
@@ -28,8 +28,8 @@ enemy_2.tscn::PackedScene::2742286219684381199::1727364834::0::1::::<><>::res://
 ::res://Entities/Scenes/FX/::1727442928
 fx_scene.tscn::PackedScene::6192429877330729986::1727364834::0::1::::<><>::res://Entities/entities_scripts/fx_scene.gd<>uid://b61kbatqplhat::::res://Sprites/dead_fx.png
 scent_trail.tscn::PackedScene::8407045450929663267::1727364834::0::1::::<><>::res://Entities/entities_scripts/scent_trail.gd
-::res://Entities/Scenes/Player/::1727442928
-player.tscn::PackedScene::3605554082502644693::1727403538::0::1::::<><>::res://Entities/entities_scripts/player.gd<>res://Shaders/hurt.gdshader<>uid://d0xm4ir8srq7n::::res://Sprites/satiro-Sheet v1.1.png<>res://Entities/entities_scripts/camera.gd<>uid://c06a4jq71ysuh::::res://UI/ui_scenes/mouse_icon.tscn<>uid://c3re1sp6ho24b::::res://Sprites/PikPng.com_bazooka-png_1896275.png<>uid://cieogogxl8sko::::res://Sprites/m16_2.png<>uid://bdst5cjd6a6qn::::res://SoundEffects/Shot_bazooka.ogg<>uid://c41s3wtu5ym1u::::res://SoundEffects/walking_sound1.ogg<>uid://bwk7dwlyljdul::::res://SoundEffects/hurting_player.ogg<>uid://chf2546e33apu::::res://SoundEffects/AudioStreamM16Shot.ogg
+::res://Entities/Scenes/Player/::1727452309
+player.tscn::PackedScene::3605554082502644693::1727452309::0::1::::<><>::res://Entities/entities_scripts/player.gd<>res://Shaders/hurt.gdshader<>uid://d0xm4ir8srq7n::::res://Sprites/satiro-Sheet v1.1.png<>res://Entities/entities_scripts/camera.gd<>uid://c06a4jq71ysuh::::res://UI/ui_scenes/mouse_icon.tscn<>uid://c3re1sp6ho24b::::res://Sprites/PikPng.com_bazooka-png_1896275.png<>uid://cieogogxl8sko::::res://Sprites/m16_2.png<>uid://bdst5cjd6a6qn::::res://SoundEffects/Shot_bazooka.ogg<>uid://c41s3wtu5ym1u::::res://SoundEffects/walking_sound1.ogg<>uid://bwk7dwlyljdul::::res://SoundEffects/hurting_player.ogg<>uid://chf2546e33apu::::res://SoundEffects/AudioStreamM16Shot.ogg
 ::res://Interactables/::1727442907
 ::res://Interactables/interatables_scripts/::1727442928
 ammo_1.gd::GDScript::-1::1727364834::0::1::::<>Area2D<>::
@@ -37,23 +37,23 @@ exit.gd::GDScript::-1::1727364834::0::1::::<>Area2D<>::
 health_pickup.gd::GDScript::-1::1727364834::0::1::::<>Area2D<>::
 next_level.gd::GDScript::-1::1727368566::0::1::::<>Area2D<>::
 portal_dungeon.gd::GDScript::-1::1727364834::0::1::::<>Area2D<>::
-::res://Interactables/Scenes/::1727442928
+::res://Interactables/Scenes/::1727452009
 ammo_1.tscn::PackedScene::8429007876872551892::1727364834::0::1::::<><>::uid://b64bmhm85x3bb::::res://Sprites/ammo.png<>res://Interactables/interatables_scripts/ammo_1.gd<>uid://dt6po1sawfoyt::::res://SoundEffects/metal_03.ogg
-exit.tscn::PackedScene::815250121003240007::1727364834::0::1::::<><>::res://Interactables/interatables_scripts/exit.gd<>uid://ysnvle0yrjos::::res://Sprites/exit_portal.png
+exit.tscn::PackedScene::815250121003240007::1727452009::0::1::::<><>::res://Interactables/interatables_scripts/exit.gd<>uid://dhxmg1ldnp8gr::::res://Sprites/portalsSpriteSheet.png
 health_pickup.tscn::PackedScene::8677954061277119944::1727364834::0::1::::<><>::res://Interactables/interatables_scripts/health_pickup.gd<>uid://drwjcknf34x5e::::res://Sprites/Heart_Animation.png<>uid://ctqttxk85lbl::::res://SoundEffects/pickup_object_sound.ogg
-next_level.tscn::PackedScene::6308969009664506899::1727364834::0::1::::<><>::res://Interactables/interatables_scripts/next_level.gd<>uid://bso70iti7l2xo::::res://Sprites/next_level_portal.png
+next_level.tscn::PackedScene::6308969009664506899::1727452009::0::1::::<><>::res://Interactables/interatables_scripts/next_level.gd<>uid://dhxmg1ldnp8gr::::res://Sprites/portalsSpriteSheet.png
 portal_dungeon.tscn::PackedScene::3209675438825180794::1727364834::0::1::::<><>::res://Interactables/interatables_scripts/portal_dungeon.gd<>uid://bpu2dcjxoe473::::res://Sprites/PortalDungeon2.png
 ::res://Levels/::1727442907
-::res://Levels/level_generator_scripts/::1727442926
-main_dungeon.gd::GDScript::-1::1727403810::0::1::::<>Node2D<>::
+::res://Levels/level_generator_scripts/::1727451544
+main_dungeon.gd::GDScript::-1::1727451544::0::1::::<>Node2D<>::
 main_world.gd::GDScript::-1::1727364834::0::1::::<>Node2D<>::
 walker.gd::GDScript::-1::1727364834::0::1::::Walker_room<>Node<>::
-::res://Levels/Scenes/::1727442926
-main_dungeon.tscn::PackedScene::7409020938614328237::1727403539::0::1::::<><>::res://Levels/level_generator_scripts/main_dungeon.gd<>res://UI/ui_scripts/hud.gd<>uid://csx15aryqogte::::res://Sprites/HeartSpriteSheet.png<>uid://c38bl01vdy0k6::::res://Sprites/complex_tilemap_16px.png<>uid://dwphcmpag53is::::res://Sprites/ammo_ui.png<>uid://02ay4cfoeh8i::::res://Sprites/mainlevbuild.png<>uid://dqmd7bql1ldc::::res://UI/ui_scenes/pause_menu.tscn<>uid://c1df3if3xydge::::res://Sprites/snow.png<>uid://dtp1c1nysvom3::::res://Sprites/Ice and snow tileset-Sheet-Sheet.png
-main_dungeon_2.tscn::PackedScene::1171794042280500754::1727405631::0::1::::<><>::res://Levels/level_generator_scripts/main_dungeon.gd<>uid://dqmd7bql1ldc::::res://UI/ui_scenes/pause_menu.tscn<>res://UI/ui_scripts/hud.gd<>uid://csx15aryqogte::::res://Sprites/HeartSpriteSheet.png<>uid://dwphcmpag53is::::res://Sprites/ammo_ui.png<>uid://02ay4cfoeh8i::::res://Sprites/mainlevbuild.png<>uid://l85tm3xdtcna::::res://Sprites/Main_dungeon brick level.png
+::res://Levels/Scenes/::1727452301
+main_dungeon.tscn::PackedScene::7409020938614328237::1727443217::0::1::::<><>::res://Levels/level_generator_scripts/main_dungeon.gd<>res://UI/ui_scripts/hud.gd<>uid://csx15aryqogte::::res://Sprites/HeartSpriteSheet.png<>uid://c38bl01vdy0k6::::res://Sprites/complex_tilemap_16px.png<>uid://dwphcmpag53is::::res://Sprites/ammo_ui.png<>uid://02ay4cfoeh8i::::res://Sprites/mainlevbuild.png<>uid://dqmd7bql1ldc::::res://UI/ui_scenes/pause_menu.tscn<>uid://c1df3if3xydge::::res://Sprites/snow.png<>uid://dtp1c1nysvom3::::res://Sprites/Ice and snow tileset-Sheet-Sheet.png
+main_dungeon_2.tscn::PackedScene::1171794042280500754::1727452301::0::1::::<><>::res://Levels/level_generator_scripts/main_dungeon.gd<>uid://dqmd7bql1ldc::::res://UI/ui_scenes/pause_menu.tscn<>res://UI/ui_scripts/hud.gd<>uid://csx15aryqogte::::res://Sprites/HeartSpriteSheet.png<>uid://dwphcmpag53is::::res://Sprites/ammo_ui.png<>uid://02ay4cfoeh8i::::res://Sprites/mainlevbuild.png<>uid://l85tm3xdtcna::::res://Sprites/Main_dungeon brick level.png
 main_world.tscn::PackedScene::49683991250003105::1727364834::0::1::::<><>::uid://bm2ssab3dj3sq::::res://Sprites/forest_/forest_.png<>res://Levels/level_generator_scripts/main_world.gd<>uid://02ay4cfoeh8i::::res://Sprites/mainlevbuild.png<>res://UI/ui_scripts/canvas_instructions.gd<>uid://brms7i87pfawr::::res://Entities/Scenes/Player/player.tscn<>uid://wtleq1220l72::::res://Sprites/forest_/forest_ [resources].png<>uid://dx7jg2bjpfbq8::::res://Sprites/Tree_SpriteSheet.png<>uid://22wqvtgu2aej::::res://Entities/Scenes/Characters/vampire_girl_npc.tscn<>uid://bly15dxgkrppy::::res://Interactables/Scenes/portal_dungeon.tscn<>uid://dqmd7bql1ldc::::res://UI/ui_scenes/pause_menu.tscn
-::res://Shaders/::1727442926
-hurt.gdshader::Shader::-1::1727405633::0::1::::<><>::
+::res://Shaders/::1727452315
+hurt.gdshader::Shader::-1::1727452315::0::1::::<><>::
 ::res://SoundEffects/::1727442926
 AudioStreamM16Shot.ogg::AudioStreamOggVorbis::5276179665530920306::1727364834::1727364846::1::::<><>::
 Background_dungeon1.ogg::AudioStreamOggVorbis::2212945239396219117::1727364835::1727364846::1::::<><>::
@@ -74,30 +74,29 @@ music_main_level.tscn::PackedScene::7698494138651111304::1727364835::0::1::::<><
 ::res://SoundEffects/sound_scripts/::1727442926
 music_dungeon.gd::GDScript::-1::1727364835::0::1::::<>AudioStreamPlayer2D<>::
 music_main_level.gd::GDScript::-1::1727364835::0::1::::<>AudioStreamPlayer2D<>::
-::res://Sprites/::1727442926
+::res://Sprites/::1727452266
 ammo.png::CompressedTexture2D::4622224325600963147::1727364835::1727364846::1::::<><>::
 ammo_ui.png::CompressedTexture2D::8734811521425585058::1727364835::1727364846::1::::<><>::
 bullet.png::CompressedTexture2D::5854822126465759690::1727364835::1727364846::1::::<><>::
 bullet_missile.png::CompressedTexture2D::7813657120224485206::1727364835::1727364846::1::::<><>::
 bullet_rapid.png::CompressedTexture2D::4818186444504389335::1727364835::1727364846::1::::<><>::
 coin.png::CompressedTexture2D::7657665216910922697::1727364835::1727364846::1::::<><>::
-complex_tilemap_16px.png::CompressedTexture2D::6806335170068595687::1727364835::1727364846::1::::<><>::
+complex_tilemap_16px.png::CompressedTexture2D::6806335170068595687::1727451325::1727451344::1::::<><>::
 Crate-animated.png::CompressedTexture2D::6675515631539821163::1727364835::1727364846::1::::<><>::
 dead_fx.png::CompressedTexture2D::4616557643897964855::1727364835::1727364846::1::::<><>::
-exit_portal.png::CompressedTexture2D::1722518454568526010::1727364835::1727364846::1::::<><>::
 HeartSpriteSheet.png::CompressedTexture2D::6085353484217299282::1727403941::1727403968::1::::<><>::
 Heart_Animation.png::CompressedTexture2D::8398439273619597540::1727364835::1727364846::1::::<><>::
 Ice and snow tileset-Sheet-Sheet.png::CompressedTexture2D::8525399346717460340::1727364835::1727364846::1::::<><>::
 m16_2.png::CompressedTexture2D::5343471125825621314::1727364835::1727364846::1::::<><>::
 mainlevbuild.png::CompressedTexture2D::1810503675876956326::1727364835::1727364846::1::::<><>::
 Main_dungeon brick level.png::CompressedTexture2D::842057860354014442::1727365079::1727365125::1::::<><>::
-next_level_portal.png::CompressedTexture2D::3680709196295465632::1727364835::1727364846::1::::<><>::
 orc1_attack_full.png::CompressedTexture2D::7226240026979347436::1727364835::1727364846::1::::<><>::
 orc1_run_full.png::CompressedTexture2D::646970867033253428::1727364835::1727364846::1::::<><>::
 orc3_run_full.png::CompressedTexture2D::8583418618959386646::1727364835::1727364846::1::::<><>::
 PikPng.com_bazooka-png_1896275.png::CompressedTexture2D::6773513679693521991::1727364835::1727364846::1::::<><>::
 Player2.png::CompressedTexture2D::2359681409994395170::1727364835::1727364846::1::::<><>::
 PortalDungeon2.png::CompressedTexture2D::3482185729545046896::1727364835::1727364846::1::::<><>::
+portalsSpriteSheet.png::CompressedTexture2D::7698805346319790537::1727448690::1727448802::1::::<><>::
 satiro-Sheet v1.1.png::CompressedTexture2D::8962244670282514197::1727364835::1727364846::1::::<><>::
 snow.png::CompressedTexture2D::6604298451645090636::1727364835::1727364846::1::::<><>::
 target_cursor.png::CompressedTexture2D::8495290924992386298::1727364835::1727364846::1::::<><>::
@@ -149,5 +148,5 @@ hud.gd::GDScript::-1::1727364835::0::1::::<>CanvasLayer<>::
 loading_screen.gd::GDScript::-1::1727364835::0::1::::<>CanvasLayer<>::
 mouse_icon.gd::GDScript::-1::1727364835::0::1::::<>Area2D<>::
 pause_menu.gd::GDScript::-1::1727364835::0::1::::<>Control<>::
-::res://UI/ui_shaders/::1727442926
-pause_menu.gdshader::Shader::-1::1727405633::0::1::::<><>::
+::res://UI/ui_shaders/::1727452315
+pause_menu.gdshader::Shader::-1::1727452315::0::1::::<><>::

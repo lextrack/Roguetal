@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var next_scene: String = "res://Levels/Scenes/main_dungeon.tscn"
+@export var next_scene: String = "res://Levels/Scenes/main_dungeon_2.tscn"
 
 var loading_screen_scene = preload("res://UI/ui_scenes/loading_screen.tscn")
 

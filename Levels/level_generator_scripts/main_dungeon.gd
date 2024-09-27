@@ -89,9 +89,6 @@ func instance_portal():
 	
 	exit_portal.position = end_room_position
 	next_level_portal.position = other_position
-	
-	#print("Exit portal spawned at: ", exit_portal.position)
-	#print("Next level portal spawned at: ", next_level_portal.position)
 
 func get_other_portal_position(existing_position):
 	var attempts = 0
@@ -105,7 +102,6 @@ func get_other_portal_position(existing_position):
 			return random_position
 		attempts += 1
 	
-	# Si no se encuentra una posición adecuada, devolver una posición aleatoria
 	return map[randi() % len(map)] * 16
 
 func instance_enemies() -> void:
@@ -118,6 +114,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
+	# Enemy quantity
 	var total_enemies_to_spawn = randi_range(20, 50)
 	
 	var min_enemies_per_type = 5

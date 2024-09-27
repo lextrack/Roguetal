@@ -35,9 +35,9 @@ func impact(body: Node2D):
 	instance_fx()
 	
 	if body.is_in_group("enemy"):
-		body.take_damage(damage, self)  # Pasa la referencia de la bala
+		body.take_damage(damage, self)
 
-	queue_free()  # Asegúrate de que esto se ejecute después de hacer el daño
+	queue_free()
 
 	await get_tree().create_timer(impact_sound.stream.get_length()).timeout
 	impact_node.queue_free()

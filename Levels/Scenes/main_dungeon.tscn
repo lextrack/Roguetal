@@ -2574,7 +2574,6 @@ sources/1 = SubResource("TileSetAtlasSource_t85or")
 
 [node name="main_dungeon" type="Node2D"]
 y_sort_enabled = true
-position = Vector2(-16, 0)
 script = ExtResource("1_3hfxc")
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]

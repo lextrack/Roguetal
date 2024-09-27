@@ -27,7 +27,6 @@ var shoot_timer: float = 0.0
 @onready var cursor_script = $mouse_icon
 @onready var audio_stream_dead_player: AudioStreamPlayer2D = $Sounds/AudioStreamDeadPlayer
 
-
 var weapons = []
 var current_weapon_index = 0
 
@@ -78,7 +77,7 @@ func _process(delta: float) -> void:
 				player_data.ammo -= 1
 				instance_bullet()
 				shoot_timer = rapid_shoot_delay
-		# Normal shooting
+		# Normal shooting (bazooka)
 		elif bullet_type != "m16" and Input.is_action_just_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
 			player_data.ammo -= 1
 			instance_bullet()
