@@ -266,23 +266,23 @@ position = Vector2(0, 17.1429)
 
 [node name="gun_sprite" type="Sprite2D" parent="weapons_container/bazooka"]
 z_index = 1
-position = Vector2(8.33333, -0.16153)
-scale = Vector2(0.0231622, 0.0254051)
+position = Vector2(9.95319, -0.16153)
+scale = Vector2(0.0269692, 0.0254051)
 texture = ExtResource("5_j8ek6")
 
 [node name="bullet_point" type="Marker2D" parent="weapons_container/bazooka"]
-position = Vector2(20, 0)
+position = Vector2(21.4286, -4.3869e-05)
 
 [node name="m16" type="Node2D" parent="weapons_container"]
 
 [node name="gun_sprite" type="Sprite2D" parent="weapons_container/m16"]
 z_index = 1
-position = Vector2(10.9375, -0.124947)
-scale = Vector2(0.0419643, 0.0406092)
+position = Vector2(9.509, 0.4)
+scale = Vector2(0.042, 0.045)
 texture = ExtResource("6_r20b8")
 
 [node name="bullet_point" type="Marker2D" parent="weapons_container/m16"]
-position = Vector2(20, 0)
+position = Vector2(21.4286, -4.3869e-05)
 
 [node name="Sounds" type="Node" parent="."]
 
