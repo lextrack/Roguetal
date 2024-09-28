@@ -11,7 +11,7 @@ var change_direction
 var stuck_timer = 0.0
 var is_stuck = false
 var current_health
-@export var max_health = 5
+@export var max_health = 20
 @onready var hit_damage_sound: AudioStreamPlayer2D = $hit_damage_sound
 @onready var die_enemy_sound: AudioStreamPlayer2D = $die_enemy_sound
 
@@ -80,9 +80,16 @@ func take_damage(damage: int, bullet: Area2D):
 	else:
 		hit_damage_sound.play()
 		flash_damage()
+		show_damage(damage)
 	
 	bullet.queue_free()
 
+func show_damage(damage: int) -> void:
+	var damage_label_scene = preload("res://UI/ui_scenes/damage_label.tscn")
+	var damage_label = damage_label_scene.instantiate() as RichTextLabel
+	damage_label.text = str(damage)
+	damage_label.global_position = global_position + Vector2(0, -30)
+	get_tree().root.add_child(damage_label)
 
 func die():
 	instance_fx()

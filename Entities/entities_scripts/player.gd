@@ -14,7 +14,7 @@ var shoot_timer: float = 0.0
 
 @export var speed: int
 @export var walk_sound_interval = 0.4
-@export var rapid_shoot_delay: float = 0.15
+@export var rapid_shoot_delay: float = 0.1
 
 @onready var bullet_scenes = {
 	"bazooka": preload("res://Entities/Scenes/Bullets/bullet_1.tscn"),
@@ -31,8 +31,8 @@ var weapons = []
 var current_weapon_index = 0
 
 var weapon_damage = {
-	"bazooka": 3,
-	"m16": 2
+	"bazooka": 15,
+	"m16": 5
 }
 
 func _ready() -> void:
@@ -66,24 +66,27 @@ func _process(delta: float) -> void:
 
 		joystick_aiming(delta)
 		movement(delta)
-
-		var current_weapon = weapons[current_weapon_index]
-		var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
-
-		#Fast shooting
-		if bullet_type == "m16" and Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
-			shoot_timer -= delta
-			if shoot_timer <= 0.0:
-				player_data.ammo -= 1
-				instance_bullet()
-				shoot_timer = rapid_shoot_delay
-		# Normal shooting (bazooka)
-		elif bullet_type != "m16" and Input.is_action_just_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
-			player_data.ammo -= 1
-			instance_bullet()
+		bullet_type_shooting(delta)
 
 		if Input.is_action_just_pressed("switch_weapon"):
 			switch_weapon()
+
+func bullet_type_shooting(delta: float):
+	var current_weapon = weapons[current_weapon_index]
+	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
+
+	# Fast shooting
+	if bullet_type == "m16" and Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
+		shoot_timer -= delta
+		if shoot_timer <= 0.0:
+			player_data.ammo -= 1
+			instance_bullet()
+			shoot_timer = rapid_shoot_delay
+
+	# Normal shooting (bazooka)
+	elif bullet_type != "m16" and Input.is_action_just_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
+		player_data.ammo -= 1
+		instance_bullet()
 
 func check_level_and_set_weapon() -> void:
 	var current_scene = get_tree().current_scene
@@ -94,7 +97,6 @@ func check_level_and_set_weapon() -> void:
 	else:
 		weapons_container.visible = false
 		update_animation_without_gun()
-
 
 func movement(delta: float) -> void:
 	if current_state == player_states.DEAD:
@@ -116,10 +118,6 @@ func movement(delta: float) -> void:
 		velocity = Vector2.ZERO
 		
 	animation()
-	
-	if Input.is_action_just_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
-		player_data.ammo -= 1
-		instance_bullet()
 
 	if input_movement != Vector2.ZERO:
 		walk_sound_timer -= delta
@@ -186,58 +184,23 @@ func instance_bullet() -> void:
 
 func animation() -> void:
 	if is_dead:
-		if not $anim.is_playing() or $anim.current_animation != "Dead":
-			$anim.play("Dead")
+		if not $player_animation.is_playing() or $player_animation.current_animation != "Dead":
+			$player_animation.play("Dead")
 	elif input_movement != Vector2.ZERO:
-		if not $anim.is_playing() or $anim.current_animation != "Move":
-			$anim.play("Move")
+		if not $player_animation.is_playing() or $player_animation.current_animation != "Move":
+			$player_animation.play("Move")
 	else:
-		if not $anim.is_playing() or $anim.current_animation != "Idle":
-			$anim.play("Idle")
+		if not $player_animation.is_playing() or $player_animation.current_animation != "Idle":
+			$player_animation.play("Idle")
 
 func update_animation_without_gun() -> void:
 	if input_movement != Vector2.ZERO:
-		if not $anim.is_playing() or $anim.current_animation != "Move":
-			$anim.play("Move")
+		if not $player_animation.is_playing() or $player_animation.current_animation != "Move":
+			$player_animation.play("Move")
 	else:
-		if not $anim.is_playing() or $anim.current_animation != "Idle":
-			$anim.play("Idle")
-
-func dead() -> void:
-	if not is_dead:
-		is_dead = true
-		velocity = Vector2.ZERO
-		weapons_container.visible = false
-		audio_stream_dead_player.play()
-		$anim.play("Dead")
-
-func reset_state():
-	current_state = player_states.MOVE
-
-func instance_trail():
-	var trail = trail_scene.instantiate()
-	trail.global_position = global_position
-	get_tree().root.add_child(trail)
-
-func _on_trail_timer_timeout() -> void:
-	instance_trail()
-	$trail_timer.start()
-
-func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area.is_in_group("enemy"):
-		flash_damage()
-		player_data.health -= 1
-
-func flash_damage():
-	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.7)
-	await get_tree().create_timer(0.3).timeout
-	$Sprite2D.material.set_shader_parameter("flash_modifier", 0)
-
-func _on_anim_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "Dead":
-		get_tree().reload_current_scene()
-		player_data.health = 4
-
+		if not $player_animation.is_playing() or $player_animation.current_animation != "Idle":
+			$player_animation.play("Idle")
+			
 func switch_weapon():
 	current_weapon_index = (current_weapon_index + 1) % weapons.size()
 	update_visible_weapon()
@@ -255,3 +218,38 @@ func update_weapon_flip():
 	else:
 		gun_sprite.flip_v = true
 		sprite.flip_h = true
+
+func dead() -> void:
+	if not is_dead:
+		is_dead = true
+		velocity = Vector2.ZERO
+		weapons_container.visible = false
+		audio_stream_dead_player.play()
+		$player_animation.play("Dead")
+
+func reset_state():
+	current_state = player_states.MOVE
+
+func instance_trail():
+	var trail = trail_scene.instantiate()
+	trail.global_position = global_position
+	get_tree().root.add_child(trail)
+
+func _on_trail_timer_timeout() -> void:
+	instance_trail()
+	$trail_timer.start()
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy"):
+		flash_damage()
+		player_data.health -= 0.5
+
+func flash_damage():
+	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.7)
+	await get_tree().create_timer(0.3).timeout
+	$Sprite2D.material.set_shader_parameter("flash_modifier", 0)
+
+func _on_anim_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "Dead":
+		get_tree().reload_current_scene()
+		player_data.health = 4

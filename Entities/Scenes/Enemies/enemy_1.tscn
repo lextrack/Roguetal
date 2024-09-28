@@ -159,7 +159,7 @@ autostart = true
 
 [node name="hit_damage_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_xycxj")
-volume_db = 10.0
+volume_db = 6.0
 panning_strength = 0.0
 
 [node name="die_enemy_sound" type="AudioStreamPlayer2D" parent="."]

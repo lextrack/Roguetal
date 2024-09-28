@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://22wqvtgu2aej"]
 
 [ext_resource type="Texture2D" uid="uid://ct5agvxkjvs0x" path="res://Sprites/Vampire_Girl/Idle.png" id="2_1oje4"]
-[ext_resource type="Script" path="res://UI/ui_scripts/area_dialogues.gd" id="3_fvofm"]
+[ext_resource type="Script" path="res://UI/ui_scripts/area_vampire_girl.gd" id="3_fvofm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2x2kd"]
 size = Vector2(42.8571, 75.8928)
@@ -68,14 +68,14 @@ libraries = {
 }
 autoplay = "Idle"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="area_vampire_girl" type="Area2D" parent="."]
 script = ExtResource("3_fvofm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="area_vampire_girl"]
 position = Vector2(0, 17.1161)
 shape = SubResource("RectangleShape2D_3hgyq")
 
-[node name="PanelDialogue" type="Panel" parent="Area2D"]
+[node name="PanelDialogue" type="Panel" parent="area_vampire_girl"]
 z_index = 10
 y_sort_enabled = true
 texture_filter = 2
@@ -91,7 +91,7 @@ offset_bottom = -7.85714
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CharacterName" type="RichTextLabel" parent="Area2D/PanelDialogue"]
+[node name="CharacterName" type="RichTextLabel" parent="area_vampire_girl/PanelDialogue"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -110,7 +110,7 @@ scroll_active = false
 scroll_following = true
 drag_and_drop_selection_enabled = false
 
-[node name="LabelContentDialogue" type="RichTextLabel" parent="Area2D/PanelDialogue"]
+[node name="LabelContentDialogue" type="RichTextLabel" parent="area_vampire_girl/PanelDialogue"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -132,5 +132,5 @@ scroll_active = false
 scroll_following = true
 drag_and_drop_selection_enabled = false
 
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
+[connection signal="body_entered" from="area_vampire_girl" to="area_vampire_girl" method="_on_body_entered"]
+[connection signal="body_exited" from="area_vampire_girl" to="area_vampire_girl" method="_on_body_exited"]

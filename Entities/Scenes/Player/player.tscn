@@ -236,7 +236,7 @@ hframes = 10
 vframes = 8
 frame = 1
 
-[node name="anim" type="AnimationPlayer" parent="."]
+[node name="player_animation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_j2kxc")
 }
@@ -253,6 +253,7 @@ disabled = true
 debug_color = Color(0.904192, 0.253779, 0.443605, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
 script = ExtResource("4_jek05")
 
 [node name="camera_shake" type="Timer" parent="Camera2D"]
@@ -296,6 +297,7 @@ panning_strength = 0.0
 position = Vector2(0, -6)
 scale = Vector2(0.7, 0.714)
 stream = ExtResource("7_tfnia")
+volume_db = 3.0
 panning_strength = 0.0
 
 [node name="AudioStreamM16Shot" type="AudioStreamPlayer2D" parent="Sounds"]
@@ -305,7 +307,7 @@ panning_strength = 0.0
 
 [node name="AudioStreamDeadPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("10_aj7pw")
-volume_db = 3.0
+volume_db = 4.0
 panning_strength = 0.0
 
 [node name="mouse_icon" parent="." instance=ExtResource("4_v52kv")]
@@ -315,7 +317,7 @@ scale = Vector2(0.640001, 0.68)
 wait_time = 0.1
 autostart = true
 
-[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
+[connection signal="animation_finished" from="player_animation" to="." method="_on_anim_animation_finished"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="Camera2D/camera_shake" to="Camera2D" method="_on_camera_shake_timeout"]
 [connection signal="timeout" from="trail_timer" to="." method="_on_trail_timer_timeout"]

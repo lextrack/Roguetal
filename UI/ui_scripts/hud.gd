@@ -27,10 +27,12 @@ func update_hearts():
 	for i in range(MAX_HEARTS):
 		var heart = heart_container.get_child(i)
 		
-		if i < health:
+		if i < int(health):
 			heart.frame = 4
+		elif i == int(health) and (health - int(health)) > 0:
+			heart.frame = 2 
 		else:
-			heart.frame = 0
+			heart.frame = 0 
 
 		var x = (i % HEART_ROW_SIZE) * HEART_OFFSET
 		var y = (i / HEART_ROW_SIZE) * HEART_OFFSET

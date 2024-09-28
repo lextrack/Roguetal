@@ -36,8 +36,7 @@ func impact(body: Node2D):
 	
 	if body.is_in_group("enemy"):
 		body.take_damage(damage, self)
-
-	queue_free()
+		queue_free()
 
 	await get_tree().create_timer(impact_sound.stream.get_length()).timeout
 	impact_node.queue_free()

@@ -1,22 +1,74 @@
-[gd_scene load_steps=4 format=3 uid="uid://bly15dxgkrppy"]
+[gd_scene load_steps=8 format=3 uid="uid://bly15dxgkrppy"]
 
 [ext_resource type="Script" path="res://Interactables/interatables_scripts/portal_dungeon.gd" id="1_q63dn"]
-[ext_resource type="Texture2D" uid="uid://bpu2dcjxoe473" path="res://Sprites/PortalDungeon2.png" id="2_4pcmn"]
+[ext_resource type="Texture2D" uid="uid://dhxmg1ldnp8gr" path="res://Sprites/portalsSpriteSheet.png" id="2_0vtov"]
+[ext_resource type="AudioStream" uid="uid://dekxnve04erbs" path="res://SoundEffects/portal_effect.ogg" id="3_o4e1v"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ishya"]
-size = Vector2(27.625, 22.25)
+[sub_resource type="Animation" id="Animation_yj85i"]
+resource_name = "Active"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_1sgbu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1l78a"]
+_data = {
+"Active": SubResource("Animation_yj85i"),
+"RESET": SubResource("Animation_1sgbu")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eex34"]
+radius = 13.0
+height = 42.0
 
 [node name="portal_dungeon" type="Area2D"]
 script = ExtResource("1_q63dn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1, -3.55271e-15)
-scale = Vector2(0.41875, 0.34375)
-texture = ExtResource("2_4pcmn")
+scale = Vector2(1, 0.9)
+texture = ExtResource("2_0vtov")
+hframes = 4
+vframes = 4
+frame = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_ishya")
+[node name="portal_dungeon_animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1l78a")
+}
+autoplay = "Active"
+
+[node name="portal_collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_eex34")
 debug_color = Color(0.964133, 0.15271, 0.293453, 0.42)
+
+[node name="enter_portal_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_o4e1v")
+volume_db = 2.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

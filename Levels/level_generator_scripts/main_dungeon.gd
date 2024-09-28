@@ -7,7 +7,7 @@ var rooms = []
 const min_distance_from_player = 5
 
 @onready var player_scene = preload("res://Entities/Scenes/Player/player.tscn")
-@onready var exit_scene = preload("res://Interactables/Scenes/exit.tscn")
+@onready var exit_scene = preload("res://Interactables/Scenes/exit_portal.tscn")
 @onready var next_level_scene = preload("res://Interactables/Scenes/next_level.tscn")
 @onready var enemy_scene = preload("res://Entities/Scenes/Enemies/enemy_1.tscn")
 @onready var enemy_2_scene = preload("res://Entities/Scenes/Enemies/enemy_2.tscn")
@@ -15,7 +15,6 @@ const min_distance_from_player = 5
 @onready var tilemap = $Tiles/TileMap
 
 @export var borders = Rect2(1, 1, 70, 50)
-@export var exit_portal_spawn_chance: float = 0.5  # 50%
 
 func _ready() -> void:
 	randomize()
@@ -115,7 +114,7 @@ func instance_enemies() -> void:
 	var enemies_spawned = 0
 	
 	# Enemy quantity
-	var total_enemies_to_spawn = randi_range(20, 50)
+	var total_enemies_to_spawn = randi_range(20, 40)
 	
 	var min_enemies_per_type = 5
 	var enemy_1_count = 0

@@ -9,7 +9,7 @@ gradient = SubResource("Gradient_00r44")
 fill_from = Vector2(1, 0)
 fill_to = Vector2(0, 0)
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="loading_screen" type="CanvasLayer"]
 layer = 100
 script = ExtResource("1_a7ce3")
 
