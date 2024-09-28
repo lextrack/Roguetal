@@ -11,10 +11,14 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
+		body.enter_portal()
 		portal_enter_sound.play()
 		await portal_enter_sound.finished
 		
 		var loading_screen = preload("res://UI/ui_scenes/loading_screen.tscn").instantiate()
 		get_tree().current_scene.add_child(loading_screen)
-
 		loading_screen.load_scene("res://Levels/Scenes/main_world.tscn")
+
+func _on_body_exited(body: Node2D) -> void:
+	if body.name == "Player":
+		body.exit_portal()

@@ -9,6 +9,7 @@ size = Vector2(12, 14)
 
 [sub_resource type="Animation" id="Animation_laecc"]
 resource_name = "Active"
+length = 0.8
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
@@ -18,7 +19,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.6, 0.7, 0.8, 0.9),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
@@ -68,7 +69,7 @@ autoplay = "Active"
 
 [node name="pickup_object" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_b655e")
-volume_db = 5.0
+volume_db = 2.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

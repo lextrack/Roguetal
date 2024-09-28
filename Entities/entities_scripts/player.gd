@@ -11,6 +11,7 @@ var last_input_time = 0.0
 var gamepad_deadzone = 0.1
 var walk_sound_timer = 0.0
 var shoot_timer: float = 0.0
+var is_in_portal = false
 
 @export var speed: int
 @export var walk_sound_interval = 0.4
@@ -70,6 +71,12 @@ func _process(delta: float) -> void:
 
 		if Input.is_action_just_pressed("switch_weapon"):
 			switch_weapon()
+			
+func enter_portal():
+	is_in_portal = true
+
+func exit_portal():
+	is_in_portal = false
 
 func bullet_type_shooting(delta: float):
 	var current_weapon = weapons[current_weapon_index]
@@ -240,13 +247,13 @@ func _on_trail_timer_timeout() -> void:
 	$trail_timer.start()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area.is_in_group("enemy"):
+	if area.is_in_group("enemy") and not is_in_portal:
 		flash_damage()
 		player_data.health -= 0.5
 
 func flash_damage():
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.7)
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.1).timeout
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0)
 
 func _on_anim_animation_finished(anim_name: StringName) -> void:

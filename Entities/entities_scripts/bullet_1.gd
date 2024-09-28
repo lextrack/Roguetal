@@ -1,7 +1,7 @@
 extends Area2D
 
 @onready var fx_scene = preload("res://Entities/Scenes/FX/fx_scene.tscn")
-@export var speed = 100
+@export var speed = 115
 @export var damage = 1
 var direction = Vector2.RIGHT
 
@@ -36,7 +36,8 @@ func impact(body: Node2D):
 	
 	if body.is_in_group("enemy"):
 		body.take_damage(damage, self)
-		queue_free()
+		
+	queue_free()
 
 	await get_tree().create_timer(impact_sound.stream.get_length()).timeout
 	impact_node.queue_free()
