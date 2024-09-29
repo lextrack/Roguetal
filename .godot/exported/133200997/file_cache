@@ -2,12 +2,12 @@ res://Entities/Scenes/Bullets/bullet_1.tscn::a3124c02d1bf236b2122dbc880d20792::1
 res://Entities/Scenes/Enemies/enemy_1.tscn::21406e67db22ab545ca93a01b317c2ae::1727563868::res://.godot/exported/133200997/export-b6fe25f89bd0e32fe3656b10e8e00bb5-enemy_1.scn
 res://Entities/Scenes/FX/fx_scene.tscn::dc6913018e08ca4b37f46906cf8031b2::1727563868::res://.godot/exported/133200997/export-242fc8a0c4f49560b80e359b8ccc77ac-fx_scene.scn
 res://Entities/Scenes/FX/scent_trail.tscn::9df5d484a280fa1881df7af4ad9ce117::1727563868::res://.godot/exported/133200997/export-9458ba9882f7b35b6c525ee363852f97-scent_trail.scn
-res://Entities/Scenes/Player/player.tscn::993fdde59c73f5241205c254dc90a775::1727632876::res://.godot/exported/133200997/export-d52f75ca2f42e93580a281ffca324912-player.scn
+res://Entities/Scenes/Player/player.tscn::993fdde59c73f5241205c254dc90a775::1727632951::res://.godot/exported/133200997/export-d52f75ca2f42e93580a281ffca324912-player.scn
 res://Interactables/Scenes/ammo_1.tscn::61373d81d0629b11c45627503e5dd811::1727563868::res://.godot/exported/133200997/export-eb828ee59a996be0f7a1ab58781b83d7-ammo_1.scn
 res://UI/ui_scenes/mouse_icon.tscn::530eb89d28359488c0be67523a15df32::1727563868::res://.godot/exported/133200997/export-547ec8fde2ad34b7dd2570fd5d4c38b5-mouse_icon.scn
 res://Interactables/Scenes/next_level.tscn::698d815e81967160a1c11888400e3c66::1727563868::res://.godot/exported/133200997/export-10afd2d4d6234604bdf7ab02604431ab-next_level.scn
 res://Interactables/Scenes/portal_dungeon.tscn::3dbee4ee9f07b69631bbaa6ceaa0aefe::1727563868::res://.godot/exported/133200997/export-08d157182c20e061db03c160bd59aa48-portal_dungeon.scn
-res://Levels/Scenes/main_dungeon.tscn::8d9f214e6bc6de3c9c246ed29091338e::1727632823::res://.godot/exported/133200997/export-b95c3d895478c8c46cf43cba856ff857-main_dungeon.scn
+res://Levels/Scenes/main_dungeon.tscn::8d9f214e6bc6de3c9c246ed29091338e::1727632950::res://.godot/exported/133200997/export-b95c3d895478c8c46cf43cba856ff857-main_dungeon.scn
 res://Levels/Scenes/main_world.tscn::d3d333dccf874a5b3b13273fa5619757::1727563868::res://.godot/exported/133200997/export-a2cdb577a545ce1c9e2b775ec100a405-main_world.scn
 res://UI/ui_scenes/loading_screen.tscn::94e8ce73597461ebf35f7fb25cea005b::1727563868::res://.godot/exported/133200997/export-d99c1f8285224e16c2900048eaede01a-loading_screen.scn
 res://Entities/Scenes/Bullets/bullet_rapid.tscn::19c11e382eadbae7ea30aed397b03da2::1727563868::res://.godot/exported/133200997/export-cf33d76faf68d2503270a856b3c01831-bullet_rapid.scn
@@ -16,9 +16,9 @@ res://Interactables/Scenes/health_pickup.tscn::57ff6842f829b9d436e30d7b2465e5ae:
 res://UI/ui_scenes/pause_menu.tscn::6e8952c2aa37365c9f4f62b9c9a8d2c9::1727617319::res://.godot/exported/133200997/export-3af9a7254570c91a677cd9a631c4eaa4-pause_menu.scn
 res://Entities/Scenes/Enemies/enemy_2.tscn::25292dc5a5e4a94bbe1bce15ee9f5dd5::1727563868::res://.godot/exported/133200997/export-596a57bf1794852ed498645ed95f1d20-enemy_2.scn
 res://Interactables/Scenes/exit_portal.tscn::09133f2001b3f02594a9db3d18c08e09::1727563868::res://.godot/exported/133200997/export-73b9e4cf4d9ac2746fe87d61de0f1368-exit_portal.scn
-res://Levels/Scenes/main_dungeon_2.tscn::30b23e0c7151ae5eef1db3ea0a29b4ca::1727632824::res://.godot/exported/133200997/export-afc49887eb8be18dcebaff5f877972a9-main_dungeon_2.scn
+res://Levels/Scenes/main_dungeon_2.tscn::30b23e0c7151ae5eef1db3ea0a29b4ca::1727632951::res://.godot/exported/133200997/export-afc49887eb8be18dcebaff5f877972a9-main_dungeon_2.scn
 res://SoundEffects/sound_scenes/music_dungeon.tscn::70018096bb8e57649cb75db4b2149729::1727619936::res://.godot/exported/133200997/export-b2e1a5803a32426ef7c88e78364e9a7c-music_dungeon.scn
 res://SoundEffects/sound_scenes/music_main_level.tscn::82eaf4c9cea95d5e9ef78b5191af91f9::1727619996::res://.godot/exported/133200997/export-e368c123ed90ef7d55b8076644747e4f-music_main_level.scn
 res://SoundEffects/sound_scenes/music_main_menu.tscn::8e7bca671365ca431851e4cbfe12bf10::1727620132::res://.godot/exported/133200997/export-b33b171fd8d4579a055dc09bb8bb493d-music_main_menu.scn
 res://UI/ui_scenes/damage_label.tscn::40b5d603493b265c185ffef4e498e7be::1727563868::res://.godot/exported/133200997/export-11a8e8d1fea7f4b55ed570dff58795fd-damage_label.scn
-res://UI/ui_scenes/main_menu.tscn::f4df43fe4aca472933b8de0b55fd684f::1727632824::res://.godot/exported/133200997/export-26952b5dde36398d84b71b66824f8290-main_menu.scn
+res://UI/ui_scenes/main_menu.tscn::f1473090be376e2fced3cb5144e9833f::1727633047::res://.godot/exported/133200997/export-26952b5dde36398d84b71b66824f8290-main_menu.scn

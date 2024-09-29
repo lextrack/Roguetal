@@ -27,6 +27,8 @@ var is_in_portal = false
 @onready var walk_sound_player = $Sounds/WalkSoundPlayer
 @onready var cursor_script = $mouse_icon
 @onready var audio_stream_dead_player: AudioStreamPlayer2D = $Sounds/AudioStreamDeadPlayer
+@onready var damage_timer: Timer = $Timers/damage_timer
+@export var damage_interval = 0.5 
 
 var weapons = []
 var current_weapon_index = 0
@@ -234,6 +236,13 @@ func dead() -> void:
 		audio_stream_dead_player.play()
 		$player_animation.play("Dead")
 
+		player_data.ammo += 10
+
+func _on_anim_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "Dead":
+		get_tree().reload_current_scene()
+		player_data.health = 4
+
 func reset_state():
 	current_state = player_states.MOVE
 
@@ -244,19 +253,23 @@ func instance_trail():
 
 func _on_trail_timer_timeout() -> void:
 	instance_trail()
-	$trail_timer.start()
+	$Timers/trail_timer.start()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemy") and not is_in_portal:
-		flash_damage()
-		player_data.health -= 0.5
+		damage_timer.start(damage_interval)
+		
+func _on_hitbox_area_exited(area: Area2D) -> void:
+	if area.is_in_group("enemy"):
+		damage_timer.stop() 
 
 func flash_damage():
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.7)
 	await get_tree().create_timer(0.1).timeout
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0)
 
-func _on_anim_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "Dead":
-		get_tree().reload_current_scene()
-		player_data.health = 4
+func _on_damage_timer_timeout() -> void:
+	flash_damage()
+	player_data.health -= 0.5
+	if player_data.health <= 0:
+		dead()

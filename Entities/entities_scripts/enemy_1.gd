@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 
 func move_in_direction(direction: Vector2, animation: String) -> void:
 	velocity = direction * speed
-	$anim.play(animation)
+	$move_animation_enemy.play(animation)
 	move_and_slide()
 	
 	if is_on_wall() or is_on_ceiling() or is_on_floor():
@@ -114,7 +114,7 @@ func instance_ammo():
 		get_tree().root.call_deferred("add_child", ammo)
 
 func chase_state():
-	var chase_speed = 85
+	var chase_speed = 80
 	var direction_vector = target.global_position - global_position
 	var direction_to_target = direction_vector.normalized()
 	velocity = direction_to_target * chase_speed
@@ -123,13 +123,13 @@ func chase_state():
 	
 func animation():
 	if velocity.x > 0:
-		$anim.play("move_right")
+		$move_animation_enemy.play("move_right")
 	elif velocity.x < 0:
-		$anim.play("move_left")
+		$move_animation_enemy.play("move_left")
 	elif velocity.y > 0:
-		$anim.play("move_down")
+		$move_animation_enemy.play("move_down")
 	elif velocity.y < 0:
-		$anim.play("move_up")
+		$move_animation_enemy.play("move_up")
 
 func _on_chase_box_area_entered(area: Area2D) -> void:
 	if area.is_in_group("follow"):

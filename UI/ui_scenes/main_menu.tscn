@@ -167,6 +167,7 @@ horizontal_alignment = 1
 
 [node name="HoverSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_c65tl")
+panning_strength = 0.0
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]

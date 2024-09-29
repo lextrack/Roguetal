@@ -1,3 +1,5 @@
+Node
+Timer
 AudioStreamPlayer2D
 ColorRect
 Label
@@ -7,8 +9,6 @@ Panel
 VBoxContainer
 AnimationPlayer
 TileMap
-Node
 AudioStreamPlayer
 Sprite2D
 CollisionShape2D
-Area2D

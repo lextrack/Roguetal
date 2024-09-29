@@ -14,7 +14,7 @@ func _ready() -> void:
 	initial_position = position
 	rng.randomize()
 
-	var color = Color.RED if rng.randi() % 2 == 0 else Color.AQUA
+	var color = Color.RED if rng.randi() % 2 == 0 else Color.CRIMSON
 	add_theme_color_override("default_color", color)
 	
 	set_process(true)
