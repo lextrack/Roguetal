@@ -5,7 +5,6 @@
 
 [node name="music_dungeon" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_p5kjf")
-volume_db = 6.0
 panning_strength = 0.0
 parameters/looping = true
 script = ExtResource("1_wpufu")

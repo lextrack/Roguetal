@@ -32,8 +32,8 @@ var weapons = []
 var current_weapon_index = 0
 
 var weapon_damage = {
-	"bazooka": 15,
-	"m16": 5
+	"bazooka": 50,
+	"m16": 15
 }
 
 func _ready() -> void:

@@ -1,0 +1,173 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4lyw756xgim2"]
+
+[ext_resource type="Texture2D" uid="uid://dd6r8qjt8krh8" path="res://Sprites/wallpaper_main_menu.png" id="1_b3ohj"]
+[ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
+[ext_resource type="AudioStream" uid="uid://cgr60uh2odmsm" path="res://SoundEffects/misc_01.ogg" id="3_c65tl"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtrft"]
+texture = ExtResource("1_b3ohj")
+modulate_color = Color(0.753984, 0.753984, 0.753984, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0fhw"]
+bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5uur"]
+bg_color = Color(0.121569, 0.121569, 0.121569, 0.776471)
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mpwpq")
+
+[node name="Wallpaper" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_dtrft")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -651.0
+offset_top = 144.0
+offset_right = -395.0
+offset_bottom = 331.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Play" type="Button" parent="VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
+text = "Play"
+
+[node name="Credits" type="Button" parent="VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
+text = "Credits"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
+text = "Exit"
+
+[node name="CreditsPanel" type="Panel" parent="."]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -664.0
+offset_top = -366.0
+offset_right = 664.0
+offset_bottom = 331.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w5uur")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Thanks to all the talented people who made their free assets available, enabling the creation of this game.
+
+horror ambience 14 by klankbeeld
+Null^1 by Lamp_
+Cave Temple Creatures Monk Fantasy SFX Ambience 201004_0057_01 by szegvari
+Crushing kick_1 x3(17lrs) by newlocknew
+M16 Gun shot Sound Effect by SoundEffectsFactory
+Bazooka M9a1 sang legenda by PK9 Sound Effect
+Item or Material Pickup Pop 3 of 3 by el_boss
+metal_03 and creature_die_01 by rubberduck
+Hurting The Robot by Mobeyee Sounds
+80 CC0 RPG SFX by rubberduck
+horror ambience 53 sabt mat capella ducis by klankbeeld
+
+Satyr Character-Sheet by Luck
+Missile (Pixel art) by Joan Stenstrup Frandsen
+Rogue fantasy \"catacombs\" by Szadi art
+fantasy_ by analogStudios_
+Orc mobs pixel art by Craftpix
+Heart Sprite Animation by Lammrenz
+Dungeon Tileset by HorusKDI
+Vampire pack by Craftpix
+Ice & Snow Tilesets by FNkqrsho
+Stone wall with cracks by gamjutsu
+Tree pack by Jestan
+Portals 32 x 48 by RodHakGames
+
+Thanks to Flaticon (Freepik, DinosoftLabs, surang) for several assets.
+Thanks to Jean Vermeersch for provide me some assets and knowledge."
+
+[node name="CloseCreditsButton" type="Button" parent="CreditsPanel"]
+layout_mode = 0
+offset_left = 1193.0
+offset_top = 704.0
+offset_right = 1327.0
+offset_bottom = 740.0
+theme_override_font_sizes/font_size = 20
+text = "Close"
+
+[node name="Autor" type="Label" parent="."]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Autor: Ariel Alejandro Muñoz (lextrack)"
+horizontal_alignment = 1
+
+[node name="HoverSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_c65tl")
+
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

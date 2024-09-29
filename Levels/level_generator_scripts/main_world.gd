@@ -4,6 +4,7 @@ extends Node2D
 
 func _ready() -> void:
 	MusicDungeon.stop_music()
+	MusicMainMenu.stop_music()
 	MusicMainLevel.play_music_level()
 
 func _process(delta: float) -> void:

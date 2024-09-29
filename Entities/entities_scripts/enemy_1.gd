@@ -11,7 +11,7 @@ var change_direction
 var stuck_timer = 0.0
 var is_stuck = false
 var current_health
-@export var max_health = 20
+@export var max_health = 60
 @onready var hit_damage_sound: AudioStreamPlayer2D = $hit_damage_sound
 @onready var die_enemy_sound: AudioStreamPlayer2D = $die_enemy_sound
 
