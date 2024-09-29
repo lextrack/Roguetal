@@ -1,11 +1,14 @@
+res://
+c:/C2_Roguelite/Export
+C:/Users/ariel/OneDrive/Desktop/New folder
+C:/Program Files (x86)/Android/openjdk/jdk-17.0.8.101-hotspot/bin
+C:/Program Files (x86)/Android/openjdk/jdk-17.0.8.101-hotspot
+C:/Program Files (x86)/Android/android-sdk
 res://SoundEffects/sound_scenes
 res://SoundEffects/sound_scripts
 res://UI/ui_scenes
 res://Levels/Scenes
 res://UI/ui_scripts
-C:/Users/ariel/OneDrive/Documents/C2_Roguelite
-res://
-C:/Users/ariel/OneDrive/Documents/C2_Roguelite/Export
 res://Interactables/interatables_scripts
 res://Interactables/Scenes
 res://Entities/entities_scripts
@@ -17,5 +20,3 @@ C:/Users/ariel/OneDrive/Desktop
 res://Shaders
 res://Entities/Scenes/FX
 res://Entities/Scenes/Enemies
-res://UI
-res://Entities/Scenes/Player
