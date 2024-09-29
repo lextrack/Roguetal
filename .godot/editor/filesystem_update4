@@ -6,5 +6,4 @@ res://Entities/Scenes/Player/player.tscn
 res://Interactables/Scenes/next_level.tscn
 res://Entities/Scenes/Enemies/enemy_1.tscn
 res://Entities/Scenes/Enemies/enemy_2.tscn
-res://Entities/entities_scripts/bullet_1.gd
-res://UI/ui_scripts/damage_label.gd
+res://UI/ui_scenes/main_menu.tscn

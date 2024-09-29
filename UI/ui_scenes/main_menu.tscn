@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4lyw756xgim2"]
+[gd_scene load_steps=8 format=3 uid="uid://b4lyw756xgim2"]
 
 [ext_resource type="Texture2D" uid="uid://dd6r8qjt8krh8" path="res://Sprites/wallpaper_main_menu.png" id="1_b3ohj"]
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
@@ -7,6 +7,15 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtrft"]
 texture = ExtResource("1_b3ohj")
 modulate_color = Color(0.753984, 0.753984, 0.753984, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atj17"]
+bg_color = Color(0.458405, 0.458405, 0.458405, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
+shadow_size = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0fhw"]
 bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
@@ -62,6 +71,7 @@ theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
 text = "Play"
 
@@ -74,6 +84,7 @@ theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
 text = "Credits"
 
@@ -86,6 +97,7 @@ theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
 text = "Exit"
 
@@ -100,7 +112,7 @@ anchor_bottom = 0.5
 offset_left = -664.0
 offset_top = -366.0
 offset_right = 664.0
-offset_bottom = 331.0
+offset_bottom = 334.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_w5uur")
@@ -145,9 +157,9 @@ Thanks to Jean Vermeersch for provide me some assets and knowledge."
 [node name="CloseCreditsButton" type="Button" parent="CreditsPanel"]
 layout_mode = 0
 offset_left = 1193.0
-offset_top = 704.0
+offset_top = 706.0
 offset_right = 1327.0
-offset_bottom = 740.0
+offset_bottom = 742.0
 theme_override_font_sizes/font_size = 20
 text = "Close"
 
