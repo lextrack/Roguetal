@@ -7,3 +7,5 @@ res://Interactables/Scenes/next_level.tscn
 res://Entities/Scenes/Enemies/enemy_1.tscn
 res://Entities/Scenes/Enemies/enemy_2.tscn
 res://UI/ui_scenes/main_menu.tscn
+res://Entities/entities_scripts/enemy_1.gd
+res://Levels/level_generator_scripts/main_dungeon.gd

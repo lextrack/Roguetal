@@ -114,7 +114,7 @@ func instance_enemies() -> void:
 	var enemies_spawned = 0
 	
 	# Enemy quantity
-	var total_enemies_to_spawn = randi_range(20, 40)
+	var total_enemies_to_spawn = randi_range(5, 10)
 	
 	var min_enemies_per_type = 5
 	var enemy_1_count = 0

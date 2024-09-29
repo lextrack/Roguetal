@@ -1,28 +1,39 @@
 extends CharacterBody2D
 
-@onready var fx_scene = preload("res://Entities/Scenes/FX/fx_scene.tscn")
-@onready var ammo_scene = preload("res://Interactables/Scenes/ammo_1.tscn")
-@export var speed = 30
-@export var stuck_time_limit = 0.5
-
 enum enemy_direction {RIGHT, LEFT, UP, DOWN, CHASE}
 var new_direction = enemy_direction.RIGHT
 var change_direction
 var stuck_timer = 0.0
 var is_stuck = false
 var current_health
+var is_dead = false
+
+@onready var fx_scene = preload("res://Entities/Scenes/FX/fx_scene.tscn")
+@onready var ammo_scene = preload("res://Interactables/Scenes/ammo_1.tscn")
+@export var speed = 30
+@export var stuck_time_limit = 0.5
 @export var max_health = 60
-@onready var hit_damage_sound: AudioStreamPlayer2D = $hit_damage_sound
-@onready var die_enemy_sound: AudioStreamPlayer2D = $die_enemy_sound
 
 @onready var target = get_node("../Player")
+@onready var hit_damage_sound: AudioStreamPlayer2D = $hit_damage_sound
+@onready var die_enemy_sound: AudioStreamPlayer2D = $die_enemy_sound
+@onready var die_sprite: Sprite2D = $die_sprite
+@onready var die_animation_player: AnimationPlayer = $die_animation_player
 
 func _ready() -> void:
 	chosee_direction()
 	$timer_direction.start()
 	current_health = max_health
+	
+	if die_sprite != null:
+		die_sprite.hide()
+	else:
+		print("Error: die_sprite no encontrado")
 
 func _process(delta: float) -> void:
+	if is_dead:
+		return
+
 	if is_stuck:
 		stuck_timer += delta
 		if stuck_timer >= stuck_time_limit:
@@ -43,6 +54,9 @@ func _process(delta: float) -> void:
 			chase_state()
 
 func move_in_direction(direction: Vector2, animation: String) -> void:
+	if is_dead:
+		return
+
 	velocity = direction * speed
 	$move_animation_enemy.play(animation)
 	move_and_slide()
@@ -74,6 +88,9 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		take_damage(area.damage, area)
 
 func take_damage(damage: int, bullet: Area2D):
+	if is_dead:
+		return
+
 	current_health -= damage
 	if current_health <= 0:
 		die()
@@ -92,14 +109,25 @@ func show_damage(damage: int) -> void:
 	get_tree().root.add_child(damage_label)
 
 func die():
-	instance_fx()
+	if is_dead:
+		return
+
+	is_dead = true
+	die_enemy_sound.play()
 	instance_ammo()
+	
+	$normal_movement_enemy.hide()
+
+	die_sprite.show()
+	die_animation_player.play("dead")
+	
+	await die_animation_player.animation_finished
 	queue_free()
 
 func flash_damage():
-	$Sprite2D.modulate = Color(1, 0, 0)
+	$normal_movement_enemy.modulate = Color(1, 0, 0)
 	await get_tree().create_timer(0.1).timeout
-	$Sprite2D.modulate = Color(1, 1, 1)
+	$normal_movement_enemy.modulate = Color(1, 1, 1)
 
 func instance_fx():
 	var fx = fx_scene.instantiate()
