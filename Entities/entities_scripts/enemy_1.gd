@@ -8,10 +8,10 @@ var is_stuck = false
 var current_health
 var is_dead = false
 var attack_cooldown = 0.0
-var attack_range = 15.0
+var attack_range = 20.0
 var last_movement_direction = Vector2.RIGHT
 
-@onready var fx_scene = preload("res://Entities/Scenes/FX/fx_scene.tscn")
+@onready var fx_blood = preload("res://Entities/Scenes/FX/fx_blood.tscn")
 @onready var ammo_scene = preload("res://Interactables/Scenes/ammo_1.tscn")
 @export var speed = 30
 @export var stuck_time_limit = 0.5
@@ -154,6 +154,7 @@ func die():
 	attack_sprite.hide()
 	die_sprite.show()
 	
+	instance_fx()
 	die_animation_enemy.play("dead")
 	
 	await die_animation_enemy.animation_finished
@@ -165,7 +166,7 @@ func flash_damage():
 	$Sprites/normal_movement_enemy.modulate = Color(1, 1, 1)
 
 func instance_fx():
-	var fx = fx_scene.instantiate()
+	var fx = fx_blood.instantiate()
 	fx.global_position = global_position
 	get_tree().root.call_deferred("add_child", fx)
 
