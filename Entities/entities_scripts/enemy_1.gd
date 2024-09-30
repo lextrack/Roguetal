@@ -8,7 +8,7 @@ var is_stuck = false
 var current_health
 var is_dead = false
 var attack_cooldown = 0.0
-var attack_range = 20.0
+var attack_range = 15.0
 var last_movement_direction = Vector2.RIGHT
 
 @onready var fx_scene = preload("res://Entities/Scenes/FX/fx_scene.tscn")
@@ -17,15 +17,17 @@ var last_movement_direction = Vector2.RIGHT
 @export var stuck_time_limit = 0.5
 @export var max_health = 60
 @export var attack_damage = 10
-@export var attack_cooldown_time = 1.0
+@export var attack_cooldown_time = 0.6
 
 @onready var target = get_node("../Player")
 @onready var hit_damage_sound: AudioStreamPlayer2D = $hit_damage_sound
 @onready var die_enemy_sound: AudioStreamPlayer2D = $die_enemy_sound
 @onready var die_sprite: Sprite2D = $Sprites/die_sprite
 @onready var attack_sprite: Sprite2D = $Sprites/attack_sprite
+@onready var normal_sprite: Sprite2D = $Sprites/normal_movement_enemy
 @onready var die_animation_enemy: AnimationPlayer = $Animations/die_animation_enemy
 @onready var attack_animation_enemy: AnimationPlayer = $Animations/attack_animation_enemy
+@onready var move_animation_enemy: AnimationPlayer = $Animations/move_animation_enemy
 
 func _ready() -> void:
 	chosee_direction()
@@ -35,12 +37,12 @@ func _ready() -> void:
 	if die_sprite != null:
 		die_sprite.hide()
 	else:
-		print("Error: die_sprite no encontrado")
+		print("Error: die_sprite not found")
 	
 	if attack_sprite != null:
 		attack_sprite.hide()
 	else:
-		print("Error: attack_sprite no encontrado")
+		print("Error: attack_sprite not found")
 
 func _process(delta: float) -> void:
 	if is_dead:
@@ -74,7 +76,7 @@ func move_in_direction(direction: Vector2, animation: String) -> void:
 		return
 
 	velocity = direction * speed
-	$Animations/move_animation_enemy.play(animation)
+	play_animation(animation)
 	move_and_slide()
 	
 	last_movement_direction = direction
@@ -125,6 +127,18 @@ func show_damage(damage: int) -> void:
 	damage_label.text = str(damage)
 	damage_label.global_position = global_position + Vector2(0, -30)
 	get_tree().root.add_child(damage_label)
+	
+func play_animation(animation: String) -> void:
+	if is_dead:
+		return
+	
+	if move_animation_enemy.current_animation != animation:
+		move_animation_enemy.play(animation)
+
+func stop_all_animations() -> void:
+	move_animation_enemy.stop()
+	attack_animation_enemy.stop()
+	die_animation_enemy.stop()
 
 func die():
 	if is_dead:
@@ -134,9 +148,12 @@ func die():
 	die_enemy_sound.play()
 	instance_ammo()
 	
-	$Sprites/normal_movement_enemy.hide()
-
+	stop_all_animations()
+	
+	normal_sprite.hide()
+	attack_sprite.hide()
 	die_sprite.show()
+	
 	die_animation_enemy.play("dead")
 	
 	await die_animation_enemy.animation_finished
@@ -154,7 +171,7 @@ func instance_fx():
 
 func instance_ammo():
 	var drop_chance = randf()
-	if drop_chance < 0.5:
+	if drop_chance < 0.6:
 		var ammo = ammo_scene.instantiate()
 		ammo.global_position = global_position
 		get_tree().root.call_deferred("add_child", ammo)
@@ -185,7 +202,7 @@ func animation():
 
 func attack_state():
 	velocity = Vector2.ZERO
-	$Sprites/normal_movement_enemy.hide()
+	normal_sprite.hide()
 	attack_sprite.show()
 	
 	var attack_animation = "attack_right"
@@ -198,6 +215,7 @@ func attack_state():
 	elif last_movement_direction.y < 0:
 		attack_animation = "attack_up"
 	
+	stop_all_animations()
 	attack_animation_enemy.play(attack_animation)
 	
 	if target.has_method("take_damage"):
@@ -206,7 +224,7 @@ func attack_state():
 	attack_cooldown = attack_cooldown_time
 	await attack_animation_enemy.animation_finished
 	
-	$Sprites/normal_movement_enemy.show()
+	normal_sprite.show()
 	attack_sprite.hide()
 	new_direction = enemy_direction.CHASE
 
