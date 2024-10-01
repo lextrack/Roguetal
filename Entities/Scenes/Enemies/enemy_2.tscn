@@ -8,8 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://de5u1e46i3340" path="res://SoundEffects/goblin_die_01.ogg" id="4_vj180"]
 [ext_resource type="Texture2D" uid="uid://7qceacpux5bo" path="res://Sprites/orc1_idle_full.png" id="5_0q6ib"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rfigo"]
-radius = 3.07692
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ipwmt"]
 
 [sub_resource type="Animation" id="Animation_s1xue"]
 length = 0.001
@@ -295,7 +294,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5xl2"]
-size = Vector2(23.8462, 29.2308)
+size = Vector2(19.1696, 32.3077)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k3ijx"]
 size = Vector2(168.047, 120.71)
@@ -334,7 +333,8 @@ vframes = 4
 
 [node name="enemy_collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 13.8462)
-shape = SubResource("CircleShape2D_rfigo")
+scale = Vector2(0.015385, 0.0769278)
+shape = SubResource("SegmentShape2D_ipwmt")
 
 [node name="Animations" type="Node2D" parent="."]
 
@@ -361,16 +361,18 @@ libraries = {
 "": SubResource("AnimationLibrary_nfqe2")
 }
 
-[node name="hitbox" type="Area2D" parent="." groups=["enemy", "enemy_areas"]]
+[node name="hitbox" type="Area2D" parent="." groups=["enemy"]]
 collision_layer = 32
 collision_mask = 3
 
 [node name="hitbox_collider" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(2.38419e-07, -3.84615)
+position = Vector2(0, -0.769234)
+scale = Vector2(1.68536, 1)
 shape = SubResource("RectangleShape2D_n5xl2")
 debug_color = Color(0.938574, 0.115461, 0.547082, 0.42)
 
 [node name="chase_box" type="Area2D" parent="."]
+visible = false
 collision_layer = 32
 collision_mask = 64
 

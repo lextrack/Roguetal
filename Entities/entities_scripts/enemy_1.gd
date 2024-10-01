@@ -13,7 +13,7 @@ var is_attacking = false
 var path_update_timer : Timer
 var reposition_timer : Timer
 
-@export var speed = 90 # Movement speed of the enemy
+@export var speed = 95 # Movement speed of the enemy
 @export var max_health: float = 60.0 # Maximum health points of the enemy
 @export var attack_damage = 10 # Damage dealt by the enemy's attack
 @export var attack_cooldown_time = 1.0 # Time (in seconds) between attacks
