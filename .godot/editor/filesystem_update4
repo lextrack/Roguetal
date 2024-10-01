@@ -7,3 +7,5 @@ res://Levels/Scenes/main_dungeon.tscn
 res://Levels/Scenes/main_dungeon_2.tscn
 res://Entities/Scenes/Enemies/enemy_2.tscn
 res://Entities/entities_scripts/enemy_1.gd
+res://Entities/entities_scripts/player_delta.gd
+res://Interactables/Scenes/ammo_1.tscn

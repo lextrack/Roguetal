@@ -1,15 +1,7 @@
 extends CharacterBody2D
 
-enum enemy_state {IDLE, PATROL, CHASE, ATTACK}
+enum enemy_state {IDLE, PATROL, CHASE, ATTACK, REPOSITION}
 var current_state = enemy_state.IDLE
-
-@export var speed = 90
-@export var max_health: float = 60.0
-@export var attack_damage = 10
-@export var attack_cooldown_time = 1.0
-@export var attack_range = 10.0
-@export var chase_range = 120.0
-@export var obstacle_avoidance_range = 25.0
 
 var current_health
 var attack_cooldown = 0.0
@@ -18,6 +10,17 @@ var path_index = 0
 var is_dead = false
 var last_known_player_position : Vector2
 var is_attacking = false
+var path_update_timer : Timer
+var reposition_timer : Timer
+
+@export var speed = 90 # Movement speed of the enemy
+@export var max_health: float = 60.0 # Maximum health points of the enemy
+@export var attack_damage = 10 # Damage dealt by the enemy's attack
+@export var attack_cooldown_time = 1.0 # Time (in seconds) between attacks
+@export var attack_range = 20.0 # Distance at which the enemy can attack the player
+@export var chase_range = 120.0 # Distance at which the enemy starts chasing the player
+@export var obstacle_avoidance_range = 30.0 # Distance for obstacle detection and avoidance
+@export var reposition_distance = 30.0 # Distance the enemy moves when repositioning
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D if has_node("NavigationAgent2D") else null
 @onready var target = get_node("../Player")
@@ -32,8 +35,6 @@ var is_attacking = false
 @onready var idle_animation_enemy: AnimationPlayer = $Animations/idle_animation_enemy
 @onready var idle_sprite: Sprite2D = $Sprites/idle_sprite
 
-var path_update_timer : Timer
-
 func _ready():
 	current_health = max_health
 	idle_sprite.hide()
@@ -42,8 +43,13 @@ func _ready():
 		navigation_agent = NavigationAgent2D.new()
 		add_child(navigation_agent)
 	
-	navigation_agent.path_desired_distance = 4.0
-	navigation_agent.target_desired_distance = 4.0
+	# Distance at which the enemy considers it has reached its target position
+	navigation_agent.path_desired_distance = 5.0
+
+	# Distance at which the enemy considers it has reached the final target
+	navigation_agent.target_desired_distance = 5.0
+
+	# Maximum distance between path points
 	navigation_agent.path_max_distance = 50.0
 	
 	path_update_timer = Timer.new()
@@ -52,6 +58,12 @@ func _ready():
 	path_update_timer.timeout.connect(update_path)
 	add_child(path_update_timer)
 	path_update_timer.start()
+	
+	reposition_timer = Timer.new()
+	reposition_timer.wait_time = 3.0
+	reposition_timer.one_shot = true
+	reposition_timer.timeout.connect(end_reposition)
+	add_child(reposition_timer)
 	
 	await get_tree().physics_frame
 	update_path()
@@ -74,6 +86,8 @@ func _physics_process(delta):
 			chase_state(delta)
 		enemy_state.ATTACK:
 			attack_state(delta)
+		enemy_state.REPOSITION:
+			reposition_state(delta)
 
 func idle_state():
 	play_idle_animation()
@@ -101,7 +115,7 @@ func chase_state(delta):
 
 	var distance_to_target = global_position.distance_to(target.global_position)
 	
-	if distance_to_target <= attack_range and attack_cooldown <= 0:
+	if distance_to_target <= attack_range:
 		current_state = enemy_state.ATTACK
 	elif distance_to_target > chase_range:
 		find_scent_trail()
@@ -115,6 +129,33 @@ func chase_state(delta):
 		velocity = direction * speed
 		move_and_slide()
 		play_movement_animation(direction)
+
+func attack_state(delta):
+	var distance_to_target = global_position.distance_to(target.global_position)
+	
+	if not is_instance_valid(target) or distance_to_target > attack_range * 1.5:
+		current_state = enemy_state.CHASE
+		is_attacking = false
+	elif attack_cooldown <= 0 and distance_to_target <= attack_range:
+		perform_attack()
+	else:
+		var direction = global_position.direction_to(target.global_position)
+		velocity = direction * (speed * 0.5)
+		move_and_slide()
+		play_movement_animation(direction)
+
+func reposition_state(delta):
+	var direction = global_position.direction_to(navigation_agent.get_next_path_position())
+	direction = avoid_obstacles(direction)
+	velocity = direction * speed
+	move_and_slide()
+	play_movement_animation(direction)
+	
+	if navigation_agent.is_navigation_finished():
+		current_state = enemy_state.CHASE
+
+func end_reposition():
+	current_state = enemy_state.CHASE
 
 func exit_idle_state():
 	idle_animation_enemy.stop()
@@ -138,13 +179,13 @@ func play_idle_animation():
 	attack_sprite.hide()
 	idle_sprite.show()
 	idle_animation_enemy.play("idle")
-			
-func attack_state(delta):
-	if not is_instance_valid(target) or global_position.distance_to(target.global_position) > attack_range:
-		current_state = enemy_state.CHASE
-		is_attacking = false
-	elif attack_cooldown <= 0:
-		perform_attack()
+
+func perform_attack():
+	is_attacking = true
+	if target.has_method("take_damage"):
+		target.take_damage(attack_damage)
+	attack_cooldown = attack_cooldown_time
+	play_attack_animation()
 
 func move_along_path(delta):
 	if path_index < path.size():
@@ -180,14 +221,6 @@ func avoid_obstacles(direction):
 		direction = direction.slide(normal)
 	
 	return direction
-
-func perform_attack():
-	is_attacking = true
-	if target.has_method("take_damage"):
-		target.take_damage(attack_damage)
-	attack_cooldown = attack_cooldown_time
-	exit_idle_state()
-	play_attack_animation()
 
 func play_movement_animation(direction):
 	if is_attacking:
