@@ -1,5 +1,3 @@
-#SCRIPT DEL NIVEL
-
 extends Node2D
 
 var walker
@@ -19,17 +17,19 @@ const min_distance_from_player = 5
 @export var borders = Rect2(1, 1, 70, 50)
 
 func _ready() -> void:
+	# Called when the scene is ready, sets up the level, plays music
 	randomize()
 	generate_level()
 	MusicDungeon.play_music_level()
 	MusicMainLevel.stop()
 
 func _input(event: InputEvent) -> void:
+	# Detects input events, restarts level if necessary
 	if Input.is_action_just_pressed("restart_level"):
 		get_tree().reload_current_scene()
 
 func generate_level() -> void:
-	#Size of the map
+	# Generates the entire level including map, player, enemies, and pickups
 	walker = Walker_room.new(Vector2(25,25), borders)
 	map = walker.walk(600)
 	clear_and_set_tiles()
@@ -40,24 +40,24 @@ func generate_level() -> void:
 	instance_health_pickup()
 
 func create_navigation():
+	# Creates the navigation region for pathfinding using the map outline
 	var navigation_region = NavigationRegion2D.new()
 	add_child(navigation_region)
 	
 	var navigation_polygon = NavigationPolygon.new()
 	var outline = PackedVector2Array()
 	
-	# Create a single outline for the entire walkable area
 	for cell in map:
 		outline.append(Vector2(cell.x * 16, cell.y * 16))
 	
-	# Sort the points to ensure they form a valid polygon
 	outline = Geometry2D.convex_hull(outline)
 	
 	navigation_polygon.add_outline(outline)
 	navigation_polygon.make_polygons_from_outlines()
 	navigation_region.navigation_polygon = navigation_polygon
-	
+
 func instance_health_pickup() -> void:
+	# Instantiates health pickups at random valid locations on the map
 	var player_node = get_node("Player")
 	if not player_node:
 		return
@@ -80,6 +80,7 @@ func instance_health_pickup() -> void:
 		attempts += 1
 
 func clear_and_set_tiles() -> void:
+	# Clears the existing tiles and sets the new tiles based on the map
 	var using_cells: Array = []
 	var all_cells: Array = tilemap.get_used_cells(ground_layer)
 	tilemap.clear()
@@ -93,11 +94,13 @@ func clear_and_set_tiles() -> void:
 	tilemap.set_cells_terrain_path(ground_layer, using_cells, ground_layer, ground_layer, false)
 
 func instance_player():
+	# Instantiates the player at the starting position
 	var player = player_scene.instantiate()
 	add_child(player)
 	player.position = map.pop_front() * 16
 
 func instance_portal():
+	# Instantiates the exit and next-level portals at different locations
 	var exit_portal = exit_scene.instantiate()
 	var next_level_portal = next_level_scene.instantiate()
 	
@@ -111,8 +114,8 @@ func instance_portal():
 	next_level_portal.position = other_position
 
 func get_other_portal_position(existing_position):
+	# Finds a valid position for the other portal at a distance from the existing one
 	var attempts = 0
-	# 10 tiles * 16 pixels)
 	var max_attempts = 100
 	var min_distance = 160
 	
@@ -125,6 +128,7 @@ func get_other_portal_position(existing_position):
 	return map[randi() % len(map)] * 16
 
 func instance_enemies() -> void:
+	# Instantiates enemies at random valid locations, ensuring a minimum number of each type
 	var player_node = get_node("Player")
 	if not player_node:
 		return
@@ -134,7 +138,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(20, 40)
+	var total_enemies_to_spawn = randi_range(20, 50)
 	
 	var min_enemies_per_type = 5
 	var enemy_1_count = 0
@@ -161,7 +165,6 @@ func instance_enemies() -> void:
 					enemy = enemy_2_scene.instantiate()
 					enemy_2_count += 1
 			
-			# Ensure the enemy has a NavigationAgent2D
 			var nav_agent = NavigationAgent2D.new()
 			enemy.add_child(nav_agent)
 			
@@ -179,10 +182,12 @@ func instance_enemies() -> void:
 	print("Spawned enemies - Type 1: ", enemy_1_count, ", Type 2: ", enemy_2_count)
 
 func is_tile_occupied(position: Vector2) -> bool:
+	# Checks if a tile is occupied by a specific source ID
 	var cell_coords = tilemap.local_to_map(position)
 	return tilemap.get_cell_source_id(ground_layer, cell_coords) != -1
 
 func is_position_valid(position: Vector2) -> bool:
+	# Validates if a position is within bounds, on the map, and not occupied
 	var cell_coords = tilemap.local_to_map(position)
 	if not borders.has_point(cell_coords):
 		return false

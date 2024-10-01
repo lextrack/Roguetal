@@ -24,7 +24,6 @@ position = Vector2(4.96705e-07, 0)
 shape = SubResource("RectangleShape2D_asipo")
 
 [node name="Timer" type="Timer" parent="." groups=["follow"]]
-wait_time = 0.8
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

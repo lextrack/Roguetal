@@ -39,12 +39,14 @@ var weapon_damage = {
 }
 
 func _ready() -> void:
+	# Set up player and weapons when the scene starts
 	weapons = weapons_container.get_children()
 	setup_weapons()
 	update_visible_weapon()
 	check_level_and_set_weapon()
 
 func setup_weapons():
+	# Assign bullet types to each weapon
 	for i in range(weapons.size()):
 		var weapon = weapons[i]
 		if i == 0:
@@ -53,11 +55,13 @@ func setup_weapons():
 			weapon.set_meta("bullet_type", "m16")
 			
 func increase_health(amount: int) -> void:
+	# Increase player's health, capped at 4
 	player_data.health += amount
 	if player_data.health > 4:
 		player_data.health = 4
 
 func _process(delta: float) -> void:
+	# Main game loop: handle death, input, movement, and shooting
 	if player_data.health <= 0 and current_state != player_states.DEAD:
 		current_state = player_states.DEAD
 		dead()
@@ -73,18 +77,21 @@ func _process(delta: float) -> void:
 
 		if Input.is_action_just_pressed("switch_weapon"):
 			switch_weapon()
-			
+
 func enter_portal():
+	# Set player state when entering a portal
 	is_in_portal = true
 
 func exit_portal():
+	# Set player state when exiting a portal
 	is_in_portal = false
 
 func bullet_type_shooting(delta: float):
+	# Handle shooting based on the current weapon type
 	var current_weapon = weapons[current_weapon_index]
 	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
 
-	# Fast shooting
+	# Fast shooting (M16)
 	if bullet_type == "m16" and Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
 		shoot_timer -= delta
 		if shoot_timer <= 0.0:
@@ -92,12 +99,13 @@ func bullet_type_shooting(delta: float):
 			instance_bullet()
 			shoot_timer = rapid_shoot_delay
 
-	# Normal shooting (bazooka)
+	# Normal shooting (Bazooka)
 	elif bullet_type != "m16" and Input.is_action_just_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
 		player_data.ammo -= 1
 		instance_bullet()
 
 func check_level_and_set_weapon() -> void:
+	# Show or hide weapons based on the level
 	var current_scene = get_tree().current_scene
 	var visible_levels = ["main_dungeon", "main_dungeon_2"]
 	
@@ -108,6 +116,7 @@ func check_level_and_set_weapon() -> void:
 		update_animation_without_gun()
 
 func movement(delta: float) -> void:
+	# Handle player movement and animations
 	if current_state == player_states.DEAD:
 		return
 	
@@ -129,6 +138,7 @@ func movement(delta: float) -> void:
 	animation()
 
 	if input_movement != Vector2.ZERO:
+		# Play walking sound if moving
 		walk_sound_timer -= delta
 		if walk_sound_timer <= 0:
 			walk_sound_player.play()
@@ -139,7 +149,8 @@ func movement(delta: float) -> void:
 	move_and_slide()
 
 func target_mouse() -> void:
-	if is_dead == false and weapons_container.visible:
+	# Aim weapons towards the mouse when using keyboard and mouse
+	if not is_dead and weapons_container.visible:
 		var mouse_movement = get_global_mouse_position()
 		pos = global_position
 		weapons_container.look_at(mouse_movement)
@@ -148,7 +159,8 @@ func target_mouse() -> void:
 		update_weapon_flip()
 
 func joystick_aiming(delta: float) -> void:
-	if is_dead == false and is_using_gamepad and weapons_container.visible:
+	# Aim using a joystick when using a gamepad
+	if not is_dead and is_using_gamepad and weapons_container.visible:
 		var direction: Vector2
 		direction.x = Input.get_action_strength("rs_right") - Input.get_action_strength("rs_left")
 		direction.y = Input.get_action_strength("rs_down") - Input.get_action_strength("rs_up")
@@ -160,6 +172,7 @@ func joystick_aiming(delta: float) -> void:
 			update_weapon_flip()
 
 func detect_input_device() -> void:
+	# Detect if the player is using a gamepad or mouse
 	var gamepad_input = abs(Input.get_action_strength("rs_right")) + abs(Input.get_action_strength("rs_left")) + abs(Input.get_action_strength("rs_up")) + abs(Input.get_action_strength("rs_down"))
 	var mouse_movement = Input.get_last_mouse_velocity()
 
@@ -174,6 +187,7 @@ func detect_input_device() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func instance_bullet() -> void:
+	# Spawn a bullet when shooting
 	var current_weapon = weapons[current_weapon_index]
 	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
 	
@@ -192,6 +206,7 @@ func instance_bullet() -> void:
 		$Sounds/AudioStreamM16Shot.play()
 
 func animation() -> void:
+	# Handle player animations (idle, moving, or dead)
 	if is_dead:
 		if not $player_animation.is_playing() or $player_animation.current_animation != "Dead":
 			$player_animation.play("Dead")
@@ -203,6 +218,7 @@ func animation() -> void:
 			$player_animation.play("Idle")
 
 func update_animation_without_gun() -> void:
+	# Update animations when no weapons are visible
 	if input_movement != Vector2.ZERO:
 		if not $player_animation.is_playing() or $player_animation.current_animation != "Move":
 			$player_animation.play("Move")
@@ -211,14 +227,17 @@ func update_animation_without_gun() -> void:
 			$player_animation.play("Idle")
 			
 func switch_weapon():
+	# Switch to the next weapon
 	current_weapon_index = (current_weapon_index + 1) % weapons.size()
 	update_visible_weapon()
 
 func update_visible_weapon():
+	# Show only the currently selected weapon
 	for i in range(weapons.size()):
 		weapons[i].visible = (i == current_weapon_index)
 
 func update_weapon_flip():
+	# Flip the weapon and sprite depending on the aim direction
 	var current_weapon = weapons[current_weapon_index]
 	var gun_sprite = current_weapon.get_node("gun_sprite")
 	if rot >= -90 and rot <= 90:
@@ -229,6 +248,7 @@ func update_weapon_flip():
 		sprite.flip_h = true
 
 func dead() -> void:
+	# Handle player death and play death animation/sound
 	if not is_dead:
 		is_dead = true
 		velocity = Vector2.ZERO
@@ -239,36 +259,44 @@ func dead() -> void:
 		player_data.ammo += 10
 
 func _on_anim_animation_finished(anim_name: StringName) -> void:
+	# Reload the scene after death animation finishes
 	if anim_name == "Dead":
 		get_tree().reload_current_scene()
 		player_data.health = 4
 
 func reset_state():
+	# Reset player state to move
 	current_state = player_states.MOVE
 
 func instance_trail():
+	# Spawn a trail effect
 	var trail = trail_scene.instantiate()
 	trail.global_position = global_position
 	get_tree().root.add_child(trail)
 
 func _on_trail_timer_timeout() -> void:
+	# Spawn a trail periodically
 	instance_trail()
 	$Timers/trail_timer.start()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
+	# Start damage timer if an enemy is in range
 	if area.is_in_group("enemy") and not is_in_portal:
 		damage_timer.start(damage_interval)
 		
 func _on_hitbox_area_exited(area: Area2D) -> void:
+	# Stop damage timer when the enemy leaves range
 	if area.is_in_group("enemy"):
-		damage_timer.stop() 
+		damage_timer.stop()
 
 func flash_damage():
+	# Flash the player sprite to indicate damage
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.7)
 	await get_tree().create_timer(0.1).timeout
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0)
 
 func _on_damage_timer_timeout() -> void:
+	# Apply damage over time when hit by an enemy
 	flash_damage()
 	player_data.health -= 0.5
 	if player_data.health <= 0:

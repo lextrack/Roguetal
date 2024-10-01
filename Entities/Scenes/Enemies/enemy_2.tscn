@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bfcnb2yir40br"]
+[gd_scene load_steps=29 format=3 uid="uid://bfcnb2yir40br"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/enemy_1.gd" id="1_sm0wu"]
 [ext_resource type="Texture2D" uid="uid://jhnrsdmhw6n5" path="res://Sprites/orc1_run_full.png" id="2_dqu1u"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://djy3oqt1sw414" path="res://Sprites/orc1_death_full.png" id="3_psgng"]
 [ext_resource type="Texture2D" uid="uid://da7pd82lmu4o3" path="res://Sprites/orc1_attack_full.png" id="4_1cm7m"]
 [ext_resource type="AudioStream" uid="uid://de5u1e46i3340" path="res://SoundEffects/goblin_die_01.ogg" id="4_vj180"]
+[ext_resource type="Texture2D" uid="uid://7qceacpux5bo" path="res://Sprites/orc1_idle_full.png" id="5_0q6ib"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rfigo"]
 
@@ -235,6 +236,45 @@ _data = {
 "attack_up": SubResource("Animation_hoogn")
 }
 
+[sub_resource type="Animation" id="Animation_4t2mu"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites/idle_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_gxtod"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites/idle_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tkai4"]
+_data = {
+"RESET": SubResource("Animation_gxtod"),
+"idle": SubResource("Animation_4t2mu")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5xl2"]
 size = Vector2(23.8462, 29.2308)
 
@@ -252,6 +292,7 @@ script = ExtResource("1_sm0wu")
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="normal_movement_enemy" type="Sprite2D" parent="Sprites"]
+visible = false
 y_sort_enabled = true
 texture = ExtResource("2_dqu1u")
 hframes = 8
@@ -259,15 +300,22 @@ vframes = 4
 frame = 1
 
 [node name="die_sprite" type="Sprite2D" parent="Sprites"]
+visible = false
 texture = ExtResource("3_psgng")
 hframes = 8
 vframes = 4
 
 [node name="attack_sprite" type="Sprite2D" parent="Sprites"]
+visible = false
 texture = ExtResource("4_1cm7m")
 hframes = 8
 vframes = 4
 frame = 24
+
+[node name="idle_sprite" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("5_0q6ib")
+hframes = 4
+vframes = 4
 
 [node name="enemy_collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 10.7692)
@@ -292,6 +340,11 @@ libraries = {
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_ipdao")
+}
+
+[node name="idle_animation_enemy" type="AnimationPlayer" parent="Animations"]
+libraries = {
+"": SubResource("AnimationLibrary_tkai4")
 }
 
 [node name="hitbox" type="Area2D" parent="." groups=["enemy"]]

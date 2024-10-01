@@ -1,7 +1,7 @@
-NavigationAgent2D
-Timer
 AnimationPlayer
 Sprite2D
+NavigationAgent2D
+Timer
 Node2D
 Node
 AudioStreamPlayer2D
