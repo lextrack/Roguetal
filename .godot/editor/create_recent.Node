@@ -1,8 +1,9 @@
+NavigationAgent2D
+Timer
 AnimationPlayer
 Sprite2D
 Node2D
 Node
-Timer
 AudioStreamPlayer2D
 ColorRect
 Label
@@ -11,4 +12,3 @@ Button
 Panel
 VBoxContainer
 TileMap
-AudioStreamPlayer

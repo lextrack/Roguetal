@@ -1,3 +1,5 @@
+#SCRIPT DEL NIVEL
+
 extends Node2D
 
 var walker
@@ -33,8 +35,27 @@ func generate_level() -> void:
 	clear_and_set_tiles()
 	instance_player()
 	instance_portal()
+	create_navigation()
 	instance_enemies()
 	instance_health_pickup()
+
+func create_navigation():
+	var navigation_region = NavigationRegion2D.new()
+	add_child(navigation_region)
+	
+	var navigation_polygon = NavigationPolygon.new()
+	var outline = PackedVector2Array()
+	
+	# Create a single outline for the entire walkable area
+	for cell in map:
+		outline.append(Vector2(cell.x * 16, cell.y * 16))
+	
+	# Sort the points to ensure they form a valid polygon
+	outline = Geometry2D.convex_hull(outline)
+	
+	navigation_polygon.add_outline(outline)
+	navigation_polygon.make_polygons_from_outlines()
+	navigation_region.navigation_polygon = navigation_polygon
 	
 func instance_health_pickup() -> void:
 	var player_node = get_node("Player")
@@ -113,7 +134,6 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	# Enemy quantity
 	var total_enemies_to_spawn = randi_range(20, 40)
 	
 	var min_enemies_per_type = 5
@@ -140,6 +160,10 @@ func instance_enemies() -> void:
 				else:
 					enemy = enemy_2_scene.instantiate()
 					enemy_2_count += 1
+			
+			# Ensure the enemy has a NavigationAgent2D
+			var nav_agent = NavigationAgent2D.new()
+			enemy.add_child(nav_agent)
 			
 			enemy.position = world_position
 			add_child(enemy)
