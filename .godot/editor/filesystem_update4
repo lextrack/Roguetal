@@ -1,10 +1,9 @@
-res://Levels/Scenes/main_dungeon.tscn
+res://Entities/Scenes/Player/player.tscn
 res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
-res://UI/ui_scripts/hud.gd
-res://Entities/Scenes/Player/player.tscn
 res://Interactables/Scenes/next_level.tscn
 res://Entities/Scenes/Enemies/enemy_1.tscn
+res://Levels/Scenes/main_dungeon.tscn
 res://Levels/Scenes/main_dungeon_2.tscn
-res://Entities/entities_scripts/player_delta.gd
+res://Entities/Scenes/Enemies/enemy_2.tscn
 res://Entities/entities_scripts/enemy_1.gd

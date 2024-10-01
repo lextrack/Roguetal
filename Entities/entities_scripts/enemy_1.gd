@@ -1,17 +1,15 @@
-#SCRIPT ENEMY
-
 extends CharacterBody2D
 
 enum enemy_state {IDLE, PATROL, CHASE, ATTACK}
 var current_state = enemy_state.IDLE
 
-@export var speed = 90 # Movement speed of the enemy
-@export var max_health: float = 60.0 # Maximum health of the enemy
-@export var attack_damage = 10 # Damage dealt by the enemy's attack
-@export var attack_cooldown_time = 1.0 # Time (in seconds) between attacks
-@export var attack_range = 25.0 # Distance at which the enemy can attack the player
-@export var chase_range = 100.0 # Distance at which the enemy starts chasing the player (for horde mode set a bigger number)
-@export var obstacle_avoidance_range = 20.0 # Distance for obstacle detection and avoidance
+@export var speed = 90
+@export var max_health: float = 60.0
+@export var attack_damage = 10
+@export var attack_cooldown_time = 1.0
+@export var attack_range = 10.0
+@export var chase_range = 120.0
+@export var obstacle_avoidance_range = 25.0
 
 var current_health
 var attack_cooldown = 0.0
@@ -19,6 +17,7 @@ var path : Array = []
 var path_index = 0
 var is_dead = false
 var last_known_player_position : Vector2
+var is_attacking = false
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D if has_node("NavigationAgent2D") else null
 @onready var target = get_node("../Player")
@@ -39,21 +38,14 @@ func _ready():
 	current_health = max_health
 	idle_sprite.hide()
 	
-	# Ensure the navigation agent exists, or create one if not found
 	if not navigation_agent:
 		navigation_agent = NavigationAgent2D.new()
 		add_child(navigation_agent)
 	
-	# Distance at which the enemy considers it has reached its target position
 	navigation_agent.path_desired_distance = 4.0
-	
-	# Distance at which the enemy considers it has reached the final target
 	navigation_agent.target_desired_distance = 4.0
-	
-	# Maximum distance between path points
 	navigation_agent.path_max_distance = 50.0
 	
-	# Timer to update the path periodically
 	path_update_timer = Timer.new()
 	path_update_timer.wait_time = 0.5
 	path_update_timer.one_shot = false
@@ -64,18 +56,15 @@ func _ready():
 	await get_tree().physics_frame
 	update_path()
 	
-	# Hide sprites not needed initially
 	die_sprite.hide() if die_sprite else print("Warning: die_sprite not found")
 	attack_sprite.hide() if attack_sprite else print("Warning: attack_sprite not found")
 		
 func _physics_process(delta):
-	# Skip processing if the enemy is dead
 	if is_dead:
 		return
 	
 	attack_cooldown -= delta
 	
-	# State machine handling for the enemy
 	match current_state:
 		enemy_state.IDLE:
 			idle_state()
@@ -92,43 +81,37 @@ func idle_state():
 	if is_instance_valid(target) and global_position.distance_to(target.global_position) <= chase_range:
 		exit_idle_state()
 		current_state = enemy_state.CHASE
-	elif randf() < 0.01:
+	elif randf() < 0.001:
 		exit_idle_state()
 		current_state = enemy_state.PATROL
 		update_path()
 
 func patrol_state(delta):
-	# Transition to chase if the player is within range
 	if is_instance_valid(target) and global_position.distance_to(target.global_position) <= chase_range:
 		current_state = enemy_state.CHASE
-	# Move along the patrol path
 	elif path.size() > 0:
 		move_along_path(delta)
 	else:
 		current_state = enemy_state.IDLE
 
 func chase_state(delta):
-	# Stop chasing if the player is not valid
 	if not is_instance_valid(target):
 		current_state = enemy_state.PATROL
 		return
 
 	var distance_to_target = global_position.distance_to(target.global_position)
 	
-	# Attack the player if in range and cooldown is over
 	if distance_to_target <= attack_range and attack_cooldown <= 0:
 		current_state = enemy_state.ATTACK
-	# Stop chasing if the player is too far
 	elif distance_to_target > chase_range:
 		find_scent_trail()
 	else:
 		last_known_player_position = target.global_position
 		navigation_agent.target_position = last_known_player_position
 		
-	# Continue moving towards the player
-	if not navigation_agent.is_navigation_finished():
+	if not navigation_agent.is_navigation_finished() and not is_attacking:
 		var direction = global_position.direction_to(navigation_agent.get_next_path_position())
-		direction = avoid_obstacles(direction) # Avoid obstacles
+		direction = avoid_obstacles(direction)
 		velocity = direction * speed
 		move_and_slide()
 		play_movement_animation(direction)
@@ -157,29 +140,25 @@ func play_idle_animation():
 	idle_animation_enemy.play("idle")
 			
 func attack_state(delta):
-	# Return to chase if the player is out of range
 	if not is_instance_valid(target) or global_position.distance_to(target.global_position) > attack_range:
 		current_state = enemy_state.CHASE
-	# Perform attack if the cooldown is over
+		is_attacking = false
 	elif attack_cooldown <= 0:
 		perform_attack()
 
 func move_along_path(delta):
-	# Move along the current path points
 	if path_index < path.size():
 		var move_direction = global_position.direction_to(path[path_index])
 		velocity = move_direction * speed
 		move_and_slide()
 		play_movement_animation(move_direction)
 		
-		# Move to the next point if close enough
 		if global_position.distance_to(path[path_index]) < 5:
 			path_index += 1
 	else:
 		update_path()
 
 func update_path():
-	# Update the path based on the enemy's state
 	if not is_instance_valid(navigation_agent):
 		return
 		
@@ -191,13 +170,11 @@ func update_path():
 		navigation_agent.target_position = last_known_player_position
 
 func avoid_obstacles(direction):
-	# Avoid obstacles using raycasting
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsRayQueryParameters2D.create(global_position, global_position + direction * obstacle_avoidance_range)
 	query.exclude = [self]
 	var result = space_state.intersect_ray(query)
 	
-	# Adjust direction if an obstacle is detected
 	if result:
 		var normal = result.normal
 		direction = direction.slide(normal)
@@ -205,6 +182,7 @@ func avoid_obstacles(direction):
 	return direction
 
 func perform_attack():
+	is_attacking = true
 	if target.has_method("take_damage"):
 		target.take_damage(attack_damage)
 	attack_cooldown = attack_cooldown_time
@@ -212,6 +190,9 @@ func perform_attack():
 	play_attack_animation()
 
 func play_movement_animation(direction):
+	if is_attacking:
+		return
+	
 	exit_idle_state()
 	if velocity.length() > 0:
 		if abs(direction.x) > abs(direction.y):
@@ -228,7 +209,6 @@ func play_movement_animation(direction):
 		play_idle_animation()
 
 func play_attack_animation():
-	# Play attack animations based on direction
 	var direction = global_position.direction_to(target.global_position)
 	var animation_name = "attack_right"
 	
@@ -243,17 +223,18 @@ func play_attack_animation():
 	await attack_animation_enemy.animation_finished
 	normal_sprite.show()
 	attack_sprite.hide()
+	is_attacking = false
 
 func take_damage(damage: int, bullet = null):
 	if is_dead:
 		return
 
 	if current_health == null:
-		current_health = max_health  # Fallback if current_health is somehow null
+		current_health = max_health
 
 	current_health -= damage
 	if current_health <= 0:
-		current_health = 0  # Ensure it doesn't go below 0
+		current_health = 0
 		die()
 	else:
 		hit_damage_sound.play()
@@ -264,7 +245,6 @@ func take_damage(damage: int, bullet = null):
 		bullet.queue_free()
 
 func show_damage(damage: int):
-	# Show a damage label when hit
 	var damage_label_scene = preload("res://UI/ui_scenes/damage_label.tscn")
 	var damage_label = damage_label_scene.instantiate() as RichTextLabel
 	damage_label.text = str(damage)
@@ -279,7 +259,7 @@ func die():
 	die_enemy_sound.play()
 	instance_ammo()
 	
-	player_data.kill_count += 1  # Increment the kill count
+	player_data.kill_count += 1
 	
 	stop_all_animations()
 	
@@ -295,13 +275,11 @@ func die():
 	queue_free()
 
 func flash_damage():
-	# Flash the sprite red to indicate damage
 	normal_sprite.modulate = Color(1, 0, 0)
 	await get_tree().create_timer(0.1).timeout
 	normal_sprite.modulate = Color(1, 1, 1)
 
 func instance_fx():
-	# Create a blood effect on death
 	var fx_blood = preload("res://Entities/Scenes/FX/fx_blood.tscn")
 	var fx = fx_blood.instantiate()
 	var random_offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
@@ -310,7 +288,6 @@ func instance_fx():
 	get_tree().current_scene.call_deferred("add_child", fx)
 
 func instance_ammo():
-	# Drop ammo with a 60% chance on death
 	var drop_chance = randf()
 	if drop_chance < 0.6:
 		var ammo_scene = preload("res://Interactables/Scenes/ammo_1.tscn")
@@ -325,11 +302,9 @@ func stop_all_animations():
 	die_animation_enemy.stop()
 
 func _on_chase_box_area_entered(area: Area2D):
-	# Start chasing when the player enters the chase area
 	if area.is_in_group("follow"):
 		current_state = enemy_state.CHASE
 
 func _on_hitbox_area_entered(area: Area2D):
-	# Take damage when hit by a bullet
 	if area.is_in_group("Bullet"):
 		take_damage(area.damage, area)

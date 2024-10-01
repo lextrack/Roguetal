@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bfcnb2yir40br"]
+[gd_scene load_steps=30 format=3 uid="uid://blofjamcfsd6w"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/enemy_1.gd" id="1_sm0wu"]
 [ext_resource type="Texture2D" uid="uid://jhnrsdmhw6n5" path="res://Sprites/orc1_run_full.png" id="2_dqu1u"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://7qceacpux5bo" path="res://Sprites/orc1_idle_full.png" id="5_0q6ib"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rfigo"]
+radius = 3.07692
 
 [sub_resource type="Animation" id="Animation_s1xue"]
 length = 0.001
@@ -106,7 +107,7 @@ _data = {
 "move_up": SubResource("Animation_20cgi")
 }
 
-[sub_resource type="Animation" id="Animation_r7e7e"]
+[sub_resource type="Animation" id="Animation_rb1vr"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -121,7 +122,7 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_xvjqb"]
+[sub_resource type="Animation" id="Animation_llbt1"]
 resource_name = "dead"
 length = 0.8
 step = 0.1
@@ -138,13 +139,13 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_oyqbu"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_be2o2"]
 _data = {
-"RESET": SubResource("Animation_r7e7e"),
-"dead": SubResource("Animation_xvjqb")
+"RESET": SubResource("Animation_rb1vr"),
+"dead": SubResource("Animation_llbt1")
 }
 
-[sub_resource type="Animation" id="Animation_yj0dx"]
+[sub_resource type="Animation" id="Animation_ok4b0"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -156,10 +157,27 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [24]
+"values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_cl8vh"]
+[sub_resource type="Animation" id="Animation_m0cxn"]
+resource_name = "attack"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/attack_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_7028p"]
 resource_name = "attack_down"
 length = 0.8
 step = 0.1
@@ -173,10 +191,10 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [8, 9, 10, 11, 12, 13, 14, 15]
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
-[sub_resource type="Animation" id="Animation_utytk"]
+[sub_resource type="Animation" id="Animation_vixdq"]
 resource_name = "attack_left"
 length = 0.8
 step = 0.1
@@ -193,7 +211,7 @@ tracks/0/keys = {
 "values": [16, 17, 18, 19, 20, 21, 22, 23]
 }
 
-[sub_resource type="Animation" id="Animation_0yodf"]
+[sub_resource type="Animation" id="Animation_jy8o1"]
 resource_name = "attack_right"
 length = 0.8
 step = 0.1
@@ -210,7 +228,7 @@ tracks/0/keys = {
 "values": [24, 25, 26, 27, 28, 29, 30, 31]
 }
 
-[sub_resource type="Animation" id="Animation_hoogn"]
+[sub_resource type="Animation" id="Animation_tp6a2"]
 resource_name = "attack_up"
 length = 0.8
 step = 0.1
@@ -224,37 +242,20 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7]
+"values": [8, 9, 10, 11, 12, 13, 14, 15]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ipdao"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_si2ay"]
 _data = {
-"RESET": SubResource("Animation_yj0dx"),
-"attack_down": SubResource("Animation_cl8vh"),
-"attack_left": SubResource("Animation_utytk"),
-"attack_right": SubResource("Animation_0yodf"),
-"attack_up": SubResource("Animation_hoogn")
+"RESET": SubResource("Animation_ok4b0"),
+"attack": SubResource("Animation_m0cxn"),
+"attack_down": SubResource("Animation_7028p"),
+"attack_left": SubResource("Animation_vixdq"),
+"attack_right": SubResource("Animation_jy8o1"),
+"attack_up": SubResource("Animation_tp6a2")
 }
 
-[sub_resource type="Animation" id="Animation_4t2mu"]
-resource_name = "idle"
-length = 0.4
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprites/idle_sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_gxtod"]
+[sub_resource type="Animation" id="Animation_wiely"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -269,10 +270,28 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tkai4"]
+[sub_resource type="Animation" id="Animation_l3n0k"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites/idle_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nfqe2"]
 _data = {
-"RESET": SubResource("Animation_gxtod"),
-"idle": SubResource("Animation_4t2mu")
+"RESET": SubResource("Animation_wiely"),
+"idle": SubResource("Animation_l3n0k")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5xl2"]
@@ -281,7 +300,7 @@ size = Vector2(23.8462, 29.2308)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k3ijx"]
 size = Vector2(168.047, 120.71)
 
-[node name="enemy_2" type="CharacterBody2D"]
+[node name="enemy_1" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
@@ -292,7 +311,6 @@ script = ExtResource("1_sm0wu")
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="normal_movement_enemy" type="Sprite2D" parent="Sprites"]
-visible = false
 y_sort_enabled = true
 texture = ExtResource("2_dqu1u")
 hframes = 8
@@ -300,17 +318,14 @@ vframes = 4
 frame = 1
 
 [node name="die_sprite" type="Sprite2D" parent="Sprites"]
-visible = false
 texture = ExtResource("3_psgng")
 hframes = 8
 vframes = 4
 
 [node name="attack_sprite" type="Sprite2D" parent="Sprites"]
-visible = false
 texture = ExtResource("4_1cm7m")
 hframes = 8
 vframes = 4
-frame = 24
 
 [node name="idle_sprite" type="Sprite2D" parent="Sprites"]
 texture = ExtResource("5_0q6ib")
@@ -318,8 +333,7 @@ hframes = 4
 vframes = 4
 
 [node name="enemy_collider" type="CollisionShape2D" parent="."]
-position = Vector2(0, 10.7692)
-scale = Vector2(0.2, 0.2)
+position = Vector2(0, 13.8462)
 shape = SubResource("CircleShape2D_rfigo")
 
 [node name="Animations" type="Node2D" parent="."]
@@ -333,21 +347,21 @@ libraries = {
 [node name="die_animation_enemy" type="AnimationPlayer" parent="Animations"]
 root_node = NodePath("../..")
 libraries = {
-"": SubResource("AnimationLibrary_oyqbu")
+"": SubResource("AnimationLibrary_be2o2")
 }
 
 [node name="attack_animation_enemy" type="AnimationPlayer" parent="Animations"]
 root_node = NodePath("../..")
 libraries = {
-"": SubResource("AnimationLibrary_ipdao")
+"": SubResource("AnimationLibrary_si2ay")
 }
 
 [node name="idle_animation_enemy" type="AnimationPlayer" parent="Animations"]
 libraries = {
-"": SubResource("AnimationLibrary_tkai4")
+"": SubResource("AnimationLibrary_nfqe2")
 }
 
-[node name="hitbox" type="Area2D" parent="." groups=["enemy"]]
+[node name="hitbox" type="Area2D" parent="." groups=["enemy", "enemy_areas"]]
 collision_layer = 32
 collision_mask = 3
 
@@ -367,7 +381,7 @@ shape = SubResource("RectangleShape2D_k3ijx")
 debug_color = Color(0.723951, 0.477191, 0.00940225, 0.42)
 
 [node name="timer_direction" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 2.0
 autostart = true
 
 [node name="hit_damage_sound" type="AudioStreamPlayer2D" parent="."]
