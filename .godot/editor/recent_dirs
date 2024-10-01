@@ -1,3 +1,4 @@
+res://Entities/entities_scripts
 res://Entities/Scenes/FX
 c:/C2_Roguelite/Export
 c:/C2_Roguelite
@@ -13,7 +14,6 @@ res://Levels/Scenes
 res://UI/ui_scripts
 res://Interactables/interatables_scripts
 res://Interactables/Scenes
-res://Entities/entities_scripts
 res://Entities/Scenes/Bullets
 res://UI/ui_shaders
 res://Entities/Scenes/Characters

@@ -1,10 +1,12 @@
+#SCRIPT ENEMY
+
 extends CharacterBody2D
 
 enum enemy_state {IDLE, PATROL, CHASE, ATTACK}
 var current_state = enemy_state.IDLE
 
 @export var speed = 90 # Movement speed of the enemy
-@export var max_health = 60 # Maximum health of the enemy
+@export var max_health: float = 60.0 # Maximum health of the enemy
 @export var attack_damage = 10 # Damage dealt by the enemy's attack
 @export var attack_cooldown_time = 1.0 # Time (in seconds) between attacks
 @export var attack_range = 25.0 # Distance at which the enemy can attack the player
@@ -243,12 +245,15 @@ func play_attack_animation():
 	attack_sprite.hide()
 
 func take_damage(damage: int, bullet = null):
-	# Reduce health and die if health drops below zero
 	if is_dead:
 		return
 
+	if current_health == null:
+		current_health = max_health  # Fallback if current_health is somehow null
+
 	current_health -= damage
 	if current_health <= 0:
+		current_health = 0  # Ensure it doesn't go below 0
 		die()
 	else:
 		hit_damage_sound.play()
@@ -273,6 +278,8 @@ func die():
 	is_dead = true
 	die_enemy_sound.play()
 	instance_ammo()
+	
+	player_data.kill_count += 1  # Increment the kill count
 	
 	stop_all_animations()
 	
