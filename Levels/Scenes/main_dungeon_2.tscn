@@ -2536,10 +2536,30 @@ metadata/_edit_use_anchors_ = true
 [node name="kill_count_label" type="Label" parent="HUD"]
 texture_filter = 2
 offset_left = 12.0
-offset_top = 101.0
+offset_top = 100.0
 offset_right = 52.0
-offset_bottom = 124.0
-theme_override_font_sizes/font_size = 20
+offset_bottom = 123.0
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 3
+horizontal_alignment = 1
+
+[node name="highest_streak_label" type="Label" parent="HUD"]
+offset_left = 12.0
+offset_top = 125.0
+offset_right = 52.0
+offset_bottom = 148.0
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 3
+horizontal_alignment = 1
+
+[node name="time_played_label" type="Label" parent="HUD"]
+offset_left = 12.0
+offset_top = 150.0
+offset_right = 52.0
+offset_bottom = 173.0
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 3
+horizontal_alignment = 1
 
 [node name="Tiles" type="Node2D" parent="."]
 

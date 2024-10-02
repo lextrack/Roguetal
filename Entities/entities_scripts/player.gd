@@ -30,7 +30,7 @@ var is_in_portal = false
 @onready var cursor_script = $mouse_icon
 @onready var audio_stream_dead_player: AudioStreamPlayer2D = $Sounds/AudioStreamDeadPlayer
 @onready var damage_timer: Timer = $Timers/damage_timer
-@export var damage_interval = 0.5 
+@export var damage_interval = 0.5
 
 var weapons = []
 var current_weapon_index = 0
@@ -259,12 +259,25 @@ func dead() -> void:
 		$player_animation.play("Dead")
 
 		player_data.ammo += 10
+		
+		# Reset kill count and kill streak
+		player_data.kill_count = 0
+		player_data.reset_kill_streak()
 
 func _on_anim_animation_finished(anim_name: StringName) -> void:
 	# Reload the scene after death animation finishes
 	if anim_name == "Dead":
+		# Store the highest kill streak before resetting
+		var highest_streak = player_data.highest_kill_streak
+		
+		# Reset all stats except highest_kill_streak
+		player_data.reset_stats()
+		
+		# Restore the highest kill streak
+		player_data.highest_kill_streak = highest_streak
+		
 		get_tree().reload_current_scene()
-		player_data.health = 4
+		#player_data.health = 4
 
 func reset_state():
 	# Reset player state to move

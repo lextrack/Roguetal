@@ -1,3 +1,5 @@
+# ENEMY SCRIPT
+
 extends CharacterBody2D
 
 enum enemy_state {IDLE, PATROL, CHASE, ATTACK, REPOSITION}
@@ -18,7 +20,7 @@ var reposition_timer : Timer
 @export var attack_damage = 10 # Damage dealt by the enemy's attack
 @export var attack_cooldown_time = 1.0 # Time (in seconds) between attacks
 @export var attack_range = 20.0 # Distance at which the enemy can attack the player
-@export var chase_range = 120.0 # Distance at which the enemy starts chasing the player
+@export var chase_range = 150.0 # Distance at which the enemy starts chasing the player
 @export var obstacle_avoidance_range = 30.0 # Distance for obstacle detection and avoidance
 @export var reposition_distance = 30.0 # Distance the enemy moves when repositioning
 
@@ -293,6 +295,7 @@ func die():
 	instance_ammo()
 	
 	player_data.kill_count += 1
+	player_data.update_kill_streak()
 	
 	stop_all_animations()
 	
