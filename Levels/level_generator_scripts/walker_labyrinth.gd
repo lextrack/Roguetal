@@ -1,6 +1,6 @@
 extends Node
 
-class_name Walker_room
+class_name Walker_labyrinth_room
 
 const DIRECTIONS = [Vector2.RIGHT, Vector2.UP, Vector2.LEFT, Vector2.DOWN]
 
@@ -10,7 +10,7 @@ var borders = Rect2()
 var step_history = []
 var steps_since_turn = 0
 var rooms = []
-var corridor_width = 3 # Increase for wider corridors
+var corridor_width = 2
 
 func _init(starting_position, new_border) -> void:
 	assert(new_border.has_point(starting_position))
@@ -22,7 +22,7 @@ func walk(steps):
 	place_room(position)
 	
 	for step in steps:
-		if steps_since_turn >= 10: # Increase for longer straight sections
+		if steps_since_turn >= 8:
 			change_direction()
 		if step():
 			step_history.append(position)
@@ -70,7 +70,7 @@ func create_room(position, size):
 	return {position = position, size = size}
 	
 func place_room(position: Vector2) -> void:
-	var size = Vector2(randi() % 5 + 3, randi() % 5 + 3) # Larger rooms
+	var size = Vector2(randi() % 4 + 2, randi() % 4 + 2)
 	var top_left_corner = (position - size / 2).floor()
 
 	if is_too_close(position) or not is_room_within_bounds(top_left_corner, size):
@@ -89,7 +89,7 @@ func is_room_within_bounds(top_left_corner: Vector2, size: Vector2) -> bool:
 
 func is_too_close(position: Vector2) -> bool:
 	for room in rooms:
-		if room.position.distance_to(position) < 7: # Increase for more space between rooms
+		if room.position.distance_to(position) < 5:
 			return true
 	return false
 

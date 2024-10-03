@@ -1,9 +1,10 @@
+TileMap
+Node2D
 Label
 AnimationPlayer
 Sprite2D
 NavigationAgent2D
 Timer
-Node2D
 Node
 AudioStreamPlayer2D
 ColorRect
@@ -11,4 +12,3 @@ RichTextLabel
 Button
 Panel
 VBoxContainer
-TileMap

@@ -109,7 +109,7 @@ func bullet_type_shooting(delta: float):
 func check_level_and_set_weapon() -> void:
 	# Show or hide weapons based on the level
 	var current_scene = get_tree().current_scene
-	var visible_levels = ["main_dungeon", "main_dungeon_2"]
+	var visible_levels = ["main_dungeon", "main_dungeon_2", "labyrinth_level"]
 	
 	if current_scene.name in visible_levels:
 		weapons_container.visible = true

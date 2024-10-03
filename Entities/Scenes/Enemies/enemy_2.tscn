@@ -294,7 +294,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5xl2"]
-size = Vector2(19.1696, 32.3077)
+size = Vector2(15.5183, 32.3077)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k3ijx"]
 size = Vector2(168.047, 120.71)
@@ -332,7 +332,7 @@ hframes = 4
 vframes = 4
 
 [node name="enemy_collider" type="CollisionShape2D" parent="."]
-position = Vector2(0, 13.8462)
+position = Vector2(0, 12.3077)
 scale = Vector2(0.015385, 0.0769278)
 shape = SubResource("SegmentShape2D_ipwmt")
 
@@ -366,7 +366,7 @@ collision_layer = 32
 collision_mask = 3
 
 [node name="hitbox_collider" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(0, -0.769234)
+position = Vector2(-0.76923, -0.769234)
 scale = Vector2(1.68536, 1)
 shape = SubResource("RectangleShape2D_n5xl2")
 debug_color = Color(0.938574, 0.115461, 0.547082, 0.42)

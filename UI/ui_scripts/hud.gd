@@ -16,7 +16,7 @@ var previous_highest_streak = 0
 
 func _ready() -> void:
 	create_hearts()
-	time_played_label.modulate.a = 0  # Start with transparent time label
+	time_played_label.modulate.a = 0
 
 func create_hearts():
 	for i in range(MAX_HEARTS):
@@ -42,7 +42,7 @@ func update_time_played(delta: float):
 	player_data.time_played += delta
 	time_played_label.text = "Time: " + format_time(player_data.time_played)
 	if time_played_label.modulate.a < 1:
-		time_played_label.modulate.a += delta  # Fade in effect
+		time_played_label.modulate.a += delta
 
 func update_highest_streak():
 	if player_data.highest_kill_streak != previous_highest_streak:
