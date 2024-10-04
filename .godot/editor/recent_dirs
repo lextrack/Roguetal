@@ -1,6 +1,7 @@
 res://Levels/level_generator_scripts
-res://Levels/Scenes
 res://Entities/entities_scripts
+res://Entities/Scenes/Enemies
+res://Levels/Scenes
 res://Entities/Scenes/FX
 c:/C2_Roguelite/Export
 c:/C2_Roguelite
@@ -19,4 +20,3 @@ res://Entities/Scenes/Bullets
 res://UI/ui_shaders
 res://Entities/Scenes/Characters
 C:/Users/ariel/OneDrive/Desktop
-res://Shaders

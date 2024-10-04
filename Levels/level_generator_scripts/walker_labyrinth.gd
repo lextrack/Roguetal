@@ -22,7 +22,7 @@ func walk(steps):
 	place_room(position)
 	
 	for step in steps:
-		if steps_since_turn >= 8:
+		if steps_since_turn >= 6: 
 			change_direction()
 		if step():
 			step_history.append(position)
@@ -70,7 +70,7 @@ func create_room(position, size):
 	return {position = position, size = size}
 	
 func place_room(position: Vector2) -> void:
-	var size = Vector2(randi() % 4 + 2, randi() % 4 + 2)
+	var size = Vector2(randi() % 3 + 2, randi() % 3 + 2)
 	var top_left_corner = (position - size / 2).floor()
 
 	if is_too_close(position) or not is_room_within_bounds(top_left_corner, size):
@@ -89,7 +89,7 @@ func is_room_within_bounds(top_left_corner: Vector2, size: Vector2) -> bool:
 
 func is_too_close(position: Vector2) -> bool:
 	for room in rooms:
-		if room.position.distance_to(position) < 5:
+		if room.position.distance_to(position) < 6:
 			return true
 	return false
 
