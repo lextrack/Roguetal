@@ -1,8 +1,8 @@
-res://Levels/level_generator_scripts
 res://Entities/entities_scripts
+res://Entities/Scenes/FX
+res://Levels/level_generator_scripts
 res://Entities/Scenes/Enemies
 res://Levels/Scenes
-res://Entities/Scenes/FX
 c:/C2_Roguelite/Export
 c:/C2_Roguelite
 res://

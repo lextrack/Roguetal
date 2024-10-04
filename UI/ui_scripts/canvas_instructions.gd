@@ -4,7 +4,7 @@ extends CanvasLayer
 var timer : Timer
 var instructions_pages = [
 	"Move and control the character using left and right stick or WASD and the mouse.",
-	"When you enter the dungeon, shoot by pressing the RT button on the controller or the left mouse button.",
+	"When you enter the dungeon, shoot by holding down the RT button on the controller or the left mouse button.",
 	"To change weapon press LB on the controller or C on the keyboard.",
 	"That blonde hair girl has more information about this place. Press the A button on your controller or the E key on your keyboard to speak to her."
 ]

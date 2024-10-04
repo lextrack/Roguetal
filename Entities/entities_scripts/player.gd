@@ -15,10 +15,11 @@ var is_in_portal = false
 var is_flashing = false
 var enemies_in_contact = 0
 
-@export var contact_damage = 0.5  # Daño recibido por contacto con enemigos
+@export var contact_damage = 0.1  # Daño recibido por contacto con enemigos
 @export var speed: int  # Velocidad de movimiento del jugador
 @export var walk_sound_interval = 0.4  # Intervalo entre sonidos de pasos
-@export var rapid_shoot_delay: float = 0.1  # Retraso entre disparos rápidos (M16)
+@export var rapid_shoot_delay: float = 0.1
+@export var bazooka_shoot_delay: float = 0.5
 
 @onready var bullet_scenes = {
 	"bazooka": preload("res://Entities/Scenes/Bullets/bullet_1.tscn"),
@@ -31,13 +32,13 @@ var enemies_in_contact = 0
 @onready var cursor_script = $mouse_icon
 @onready var audio_stream_dead_player: AudioStreamPlayer2D = $Sounds/AudioStreamDeadPlayer
 @onready var damage_timer: Timer = $Timers/damage_timer
-@export var damage_interval = 0.5  # Intervalo entre daños por contacto
+@export var damage_interval = 0.1  # Intervalo entre daños por contacto
 
 var weapons = []
 var current_weapon_index = 0
 
 var weapon_damage = {
-	"bazooka": 25,
+	"bazooka": 40,
 	"m16": 15
 }
 
@@ -111,9 +112,12 @@ func bullet_type_shooting(delta: float):
 			shoot_timer = rapid_shoot_delay
 
 	# Normal shooting (Bazooka)
-	elif bullet_type != "m16" and Input.is_action_just_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
-		player_data.ammo -= 1
-		instance_bullet()
+	elif bullet_type != "m16" and Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
+		shoot_timer -= delta
+		if shoot_timer <= 0.0:
+			player_data.ammo -= 1
+			instance_bullet()
+			shoot_timer = bazooka_shoot_delay
 
 func check_level_and_set_weapon() -> void:
 	# Show or hide weapons based on the level
@@ -310,7 +314,7 @@ func flash_damage():
 	is_flashing = true
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.7)
 	
-	var flash_duration = 0.1
+	var flash_duration = 0.01
 	var fade_duration = 0.1
 	
 	await get_tree().create_timer(flash_duration).timeout

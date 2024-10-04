@@ -15,10 +15,10 @@ var is_attacking = false
 var path_update_timer : Timer
 var reposition_timer : Timer
 
-@export var speed = 90 # Movement speed of the enemy
-@export var max_health: float = 60.0 # Maximum health points of the enemy
+@export var speed = 85 # Movement speed of the enemy
+@export var max_health: float = 50.0 # Maximum health points of the enemy
 @export var attack_cooldown_time = 0.8 # Time (in seconds) between attacks
-@export var chase_range = 180.0 # Distance at which the enemy starts chasing the player
+@export var chase_range = 170.0 # Distance at which the enemy starts chasing the player
 @export var obstacle_avoidance_range = 30.0 # Distance for obstacle detection and avoidance
 @export var reposition_distance = 30.0 # Distance the enemy moves when repositioning
 @export var attack_damage = 0.2 # Damage dealt by the enemy's attack

@@ -1,8 +1,8 @@
-TileMap
-Node2D
 Label
 AnimationPlayer
 Sprite2D
+TileMap
+Node2D
 NavigationAgent2D
 Timer
 Node

@@ -11,7 +11,6 @@ static var current_kill_streak: int = 0
 
 static func reset_stats():
 	health = 4.0
-	ammo = 100
 	kill_count = 0
 	time_played = 0.0
 	highest_kill_streak = 0

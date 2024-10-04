@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var fx_scene = preload("res://Entities/Scenes/FX/fx_scene.tscn")
+@onready var fx_scene = preload("res://Entities/Scenes/FX/fx_rapid_bullet.tscn")
 @export var speed = 300
 @export var damage = 1
 var direction = Vector2.RIGHT

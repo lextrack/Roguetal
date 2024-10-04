@@ -70,7 +70,7 @@ libraries = {
 autoplay = "Active"
 
 [node name="timer_ammo_disappear" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 5.0
 autostart = true
 
 [node name="pickup_ammo" type="AudioStreamPlayer2D" parent="."]

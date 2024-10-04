@@ -64,6 +64,7 @@ libraries = {
 autoplay = "Active"
 
 [node name="portal_collider" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CapsuleShape2D_eex34")
 debug_color = Color(0.964133, 0.15271, 0.293453, 0.42)
 

@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://chxwhjyu5ejto"]
+
+[ext_resource type="Texture2D" uid="uid://384hhaplsemm" path="res://Sprites/Impact005Red .png" id="1_lyjv8"]
+[ext_resource type="Script" path="res://Entities/entities_scripts/fx_rapid_bullet.gd" id="1_nf2hx"]
+
+[sub_resource type="Animation" id="Animation_yu1hk"]
+resource_name = "Active"
+length = 0.18
+step = 0.04
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.04, 0.08, 0.12, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_wray4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x4oik"]
+_data = {
+"Active": SubResource("Animation_yu1hk"),
+"RESET": SubResource("Animation_wray4")
+}
+
+[node name="fx_rapid_bullet" type="Node2D"]
+z_index = 2
+y_sort_enabled = true
+script = ExtResource("1_nf2hx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_lyjv8")
+hframes = 5
+
+[node name="animation_impact" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x4oik")
+}
