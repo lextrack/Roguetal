@@ -6,7 +6,8 @@ extends Area2D
 var last_level: String = ""
 var levels = [
 	"res://Levels/Scenes/main_dungeon.tscn",
-	"res://Levels/Scenes/main_dungeon_2.tscn"
+	"res://Levels/Scenes/main_dungeon_2.tscn",
+	"res://Levels/Scenes/labyrinth_level.tscn"
 ]
 
 func _ready() -> void:

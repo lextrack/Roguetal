@@ -1,13 +1,4 @@
 res://Entities/Scenes/Player/player.tscn
 res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
-res://Levels/Scenes/labyrinth_level.tscn
-res://Levels/Scenes/main_dungeon.tscn
-res://Entities/Scenes/Enemies/enemy_1.tscn
-res://Entities/Scenes/Enemies/enemy_2.tscn
-res://Entities/Scenes/Enemies/enemy_labyrinth.tscn
-res://Entities/entities_scripts/enemy_labyrinth.gd
-res://Entities/entities_scripts/enemy_1.gd
-res://Levels/level_generator_scripts/labyrinth_level.gd
-res://Levels/level_generator_scripts/walker_labyrinth.gd
-res://Levels/Scenes/main_dungeon_2.tscn
+res://Entities/entities_scripts/player.gd

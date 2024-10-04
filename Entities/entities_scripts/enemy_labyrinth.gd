@@ -1,3 +1,5 @@
+# ENEMY (LABYRINTH) SCRIPT
+
 extends CharacterBody2D
 
 enum enemy_state {IDLE, PATROL, CHASE, ATTACK, REPOSITION}
@@ -15,12 +17,13 @@ var reposition_timer : Timer
 
 @export var speed = 90 # Movement speed of the enemy
 @export var max_health: float = 60.0 # Maximum health points of the enemy
-@export var attack_damage = 10 # Damage dealt by the enemy's attack
 @export var attack_cooldown_time = 0.8 # Time (in seconds) between attacks
-@export var attack_range = 25.0 # Distance at which the enemy can attack the player
-@export var chase_range = 160.0 # Distance at which the enemy starts chasing the player
+@export var chase_range = 180.0 # Distance at which the enemy starts chasing the player
 @export var obstacle_avoidance_range = 30.0 # Distance for obstacle detection and avoidance
 @export var reposition_distance = 30.0 # Distance the enemy moves when repositioning
+@export var attack_damage = 0.2 # Damage dealt by the enemy's attack
+@export var attack_range = 25.0 # Distance at which the enemy can attack the player
+@export var attack_damage_range = 30.0
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D if has_node("NavigationAgent2D") else null
 @onready var target = get_node("../Player")
@@ -142,11 +145,14 @@ func attack_state(delta):
 	if not is_instance_valid(target) or distance_to_target > attack_range * 1.5:
 		current_state = enemy_state.CHASE
 		is_attacking = false
-	elif attack_cooldown <= 0 and distance_to_target <= attack_range:
+	elif attack_cooldown <= 0 and distance_to_target <= attack_damage_range:
 		perform_attack()
 	else:
 		var direction = global_position.direction_to(target.global_position)
-		velocity = direction * (speed * 0.5)
+		if distance_to_target > attack_damage_range:
+			velocity = direction * speed
+		else:
+			velocity = direction * (speed * 0.5)
 		move_and_slide()
 		play_movement_animation(direction)
 
@@ -194,8 +200,9 @@ func play_idle_animation():
 # Perform an attack on the player
 func perform_attack():
 	is_attacking = true
-	if target.has_method("take_damage"):
-		target.take_damage(attack_damage)
+	if global_position.distance_to(target.global_position) <= attack_damage_range:
+		if target.has_method("take_damage") and not target.is_in_portal:
+			target.take_damage(attack_damage)
 	attack_cooldown = attack_cooldown_time
 	play_attack_animation()
 

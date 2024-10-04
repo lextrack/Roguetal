@@ -18,7 +18,6 @@ height = 19.2857
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7das3"]
 shader = ExtResource("2_dwf4p")
-shader_parameter/flash_color = Color(1, 0.172549, 0.129412, 0.933333)
 shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="Animation" id="Animation_646v8"]

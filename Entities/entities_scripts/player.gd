@@ -1,5 +1,3 @@
-#SCRIPT PLAYER
-
 extends CharacterBody2D
 
 enum player_states {MOVE, DEAD}
@@ -14,10 +12,13 @@ var gamepad_deadzone = 0.1
 var walk_sound_timer = 0.0
 var shoot_timer: float = 0.0
 var is_in_portal = false
+var is_flashing = false
+var enemies_in_contact = 0
 
-@export var speed: int
-@export var walk_sound_interval = 0.4
-@export var rapid_shoot_delay: float = 0.1
+@export var contact_damage = 0.5  # Daño recibido por contacto con enemigos
+@export var speed: int  # Velocidad de movimiento del jugador
+@export var walk_sound_interval = 0.4  # Intervalo entre sonidos de pasos
+@export var rapid_shoot_delay: float = 0.1  # Retraso entre disparos rápidos (M16)
 
 @onready var bullet_scenes = {
 	"bazooka": preload("res://Entities/Scenes/Bullets/bullet_1.tscn"),
@@ -30,13 +31,13 @@ var is_in_portal = false
 @onready var cursor_script = $mouse_icon
 @onready var audio_stream_dead_player: AudioStreamPlayer2D = $Sounds/AudioStreamDeadPlayer
 @onready var damage_timer: Timer = $Timers/damage_timer
-@export var damage_interval = 0.5
+@export var damage_interval = 0.5  # Intervalo entre daños por contacto
 
 var weapons = []
 var current_weapon_index = 0
 
 var weapon_damage = {
-	"bazooka": 50,
+	"bazooka": 25,
 	"m16": 15
 }
 
@@ -46,6 +47,16 @@ func _ready() -> void:
 	setup_weapons()
 	update_visible_weapon()
 	check_level_and_set_weapon()
+	damage_timer.wait_time = damage_interval
+	damage_timer.one_shot = false
+	
+func take_damage(damage: float):
+	if not is_in_portal:
+		player_data.health -= damage
+		if not is_flashing:
+			flash_damage()
+		if player_data.health <= 0:
+			dead()
 
 func setup_weapons():
 	# Assign bullet types to each weapon
@@ -81,11 +92,9 @@ func _process(delta: float) -> void:
 			switch_weapon()
 
 func enter_portal():
-	# Set player state when entering a portal
 	is_in_portal = true
 
 func exit_portal():
-	# Set player state when exiting a portal
 	is_in_portal = false
 
 func bullet_type_shooting(delta: float):
@@ -294,25 +303,34 @@ func _on_trail_timer_timeout() -> void:
 	instance_trail()
 	$Timers/trail_timer.start()
 
-func _on_hitbox_area_entered(area: Area2D) -> void:
-	# Start damage timer if an enemy is in range
-	if area.is_in_group("enemy") and not is_in_portal:
-		damage_timer.start(damage_interval)
-		
-func _on_hitbox_area_exited(area: Area2D) -> void:
-	# Stop damage timer when the enemy leaves range
-	if area.is_in_group("enemy"):
-		damage_timer.stop()
-
 func flash_damage():
-	# Flash the player sprite to indicate damage
+	if is_flashing:
+		return
+	
+	is_flashing = true
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.7)
-	await get_tree().create_timer(0.1).timeout
-	$Sprite2D.material.set_shader_parameter("flash_modifier", 0)
+	
+	var flash_duration = 0.1
+	var fade_duration = 0.1
+	
+	await get_tree().create_timer(flash_duration).timeout
+	
+	var tween = create_tween()
+	tween.tween_property($Sprite2D.material, "shader_parameter/flash_modifier", 0.0, fade_duration)
+	tween.tween_callback(func(): is_flashing = false)
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy") and not is_in_portal:
+		enemies_in_contact += 1
+		if enemies_in_contact == 1:
+			damage_timer.start()
+
+func _on_hitbox_area_exited(area: Area2D) -> void:
+	if area.is_in_group("enemy"):
+		enemies_in_contact -= 1
+		if enemies_in_contact == 0:
+			damage_timer.stop()
 
 func _on_damage_timer_timeout() -> void:
-	# Apply damage over time when hit by an enemy
-	flash_damage()
-	player_data.health -= 0.5
-	if player_data.health <= 0:
-		dead()
+	if not is_in_portal and enemies_in_contact > 0:
+		take_damage(contact_damage)
