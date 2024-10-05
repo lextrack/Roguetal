@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkpicddwv1jq1"]
+[gd_scene load_steps=8 format=3 uid="uid://bkpicddwv1jq1"]
 
 [ext_resource type="Script" path="res://Interactables/interatables_scripts/double_damage_pickup.gd" id="1_4jai0"]
 [ext_resource type="Texture2D" uid="uid://devncfpf0c8l7" path="res://Sprites/Ready Potion I.png" id="1_iqrsg"]
+[ext_resource type="AudioStream" uid="uid://dshr8u3mysecc" path="res://SoundEffects/41529__jamius__potiondrinklong.ogg" id="3_gpffi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gjjgq"]
-size = Vector2(10, 18)
+size = Vector2(14, 18)
 
 [sub_resource type="Animation" id="Animation_0750w"]
 resource_name = "Active"
@@ -21,7 +22,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"values": [12, 13, 14, 15, 16, 17]
 }
 
 [sub_resource type="Animation" id="Animation_3coec"]
@@ -64,6 +65,9 @@ libraries = {
 "": SubResource("AnimationLibrary_1tcfs")
 }
 autoplay = "Active"
+
+[node name="pickup_object" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_gpffi")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

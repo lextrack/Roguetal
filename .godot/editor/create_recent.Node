@@ -1,14 +1,14 @@
+AudioStreamPlayer2D
+Sprite2D
 Node2D
 AnimationPlayer
 CollisionShape2D
-Sprite2D
 Area2D
 Label
 TileMap
 NavigationAgent2D
 Timer
 Node
-AudioStreamPlayer2D
 ColorRect
 RichTextLabel
 Button

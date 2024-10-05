@@ -39,6 +39,7 @@ const DOUBLE_DAMAGE_DURATION = 10.0  # Duración del efecto de doble daño en se
 @onready var audio_stream_dead_player: AudioStreamPlayer2D = $Sounds/AudioStreamDeadPlayer
 @onready var damage_timer: Timer = $Timers/damage_timer
 @export var damage_interval = 0.1  # Intervalo entre daños por contacto
+@onready var double_damage_icon: Sprite2D = $DoubleIconAnchor/DoubleDamageIcon
 
 var weapons = []
 var current_weapon_index = 0
@@ -56,6 +57,13 @@ func _ready() -> void:
 	check_level_and_set_weapon()
 	damage_timer.wait_time = damage_interval
 	damage_timer.one_shot = false
+	setup_double_damage_icon()
+	
+func setup_double_damage_icon():
+	if not double_damage_icon:
+		return
+		
+	double_damage_icon.visible = false
 	
 func take_damage(damage: float):
 	if not is_in_portal:
@@ -100,6 +108,8 @@ func _process(delta: float) -> void:
 			double_damage_timer -= delta
 			if double_damage_timer <= 0:
 				deactivate_double_damage()
+			else:
+				update_double_damage_icon()
 		
 func handle_weapon_switch():
 	if Input.is_action_just_pressed("switch_weapon"):
@@ -108,12 +118,23 @@ func handle_weapon_switch():
 func activate_double_damage():
 	double_damage_active = true
 	double_damage_timer = DOUBLE_DAMAGE_DURATION
-	print("Double damage activated for ", DOUBLE_DAMAGE_DURATION, " seconds")
-	# Aquí puedes añadir efectos visuales o sonoros para indicar que el doble daño está activo
+	if double_damage_icon:
+		double_damage_icon.visible = true
 
 func deactivate_double_damage():
 	double_damage_active = false
-	print("Double damage deactivated")
+
+	if double_damage_icon:
+		double_damage_icon.visible = false
+	
+func update_double_damage_icon():
+	if double_damage_icon:
+		# Opcional: Hacer que el icono parpadee cuando quede poco tiempo
+		var blink_threshold = 3.0  # Comenzar a parpadear cuando queden 3 segundos
+		if double_damage_timer <= blink_threshold:
+			double_damage_icon.visible = sin(double_damage_timer * 10) > 0
+		else:
+			double_damage_icon.visible = true
 
 func enter_portal():
 	is_in_portal = true
@@ -176,7 +197,7 @@ func movement(delta: float) -> void:
 	animation()
 
 	if input_movement != Vector2.ZERO:
-		# Play walking sound if moving
+		# Play walking sound if the player is moving
 		walk_sound_timer -= delta
 		if walk_sound_timer <= 0:
 			walk_sound_player.play()
@@ -233,7 +254,7 @@ func instance_bullet() -> void:
 	
 	var bullet = bullet_scene.instantiate()
 	
-	# Aplicar el efecto de doble daño si está activo
+	# Apply the doble damage
 	var damage_multiplier = 2 if double_damage_active else 1
 	bullet.damage = weapon_damage[bullet_type] * damage_multiplier
 	
@@ -271,12 +292,10 @@ func update_animation_without_gun() -> void:
 func switch_weapon():
 	current_weapon_index = (current_weapon_index + 1) % weapons.size()
 	update_visible_weapon()
-	print("Switched to weapon index: ", current_weapon_index)  # Debugging
 
 func update_visible_weapon():
 	for i in range(weapons.size()):
 		weapons[i].visible = (i == current_weapon_index)
-	print("Current visible weapon: ", current_weapon_index)  # Debugging
 
 func update_weapon_flip():
 	# Flip the weapon and sprite depending on the aim direction

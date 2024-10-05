@@ -145,15 +145,12 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_constants/line_separation = 3
 theme_override_font_sizes/normal_font_size = 25
 text = "SOUND
-
-- klankbeeld, Lamp_, szegvari, newlocknew, SoundEffectsFactory, PK9 Sound Effect, el_boss, rubberduck, Mobeyee Sounds, IgnasD
+- klankbeeld, Lamp_, szegvari, newlocknew, SoundEffectsFactory, PK9 Sound Effect, el_boss, rubberduck, Mobeyee Sounds, IgnasD, Jamius.
 
 ART
-
-- Luck, Joan Stenstrup Frandsen, Szadi art, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings
+- Luck, Joan Stenstrup Frandsen, Szadi art, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings.
 
 ADDITIONAL RESOURCES
-
 - Flaticon (Freepik, DinosoftLabs, surang) for the awesome icons.
 - Jean Vermeersch for his knowledge.
 

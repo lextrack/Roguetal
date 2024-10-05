@@ -1,5 +1,3 @@
-#SCRIPT LEVEL (labyrinth)
-
 extends Node2D
 
 var walker
@@ -13,6 +11,7 @@ const min_distance_from_player = 5
 @onready var next_level_scene = preload("res://Interactables/Scenes/next_level.tscn")
 @onready var enemy_labyrinth = preload("res://Entities/Scenes/Enemies/enemy_labyrinth.tscn")
 @onready var health_pickup_scene = preload("res://Interactables/Scenes/health_pickup.tscn")
+@onready var double_damage_pickup_scene = preload("res://Interactables/Scenes/double_damage_pickup.tscn")
 @onready var tilemap = $Tiles/TileMap
 
 @export var borders = Rect2(1, 1, 70, 50)
@@ -39,6 +38,29 @@ func generate_level() -> void:
 	create_navigation()
 	instance_enemies()
 	instance_health_pickup()
+	instance_double_damage_pickup()
+	
+func instance_double_damage_pickup() -> void:
+	var player_node = get_node("Player")
+	if not player_node:
+		return
+
+	var player_position = tilemap.local_to_map(player_node.position)
+	var attempts = 0
+	var max_attempts = 100
+	var double_damage_pickup_spawned = false
+	
+	while not double_damage_pickup_spawned and attempts < max_attempts:
+		var random_position = map[randi() % len(map)]
+		var world_position = tilemap.map_to_local(random_position)
+		
+		if random_position.distance_to(player_position) >= min_distance_from_player and not is_tile_occupied(world_position):
+			var double_damage_pickup = double_damage_pickup_scene.instantiate()
+			double_damage_pickup.position = world_position
+			add_child(double_damage_pickup)
+			double_damage_pickup_spawned = true
+		
+		attempts += 1
 
 func create_navigation():
 	# Creates the navigation region for pathfinding using the map outline
@@ -138,7 +160,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(30, 60)
+	var total_enemies_to_spawn = randi_range(20, 50)
 
 	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
 		var random_position = map[randi() % len(map)]
