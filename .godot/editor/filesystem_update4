@@ -12,3 +12,6 @@ res://Levels/level_generator_scripts/labyrinth_level.gd
 res://Levels/level_generator_scripts/main_dungeon.gd
 res://UI/ui_scenes/main_menu.tscn
 res://Entities/entities_scripts/player.gd
+res://Interactables/Scenes/double_damage_pickup.tscn
+res://Interactables/interatables_scripts/double_damage_pickup.gd
+res://Interactables/Scenes/health_pickup.tscn

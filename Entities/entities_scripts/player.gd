@@ -17,6 +17,10 @@ var is_in_portal = false
 var is_flashing = false
 var enemies_in_contact = 0
 
+var double_damage_active = false
+var double_damage_timer = 0.0
+const DOUBLE_DAMAGE_DURATION = 10.0  # Duración del efecto de doble daño en segundos
+
 @export var contact_damage = 0.1  # Daño recibido por contacto con enemigos
 @export var speed: int  # Velocidad de movimiento del jugador
 @export var walk_sound_interval = 0.4  # Intervalo entre sonidos de pasos
@@ -77,7 +81,6 @@ func increase_health(amount: int) -> void:
 		player_data.health = 4
 
 func _process(delta: float) -> void:
-	# Main game loop: handle death, input, movement, and shooting
 	if player_data.health <= 0 and current_state != player_states.DEAD:
 		current_state = player_states.DEAD
 		dead()
@@ -90,9 +93,27 @@ func _process(delta: float) -> void:
 		joystick_aiming(delta)
 		movement(delta)
 		bullet_type_shooting(delta)
+		handle_weapon_switch()
+		
+		# Añadir esta sección para manejar el temporizador de doble daño
+		if double_damage_active:
+			double_damage_timer -= delta
+			if double_damage_timer <= 0:
+				deactivate_double_damage()
+		
+func handle_weapon_switch():
+	if Input.is_action_just_pressed("switch_weapon"):
+		switch_weapon()
+			
+func activate_double_damage():
+	double_damage_active = true
+	double_damage_timer = DOUBLE_DAMAGE_DURATION
+	print("Double damage activated for ", DOUBLE_DAMAGE_DURATION, " seconds")
+	# Aquí puedes añadir efectos visuales o sonoros para indicar que el doble daño está activo
 
-		if Input.is_action_just_pressed("switch_weapon"):
-			switch_weapon()
+func deactivate_double_damage():
+	double_damage_active = false
+	print("Double damage deactivated")
 
 func enter_portal():
 	is_in_portal = true
@@ -211,7 +232,11 @@ func instance_bullet() -> void:
 	var bullet_scene = bullet_scenes.get(bullet_type, bullet_scenes["bazooka"])
 	
 	var bullet = bullet_scene.instantiate()
-	bullet.damage = weapon_damage[bullet_type]
+	
+	# Aplicar el efecto de doble daño si está activo
+	var damage_multiplier = 2 if double_damage_active else 1
+	bullet.damage = weapon_damage[bullet_type] * damage_multiplier
+	
 	var bullet_point = current_weapon.get_node("bullet_point")
 	bullet.direction = (bullet_point.global_position - weapons_container.global_position).normalized()
 	bullet.global_position = bullet_point.global_position
@@ -244,14 +269,14 @@ func update_animation_without_gun() -> void:
 			$player_animation.play("Idle")
 			
 func switch_weapon():
-	# Switch to the next weapon
 	current_weapon_index = (current_weapon_index + 1) % weapons.size()
 	update_visible_weapon()
+	print("Switched to weapon index: ", current_weapon_index)  # Debugging
 
 func update_visible_weapon():
-	# Show only the currently selected weapon
 	for i in range(weapons.size()):
 		weapons[i].visible = (i == current_weapon_index)
+	print("Current visible weapon: ", current_weapon_index)  # Debugging
 
 func update_weapon_flip():
 	# Flip the weapon and sprite depending on the aim direction

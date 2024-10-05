@@ -252,7 +252,7 @@ disabled = true
 debug_color = Color(0.904192, 0.253779, 0.443605, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3.5, 3.5)
+zoom = Vector2(2, 2)
 script = ExtResource("4_jek05")
 
 [node name="camera_shake" type="Timer" parent="Camera2D"]
@@ -319,6 +319,8 @@ autostart = true
 
 [node name="mouse_icon" parent="." instance=ExtResource("4_v52kv")]
 scale = Vector2(0.640001, 0.68)
+
+[node name="DoubleIconAnchor" type="Node2D" parent="."]
 
 [connection signal="animation_finished" from="player_animation" to="." method="_on_anim_animation_finished"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
