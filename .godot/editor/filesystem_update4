@@ -2,11 +2,11 @@ res://Entities/Scenes/Player/player.tscn
 res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
 res://Entities/entities_scripts/player.gd
+res://Interactables/Scenes/double_speed_pickup.tscn
+res://Interactables/interatables_scripts/double_speed_pickup.gd
+res://Interactables/Scenes/double_damage_pickup.tscn
 res://Levels/Scenes/main_dungeon.tscn
 res://Levels/Scenes/labyrinth_level.tscn
-res://Interactables/Scenes/health_pickup.tscn
-res://Interactables/Scenes/double_damage_pickup.tscn
-res://UI/ui_scenes/main_menu.tscn
-res://Interactables/interatables_scripts/double_damage_pickup.gd
-res://Levels/level_generator_scripts/labyrinth_level.gd
 res://Levels/level_generator_scripts/main_dungeon.gd
+res://Levels/level_generator_scripts/labyrinth_level.gd
+res://UI/ui_scenes/main_menu.tscn

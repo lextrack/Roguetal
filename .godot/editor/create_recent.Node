@@ -1,10 +1,11 @@
-AudioStreamPlayer2D
-Sprite2D
+Panel
+Label
 Node2D
+AudioStreamPlayer2D
 AnimationPlayer
 CollisionShape2D
+Sprite2D
 Area2D
-Label
 TileMap
 NavigationAgent2D
 Timer

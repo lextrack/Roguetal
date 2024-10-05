@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://brms7i87pfawr"]
+[gd_scene load_steps=23 format=3 uid="uid://brms7i87pfawr"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/player.gd" id="1_ukrib"]
 [ext_resource type="Shader" path="res://Shaders/hurt.gdshader" id="2_dwf4p"]
+[ext_resource type="Texture2D" uid="uid://p75nbpxlt3c7" path="res://Sprites/speed_pickup.png" id="3_kwns6"]
 [ext_resource type="Texture2D" uid="uid://d0xm4ir8srq7n" path="res://Sprites/satiro-Sheet v1.1.png" id="3_vnj0r"]
 [ext_resource type="Script" path="res://Entities/entities_scripts/camera.gd" id="4_jek05"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_v52kv"]
@@ -12,6 +13,16 @@
 [ext_resource type="AudioStream" uid="uid://bwk7dwlyljdul" path="res://SoundEffects/hurting_player.ogg" id="10_aj7pw"]
 [ext_resource type="AudioStream" uid="uid://chf2546e33apu" path="res://SoundEffects/AudioStreamM16Shot.ogg" id="10_emtum"]
 [ext_resource type="Texture2D" uid="uid://ippgb3ck7201" path="res://Sprites/ddamage_pickup.png" id="12_erptt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hllpt"]
+bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
+shadow_size = 3
+anti_aliasing_size = 2.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k6yfg"]
 radius = 7.14286
@@ -222,10 +233,25 @@ speed = 100
 [node name="DoubleIconAnchor" type="Node2D" parent="."]
 scale = Vector2(1, 1)
 
+[node name="Background" type="Panel" parent="DoubleIconAnchor"]
+visible = false
+z_index = -1
+y_sort_enabled = true
+offset_left = -477.0
+offset_top = 219.0
+offset_right = -366.0
+offset_bottom = 266.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hllpt")
+
 [node name="DoubleDamageIcon" type="Sprite2D" parent="DoubleIconAnchor"]
-position = Vector2(-452.857, 242.857)
+position = Vector2(-451.428, 242.857)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("12_erptt")
+
+[node name="DoubleSpeedIcon" type="Sprite2D" parent="DoubleIconAnchor"]
+position = Vector2(-392.857, 242.857)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_kwns6")
 
 [node name="player_colider" type="CollisionShape2D" parent="."]
 position = Vector2(2.85714, 14.2857)
@@ -261,7 +287,7 @@ disabled = true
 debug_color = Color(0.904192, 0.253779, 0.443605, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3.5, 3.5)
+zoom = Vector2(2, 2)
 script = ExtResource("4_jek05")
 
 [node name="camera_shake" type="Timer" parent="Camera2D"]
