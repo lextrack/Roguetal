@@ -15,15 +15,15 @@ var is_attacking = false
 var path_update_timer : Timer
 var reposition_timer : Timer
 
-@export var speed = 90 # Movement speed of the enemy
-@export var max_health: float = 50.0 # Maximum health points of the enemy
-@export var attack_cooldown_time = 0.5 # Time (in seconds) between attacks
-@export var chase_range = 170.0 # Distance at which the enemy starts chasing the player
-@export var obstacle_avoidance_range = 30.0 # Distance for obstacle detection and avoidance
-@export var reposition_distance = 30.0 # Distance the enemy moves when repositioning
-@export var attack_damage = 0.5 # Damage dealt by the enemy's attack
-@export var attack_range = 25.0 # Distance at which the enemy can attack the player
-@export var attack_damage_range = 30.0
+@export var speed = 90 # The movement speed of the enemy
+@export var max_health: float = 50.0 # The maximum health points of the enemy
+@export var attack_cooldown_time = 0.5 # Time (in seconds) between enemy attacks
+@export var chase_range = 170.0 # Distance at which the enemy starts to chase the player
+@export var obstacle_avoidance_range = 5.0 # Distance for detecting and avoiding obstacles
+@export var reposition_distance = 30.0 # Distance the enemy moves to reposition during combat
+@export var attack_damage = 0.2 # Damage dealt by the enemy in each attack
+@export var attack_range = 25.0 # Distance within which the enemy can attack the player
+@export var attack_damage_range = 30.0 # Range of variability in the enemy's attack damage
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D if has_node("NavigationAgent2D") else null
 @onready var target = get_node("../Player")
@@ -48,10 +48,10 @@ func _ready():
 		add_child(navigation_agent)
 	
 	# Distance at which the enemy considers it has reached its target position
-	navigation_agent.path_desired_distance = 4.0
+	navigation_agent.path_desired_distance = 2.0
 
 	# Distance at which the enemy considers it has reached the final target
-	navigation_agent.target_desired_distance = 4.0
+	navigation_agent.target_desired_distance = 2.0
 
 	# Maximum distance between path points
 	navigation_agent.path_max_distance = 50.0

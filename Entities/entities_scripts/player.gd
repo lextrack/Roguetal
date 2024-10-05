@@ -30,6 +30,7 @@ const MAGNET_RADIUS = 100.0
 @onready var double_damage_icon: Sprite2D = $DoubleIconAnchor/DoubleDamageIcon
 @onready var double_speed_icon: Sprite2D = $DoubleIconAnchor/DoubleSpeedIcon
 @onready var magnet_area: Area2D = $MagnetArea
+@onready var background: Panel = $DoubleIconAnchor/Background
 
 var current_state = player_states.MOVE
 var is_dead = false
@@ -71,6 +72,8 @@ func _ready() -> void:
 	setup_magnet_area()
 	add_to_group("player")
 	
+	update_background_visibility()
+	
 func setup_magnet_area():
 	if not magnet_area:
 		magnet_area = Area2D.new()
@@ -81,8 +84,6 @@ func setup_magnet_area():
 	circle_shape.radius = MAGNET_RADIUS
 	collision_shape.shape = circle_shape
 	magnet_area.add_child(collision_shape)
-	
-	magnet_area.connect("area_entered", Callable(self, "_on_magnet_area_area_entered"))
 
 func _on_magnet_area_area_entered(area: Area2D):
 	if area.is_in_group("ammo") and area.has_method("start_attraction"):
@@ -103,6 +104,9 @@ func _process(delta: float) -> void:
 		
 		process_double_damage(delta)
 		process_double_speed(delta)
+		
+		# Update background visibility in each frame
+		update_background_visibility()
 
 func setup_weapons():
 	for i in range(weapons.size()):
@@ -293,11 +297,13 @@ func activate_double_damage():
 	double_damage_timer = DOUBLE_DAMAGE_DURATION
 	if double_damage_icon:
 		double_damage_icon.visible = true
+	update_background_visibility()
 
 func deactivate_double_damage():
 	double_damage_active = false
 	if double_damage_icon:
 		double_damage_icon.visible = false
+	update_background_visibility()
 
 func update_double_damage_icon():
 	if double_damage_icon:
@@ -313,12 +319,14 @@ func activate_double_speed():
 	speed = base_speed * 2
 	if double_speed_icon:
 		double_speed_icon.visible = true
+	update_background_visibility()
 
 func deactivate_double_speed():
 	double_speed_active = false
 	speed = base_speed
 	if double_speed_icon:
 		double_speed_icon.visible = false
+	update_background_visibility()
 
 func update_double_speed_icon():
 	if double_speed_icon:
@@ -327,6 +335,10 @@ func update_double_speed_icon():
 			double_speed_icon.visible = sin(double_speed_timer * 10) > 0
 		else:
 			double_speed_icon.visible = true
+			
+func update_background_visibility():
+	if background:
+		background.visible = double_damage_active or double_speed_active
 
 func take_damage(damage: float):
 	if not is_in_portal:

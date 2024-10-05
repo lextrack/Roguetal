@@ -21,7 +21,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
-shadow_size = 3
+shadow_size = 2
 anti_aliasing_size = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b3ud7"]
@@ -232,7 +232,6 @@ script = ExtResource("1_ukrib")
 speed = 100
 
 [node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(1, 1)
 zoom = Vector2(3.5, 3.5)
 script = ExtResource("4_jek05")
 
@@ -242,23 +241,22 @@ autostart = true
 [node name="DoubleIconAnchor" type="Node2D" parent="."]
 
 [node name="Background" type="Panel" parent="DoubleIconAnchor"]
-visible = false
 z_index = -1
 y_sort_enabled = true
-offset_left = -477.0
-offset_top = 219.0
-offset_right = -366.0
-offset_bottom = 266.0
+offset_left = -269.0
+offset_top = 113.0
+offset_right = -160.0
+offset_bottom = 147.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hllpt")
 
 [node name="DoubleDamageIcon" type="Sprite2D" parent="DoubleIconAnchor"]
-position = Vector2(-451.428, 242.857)
-scale = Vector2(0.2, 0.2)
+position = Vector2(-248.571, 130)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("12_erptt")
 
 [node name="DoubleSpeedIcon" type="Sprite2D" parent="DoubleIconAnchor"]
-position = Vector2(-392.857, 242.857)
-scale = Vector2(0.2, 0.2)
+position = Vector2(-210, 130)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("3_kwns6")
 
 [node name="player_colider" type="CollisionShape2D" parent="."]
@@ -295,11 +293,9 @@ disabled = true
 debug_color = Color(0.904192, 0.253779, 0.443605, 0.42)
 
 [node name="MagnetArea" type="Area2D" parent="."]
-scale = Vector2(1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MagnetArea"]
 position = Vector2(2.85714, 10.7143)
-scale = Vector2(1, 1)
 shape = SubResource("CircleShape2D_k86gn")
 debug_color = Color(0.193606, 0.619216, 0.482845, 0.42)
 

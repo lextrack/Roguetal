@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b4lyw756xgim2"]
+[gd_scene load_steps=11 format=3 uid="uid://b4lyw756xgim2"]
 
 [ext_resource type="Texture2D" uid="uid://dd6r8qjt8krh8" path="res://Sprites/wallpaper_main_menu.png" id="1_b3ohj"]
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
@@ -24,8 +24,29 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
-shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
-shadow_size = 5
+shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
+shadow_size = 3
+anti_aliasing_size = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eigt5"]
+bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
+shadow_size = 3
+anti_aliasing_size = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a52th"]
+bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
+shadow_size = 3
+anti_aliasing_size = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5uur"]
 bg_color = Color(0.099986, 0.099986, 0.099986, 0.945098)
@@ -51,11 +72,11 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_dtrft")
 [node name="Version" type="Label" parent="."]
 texture_filter = 2
 layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 60.0
-offset_bottom = 33.0
-text = "1.0.0.4"
+offset_left = 20.0
+offset_top = 18.0
+offset_right = 70.0
+offset_bottom = 41.0
+text = "1.0.0.5"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -96,7 +117,7 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_font_sizes/font_size = 35
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
-theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_eigt5")
 text = "Credits"
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
@@ -109,11 +130,10 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_font_sizes/font_size = 35
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
-theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
 text = "Exit"
 
 [node name="CreditsPanel" type="Panel" parent="."]
-visible = false
 texture_filter = 2
 layout_mode = 1
 anchors_preset = 8

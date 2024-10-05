@@ -2584,22 +2584,24 @@ script = ExtResource("1_3hfxc")
 script = ExtResource("1_71e1o")
 
 [node name="heart" type="Sprite2D" parent="HUD"]
-position = Vector2(24, 20)
+position = Vector2(34, 30)
 scale = Vector2(2, 2)
 texture = ExtResource("2_c4pei")
 hframes = 5
 
 [node name="ammo" type="Sprite2D" parent="HUD"]
-position = Vector2(38, 67)
+position = Vector2(48, 77)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("4_rja0x")
 
 [node name="ammo_amount" type="Label" parent="HUD"]
 texture_filter = 2
-offset_left = 72.0
-offset_top = 47.0
-offset_right = 112.0
-offset_bottom = 92.0
+offset_left = 82.0
+offset_top = 57.0
+offset_right = 122.0
+offset_bottom = 102.0
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -2607,30 +2609,30 @@ metadata/_edit_use_anchors_ = true
 
 [node name="kill_count_label" type="Label" parent="HUD"]
 texture_filter = 2
-offset_left = 12.0
-offset_top = 100.0
-offset_right = 52.0
-offset_bottom = 123.0
+offset_left = 22.0
+offset_top = 110.0
+offset_right = 62.0
+offset_bottom = 133.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 horizontal_alignment = 1
 
 [node name="highest_streak_label" type="Label" parent="HUD"]
 texture_filter = 2
-offset_left = 12.0
-offset_top = 125.0
-offset_right = 52.0
-offset_bottom = 148.0
+offset_left = 22.0
+offset_top = 135.0
+offset_right = 62.0
+offset_bottom = 158.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 horizontal_alignment = 1
 
 [node name="time_played_label" type="Label" parent="HUD"]
 texture_filter = 2
-offset_left = 12.0
-offset_top = 150.0
-offset_right = 52.0
-offset_bottom = 173.0
+offset_left = 22.0
+offset_top = 160.0
+offset_right = 62.0
+offset_bottom = 183.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 horizontal_alignment = 1

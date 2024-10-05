@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Entities/entities_scripts/scent_trail.gd" id="1_amqwu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_asipo"]
-size = Vector2(33.3333, 26.6667)
+size = Vector2(23.3333, 23.3334)
 
 [node name="scent_trail" type="Area2D" groups=["follow"]]
 scale = Vector2(0.3, 0.3)
@@ -20,7 +20,6 @@ offset_bottom = 13.0
 color = Color(1, 0.0705882, 1, 0.423529)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4.96705e-07, 0)
 shape = SubResource("RectangleShape2D_asipo")
 
 [node name="Timer" type="Timer" parent="." groups=["follow"]]
