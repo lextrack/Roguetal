@@ -1,11 +1,14 @@
+# SCRIPT PLAYER
+
 extends CharacterBody2D
 
 enum player_states {MOVE, DEAD}
 
 const DOUBLE_DAMAGE_DURATION = 30.0
 const DOUBLE_SPEED_DURATION = 30.0
+const MAGNET_RADIUS = 100.0
 
-@export var contact_damage = 0.1
+@export var contact_damage = 0.2
 @export var speed: int
 @export var base_speed: int
 @export var walk_sound_interval = 0.4
@@ -26,6 +29,7 @@ const DOUBLE_SPEED_DURATION = 30.0
 @onready var damage_timer: Timer = $Timers/damage_timer
 @onready var double_damage_icon: Sprite2D = $DoubleIconAnchor/DoubleDamageIcon
 @onready var double_speed_icon: Sprite2D = $DoubleIconAnchor/DoubleSpeedIcon
+@onready var magnet_area: Area2D = $MagnetArea
 
 var current_state = player_states.MOVE
 var is_dead = false
@@ -63,6 +67,26 @@ func _ready() -> void:
 	
 	setup_double_speed_icon()
 	base_speed = speed
+	
+	setup_magnet_area()
+	add_to_group("player")
+	
+func setup_magnet_area():
+	if not magnet_area:
+		magnet_area = Area2D.new()
+		add_child(magnet_area)
+	
+	var collision_shape = CollisionShape2D.new()
+	var circle_shape = CircleShape2D.new()
+	circle_shape.radius = MAGNET_RADIUS
+	collision_shape.shape = circle_shape
+	magnet_area.add_child(collision_shape)
+	
+	magnet_area.connect("area_entered", Callable(self, "_on_magnet_area_area_entered"))
+
+func _on_magnet_area_area_entered(area: Area2D):
+	if area.is_in_group("ammo") and area.has_method("start_attraction"):
+		area.start_attraction(self)
 
 func _process(delta: float) -> void:
 	if player_data.health <= 0 and current_state != player_states.DEAD:

@@ -175,6 +175,7 @@ func get_other_portal_position(existing_position):
 	return map[randi() % len(map)] * 16
 
 func instance_enemies() -> void:
+	# Instance two types of enemies
 	var player_node = get_node("Player")
 	if not player_node:
 		return

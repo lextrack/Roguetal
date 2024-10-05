@@ -17,11 +17,11 @@ var reposition_timer : Timer
 
 @export var speed = 90 # Movement speed of the enemy
 @export var max_health: float = 50.0 # Maximum health points of the enemy
-@export var attack_cooldown_time = 0.9 # Time (in seconds) between attacks
+@export var attack_cooldown_time = 0.5 # Time (in seconds) between attacks
 @export var chase_range = 170.0 # Distance at which the enemy starts chasing the player
 @export var obstacle_avoidance_range = 30.0 # Distance for obstacle detection and avoidance
 @export var reposition_distance = 30.0 # Distance the enemy moves when repositioning
-@export var attack_damage = 0.3 # Damage dealt by the enemy's attack
+@export var attack_damage = 0.5 # Damage dealt by the enemy's attack
 @export var attack_range = 25.0 # Distance at which the enemy can attack the player
 @export var attack_damage_range = 30.0
 
@@ -101,7 +101,7 @@ func idle_state():
 	if is_instance_valid(target) and global_position.distance_to(target.global_position) <= chase_range:
 		exit_idle_state()
 		current_state = enemy_state.CHASE
-	elif randf() < 0.001:
+	elif randf() < 0.01:
 		exit_idle_state()
 		current_state = enemy_state.PATROL
 		update_path()
@@ -152,7 +152,7 @@ func attack_state(delta):
 		if distance_to_target > attack_damage_range:
 			velocity = direction * speed
 		else:
-			velocity = direction * (speed * 0.5)
+			velocity = direction * (speed * 1.0)
 		move_and_slide()
 		play_movement_animation(direction)
 
@@ -353,7 +353,7 @@ func instance_fx():
 # Spawn ammo pickup on death
 func instance_ammo():
 	var drop_chance = randf()
-	if drop_chance < 0.5:
+	if drop_chance < 0.4:
 		var ammo_scene = preload("res://Interactables/Scenes/ammo_1.tscn")
 		var ammo = ammo_scene.instantiate()
 		ammo.global_position = global_position
