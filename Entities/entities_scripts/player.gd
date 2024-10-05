@@ -1,3 +1,5 @@
+# PLAYER SCRIPT
+
 extends CharacterBody2D
 
 enum player_states {MOVE, DEAD}

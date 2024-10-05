@@ -33,7 +33,7 @@ func _input(event: InputEvent) -> void:
 func generate_level() -> void:
 	# Generates the entire level including map, player, enemies, and pickups
 	walker = Walker_room.new(Vector2(25,25), borders)
-	map = walker.walk(600)
+	map = walker.walk(700)
 	clear_and_set_tiles()
 	instance_player()
 	instance_portal()
@@ -140,7 +140,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(25, 50)
+	var total_enemies_to_spawn = randi_range(30, 60)
 	
 	var min_enemies_per_type = 5
 	var enemy_1_count = 0

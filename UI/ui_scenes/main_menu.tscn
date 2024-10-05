@@ -48,6 +48,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_dtrft")
 
+[node name="Version" type="Label" parent="."]
+texture_filter = 2
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 60.0
+offset_bottom = 33.0
+text = "1.0.0.4"
+horizontal_alignment = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -175,16 +185,6 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 18
 text = "Author: Ariel Alejandro Muñoz (Lextrack)"
-horizontal_alignment = 1
-
-[node name="Version" type="Label" parent="."]
-texture_filter = 2
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 60.0
-offset_bottom = 33.0
-text = "1.0.0.4"
 horizontal_alignment = 1
 
 [node name="HoverSound" type="AudioStreamPlayer2D" parent="."]
