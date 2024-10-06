@@ -4,11 +4,11 @@ extends CharacterBody2D
 
 enum player_states {MOVE, DEAD}
 
-const DOUBLE_DAMAGE_DURATION = 10.0
-const DOUBLE_SPEED_DURATION = 10.0
+const DOUBLE_DAMAGE_DURATION = 30.0
+const DOUBLE_SPEED_DURATION = 30.0
 const MAGNET_RADIUS = 100.0
 
-@export var contact_damage = 0.2
+@export var contact_damage = 0.1
 @export var speed: int
 @export var base_speed: int
 @export var walk_sound_interval = 0.4
@@ -32,6 +32,7 @@ const MAGNET_RADIUS = 100.0
 @onready var background: Panel = $hud_powerup/Background
 @onready var double_damage_icon: Sprite2D = $hud_powerup/double_damage_icon
 @onready var double_speed_icon: Sprite2D = $hud_powerup/double_speed_icon
+@onready var power_up_manager = $PowerUpManager
 
 var current_state = player_states.MOVE
 var is_dead = false
@@ -43,10 +44,6 @@ var shoot_timer: float = 0.0
 var is_in_portal = false
 var is_flashing = false
 var enemies_in_contact = 0
-var double_damage_active = false
-var double_damage_timer = 0.0
-var double_speed_active = false
-var double_speed_timer = 0.0
 var pos
 var rot
 var input_movement = Vector2()
@@ -77,6 +74,24 @@ func _ready() -> void:
 	background.modulate.a = 0
 	background.scale = Vector2.ZERO
 	
+	if power_up_manager:
+		power_up_manager.connect("double_damage_changed", Callable(self, "_on_double_damage_changed"))
+		power_up_manager.connect("double_speed_changed", Callable(self, "_on_double_speed_changed"))
+	else:
+		push_error("PowerUpManager no encontrado. Asegúrate de que el nodo está presente y tiene el nombre correcto.")
+	
+func _on_double_damage_changed(active: bool) -> void:
+	update_double_damage_icon()
+	update_background_visibility()
+
+func _on_double_speed_changed(active: bool) -> void:
+	if active:
+		speed = base_speed * 2
+	else:
+		speed = base_speed
+	update_double_speed_icon()
+	update_background_visibility()
+	
 func setup_magnet_area():
 	if not magnet_area:
 		magnet_area = Area2D.new()
@@ -104,9 +119,6 @@ func _process(delta: float) -> void:
 		movement(delta)
 		bullet_type_shooting(delta)
 		handle_weapon_switch()
-		
-		process_double_damage(delta)
-		process_double_speed(delta)
 		
 		update_background_visibility()
 
@@ -214,7 +226,7 @@ func instance_bullet() -> void:
 	var bullet_scene = bullet_scenes.get(bullet_type, bullet_scenes["bazooka"])
 	var bullet = bullet_scene.instantiate()
 	
-	var damage_multiplier = 2 if double_damage_active else 1
+	var damage_multiplier = 2 if power_up_manager and power_up_manager.is_double_damage_active() else 1
 	bullet.damage = weapon_damage[bullet_type] * damage_multiplier
 	
 	var bullet_point = current_weapon.get_node("bullet_point")
@@ -278,65 +290,25 @@ func update_animation_without_gun() -> void:
 		if not $player_animation.is_playing() or $player_animation.current_animation != "Idle":
 			$player_animation.play("Idle")
 
-func process_double_damage(delta: float):
-	if double_damage_active:
-		double_damage_timer -= delta
-		if double_damage_timer <= 0:
-			deactivate_double_damage()
-		else:
-			update_double_damage_icon()
-
-func process_double_speed(delta: float):
-	if double_speed_active:
-		double_speed_timer -= delta
-		if double_speed_timer <= 0:
-			deactivate_double_speed()
-		else:
-			update_double_speed_icon()
-
-func activate_double_damage():
-	double_damage_active = true
-	double_damage_timer = DOUBLE_DAMAGE_DURATION
-	if double_damage_icon:
-		double_damage_icon.visible = true
-	update_background_visibility()
-
-func deactivate_double_damage():
-	double_damage_active = false
-	if double_damage_icon:
-		double_damage_icon.visible = false
-	update_background_visibility()
-
 func update_double_damage_icon():
 	if double_damage_icon:
 		var blink_threshold = 3.0
-		if double_damage_timer <= blink_threshold:
-			double_damage_icon.visible = sin(double_damage_timer * 10) > 0
-		else:
+		if power_up_manager.is_double_damage_active():
 			double_damage_icon.visible = true
-
-func activate_double_speed():
-	double_speed_active = true
-	double_speed_timer = DOUBLE_SPEED_DURATION
-	speed = base_speed * 2
-	if double_speed_icon:
-		double_speed_icon.visible = true
-	update_background_visibility()
-
-func deactivate_double_speed():
-	double_speed_active = false
-	speed = base_speed
-	if double_speed_icon:
-		double_speed_icon.visible = false
-	update_background_visibility()
+			if power_up_manager.get_double_damage_timer() <= blink_threshold:
+				double_damage_icon.visible = sin(power_up_manager.get_double_damage_timer() * 10) > 0
+		else:
+			double_damage_icon.visible = false
 
 func update_double_speed_icon():
 	if double_speed_icon:
 		var blink_threshold = 3.0
-		if double_speed_timer <= blink_threshold:
-			double_speed_icon.visible = sin(double_speed_timer * 10) > 0
-		else:
+		if power_up_manager.is_double_speed_active():
 			double_speed_icon.visible = true
+			if power_up_manager.get_double_speed_timer() <= blink_threshold:
+				double_speed_icon.visible = sin(power_up_manager.get_double_speed_timer() * 10) > 0
+		else:
+			double_speed_icon.visible = false
 
 func take_damage(damage: float):
 	if not is_in_portal:
@@ -394,13 +366,15 @@ func flash_damage():
 	tween.tween_callback(func(): is_flashing = false)
 	
 func update_background_visibility():
-	if background:
-		var should_be_visible = double_damage_active or double_speed_active
+	if background and power_up_manager:
+		var should_be_visible = power_up_manager.is_double_damage_active() or power_up_manager.is_double_speed_active()
 		
 		if should_be_visible and not background.visible:
 			show_background_with_animation()
 		elif not should_be_visible and background.visible:
 			hide_background_with_animation()
+	elif not power_up_manager:
+		push_error("PowerUpManager no está disponible en update_background_visibility()")
 			
 func show_background_with_animation():
 	if tween:

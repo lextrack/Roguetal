@@ -1,3 +1,4 @@
+Node
 Panel
 CollisionShape2D
 Area2D
@@ -9,6 +10,5 @@ Sprite2D
 TileMap
 NavigationAgent2D
 Timer
-Node
 ColorRect
 RichTextLabel
