@@ -14,15 +14,14 @@
 [ext_resource type="AudioStream" uid="uid://chf2546e33apu" path="res://SoundEffects/AudioStreamM16Shot.ogg" id="10_emtum"]
 [ext_resource type="Texture2D" uid="uid://ippgb3ck7201" path="res://Sprites/ddamage_pickup.png" id="12_erptt"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hllpt"]
-bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
-shadow_size = 2
-anti_aliasing_size = 2.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhg3p"]
+bg_color = Color(0, 0, 0, 0.545098)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.117647)
+shadow_size = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b3ud7"]
 size = Vector2(17.8571, 23.2143)
@@ -238,25 +237,25 @@ script = ExtResource("4_jek05")
 [node name="camera_shake" type="Timer" parent="Camera2D"]
 autostart = true
 
-[node name="DoubleIconAnchor" type="Node2D" parent="."]
+[node name="hud_powerup" type="Node2D" parent="."]
 
-[node name="Background" type="Panel" parent="DoubleIconAnchor"]
-z_index = -1
-y_sort_enabled = true
-offset_left = -269.0
-offset_top = 113.0
-offset_right = -160.0
-offset_bottom = 147.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_hllpt")
+[node name="Background" type="Panel" parent="hud_powerup"]
+offset_left = -261.0
+offset_top = 111.0
+offset_right = -183.0
+offset_bottom = 134.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhg3p")
 
-[node name="DoubleDamageIcon" type="Sprite2D" parent="DoubleIconAnchor"]
-position = Vector2(-248.571, 130)
-scale = Vector2(0.15, 0.15)
+[node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
+position = Vector2(-204.286, 122.857)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("12_erptt")
 
-[node name="DoubleSpeedIcon" type="Sprite2D" parent="DoubleIconAnchor"]
-position = Vector2(-210, 130)
-scale = Vector2(0.15, 0.15)
+[node name="double_speed_icon" type="Sprite2D" parent="hud_powerup"]
+position = Vector2(-240, 122.857)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_kwns6")
 
 [node name="player_colider" type="CollisionShape2D" parent="."]

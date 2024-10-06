@@ -1,6 +1,6 @@
+Panel
 CollisionShape2D
 Area2D
-Panel
 Label
 Node2D
 AudioStreamPlayer2D

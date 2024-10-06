@@ -28,6 +28,7 @@ MusicMainMenu="*res://SoundEffects/sound_scenes/music_main_menu.tscn"
 window/size/viewport_width=1366
 window/size/viewport_height=768
 window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [input]
 

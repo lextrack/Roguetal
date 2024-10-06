@@ -46,7 +46,7 @@ func update_time_played(delta: float):
 
 func update_highest_streak():
 	if player_data.highest_kill_streak != previous_highest_streak:
-		highest_streak_label.text = "Highest Streak: " + str(player_data.highest_kill_streak)
+		highest_streak_label.text = "Highest streak: " + str(player_data.highest_kill_streak)
 		if player_data.highest_kill_streak > previous_highest_streak:
 			animate_highest_streak()
 		previous_highest_streak = player_data.highest_kill_streak

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://qxvjn3o53fdy"]
+[gd_scene load_steps=14 format=3 uid="uid://qxvjn3o53fdy"]
 
 [ext_resource type="Script" path="res://Levels/level_generator_scripts/main_dungeon.gd" id="1_f0bfp"]
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="2_qreqx"]
@@ -7,6 +7,15 @@
 [ext_resource type="Texture2D" uid="uid://dwphcmpag53is" path="res://Sprites/ammo_ui.png" id="5_uurhp"]
 [ext_resource type="Texture2D" uid="uid://02ay4cfoeh8i" path="res://Sprites/mainlevbuild.png" id="7_654wf"]
 [ext_resource type="Texture2D" uid="uid://l85tm3xdtcna" path="res://Sprites/Main_dungeon brick level.png" id="8_ujiuc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xi6px"]
+bg_color = Color(0, 0, 0, 0.545098)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.117647)
+shadow_size = 1
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ce5gt"]
 texture = ExtResource("7_654wf")
@@ -2519,7 +2528,7 @@ hframes = 5
 
 [node name="ammo" type="Sprite2D" parent="HUD"]
 position = Vector2(48, 77)
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_uurhp")
 
 [node name="ammo_amount" type="Label" parent="HUD"]
@@ -2528,38 +2537,54 @@ offset_left = 82.0
 offset_top = 57.0
 offset_right = 122.0
 offset_bottom = 102.0
-theme_override_font_sizes/font_size = 30
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="kill_count_label" type="Label" parent="HUD"]
 texture_filter = 2
-offset_left = 22.0
-offset_top = 110.0
-offset_right = 62.0
-offset_bottom = 133.0
+offset_left = 21.0
+offset_top = 111.0
+offset_right = 61.0
+offset_bottom = 134.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 
 [node name="highest_streak_label" type="Label" parent="HUD"]
-offset_left = 22.0
-offset_top = 135.0
-offset_right = 62.0
-offset_bottom = 158.0
+texture_filter = 2
+offset_left = 21.0
+offset_top = 136.0
+offset_right = 61.0
+offset_bottom = 159.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 
 [node name="time_played_label" type="Label" parent="HUD"]
-offset_left = 22.0
-offset_top = 160.0
-offset_right = 62.0
-offset_bottom = 183.0
+texture_filter = 2
+offset_left = 21.0
+offset_top = 161.0
+offset_right = 61.0
+offset_bottom = 184.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
+
+[node name="Background" type="Panel" parent="HUD"]
+z_index = -1
+y_sort_enabled = true
+offset_left = 18.0
+offset_top = 108.0
+offset_right = 164.0
+offset_bottom = 185.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xi6px")
 
 [node name="Tiles" type="Node2D" parent="."]
 

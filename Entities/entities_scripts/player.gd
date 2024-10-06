@@ -4,8 +4,8 @@ extends CharacterBody2D
 
 enum player_states {MOVE, DEAD}
 
-const DOUBLE_DAMAGE_DURATION = 30.0
-const DOUBLE_SPEED_DURATION = 30.0
+const DOUBLE_DAMAGE_DURATION = 10.0
+const DOUBLE_SPEED_DURATION = 10.0
 const MAGNET_RADIUS = 100.0
 
 @export var contact_damage = 0.2
@@ -27,10 +27,11 @@ const MAGNET_RADIUS = 100.0
 @onready var cursor_script = $mouse_icon
 @onready var audio_stream_dead_player: AudioStreamPlayer2D = $Sounds/AudioStreamDeadPlayer
 @onready var damage_timer: Timer = $Timers/damage_timer
-@onready var double_damage_icon: Sprite2D = $DoubleIconAnchor/DoubleDamageIcon
-@onready var double_speed_icon: Sprite2D = $DoubleIconAnchor/DoubleSpeedIcon
 @onready var magnet_area: Area2D = $MagnetArea
-@onready var background: Panel = $DoubleIconAnchor/Background
+@onready var tween: Tween
+@onready var background: Panel = $hud_powerup/Background
+@onready var double_damage_icon: Sprite2D = $hud_powerup/double_damage_icon
+@onready var double_speed_icon: Sprite2D = $hud_powerup/double_speed_icon
 
 var current_state = player_states.MOVE
 var is_dead = false
@@ -73,6 +74,8 @@ func _ready() -> void:
 	add_to_group("player")
 	
 	update_background_visibility()
+	background.modulate.a = 0
+	background.scale = Vector2.ZERO
 	
 func setup_magnet_area():
 	if not magnet_area:
@@ -105,7 +108,6 @@ func _process(delta: float) -> void:
 		process_double_damage(delta)
 		process_double_speed(delta)
 		
-		# Update background visibility in each frame
 		update_background_visibility()
 
 func setup_weapons():
@@ -335,10 +337,6 @@ func update_double_speed_icon():
 			double_speed_icon.visible = sin(double_speed_timer * 10) > 0
 		else:
 			double_speed_icon.visible = true
-			
-func update_background_visibility():
-	if background:
-		background.visible = double_damage_active or double_speed_active
 
 func take_damage(damage: float):
 	if not is_in_portal:
@@ -352,22 +350,6 @@ func increase_health(amount: int) -> void:
 	player_data.health += amount
 	if player_data.health > 4:
 		player_data.health = 4
-
-func flash_damage():
-	if is_flashing:
-		return
-	
-	is_flashing = true
-	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.7)
-	
-	var flash_duration = 0.01
-	var fade_duration = 0.1
-	
-	await get_tree().create_timer(flash_duration).timeout
-	
-	var tween = create_tween()
-	tween.tween_property($Sprite2D.material, "shader_parameter/flash_modifier", 0.0, fade_duration)
-	tween.tween_callback(func(): is_flashing = false)
 
 func dead() -> void:
 	if not is_dead:
@@ -394,6 +376,59 @@ func instance_trail():
 	var trail = trail_scene.instantiate()
 	trail.global_position = global_position
 	get_tree().root.add_child(trail)
+	
+func flash_damage():
+	if is_flashing:
+		return
+	
+	is_flashing = true
+	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.7)
+	
+	var flash_duration = 0.01
+	var fade_duration = 0.1
+	
+	await get_tree().create_timer(flash_duration).timeout
+	
+	var tween = create_tween()
+	tween.tween_property($Sprite2D.material, "shader_parameter/flash_modifier", 0.0, fade_duration)
+	tween.tween_callback(func(): is_flashing = false)
+	
+func update_background_visibility():
+	if background:
+		var should_be_visible = double_damage_active or double_speed_active
+		
+		if should_be_visible and not background.visible:
+			show_background_with_animation()
+		elif not should_be_visible and background.visible:
+			hide_background_with_animation()
+			
+func show_background_with_animation():
+	if tween:
+		tween.kill()
+	tween = create_tween()
+	background.visible = true
+	background.pivot_offset = background.size / 2
+	
+	tween.set_parallel(true)
+	tween.tween_property(background, "modulate:a", 1.0, 0.2).set_ease(Tween.EASE_OUT)
+	tween.tween_property(background, "scale", Vector2(1.2, 1.2), 0.2).set_ease(Tween.EASE_OUT)
+	tween.tween_property(background, "rotation", PI * 1, 0.2).set_ease(Tween.EASE_OUT)
+	tween.chain().tween_property(background, "scale", Vector2.ONE, 0.1).set_ease(Tween.EASE_IN)
+
+func hide_background_with_animation():
+	if tween:
+		tween.kill()
+	tween = create_tween()
+	
+	background.visible = true
+	background.pivot_offset = background.size / 2
+	
+	tween.set_parallel(true)
+	tween.tween_property(background, "modulate:a", 0.0, 0.2).set_ease(Tween.EASE_IN)
+	tween.tween_property(background, "scale", Vector2(0.8, 0.8), 0.2).set_ease(Tween.EASE_IN)
+	tween.tween_property(background, "rotation", -PI / 1, 0.2).set_ease(Tween.EASE_IN)
+	
+	tween.chain().tween_callback(func(): background.visible = false)
 
 func _on_anim_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Dead":
