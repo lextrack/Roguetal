@@ -1,3 +1,5 @@
+# SCRIPT POWERUP MANAGER
+
 extends Node
 
 signal double_damage_changed(active: bool)

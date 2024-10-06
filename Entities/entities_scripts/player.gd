@@ -4,8 +4,6 @@ extends CharacterBody2D
 
 enum player_states {MOVE, DEAD}
 
-const DOUBLE_DAMAGE_DURATION = 30.0
-const DOUBLE_SPEED_DURATION = 30.0
 const MAGNET_RADIUS = 100.0
 
 @export var contact_damage = 0.1
