@@ -45,8 +45,8 @@ var input_movement = Vector2()
 var weapons = []
 var current_weapon_index = 0
 var weapon_damage = {
-	"bazooka": 40,
-	"m16": 15
+	"bazooka": 5,
+	"m16": 2
 }
 
 func _ready() -> void:
@@ -69,23 +69,20 @@ func _ready() -> void:
 	
 func power_up_manager_check() -> void:
 	if power_up_manager:
-		power_up_manager.connect("double_damage_changed", Callable(self, "_on_double_damage_changed"))
-		power_up_manager.connect("double_speed_changed", Callable(self, "_on_double_speed_changed"))
+		power_up_manager.connect("damage_multiplier_changed", Callable(self, "_on_damage_multiplier_changed"))
+		power_up_manager.connect("speed_multiplier_changed", Callable(self, "_on_speed_multiplier_changed"))
 	else:
 		push_error("PowerUpManager not found. Make sure the node is present and has the correct name.")
 
-	_on_double_damage_changed(GlobalPowerUpState.double_damage_active)
-	_on_double_speed_changed(GlobalPowerUpState.double_speed_active)
-	
-func _on_double_damage_changed(active: bool) -> void:
-	update_double_damage_icon()
+	_on_damage_multiplier_changed(power_up_manager.get_damage_multiplier())
+	_on_speed_multiplier_changed(power_up_manager.get_speed_multiplier())
 
-func _on_double_speed_changed(active: bool) -> void:
-	if active:
-		speed = base_speed * 2
-	else:
-		speed = base_speed
-	update_double_speed_icon()
+func _on_damage_multiplier_changed(multiplier: float) -> void:
+	update_double_damage_icon(multiplier)
+
+func _on_speed_multiplier_changed(multiplier: float) -> void:
+	speed = base_speed * multiplier
+	update_double_speed_icon(multiplier)
 	
 func setup_magnet_area():
 	if not magnet_area:
@@ -155,7 +152,7 @@ func instance_bullet() -> void:
 	var bullet_scene = bullet_scenes.get(bullet_type, bullet_scenes["bazooka"])
 	var bullet = bullet_scene.instantiate()
 	
-	var damage_multiplier = 2 if power_up_manager and power_up_manager.is_double_damage_active() else 1
+	var damage_multiplier = power_up_manager.get_damage_multiplier() if power_up_manager else 1.0
 	bullet.damage = weapon_damage[bullet_type] * damage_multiplier
 	
 	var bullet_point = current_weapon.get_node("bullet_point")
@@ -167,6 +164,7 @@ func instance_bullet() -> void:
 		$Sounds/AudioStreamBazookaShot.play()
 	elif bullet_type == "m16":
 		$Sounds/AudioStreamM16Shot.play()
+
 		
 func bullet_type_shooting(delta: float):
 	var current_weapon = weapons[current_weapon_index]
@@ -275,13 +273,13 @@ func movement(delta: float) -> void:
 	
 	move_and_slide()
 
-func update_double_damage_icon():
+func update_double_damage_icon(multiplier: float):
 	if double_damage_icon:
-		double_damage_icon.visible = power_up_manager.is_double_damage_active()
+		double_damage_icon.visible = multiplier > 1.0
 
-func update_double_speed_icon():
+func update_double_speed_icon(multiplier: float):
 	if double_speed_icon:
-		double_speed_icon.visible = power_up_manager.is_double_speed_active()
+		double_speed_icon.visible = multiplier > 1.0
 		
 func setup_double_damage_icon():
 	if double_damage_icon:

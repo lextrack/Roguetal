@@ -1,14 +1,23 @@
 extends Node
 
-var double_damage_active = false
-var double_speed_active = false
+var damage_multiplier = 1.0
+var speed_multiplier = 1.0
+
+const BASE_DAMAGE_MULTIPLIER = 2.0
+const BASE_SPEED_MULTIPLIER = 2.0
 
 func reset_power_ups():
-	double_damage_active = false
-	double_speed_active = false
+	damage_multiplier = 1.0
+	speed_multiplier = 1.0
 
 func activate_double_damage():
-	double_damage_active = true
+	damage_multiplier *= BASE_DAMAGE_MULTIPLIER
 
 func activate_double_speed():
-	double_speed_active = true
+	speed_multiplier *= BASE_SPEED_MULTIPLIER
+
+func get_damage_multiplier():
+	return damage_multiplier
+
+func get_speed_multiplier():
+	return speed_multiplier
