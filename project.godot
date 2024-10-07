@@ -22,6 +22,7 @@ Globals="*res://Global.gd"
 MusicDungeon="*res://SoundEffects/sound_scenes/music_dungeon.tscn"
 MusicMainLevel="*res://SoundEffects/sound_scenes/music_main_level.tscn"
 MusicMainMenu="*res://SoundEffects/sound_scenes/music_main_menu.tscn"
+GlobalPowerUpState="*res://GlobalPowerUpState.gd"
 
 [display]
 

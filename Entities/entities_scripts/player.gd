@@ -27,7 +27,6 @@ const MAGNET_RADIUS = 100.0
 @onready var damage_timer: Timer = $Timers/damage_timer
 @onready var magnet_area: Area2D = $MagnetArea
 @onready var tween: Tween
-@onready var background: Panel = $hud_powerup/Background
 @onready var double_damage_icon: Sprite2D = $hud_powerup/double_damage_icon
 @onready var double_speed_icon: Sprite2D = $hud_powerup/double_speed_icon
 @onready var power_up_manager = $PowerUpManager
@@ -68,19 +67,17 @@ func _ready() -> void:
 	setup_magnet_area()
 	add_to_group("player")
 	
-	update_background_visibility()
-	background.modulate.a = 0
-	background.scale = Vector2.ZERO
-	
 	if power_up_manager:
 		power_up_manager.connect("double_damage_changed", Callable(self, "_on_double_damage_changed"))
 		power_up_manager.connect("double_speed_changed", Callable(self, "_on_double_speed_changed"))
 	else:
-		push_error("PowerUpManager no encontrado. Asegúrate de que el nodo está presente y tiene el nombre correcto.")
+		push_error("PowerUpManager not found. Make sure the node is present and has the correct name.")
+
+	_on_double_damage_changed(GlobalPowerUpState.double_damage_active)
+	_on_double_speed_changed(GlobalPowerUpState.double_speed_active)
 	
 func _on_double_damage_changed(active: bool) -> void:
 	update_double_damage_icon()
-	update_background_visibility()
 
 func _on_double_speed_changed(active: bool) -> void:
 	if active:
@@ -88,7 +85,6 @@ func _on_double_speed_changed(active: bool) -> void:
 	else:
 		speed = base_speed
 	update_double_speed_icon()
-	update_background_visibility()
 	
 func setup_magnet_area():
 	if not magnet_area:
@@ -117,8 +113,6 @@ func _process(delta: float) -> void:
 		movement(delta)
 		bullet_type_shooting(delta)
 		handle_weapon_switch()
-		
-		update_background_visibility()
 
 func setup_weapons():
 	for i in range(weapons.size()):
@@ -290,23 +284,11 @@ func update_animation_without_gun() -> void:
 
 func update_double_damage_icon():
 	if double_damage_icon:
-		var blink_threshold = 3.0
-		if power_up_manager.is_double_damage_active():
-			double_damage_icon.visible = true
-			if power_up_manager.get_double_damage_timer() <= blink_threshold:
-				double_damage_icon.visible = sin(power_up_manager.get_double_damage_timer() * 10) > 0
-		else:
-			double_damage_icon.visible = false
+		double_damage_icon.visible = power_up_manager.is_double_damage_active()
 
 func update_double_speed_icon():
 	if double_speed_icon:
-		var blink_threshold = 3.0
-		if power_up_manager.is_double_speed_active():
-			double_speed_icon.visible = true
-			if power_up_manager.get_double_speed_timer() <= blink_threshold:
-				double_speed_icon.visible = sin(power_up_manager.get_double_speed_timer() * 10) > 0
-		else:
-			double_speed_icon.visible = false
+		double_speed_icon.visible = power_up_manager.is_double_speed_active()
 
 func take_damage(damage: float):
 	if not is_in_portal:
@@ -332,6 +314,10 @@ func dead() -> void:
 		player_data.ammo += 10
 		player_data.kill_count = 0
 		player_data.reset_kill_streak()
+		
+		# Reset power-ups when the player dies
+		if power_up_manager:
+			power_up_manager.reset_power_ups()
 
 func reset_state():
 	current_state = player_states.MOVE
@@ -362,51 +348,16 @@ func flash_damage():
 	var tween = create_tween()
 	tween.tween_property($Sprite2D.material, "shader_parameter/flash_modifier", 0.0, fade_duration)
 	tween.tween_callback(func(): is_flashing = false)
-	
-func update_background_visibility():
-	if background and power_up_manager:
-		var should_be_visible = power_up_manager.is_double_damage_active() or power_up_manager.is_double_speed_active()
-		
-		if should_be_visible and not background.visible:
-			show_background_with_animation()
-		elif not should_be_visible and background.visible:
-			hide_background_with_animation()
-	elif not power_up_manager:
-		push_error("PowerUpManager no está disponible en update_background_visibility()")
-			
-func show_background_with_animation():
-	if tween:
-		tween.kill()
-	tween = create_tween()
-	background.visible = true
-	background.pivot_offset = background.size / 2
-	
-	tween.set_parallel(true)
-	tween.tween_property(background, "modulate:a", 1.0, 0.2).set_ease(Tween.EASE_OUT)
-	tween.tween_property(background, "scale", Vector2(1.2, 1.2), 0.2).set_ease(Tween.EASE_OUT)
-	tween.tween_property(background, "rotation", PI * 1, 0.2).set_ease(Tween.EASE_OUT)
-	tween.chain().tween_property(background, "scale", Vector2.ONE, 0.1).set_ease(Tween.EASE_IN)
 
-func hide_background_with_animation():
-	if tween:
-		tween.kill()
-	tween = create_tween()
-	
-	background.visible = true
-	background.pivot_offset = background.size / 2
-	
-	tween.set_parallel(true)
-	tween.tween_property(background, "modulate:a", 0.0, 0.2).set_ease(Tween.EASE_IN)
-	tween.tween_property(background, "scale", Vector2(0.8, 0.8), 0.2).set_ease(Tween.EASE_IN)
-	tween.tween_property(background, "rotation", -PI / 1, 0.2).set_ease(Tween.EASE_IN)
-	
-	tween.chain().tween_callback(func(): background.visible = false)
 
 func _on_anim_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Dead":
 		var highest_streak = player_data.highest_kill_streak
 		player_data.reset_stats()
 		player_data.highest_kill_streak = highest_streak
+		# Reset power-ups before reloading the scene
+		if power_up_manager:
+			power_up_manager.reset_power_ups()
 		get_tree().reload_current_scene()
 
 func _on_trail_timer_timeout() -> void:
