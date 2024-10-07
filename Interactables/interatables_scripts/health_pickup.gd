@@ -6,9 +6,6 @@ extends Area2D
 func _ready() -> void:
 	$heart_collider.set_deferred("disabled", false)
 
-func _process(delta: float) -> void:
-	pass
-
 func _on_area_entered(area: Area2D) -> void:
 	pass
 

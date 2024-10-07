@@ -3,24 +3,27 @@ extends Area2D
 @onready var portal_enter_sound: AudioStreamPlayer2D = $portal_enter_sound
 @onready var loading_screen: PackedScene = preload("res://UI/ui_scenes/loading_screen.tscn")
 
-var last_level: String = ""
-var levels = [
+const LEVELS = [
 	"res://Levels/Scenes/main_dungeon.tscn",
 	"res://Levels/Scenes/main_dungeon_2.tscn",
 	"res://Levels/Scenes/labyrinth_level.tscn"
 ]
 
+var last_level: String = ""
+
 func _ready() -> void:
-	pass
+	if not is_connected("body_entered", Callable(self, "_on_body_entered")):
+		connect("body_entered", Callable(self, "_on_body_entered"))
+	if not is_connected("body_exited", Callable(self, "_on_body_exited")):
+		connect("body_exited", Callable(self, "_on_body_exited"))
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
-		body.enter_portal()
+	if body.is_in_group("player"):
+		body.enter_portal("next_level")
 		portal_enter_sound.play()
 		await portal_enter_sound.finished
 		
-		levels.shuffle()
-		var selected_level = levels[0]
+		var selected_level = select_random_level()
 		
 		if selected_level != last_level:
 			last_level = selected_level
@@ -29,5 +32,9 @@ func _on_body_entered(body: Node2D) -> void:
 			loading_instance.load_scene(selected_level)
 
 func _on_body_exited(body: Node2D) -> void:
-	if body.name == "Player":
+	if body.is_in_group("player"):
 		body.exit_portal()
+
+func select_random_level() -> String:
+	var available_levels = LEVELS.filter(func(level): return level != last_level)
+	return available_levels[randi() % available_levels.size()]

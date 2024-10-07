@@ -1,5 +1,3 @@
-# SCRIPT PLAYER
-
 extends CharacterBody2D
 
 enum player_states {MOVE, DEAD}
@@ -67,6 +65,9 @@ func _ready() -> void:
 	setup_magnet_area()
 	add_to_group("player")
 	
+	power_up_manager_check()
+	
+func power_up_manager_check() -> void:
 	if power_up_manager:
 		power_up_manager.connect("double_damage_changed", Callable(self, "_on_double_damage_changed"))
 		power_up_manager.connect("double_speed_changed", Callable(self, "_on_double_speed_changed"))
@@ -90,7 +91,7 @@ func setup_magnet_area():
 	if not magnet_area:
 		magnet_area = Area2D.new()
 		add_child(magnet_area)
-	
+	# REVISAR ESTO LUEGO, SI ES NECESARIO O VALE CON EL QUE CREE MANUALMENTE
 	var collision_shape = CollisionShape2D.new()
 	var circle_shape = CircleShape2D.new()
 	circle_shape.radius = MAGNET_RADIUS
@@ -113,53 +114,6 @@ func _process(delta: float) -> void:
 		movement(delta)
 		bullet_type_shooting(delta)
 		handle_weapon_switch()
-
-func setup_weapons():
-	for i in range(weapons.size()):
-		var weapon = weapons[i]
-		if i == 0:
-			weapon.set_meta("bullet_type", "bazooka")
-		elif i == 1:
-			weapon.set_meta("bullet_type", "m16")
-
-func setup_double_damage_icon():
-	if double_damage_icon:
-		double_damage_icon.visible = false
-
-func setup_double_speed_icon():
-	if double_speed_icon:
-		double_speed_icon.visible = false
-
-func movement(delta: float) -> void:
-	if current_state == player_states.DEAD:
-		return
-	
-	input_movement = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	
-	if input_movement != Vector2.ZERO:
-		input_movement = input_movement.normalized()
-		input_movement = Vector2(round(input_movement.x), round(input_movement.y))
-		
-		velocity = input_movement * speed
-		
-		if input_movement.x < 0:
-			sprite.flip_h = true
-		elif input_movement.x > 0:
-			sprite.flip_h = false
-	else:
-		velocity = Vector2.ZERO
-		
-	animation()
-
-	if input_movement != Vector2.ZERO:
-		walk_sound_timer -= delta
-		if walk_sound_timer <= 0:
-			walk_sound_player.play()
-			walk_sound_timer = walk_sound_interval
-	else:
-		walk_sound_timer = 0
-	
-	move_and_slide()
 
 func detect_input_device() -> void:
 	var gamepad_input = abs(Input.get_action_strength("rs_right")) + abs(Input.get_action_strength("rs_left")) + abs(Input.get_action_strength("rs_up")) + abs(Input.get_action_strength("rs_down"))
@@ -194,23 +148,6 @@ func joystick_aiming(delta: float) -> void:
 			rot = rad_to_deg(direction.angle())
 			update_weapon_flip()
 
-func bullet_type_shooting(delta: float):
-	var current_weapon = weapons[current_weapon_index]
-	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
-
-	if bullet_type == "m16" and Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
-		shoot_timer -= delta
-		if shoot_timer <= 0.0:
-			player_data.ammo -= 1
-			instance_bullet()
-			shoot_timer = rapid_shoot_delay
-	elif bullet_type != "m16" and Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
-		shoot_timer -= delta
-		if shoot_timer <= 0.0:
-			player_data.ammo -= 1
-			instance_bullet()
-			shoot_timer = bazooka_shoot_delay
-
 func instance_bullet() -> void:
 	var current_weapon = weapons[current_weapon_index]
 	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
@@ -230,6 +167,31 @@ func instance_bullet() -> void:
 		$Sounds/AudioStreamBazookaShot.play()
 	elif bullet_type == "m16":
 		$Sounds/AudioStreamM16Shot.play()
+		
+func bullet_type_shooting(delta: float):
+	var current_weapon = weapons[current_weapon_index]
+	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
+
+	if bullet_type == "m16" and Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
+		shoot_timer -= delta
+		if shoot_timer <= 0.0:
+			player_data.ammo -= 1
+			instance_bullet()
+			shoot_timer = rapid_shoot_delay
+	elif bullet_type != "m16" and Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
+		shoot_timer -= delta
+		if shoot_timer <= 0.0:
+			player_data.ammo -= 1
+			instance_bullet()
+			shoot_timer = bazooka_shoot_delay
+
+func setup_weapons():
+	for i in range(weapons.size()):
+		var weapon = weapons[i]
+		if i == 0:
+			weapon.set_meta("bullet_type", "bazooka")
+		elif i == 1:
+			weapon.set_meta("bullet_type", "m16")
 
 func handle_weapon_switch():
 	if Input.is_action_just_pressed("switch_weapon"):
@@ -263,6 +225,14 @@ func check_level_and_set_weapon() -> void:
 		weapons_container.visible = false
 		update_animation_without_gun()
 
+func update_animation_without_gun() -> void:
+	if input_movement != Vector2.ZERO:
+		if not $player_animation.is_playing() or $player_animation.current_animation != "Move":
+			$player_animation.play("Move")
+	else:
+		if not $player_animation.is_playing() or $player_animation.current_animation != "Idle":
+			$player_animation.play("Idle")
+
 func animation() -> void:
 	if is_dead:
 		if not $player_animation.is_playing() or $player_animation.current_animation != "Dead":
@@ -274,13 +244,36 @@ func animation() -> void:
 		if not $player_animation.is_playing() or $player_animation.current_animation != "Idle":
 			$player_animation.play("Idle")
 
-func update_animation_without_gun() -> void:
+func movement(delta: float) -> void:
+	if current_state == player_states.DEAD:
+		return
+	
+	input_movement = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	
 	if input_movement != Vector2.ZERO:
-		if not $player_animation.is_playing() or $player_animation.current_animation != "Move":
-			$player_animation.play("Move")
+		input_movement = input_movement.normalized()
+		input_movement = Vector2(round(input_movement.x), round(input_movement.y))
+		
+		velocity = input_movement * speed
+		
+		if input_movement.x < 0:
+			sprite.flip_h = true
+		elif input_movement.x > 0:
+			sprite.flip_h = false
 	else:
-		if not $player_animation.is_playing() or $player_animation.current_animation != "Idle":
-			$player_animation.play("Idle")
+		velocity = Vector2.ZERO
+		
+	animation()
+
+	if input_movement != Vector2.ZERO:
+		walk_sound_timer -= delta
+		if walk_sound_timer <= 0:
+			walk_sound_player.play()
+			walk_sound_timer = walk_sound_interval
+	else:
+		walk_sound_timer = 0
+	
+	move_and_slide()
 
 func update_double_damage_icon():
 	if double_damage_icon:
@@ -289,6 +282,14 @@ func update_double_damage_icon():
 func update_double_speed_icon():
 	if double_speed_icon:
 		double_speed_icon.visible = power_up_manager.is_double_speed_active()
+		
+func setup_double_damage_icon():
+	if double_damage_icon:
+		double_damage_icon.visible = false
+
+func setup_double_speed_icon():
+	if double_speed_icon:
+		double_speed_icon.visible = false
 
 func take_damage(damage: float):
 	if not is_in_portal:
@@ -315,18 +316,11 @@ func dead() -> void:
 		player_data.kill_count = 0
 		player_data.reset_kill_streak()
 		
-		# Reset power-ups when the player dies
 		if power_up_manager:
 			power_up_manager.reset_power_ups()
 
 func reset_state():
 	current_state = player_states.MOVE
-
-func enter_portal():
-	is_in_portal = true
-
-func exit_portal():
-	is_in_portal = false
 
 func instance_trail():
 	var trail = trail_scene.instantiate()
@@ -349,7 +343,6 @@ func flash_damage():
 	tween.tween_property($Sprite2D.material, "shader_parameter/flash_modifier", 0.0, fade_duration)
 	tween.tween_callback(func(): is_flashing = false)
 
-
 func _on_anim_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Dead":
 		var highest_streak = player_data.highest_kill_streak
@@ -367,3 +360,23 @@ func _on_trail_timer_timeout() -> void:
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemy") and not is_in_portal:
 		enemies_in_contact += 1
+		
+func enter_portal(portal_type: String = ""):
+	is_in_portal = true
+	
+	if portal_type == "exit_portal":
+		if power_up_manager:
+			power_up_manager.handle_level_transition("main_world")
+	elif portal_type == "next_level":
+		var current_scene = get_tree().current_scene
+		var dungeon_levels = ["main_dungeon", "main_dungeon_2", "labyrinth_level"]
+		
+		if current_scene.name in dungeon_levels:
+			if power_up_manager:
+				power_up_manager.handle_level_transition(current_scene.name)
+		else:
+			if power_up_manager:
+				power_up_manager.handle_level_transition("main_dungeon")
+
+func exit_portal():
+	is_in_portal = false

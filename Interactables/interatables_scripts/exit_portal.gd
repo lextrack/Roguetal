@@ -6,12 +6,9 @@ func _ready() -> void:
 	if not is_connected("body_entered", Callable(self, "_on_body_entered")):
 		connect("body_entered", Callable(self, "_on_body_entered"))
 
-func _process(delta: float) -> void:
-	pass
-
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
-		body.enter_portal()
+	if body.is_in_group("player"):
+		body.enter_portal("exit_portal")
 		portal_enter_sound.play()
 		await portal_enter_sound.finished
 		
@@ -20,5 +17,5 @@ func _on_body_entered(body: Node2D) -> void:
 		loading_screen.load_scene("res://Levels/Scenes/main_world.tscn")
 
 func _on_body_exited(body: Node2D) -> void:
-	if body.name == "Player":
+	if body.is_in_group("player"):
 		body.exit_portal()
