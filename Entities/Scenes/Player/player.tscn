@@ -235,7 +235,7 @@ autostart = true
 [node name="hud_powerup" type="Node2D" parent="."]
 
 [node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-238.571, -67.1429)
+position = Vector2(-240, -67.1429)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("12_erptt")
 
