@@ -2589,7 +2589,6 @@ script = ExtResource("1_3hfxc")
 
 [node name="pause_menu" parent="MenuLayer" instance=ExtResource("7_lufcb")]
 z_index = 1
-y_sort_enabled = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("1_71e1o")

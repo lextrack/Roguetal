@@ -1,3 +1,6 @@
+HBoxContainer
+TextureRect
+VBoxContainer
 Node
 Panel
 CollisionShape2D
@@ -9,6 +12,3 @@ AnimationPlayer
 Sprite2D
 TileMap
 NavigationAgent2D
-Timer
-ColorRect
-RichTextLabel

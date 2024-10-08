@@ -3,8 +3,8 @@ extends Node
 var damage_multiplier = 1.0
 var speed_multiplier = 1.0
 
-const BASE_DAMAGE_MULTIPLIER = 2.0
-const BASE_SPEED_MULTIPLIER = 2.0
+const BASE_DAMAGE_MULTIPLIER = 1.2
+const BASE_SPEED_MULTIPLIER = 1.2
 
 func reset_power_ups():
 	damage_multiplier = 1.0

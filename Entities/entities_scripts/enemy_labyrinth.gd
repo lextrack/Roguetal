@@ -14,7 +14,7 @@ var path_update_timer : Timer
 var reposition_timer : Timer
 
 @export var speed = 90 # The movement speed of the enemy
-@export var max_health: float = 70.0 # The maximum health points of the enemy
+@export var max_health: float = 50.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.5 # Time (in seconds) between enemy attacks
 @export var chase_range = 170.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 5.0 # Distance for detecting and avoiding obstacles
@@ -351,7 +351,7 @@ func instance_fx():
 # Spawn ammo pickup on death
 func instance_ammo():
 	var drop_chance = randf()
-	if drop_chance < 0.4:
+	if drop_chance < 0.8:
 		var ammo_scene = preload("res://Interactables/Scenes/ammo_1.tscn")
 		var ammo = ammo_scene.instantiate()
 		ammo.global_position = global_position

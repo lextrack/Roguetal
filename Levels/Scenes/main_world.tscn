@@ -1389,35 +1389,44 @@ position = Vector2(164, 62)
 script = ExtResource("2_kpvk5")
 
 [node name="PanelInstructions" type="Panel" parent="CanvasInstructions"]
+texture_filter = 2
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 421.0
-offset_top = 208.0
-offset_right = 661.0
-offset_bottom = 363.0
+offset_left = 377.0
+offset_top = 288.0
+offset_right = 677.0
+offset_bottom = 378.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichLabel" type="RichTextLabel" parent="CanvasInstructions/PanelInstructions"]
-texture_filter = 2
+[node name="ImagesContainer" type="HBoxContainer" parent="CanvasInstructions/PanelInstructions"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.493
-anchor_right = 0.5
-anchor_bottom = 0.493
-offset_left = -104.0
-offset_top = -60.415
-offset_right = 104.0
-offset_bottom = 67.585
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasInstructions/PanelInstructions/ImagesContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+expand_mode = 4
+
+[node name="TextContainer" type="VBoxContainer" parent="CanvasInstructions/PanelInstructions"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -167.0
+offset_bottom = 40.0
+grow_horizontal = 0
+alignment = 1
+
+[node name="RichLabel" type="RichTextLabel" parent="CanvasInstructions/PanelInstructions/TextContainer"]
+texture_filter = 2
+layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 5
-theme_override_font_sizes/normal_font_size = 15
 fit_content = true
 scroll_active = false
 drag_and_drop_selection_enabled = false

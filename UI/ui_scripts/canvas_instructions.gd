@@ -1,13 +1,28 @@
 extends CanvasLayer
 
-@export var display_time : float = 10.0
+@export var display_time : float = 6.0
 var timer : Timer
 var instructions_pages = [
-	"Move and control the character using left and right stick or WASD and the mouse.",
-	"When you enter the dungeon, shoot by holding down the RT button on the controller or the left mouse button.",
-	"To change weapon press LB on the controller or C on the keyboard.",
-	"That blonde hair girl has more information about this place. Press the A button on your controller or the E key on your keyboard to speak to her."
+	{
+		"images": [
+			"res://UI/images_instructions/btn_xb_l0.png",
+			"res://UI/images_instructions/wasd.png"
+		],
+		"texts": [
+			"Move and control the character"
+		]
+	},
+	{
+		"images": [
+			"res://UI/images_instructions/btn_xb_01a.png",
+			"res://UI/images_instructions/letter-e.png"
+		],
+		"texts": [
+			"[color=yellow]Talk[/color] with people"
+		]
+	},
 ]
+
 var current_page_index = 0
 
 func _ready():
@@ -18,7 +33,7 @@ func _ready():
 	add_child(timer)
 	
 	$PanelInstructions.hide()
-	$PanelInstructions.get_node("AnimationPanel").connect("animation_finished", Callable(self, "_on_animation_finished"))
+	$PanelInstructions/AnimationPanel.connect("animation_finished", Callable(self, "_on_animation_finished"))
 	
 	if not Globals.has_shown_intro:
 		show_instructions_page(0)
@@ -27,14 +42,40 @@ func _ready():
 
 func show_instructions_page(index: int):
 	if index < instructions_pages.size():
-		$PanelInstructions.get_node("RichLabel").bbcode_text = instructions_pages[index]
-		$PanelInstructions.get_node("AnimationPanel").play("fade_in")
+		var page = instructions_pages[index]
+		
+		# Limpiamos el contenido anterior
+		var images_container = $PanelInstructions/ImagesContainer
+		var text_container = $PanelInstructions/TextContainer
+		for container in [images_container, text_container]:
+			for child in container.get_children():
+				child.queue_free()
+		
+		# Añadimos las imágenes
+		for image_path in page["images"]:
+			var texture_rect = TextureRect.new()
+			texture_rect.texture = load(image_path)
+			texture_rect.expand = true
+			texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			texture_rect.custom_minimum_size = Vector2(50, 50)  # Ajusta según necesites
+			images_container.add_child(texture_rect)
+		
+		# Añadimos los textos
+		for text in page["texts"]:
+			var rich_label = RichTextLabel.new()
+			rich_label.bbcode_enabled = true
+			rich_label.bbcode_text = text
+			rich_label.fit_content = true
+			rich_label.custom_minimum_size = Vector2(0, 20)  # Ajusta según necesites
+			text_container.add_child(rich_label)
+		
+		$PanelInstructions/AnimationPanel.play("fade_in")
 		timer.start()
 	else:
 		print("Index out of bounds")
 
 func _on_timeout():
-	$PanelInstructions.get_node("AnimationPanel").play("fade_out")
+	$PanelInstructions/AnimationPanel.play("fade_out")
 
 func _on_animation_finished(anim_name: String):
 	if anim_name == "fade_out":

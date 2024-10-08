@@ -10,7 +10,7 @@ const MAGNET_RADIUS = 100.0
 @export var walk_sound_interval = 0.4
 @export var rapid_shoot_delay: float = 0.1
 @export var bazooka_shoot_delay: float = 0.5
-@export var damage_interval = 0.1
+@export var damage_interval = 0.2
 
 @onready var bullet_scenes = {
 	"bazooka": preload("res://Entities/Scenes/Bullets/bullet_1.tscn"),
@@ -46,7 +46,7 @@ var weapons = []
 var current_weapon_index = 0
 var weapon_damage = {
 	"bazooka": 5,
-	"m16": 2
+	"m16": 3
 }
 
 func _ready() -> void:
