@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 enum player_states {MOVE, DEAD}
 
-const MAGNET_RADIUS = 100.0
+const MAGNET_RADIUS = 60.0
 
 @export var contact_damage = 0.1
 @export var speed: int
@@ -45,8 +45,8 @@ var input_movement = Vector2()
 var weapons = []
 var current_weapon_index = 0
 var weapon_damage = {
-	"bazooka": 5,
-	"m16": 3
+	"bazooka": 6,
+	"m16": 4
 }
 
 func _ready() -> void:
@@ -72,7 +72,7 @@ func power_up_manager_check() -> void:
 		power_up_manager.connect("damage_multiplier_changed", Callable(self, "_on_damage_multiplier_changed"))
 		power_up_manager.connect("speed_multiplier_changed", Callable(self, "_on_speed_multiplier_changed"))
 	else:
-		push_error("PowerUpManager not found. Make sure the node is present and has the correct name.")
+		push_error("PowerUpManager not found.")
 
 	_on_damage_multiplier_changed(power_up_manager.get_damage_multiplier())
 	_on_speed_multiplier_changed(power_up_manager.get_speed_multiplier())
@@ -86,14 +86,15 @@ func _on_speed_multiplier_changed(multiplier: float) -> void:
 	
 func setup_magnet_area():
 	if not magnet_area:
-		magnet_area = Area2D.new()
-		add_child(magnet_area)
-	# REVISAR ESTO LUEGO, SI ES NECESARIO O VALE CON EL QUE CREE MANUALMENTE
-	var collision_shape = CollisionShape2D.new()
-	var circle_shape = CircleShape2D.new()
-	circle_shape.radius = MAGNET_RADIUS
-	collision_shape.shape = circle_shape
-	magnet_area.add_child(collision_shape)
+		push_error("MagnetArea node not found.")
+		return
+	
+	if not magnet_area.is_connected("area_entered", Callable(self, "_on_magnet_area_area_entered")):
+		magnet_area.connect("area_entered", Callable(self, "_on_magnet_area_area_entered"))
+	
+	var collision_shape = magnet_area.get_node("CollisionShape2D")
+	if collision_shape and collision_shape.shape is CircleShape2D:
+		collision_shape.shape.radius = MAGNET_RADIUS
 
 func _on_magnet_area_area_entered(area: Area2D):
 	if area.is_in_group("ammo") and area.has_method("start_attraction"):
@@ -165,7 +166,6 @@ func instance_bullet() -> void:
 	elif bullet_type == "m16":
 		$Sounds/AudioStreamM16Shot.play()
 
-		
 func bullet_type_shooting(delta: float):
 	var current_weapon = weapons[current_weapon_index]
 	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
@@ -296,6 +296,9 @@ func take_damage(damage: float):
 			flash_damage()
 		if player_data.health <= 0:
 			dead()
+			if magnet_area:
+				magnet_area.monitoring = false
+				magnet_area.monitorable = false
 
 func increase_health(amount: int) -> void:
 	player_data.health += amount
@@ -305,17 +308,30 @@ func increase_health(amount: int) -> void:
 func dead() -> void:
 	if not is_dead:
 		is_dead = true
+		
+		stop_all_attractions()
+		
+		if magnet_area:
+			magnet_area.monitoring = false
+			magnet_area.monitorable = false
+		
 		velocity = Vector2.ZERO
 		weapons_container.visible = false
 		audio_stream_dead_player.play()
 		$player_animation.play("Dead")
 
-		player_data.ammo += 10
+		player_data.ammo += 50
 		player_data.kill_count = 0
 		player_data.reset_kill_streak()
 		
 		if power_up_manager:
 			power_up_manager.reset_power_ups()
+
+func stop_all_attractions():
+	var ammo_items = get_tree().get_nodes_in_group("ammo")
+	for item in ammo_items:
+		if item.has_method("stop_attraction"):
+			item.stop_attraction()
 
 func reset_state():
 	current_state = player_states.MOVE
@@ -346,7 +362,6 @@ func _on_anim_animation_finished(anim_name: StringName) -> void:
 		var highest_streak = player_data.highest_kill_streak
 		player_data.reset_stats()
 		player_data.highest_kill_streak = highest_streak
-		# Reset power-ups before reloading the scene
 		if power_up_manager:
 			power_up_manager.reset_power_ups()
 		get_tree().reload_current_scene()

@@ -235,7 +235,7 @@ autostart = true
 [node name="hud_powerup" type="Node2D" parent="."]
 
 [node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-240, -67.1429)
+position = Vector2(-237.143, -67.1429)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("12_erptt")
 
@@ -282,7 +282,7 @@ debug_color = Color(0.904192, 0.253779, 0.443605, 0.42)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MagnetArea"]
 position = Vector2(2.85714, 10.7143)
 shape = SubResource("CircleShape2D_k86gn")
-debug_color = Color(0.193606, 0.619216, 0.482845, 0.42)
+debug_color = Color(0.625234, 0.551613, 0.0802094, 0.42)
 
 [node name="weapons_container" type="Node2D" parent="."]
 position = Vector2(0, 17.1429)

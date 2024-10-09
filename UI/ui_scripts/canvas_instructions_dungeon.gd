@@ -5,20 +5,30 @@ var timer : Timer
 var instructions_pages = [
 	{
 		"images": [
-			"res://UI/images_instructions/btn_xb_l0.png",
-			"res://UI/images_instructions/wasd.png",
+			"res://UI/images_instructions/btn_xb_r2.png",
+			"res://UI/images_instructions/mouse_click.png",
+			"res://UI/images_instructions/space.png"
 		],
 		"texts": [
-			"Move and control the character"
+			"To [color=red]shoot[/color] at enemies (remember to hold down)"
+		]
+	},
+		{
+		"images": [
+			"res://UI/images_instructions/btn_xb_l1.png",
+			"res://UI/images_instructions/letter-c.png"
+		],
+		"texts": [
+			"To [color=yellow]switch[/color] weapons"
 		]
 	},
 	{
 		"images": [
-			"res://UI/images_instructions/btn_xb_01a.png",
-			"res://UI/images_instructions/letter-e.png"
+			"res://UI/images_instructions/btn_xb_r0.png",
+			"res://UI/images_instructions/mouse_move.png"
 		],
 		"texts": [
-			"[color=yellow]Talk[/color] with people"
+			"To [color=yellow]control[/color] and direct the shots"
 		]
 	},
 ]
