@@ -46,8 +46,8 @@ var input_movement = Vector2()
 var weapons = []
 var current_weapon_index = 0
 var weapon_damage = {
-	"bazooka": 6,
-	"m16": 4
+	"bazooka": 5,
+	"m16": 3
 }
 
 func _ready() -> void:
@@ -393,3 +393,6 @@ func enter_portal(portal_type: String = ""):
 
 func exit_portal():
 	is_in_portal = false
+
+func _on_hitbox_area_exited(area: Area2D) -> void:
+	pass 

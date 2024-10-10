@@ -1,3 +1,5 @@
+# ENEMY (ORIGINAL) SCRIPT
+
 extends CharacterBody2D
 
 enum enemy_state {IDLE, PATROL, CHASE, ATTACK, REPOSITION}
@@ -12,9 +14,10 @@ var last_known_player_position : Vector2
 var is_attacking = false
 var path_update_timer : Timer
 var reposition_timer : Timer
+var idle_timer : Timer
 
 @export var speed = 90 # The movement speed of the enemy
-@export var max_health: float = 50.0 # The maximum health points of the enemy
+@export var max_health: float = 60.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.5 # Time (in seconds) between enemy attacks
 @export var chase_range = 150.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 5.0 # Distance for detecting and avoiding obstacles
@@ -22,6 +25,8 @@ var reposition_timer : Timer
 @export var attack_damage = 0.2 # Damage dealt by the enemy in each attack
 @export var attack_range = 25.0 # Distance within which the enemy can attack the player
 @export var attack_damage_range = 30.0 # Range of variability in the enemy's attack damage
+@export var idle_time_min = 3.0 # Minimum time to stay in idle state
+@export var idle_time_max = 7.0 # Maximum time to stay in idle state
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D if has_node("NavigationAgent2D") else null
 @onready var target = get_node("../Player")
@@ -35,6 +40,7 @@ var reposition_timer : Timer
 @onready var move_animation_enemy: AnimationPlayer = $Animations/move_animation_enemy
 @onready var idle_animation_enemy: AnimationPlayer = $Animations/idle_animation_enemy
 @onready var idle_sprite: Sprite2D = $Sprites/idle_sprite
+@onready var timer_direction: Timer = $timer_direction if has_node("timer_direction") else null
 
 # Initialize the enemy, set up navigation and timers
 func _ready():
@@ -45,13 +51,8 @@ func _ready():
 		navigation_agent = NavigationAgent2D.new()
 		add_child(navigation_agent)
 	
-	# Distance at which the enemy considers it has reached its target position
 	navigation_agent.path_desired_distance = 2.0
-
-	# Distance at which the enemy considers it has reached the final target
 	navigation_agent.target_desired_distance = 2.0
-
-	# Maximum distance between path points
 	navigation_agent.path_max_distance = 50.0
 	
 	path_update_timer = Timer.new()
@@ -67,11 +68,19 @@ func _ready():
 	reposition_timer.timeout.connect(end_reposition)
 	add_child(reposition_timer)
 	
+	idle_timer = Timer.new()
+	idle_timer.one_shot = true
+	idle_timer.timeout.connect(end_idle_state)
+	add_child(idle_timer)
+	
 	await get_tree().physics_frame
 	update_path()
 	
 	die_sprite.hide() if die_sprite else print("Warning: die_sprite not found")
 	attack_sprite.hide() if attack_sprite else print("Warning: attack_sprite not found")
+	if timer_direction:
+		if not timer_direction.timeout.is_connected(_on_timer_direction_timeout):
+			timer_direction.timeout.connect(_on_timer_direction_timeout)
 
 # Main physics process, handles state machine and cooldowns
 func _physics_process(delta):
@@ -94,16 +103,20 @@ func _physics_process(delta):
 
 # Idle state: enemy stands still and checks for player proximity
 func idle_state():
-	play_idle_animation()
+	if not idle_animation_enemy.is_playing():
+		play_idle_animation()
 	
 	if is_instance_valid(target) and global_position.distance_to(target.global_position) <= chase_range:
-		exit_idle_state()
+		end_idle_state()
 		current_state = enemy_state.CHASE
-	elif randf() < 0.01:
-		exit_idle_state()
-		current_state = enemy_state.PATROL
-		update_path()
 
+# End idle state and transition to patrol
+func end_idle_state():
+	idle_timer.stop()
+	exit_idle_state()
+	current_state = enemy_state.PATROL
+	update_path()
+	
 # Patrol state: enemy moves randomly if no player is nearby
 func patrol_state(delta):
 	if is_instance_valid(target) and global_position.distance_to(target.global_position) <= chase_range:
@@ -111,12 +124,22 @@ func patrol_state(delta):
 	elif path.size() > 0:
 		move_along_path(delta)
 	else:
-		current_state = enemy_state.IDLE
+		enter_idle_state()
+		
+func _on_timer_direction_timeout() -> void:
+	if current_state == enemy_state.PATROL:
+		update_path()
+
+# Enter idle state and start idle timer
+func enter_idle_state():
+	current_state = enemy_state.IDLE
+	idle_timer.start(randf_range(idle_time_min, idle_time_max))
+	play_idle_animation()
 
 # Chase state: enemy pursues the player
 func chase_state(delta):
 	if not is_instance_valid(target):
-		current_state = enemy_state.PATROL
+		enter_idle_state()
 		return
 
 	var distance_to_target = global_position.distance_to(target.global_position)
@@ -138,22 +161,24 @@ func chase_state(delta):
 
 # Attack state: enemy attacks the player when in range
 func attack_state(delta):
-	var distance_to_target = global_position.distance_to(target.global_position)
-	
-	if not is_instance_valid(target) or target.is_dead or distance_to_target > attack_range * 1.5:
+	if not is_instance_valid(target) or target.is_dead:
 		current_state = enemy_state.CHASE
 		is_attacking = false
 		stop_attack_animation()
-	elif attack_cooldown <= 0 and distance_to_target <= attack_damage_range:
-		perform_attack()
-	else:
-		var direction = global_position.direction_to(target.global_position)
-		if distance_to_target > attack_damage_range:
-			velocity = direction * speed
+		return
+
+	var distance_to_target = global_position.distance_to(target.global_position)
+	
+	if distance_to_target <= attack_range:
+		if attack_cooldown <= 0:
+			perform_attack()
 		else:
-			velocity = direction * (speed * 1.0)
-		move_and_slide()
-		play_movement_animation(direction)
+			# Stop moving when in attack range
+			velocity = Vector2.ZERO
+	else:
+		current_state = enemy_state.CHASE
+		is_attacking = false
+		stop_attack_animation()
 
 # Reposition state: enemy moves to a new position after attacking
 func reposition_state(delta):
@@ -186,8 +211,7 @@ func find_scent_trail():
 		exit_idle_state()
 		current_state = enemy_state.CHASE
 	else:
-		current_state = enemy_state.IDLE
-		play_idle_animation()
+		enter_idle_state()
 
 # Play idle animation
 func play_idle_animation():
@@ -199,12 +223,12 @@ func play_idle_animation():
 # Perform an attack on the player
 func perform_attack():
 	is_attacking = true
-	if global_position.distance_to(target.global_position) <= attack_damage_range:
+	if global_position.distance_to(target.global_position) <= attack_range:
 		if target.has_method("take_damage") and not target.is_dead and not target.is_in_portal:
 			target.take_damage(attack_damage)
 	attack_cooldown = attack_cooldown_time
 	play_attack_animation()
-	
+
 func stop_attack_animation():
 	if attack_animation_enemy.is_playing():
 		attack_animation_enemy.stop()
@@ -271,6 +295,9 @@ func play_movement_animation(direction):
 
 # Play attack animation based on direction to player
 func play_attack_animation():
+	if not is_instance_valid(target):
+		return
+
 	var direction = global_position.direction_to(target.global_position)
 	var animation_name = "attack_right"
 	

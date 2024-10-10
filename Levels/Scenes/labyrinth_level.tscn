@@ -1579,10 +1579,6 @@ sources/0 = SubResource("TileSetAtlasSource_nm88g")
 y_sort_enabled = true
 script = ExtResource("1_a3cw7")
 
-[node name="MenuLayer" type="CanvasLayer" parent="."]
-
-[node name="pause_menu" parent="MenuLayer" instance=ExtResource("2_mt8nt")]
-
 [node name="CanvasInstructions" type="CanvasLayer" parent="."]
 script = ExtResource("3_ldgqx")
 
@@ -1635,6 +1631,10 @@ drag_and_drop_selection_enabled = false
 libraries = {
 "": SubResource("AnimationLibrary_xbyae")
 }
+
+[node name="MenuLayer" type="CanvasLayer" parent="."]
+
+[node name="pause_menu" parent="MenuLayer" instance=ExtResource("2_mt8nt")]
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("3_bid4p")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://qxvjn3o53fdy"]
+[gd_scene load_steps=20 format=3 uid="uid://qxvjn3o53fdy"]
 
 [ext_resource type="Script" path="res://Levels/level_generator_scripts/main_dungeon.gd" id="1_f0bfp"]
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="2_qreqx"]
@@ -7,6 +7,197 @@
 [ext_resource type="Texture2D" uid="uid://dwphcmpag53is" path="res://Sprites/ammo_ui.png" id="5_uurhp"]
 [ext_resource type="Texture2D" uid="uid://02ay4cfoeh8i" path="res://Sprites/mainlevbuild.png" id="7_654wf"]
 [ext_resource type="Texture2D" uid="uid://l85tm3xdtcna" path="res://Sprites/Main_dungeon brick level.png" id="8_ujiuc"]
+
+[sub_resource type="GDScript" id="GDScript_xboux"]
+script/source = "extends CanvasLayer
+
+@export var display_time : float = 2.0
+var timer : Timer
+var instructions_pages = [
+	{
+		\"images\": [
+			\"res://UI/images_instructions/btn_xb_r2.png\",
+			\"res://UI/images_instructions/mouse_click.png\",
+			\"res://UI/images_instructions/space.png\"
+		],
+		\"texts\": [
+			\"To [color=red]shoot[/color] at enemies (remember to hold down)\"
+		]
+	},
+		{
+		\"images\": [
+			\"res://UI/images_instructions/btn_xb_l1.png\",
+			\"res://UI/images_instructions/letter-c.png\"
+		],
+		\"texts\": [
+			\"To [color=yellow]switch[/color] weapons\"
+		]
+	},
+	{
+		\"images\": [
+			\"res://UI/images_instructions/btn_xb_r0.png\",
+			\"res://UI/images_instructions/mouse_move.png\"
+		],
+		\"texts\": [
+			\"To [color=yellow]control[/color] and direct the shots\"
+		]
+	},
+]
+
+var current_page_index = 0
+
+func _ready():
+	timer = Timer.new()
+	timer.one_shot = true
+	timer.wait_time = display_time
+	timer.connect(\"timeout\", Callable(self, \"_on_timeout\"))
+	add_child(timer)
+	
+	$PanelInstructions.hide()
+	$PanelInstructions/AnimationPanel.connect(\"animation_finished\", Callable(self, \"_on_animation_finished\"))
+	
+	if not Globals.has_shown_intro:
+		show_instructions_page(0)
+	else:
+		$PanelInstructions.hide()
+
+func show_instructions_page(index: int):
+	if index < instructions_pages.size():
+		var page = instructions_pages[index]
+		
+		var images_container = $PanelInstructions/ImagesContainer
+		var text_container = $PanelInstructions/TextContainer
+		for container in [images_container, text_container]:
+			for child in container.get_children():
+				child.queue_free()
+		
+		for image_path in page[\"images\"]:
+			var texture_rect = TextureRect.new()
+			texture_rect.texture = load(image_path)
+			texture_rect.expand = true
+			texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			texture_rect.custom_minimum_size = Vector2(50, 50)
+			images_container.add_child(texture_rect)
+		
+		for text in page[\"texts\"]:
+			var rich_label = RichTextLabel.new()
+			rich_label.bbcode_enabled = true
+			rich_label.bbcode_text = text
+			rich_label.fit_content = true
+			rich_label.custom_minimum_size = Vector2(0, 20)
+			text_container.add_child(rich_label)
+		
+		$PanelInstructions.show()
+		$PanelInstructions/AnimationPanel.play(\"fade_in\")
+		timer.start()
+	else:
+		print(\"Index out of bounds\")
+
+func _on_timeout():
+	$PanelInstructions/AnimationPanel.play(\"fade_out\")
+
+func _on_animation_finished(anim_name: String):
+	if anim_name == \"fade_out\":
+		$PanelInstructions.hide()
+		current_page_index += 1
+		if current_page_index < instructions_pages.size():
+			show_instructions_page(current_page_index)
+		else:
+			current_page_index = 0
+			Globals.has_shown_intro = true
+
+func reset_instructions():
+	if not Globals.has_shown_intro:
+		current_page_index = 0
+		show_instructions_page(0)
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmbyn"]
+bg_color = Color(0, 0, 0, 0.545098)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.117647)
+shadow_size = 2
+
+[sub_resource type="Animation" id="Animation_mfy05"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8dwdq"]
+resource_name = "fade_in"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.566667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.366667, 0.566667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vwc4g"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xbyae"]
+_data = {
+"RESET": SubResource("Animation_mfy05"),
+"fade_in": SubResource("Animation_8dwdq"),
+"fade_out": SubResource("Animation_vwc4g")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xi6px"]
 bg_color = Color(0, 0, 0, 0.545098)
@@ -2512,6 +2703,59 @@ sources/0 = SubResource("TileSetAtlasSource_usjp0")
 [node name="main_dungeon" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_f0bfp")
+
+[node name="CanvasInstructions" type="CanvasLayer" parent="."]
+script = SubResource("GDScript_xboux")
+
+[node name="PanelInstructions" type="Panel" parent="CanvasInstructions"]
+texture_filter = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 341.0
+offset_top = 272.0
+offset_right = 677.0
+offset_bottom = 378.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pmbyn")
+
+[node name="ImagesContainer" type="HBoxContainer" parent="CanvasInstructions/PanelInstructions"]
+layout_mode = 1
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasInstructions/PanelInstructions/ImagesContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+expand_mode = 4
+
+[node name="TextContainer" type="VBoxContainer" parent="CanvasInstructions/PanelInstructions"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -167.0
+offset_bottom = 40.0
+grow_horizontal = 0
+alignment = 1
+
+[node name="RichLabel" type="RichTextLabel" parent="CanvasInstructions/PanelInstructions/TextContainer"]
+texture_filter = 2
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+fit_content = true
+scroll_active = false
+drag_and_drop_selection_enabled = false
+
+[node name="AnimationPanel" type="AnimationPlayer" parent="CanvasInstructions/PanelInstructions"]
+libraries = {
+"": SubResource("AnimationLibrary_xbyae")
+}
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
 

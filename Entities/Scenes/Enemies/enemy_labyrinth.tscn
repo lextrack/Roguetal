@@ -300,7 +300,7 @@ size = Vector2(23.8462, 35.3846)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k3ijx"]
 size = Vector2(168.047, 120.71)
 
-[node name="enemy_labyrinth" type="CharacterBody2D"]
+[node name="enemy_labyrinth" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
 y_sort_enabled = true
 scale = Vector2(0.65, 0.65)
@@ -362,7 +362,7 @@ libraries = {
 "": SubResource("AnimationLibrary_nfqe2")
 }
 
-[node name="hitbox" type="Area2D" parent="." groups=["enemy"]]
+[node name="hitbox" type="Area2D" parent="."]
 collision_layer = 32
 collision_mask = 3
 
