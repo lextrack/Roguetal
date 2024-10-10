@@ -399,4 +399,4 @@ panning_strength = 0.0
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_entered" from="chase_box" to="." method="_on_chase_box_area_entered"]
-[connection signal="timeout" from="timer_direction" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="timer_direction" to="." method="_on_timer_direction_timeout"]
