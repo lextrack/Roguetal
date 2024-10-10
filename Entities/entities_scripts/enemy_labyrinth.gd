@@ -16,7 +16,7 @@ var reposition_timer : Timer
 @export var speed = 90 # The movement speed of the enemy
 @export var max_health: float = 50.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.5 # Time (in seconds) between enemy attacks
-@export var chase_range = 170.0 # Distance at which the enemy starts to chase the player
+@export var chase_range = 150.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 5.0 # Distance for detecting and avoiding obstacles
 @export var reposition_distance = 30.0 # Distance the enemy moves to reposition during combat
 @export var attack_damage = 0.2 # Damage dealt by the enemy in each attack
@@ -140,9 +140,10 @@ func chase_state(delta):
 func attack_state(delta):
 	var distance_to_target = global_position.distance_to(target.global_position)
 	
-	if not is_instance_valid(target) or distance_to_target > attack_range * 1.5:
+	if not is_instance_valid(target) or target.is_dead or distance_to_target > attack_range * 1.5:
 		current_state = enemy_state.CHASE
 		is_attacking = false
+		stop_attack_animation()
 	elif attack_cooldown <= 0 and distance_to_target <= attack_damage_range:
 		perform_attack()
 	else:
@@ -199,10 +200,16 @@ func play_idle_animation():
 func perform_attack():
 	is_attacking = true
 	if global_position.distance_to(target.global_position) <= attack_damage_range:
-		if target.has_method("take_damage") and not target.is_in_portal:
+		if target.has_method("take_damage") and not target.is_dead and not target.is_in_portal:
 			target.take_damage(attack_damage)
 	attack_cooldown = attack_cooldown_time
 	play_attack_animation()
+	
+func stop_attack_animation():
+	if attack_animation_enemy.is_playing():
+		attack_animation_enemy.stop()
+	attack_sprite.hide()
+	normal_sprite.show()
 
 # Move along the calculated path
 func move_along_path(delta):

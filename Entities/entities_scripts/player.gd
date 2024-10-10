@@ -1,3 +1,5 @@
+# SCRIPT JUGADOR
+
 extends CharacterBody2D
 
 enum player_states {MOVE, DEAD}
@@ -39,7 +41,6 @@ var shoot_timer: float = 0.0
 var is_in_portal = false
 var is_flashing = false
 var enemies_in_contact = 0
-var pos
 var rot
 var input_movement = Vector2()
 var weapons = []
@@ -130,9 +131,8 @@ func detect_input_device() -> void:
 func target_mouse() -> void:
 	if not is_dead and weapons_container.visible:
 		var mouse_movement = get_global_mouse_position()
-		pos = global_position
 		weapons_container.look_at(mouse_movement)
-		rot = rad_to_deg((mouse_movement - pos).angle())
+		rot = rad_to_deg((mouse_movement - global_position).angle())
 		update_weapon_flip()
 
 func joystick_aiming(delta: float) -> void:
@@ -320,7 +320,7 @@ func dead() -> void:
 		audio_stream_dead_player.play()
 		$player_animation.play("Dead")
 
-		player_data.ammo += 50
+		player_data.ammo += 30
 		player_data.kill_count = 0
 		player_data.reset_kill_streak()
 		
@@ -348,7 +348,7 @@ func flash_damage():
 	is_flashing = true
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.7)
 	
-	var flash_duration = 0.01
+	var flash_duration = 0.1
 	var fade_duration = 0.1
 	
 	await get_tree().create_timer(flash_duration).timeout

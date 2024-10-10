@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://b4lyw756xgim2"]
 
-[ext_resource type="Texture2D" uid="uid://dd6r8qjt8krh8" path="res://Sprites/wallpaper_main_menu.png" id="1_b3ohj"]
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
+[ext_resource type="Texture2D" uid="uid://if3m76duffj8" path="res://Sprites/wallpaper_2.jpg" id="2_jx6xf"]
 [ext_resource type="AudioStream" uid="uid://cgr60uh2odmsm" path="res://SoundEffects/misc_01.ogg" id="3_c65tl"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_wmwv3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtrft"]
-texture = ExtResource("1_b3ohj")
+texture = ExtResource("2_jx6xf")
 modulate_color = Color(0.753984, 0.753984, 0.753984, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atj17"]
