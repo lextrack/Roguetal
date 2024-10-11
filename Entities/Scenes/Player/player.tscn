@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://brms7i87pfawr"]
+[gd_scene load_steps=25 format=3 uid="uid://brms7i87pfawr"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/player.gd" id="1_ukrib"]
 [ext_resource type="Shader" path="res://Shaders/hurt.gdshader" id="2_dwf4p"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Entities/entities_scripts/camera.gd" id="4_jek05"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_v52kv"]
 [ext_resource type="Texture2D" uid="uid://c3re1sp6ho24b" path="res://Sprites/PikPng.com_bazooka-png_1896275.png" id="5_j8ek6"]
+[ext_resource type="Texture2D" uid="uid://dxisc7j5t2hmw" path="res://Sprites/double_defense_icon.png" id="6_7scbk"]
 [ext_resource type="Texture2D" uid="uid://cieogogxl8sko" path="res://Sprites/m16_2.png" id="6_r20b8"]
 [ext_resource type="AudioStream" uid="uid://bdst5cjd6a6qn" path="res://SoundEffects/Shot_bazooka.ogg" id="7_tfnia"]
 [ext_resource type="AudioStream" uid="uid://c41s3wtu5ym1u" path="res://SoundEffects/walking_sound1.ogg" id="8_01fvg"]
@@ -235,7 +236,7 @@ autostart = true
 [node name="hud_powerup" type="Node2D" parent="."]
 
 [node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-237.143, -67.1429)
+position = Vector2(-238.572, -67.1429)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("12_erptt")
 
@@ -243,6 +244,11 @@ texture = ExtResource("12_erptt")
 position = Vector2(-261.429, -67.1429)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_kwns6")
+
+[node name="double_defense_icon" type="Sprite2D" parent="hud_powerup"]
+position = Vector2(-215.714, -67.1429)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_7scbk")
 
 [node name="player_colider" type="CollisionShape2D" parent="."]
 position = Vector2(2.85714, 13.5714)

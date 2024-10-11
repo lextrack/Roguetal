@@ -2,7 +2,8 @@ extends Node
 
 var multipliers = {
 	PowerUpTypes.PowerUpType.DAMAGE: 1.0,
-	PowerUpTypes.PowerUpType.SPEED: 1.0
+	PowerUpTypes.PowerUpType.SPEED: 1.0,
+	PowerUpTypes.PowerUpType.DEFENSE: 1.0
 }
 
 func reset_power_ups():

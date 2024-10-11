@@ -386,12 +386,12 @@ autostart = true
 
 [node name="hit_damage_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_4002r")
-volume_db = 6.0
+volume_db = 3.0
 panning_strength = 0.0
 
 [node name="die_enemy_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_kb4wb")
-volume_db = 8.0
+volume_db = 6.0
 panning_strength = 0.0
 
 [node name="navigation_agent" type="NavigationAgent2D" parent="."]

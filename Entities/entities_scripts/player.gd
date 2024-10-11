@@ -27,6 +27,7 @@ const MAGNET_RADIUS = 60.0
 @onready var tween: Tween
 @onready var double_damage_icon: Sprite2D = $hud_powerup/double_damage_icon
 @onready var double_speed_icon: Sprite2D = $hud_powerup/double_speed_icon
+@onready var double_defense_icon: Sprite2D = $hud_powerup/double_defense_icon
 @onready var power_up_manager = $PowerUpManager
 
 var current_state = player_states.MOVE
@@ -82,6 +83,12 @@ func _on_power_up_changed(type: int, multiplier: float) -> void:
 		PowerUpTypes.PowerUpType.SPEED:
 			speed = base_speed * multiplier
 			update_double_speed_icon(multiplier)
+		PowerUpTypes.PowerUpType.DEFENSE:
+			update_double_defense_icon(multiplier)
+
+func update_double_defense_icon(multiplier: float):
+	if double_defense_icon:
+		double_defense_icon.visible = multiplier > 1.0
 
 func _on_damage_multiplier_changed(multiplier: float) -> void:
 	update_double_damage_icon(multiplier)
@@ -89,6 +96,26 @@ func _on_damage_multiplier_changed(multiplier: float) -> void:
 func _on_speed_multiplier_changed(multiplier: float) -> void:
 	speed = base_speed * multiplier
 	update_double_speed_icon(multiplier)
+	
+func update_double_damage_icon(multiplier: float):
+	if double_damage_icon:
+		double_damage_icon.visible = multiplier > 1.0
+
+func update_double_speed_icon(multiplier: float):
+	if double_speed_icon:
+		double_speed_icon.visible = multiplier > 1.0
+		
+func setup_double_defense_icon():
+	if double_defense_icon:
+		double_defense_icon.visible = false
+		
+func setup_double_damage_icon():
+	if double_damage_icon:
+		double_damage_icon.visible = false
+
+func setup_double_speed_icon():
+	if double_speed_icon:
+		double_speed_icon.visible = false
 	
 func setup_magnet_area():
 	if not magnet_area:
@@ -278,25 +305,11 @@ func movement(delta: float) -> void:
 	
 	move_and_slide()
 
-func update_double_damage_icon(multiplier: float):
-	if double_damage_icon:
-		double_damage_icon.visible = multiplier > 1.0
-
-func update_double_speed_icon(multiplier: float):
-	if double_speed_icon:
-		double_speed_icon.visible = multiplier > 1.0
-		
-func setup_double_damage_icon():
-	if double_damage_icon:
-		double_damage_icon.visible = false
-
-func setup_double_speed_icon():
-	if double_speed_icon:
-		double_speed_icon.visible = false
-
 func take_damage(damage: float):
 	if not is_in_portal:
-		player_data.health -= damage
+		var defense_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.DEFENSE)
+		var actual_damage = damage / defense_multiplier
+		player_data.health -= actual_damage
 		if not is_flashing:
 			flash_damage()
 		if player_data.health <= 0:
@@ -304,7 +317,7 @@ func take_damage(damage: float):
 			if magnet_area:
 				magnet_area.monitoring = false
 				magnet_area.monitorable = false
-
+				
 func increase_health(amount: int) -> void:
 	player_data.health += amount
 	if player_data.health > 4:

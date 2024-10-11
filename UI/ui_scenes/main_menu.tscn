@@ -76,7 +76,7 @@ offset_left = 20.0
 offset_top = 18.0
 offset_right = 70.0
 offset_bottom = 41.0
-text = "1.0.0.7"
+text = "1.0.0.8"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -164,15 +164,16 @@ theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_constants/line_separation = 3
 theme_override_font_sizes/normal_font_size = 25
-text = "SOUND
-- klankbeeld, Lamp_, szegvari, newlocknew, SoundEffectsFactory, PK9 Sound Effect, el_boss, rubberduck, Mobeyee Sounds, IgnasD, Jamius.
+bbcode_enabled = true
+text = "[b][color=crimson]SOUND[/color][/b]
+klankbeeld, Lamp_, szegvari, newlocknew, SoundEffectsFactory, PK9 Sound Effect, el_boss, rubberduck, Mobeyee Sounds, IgnasD, Jamius.
 
-ART
-- Luck, Joan Stenstrup Frandsen, Szadi art, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Krystsina Mikhailouskaya.
+[b][color=crimson]ART[/color][/b]
+Luck, Joan Stenstrup Frandsen, Szadi art, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Krystsina Mikhailouskaya.
 
-ADDITIONAL RESOURCES
-- Flaticon (Freepik, DinosoftLabs, surang, kiranshastry, bharat icons) for the awesome icons.
-- Jean Vermeersch for his knowledge.
+[b][color=crimson]ADDITIONAL RESOURCES[/color][/b]
+Flaticon (Freepik, DinosoftLabs, surang, kiranshastry, bharat icons) for the awesome icons.
+Jean Vermeersch for his knowledge.
 
 Special thanks to all creators who made their free assets available for this game."
 
@@ -200,7 +201,7 @@ anchor_bottom = 1.0
 offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 16
 text = "Author: Ariel Alejandro Muñoz (Lextrack)"
 horizontal_alignment = 1
 

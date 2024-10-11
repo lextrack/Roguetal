@@ -44,7 +44,7 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bljux"]
-radius = 8.0
+radius = 6.0
 height = 24.0
 
 [node name="next_level" type="Area2D"]
@@ -71,6 +71,7 @@ position = Vector2(7, 12)
 shape = SubResource("CapsuleShape2D_bljux")
 
 [node name="portal_enter_sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(7, 12)
 stream = ExtResource("3_non56")
 volume_db = 2.0
 

@@ -2796,7 +2796,7 @@ z_index = -1
 y_sort_enabled = true
 offset_left = 18.0
 offset_top = 108.0
-offset_right = 164.0
+offset_right = 183.0
 offset_bottom = 185.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_2uu83")
 

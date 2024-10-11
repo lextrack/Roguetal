@@ -16,6 +16,7 @@ const min_distance_from_player = 5
 @onready var health_pickup_scene = preload("res://Interactables/Scenes/health_pickup.tscn")
 @onready var double_damage_pickup_scene = preload("res://Interactables/Scenes/double_damage_pickup.tscn")
 @onready var double_speed_pickup_scene = preload("res://Interactables/Scenes/double_speed_pickup.tscn")
+@onready var double_defense_pickup_scene = preload("res://Interactables/Scenes/double_defense_pickup_scene.tscn")
 @onready var tilemap = $Tiles/TileMap
 
 @export var borders = Rect2(1, 1, 70, 50)
@@ -44,6 +45,7 @@ func generate_level() -> void:
 	instance_health_pickup()
 	instance_double_damage_pickup()
 	instance_double_speed_pickup()
+	instance_double_defense_pickup()
 
 func create_navigation():
 	# Creates the navigation region for pathfinding using the map outline
@@ -61,6 +63,28 @@ func create_navigation():
 	navigation_polygon.add_outline(outline)
 	navigation_polygon.make_polygons_from_outlines()
 	navigation_region.navigation_polygon = navigation_polygon
+	
+func instance_double_defense_pickup() -> void:
+	var player_node = get_node("Player")
+	if not player_node:
+		return
+
+	var player_position = tilemap.local_to_map(player_node.position)
+	var attempts = 0
+	var max_attempts = 100
+	var double_defense_pickup_spawned = false
+	
+	while not double_defense_pickup_spawned and attempts < max_attempts:
+		var random_position = map[randi() % len(map)]
+		var world_position = tilemap.map_to_local(random_position)
+		
+		if random_position.distance_to(player_position) >= min_distance_from_player and not is_tile_occupied(world_position):
+			var double_defense_pickup = double_defense_pickup_scene.instantiate()
+			double_defense_pickup.position = world_position
+			add_child(double_defense_pickup)
+			double_defense_pickup_spawned = true
+		
+		attempts += 1
 	
 func instance_double_speed_pickup() -> void:
 	var player_node = get_node("Player")

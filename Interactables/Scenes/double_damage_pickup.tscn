@@ -57,10 +57,10 @@ texture = ExtResource("1_iqrsg")
 hframes = 6
 vframes = 10
 
-[node name="double_damage_collider" type="CollisionShape2D" parent="."]
+[node name="damage_collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_gjjgq")
 
-[node name="double_damage_anim" type="AnimationPlayer" parent="."]
+[node name="damage_anim" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_1tcfs")
 }
