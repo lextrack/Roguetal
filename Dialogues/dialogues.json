@@ -4,8 +4,7 @@
 		"To start the battle, enter in that hole over there.",
 		"Inside the dungeon, there are two portals.",
 		"A blue one to come back here and a red one to go to the next level and continue killing enemies.",
-		"I have powers and you look like someone who doesn't know how to handle weapons, so every time you die, you will automatically receive 10 bullets. You will thank me later for that.",
-		"Good luck with the bad design 🥱"
+		"I have powers and you look like someone who doesn't know how to handle guns, so every time you die, you'll automatically get a few bullets. You'll thank me later."
 	],
 	"rare_dialogues": [
 		"Sometimes I wonder if the forest is alive.",
@@ -13,7 +12,7 @@
 		"Blue = exit.  Red =  keep fighting.",
 		"Have you ever read the instructions at the bottom right of the screen?",
 		"El pepe.",
-		"Don't tell this to anyone, but you can restart the level by pressing the SELECT button or R key.",
+		"Sometimes the bullets bounce off the orcs' gun... it has nothing to do with a problem with collisions or anything like that.",
 		"Have you ever wondered what lies beyond this forest?",
 		"Not every day do you find an adventurer in these lonely places.",
 		"They say there's an ancient spell hidden in these... Nah, I'm kidding. In this place, there are just portals. That's all.",
@@ -27,7 +26,13 @@
 		"Two weapons are enough!",
 		"Switch weapons by pressing LB or C",
 		"Wait, you’re still reading this? You must really love dialogue... blur dialogues if you are playing this game in fullscreen.",
-	"Orcs do contact damage, I would try to stay away from them.",
-	"Find and combine power ups to give variety to the gameplay!"
+		"Orcs do contact damage, I would try to stay away from them.",
+		"Find and combine power ups to give variety to the gameplay!",
+		"Walking diagonally gives you more speed, as in System Shook 2 or Thief.",
+		"Alt+F4 open the command console",
+		"Good luck with the bad design 🥱",
+		"Is it just me, or did that tree just move?",
+		"Bruh.",
+		"Felicidades on making it this far! Your reward is... more orcs. Enjoy!"
 	]
 }

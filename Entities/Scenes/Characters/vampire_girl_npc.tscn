@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://UI/ui_scripts/area_vampire_girl.gd" id="3_fvofm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2x2kd"]
-size = Vector2(42.8571, 75.8928)
+size = Vector2(42.8571, 70.7908)
 
 [sub_resource type="Animation" id="Animation_elxsj"]
 resource_name = "Idle"
@@ -51,7 +51,7 @@ size = Vector2(45.2857, 42.8036)
 scale = Vector2(0.7, 0.7)
 
 [node name="vampire_girl_collider" type="CollisionShape2D" parent="."]
-position = Vector2(1.19209e-07, 16.9643)
+position = Vector2(1.19209e-07, 18.3929)
 scale = Vector2(0.600001, 0.56)
 shape = SubResource("RectangleShape2D_2x2kd")
 debug_color = Color(0.998176, 0.557226, 0.672339, 0.419608)
@@ -62,7 +62,7 @@ texture = ExtResource("2_1oje4")
 hframes = 5
 frame = 1
 
-[node name="anim" type="AnimationPlayer" parent="."]
+[node name="animation_vampire_girl" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_qiiap")
 }

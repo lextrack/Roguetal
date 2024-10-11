@@ -1,5 +1,3 @@
-# SCRIPT JUGADOR
-
 extends CharacterBody2D
 
 enum player_states {MOVE, DEAD}
@@ -70,13 +68,20 @@ func _ready() -> void:
 	
 func power_up_manager_check() -> void:
 	if power_up_manager:
-		power_up_manager.connect("damage_multiplier_changed", Callable(self, "_on_damage_multiplier_changed"))
-		power_up_manager.connect("speed_multiplier_changed", Callable(self, "_on_speed_multiplier_changed"))
+		power_up_manager.connect("power_up_changed", Callable(self, "_on_power_up_changed"))
 	else:
 		push_error("PowerUpManager not found.")
 
-	_on_damage_multiplier_changed(power_up_manager.get_damage_multiplier())
-	_on_speed_multiplier_changed(power_up_manager.get_speed_multiplier())
+	for type in PowerUpTypes.PowerUpType.values():
+		_on_power_up_changed(type, power_up_manager.get_multiplier(type))
+
+func _on_power_up_changed(type: int, multiplier: float) -> void:
+	match type:
+		PowerUpTypes.PowerUpType.DAMAGE:
+			update_double_damage_icon(multiplier)
+		PowerUpTypes.PowerUpType.SPEED:
+			speed = base_speed * multiplier
+			update_double_speed_icon(multiplier)
 
 func _on_damage_multiplier_changed(multiplier: float) -> void:
 	update_double_damage_icon(multiplier)
@@ -153,7 +158,7 @@ func instance_bullet() -> void:
 	var bullet_scene = bullet_scenes.get(bullet_type, bullet_scenes["bazooka"])
 	var bullet = bullet_scene.instantiate()
 	
-	var damage_multiplier = power_up_manager.get_damage_multiplier() if power_up_manager else 1.0
+	var damage_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.DAMAGE)
 	bullet.damage = weapon_damage[bullet_type] * damage_multiplier
 	
 	var bullet_point = current_weapon.get_node("bullet_point")
@@ -395,4 +400,4 @@ func exit_portal():
 	is_in_portal = false
 
 func _on_hitbox_area_exited(area: Area2D) -> void:
-	pass 
+	pass

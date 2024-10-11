@@ -23,6 +23,7 @@ MusicDungeon="*res://SoundEffects/sound_scenes/music_dungeon.tscn"
 MusicMainLevel="*res://SoundEffects/sound_scenes/music_main_level.tscn"
 MusicMainMenu="*res://SoundEffects/sound_scenes/music_main_menu.tscn"
 GlobalPowerUpState="*res://GlobalPowerUpState.gd"
+PowerUpTypes="*res://global_power_up_types.gd"
 
 [display]
 
@@ -97,8 +98,7 @@ interact_player1={
 }
 restart_level={
 "deadzone": 0.5,
-"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":4,"pressure":0.0,"pressed":true,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":114,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":true,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":46,"key_label":0,"unicode":46,"location":0,"echo":false,"script":null)
 ]
 }
 esc={

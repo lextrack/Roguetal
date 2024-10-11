@@ -10,6 +10,8 @@ extends Control
 var current_selection = 0
 var buttons = []
 var credits_open = false
+var loading_screen_scene = preload("res://UI/ui_scenes/loading_screen.tscn")
+var loading_screen: CanvasLayer = null
 
 func _ready() -> void:
 	MusicMainMenu.play_music_level()
@@ -39,7 +41,21 @@ func _process(delta: float) -> void:
 func _on_play_pressed() -> void:
 	animate_button(play)
 	await get_tree().create_timer(0.2).timeout
-	get_tree().change_scene_to_file("res://Levels/Scenes/main_world.tscn")
+	
+	# Instanciar y añadir la pantalla de carga
+	loading_screen = loading_screen_scene.instantiate()
+	add_child(loading_screen)
+	
+	# Conectar la señal loading_finished
+	loading_screen.loading_finished.connect(_on_loading_finished)
+	
+	# Iniciar la carga de la escena principal
+	loading_screen.load_scene("res://Levels/Scenes/main_world.tscn")
+
+func _on_loading_finished() -> void:
+	# Desconectar la señal para evitar llamadas múltiples si la pantalla de carga se reutiliza
+	if loading_screen and loading_screen.loading_finished.is_connected(_on_loading_finished):
+		loading_screen.loading_finished.disconnect(_on_loading_finished)
 
 func _on_credits_pressed() -> void:
 	animate_button(credits)

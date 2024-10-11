@@ -1,9 +1,9 @@
 extends CanvasLayer
 
-@export var display_time : float = 2.0
+@export var display_time : float = 3.0
 var timer : Timer
 var instructions_pages = [
-	{
+	{	# CONTROL INSTRUCTIONS
 		"images": [
 			"res://UI/images_instructions/btn_xb_l0.png",
 			"res://UI/images_instructions/wasd.png",
@@ -12,13 +12,22 @@ var instructions_pages = [
 			"Move and control the character"
 		]
 	},
-	{
+	{	# TALK INSTRUCCIONS
 		"images": [
 			"res://UI/images_instructions/btn_xb_01a.png",
 			"res://UI/images_instructions/letter-e.png"
 		],
 		"texts": [
 			"[color=yellow]Talk[/color] with people"
+		]
+	},
+	{	# PAUSE INSTRUCTIONS
+		"images": [
+			"res://UI/images_instructions/btn_xb_12.png",
+			"res://UI/images_instructions/letter-esc.png"
+		],
+		"texts": [
+			"[color=yellow]Pause[/color] the game if you are bored"
 		]
 	},
 ]

@@ -18,7 +18,7 @@ var idle_timer : Timer
 
 @export var speed = 90 # The movement speed of the enemy
 @export var max_health: float = 50.0 # The maximum health points of the enemy
-@export var attack_cooldown_time = 0.5 # Time (in seconds) between enemy attacks
+@export var attack_cooldown_time = 0.6 # Time (in seconds) between enemy attacks
 @export var chase_range = 150.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 5.0 # Distance for detecting and avoiding obstacles
 @export var reposition_distance = 30.0 # Distance the enemy moves to reposition during combat

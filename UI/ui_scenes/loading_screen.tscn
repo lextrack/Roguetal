@@ -1,13 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccved0yflp1jl"]
+[gd_scene load_steps=5 format=3 uid="uid://ccved0yflp1jl"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/loading_screen.gd" id="1_a7ce3"]
+[ext_resource type="Texture2D" uid="uid://dd6r8qjt8krh8" path="res://Sprites/wallpaper_main_menu.png" id="2_b51h2"]
+[ext_resource type="Texture2D" uid="uid://dq8ci88mdqrqt" path="res://Sprites/loading.png" id="2_lhmsj"]
 
-[sub_resource type="Gradient" id="Gradient_00r44"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_82rkb"]
-gradient = SubResource("Gradient_00r44")
-fill_from = Vector2(1, 0)
-fill_to = Vector2(0, 0)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hmtje"]
+texture = ExtResource("2_b51h2")
 
 [node name="loading_screen" type="CanvasLayer"]
 layer = 100
@@ -21,16 +19,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="Wallpaper" type="Panel" parent="Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+theme_override_styles/panel = SubResource("StyleBoxTexture_hmtje")
 
-[node name="Label" type="Label" parent="Control"]
+[node name="LoadingLabel" type="Label" parent="Control"]
+visible = false
 texture_filter = 2
 layout_mode = 1
 anchors_preset = 8
@@ -38,10 +37,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -134.0
+offset_top = -34.5
+offset_right = 134.0
+offset_bottom = 34.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/shadow_offset_x = 5
@@ -51,19 +50,34 @@ text = "LOADING..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Control"]
+[node name="TipLabel" type="Label" parent="Control"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -42.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 25
+
+[node name="LoadingSpinner" type="TextureRect" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -155.0
-offset_top = 32.0
-offset_right = 165.0
-offset_bottom = 64.0
+offset_left = -40.0
+offset_top = 58.0
+offset_bottom = 98.0
 grow_horizontal = 2
 grow_vertical = 2
-nine_patch_stretch = true
-texture_progress = SubResource("GradientTexture2D_82rkb")
-tint_progress = Color(0.282353, 0.631373, 0, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("2_lhmsj")
+expand_mode = 4
+stretch_mode = 4
