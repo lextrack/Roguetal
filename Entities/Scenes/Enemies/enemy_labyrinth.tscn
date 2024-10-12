@@ -372,6 +372,7 @@ shape = SubResource("RectangleShape2D_n5xl2")
 debug_color = Color(0.938574, 0.115461, 0.547082, 0.42)
 
 [node name="chase_box" type="Area2D" parent="."]
+visible = false
 collision_layer = 32
 collision_mask = 64
 
@@ -386,7 +387,7 @@ autostart = true
 
 [node name="hit_damage_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_4002r")
-volume_db = 3.0
+volume_db = 4.0
 panning_strength = 0.0
 
 [node name="die_enemy_sound" type="AudioStreamPlayer2D" parent="."]

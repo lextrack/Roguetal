@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccved0yflp1jl"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/loading_screen.gd" id="1_a7ce3"]
-[ext_resource type="Texture2D" uid="uid://dd6r8qjt8krh8" path="res://Sprites/wallpaper_main_menu.png" id="2_b51h2"]
-[ext_resource type="Texture2D" uid="uid://dq8ci88mdqrqt" path="res://Sprites/loading.png" id="2_lhmsj"]
+[ext_resource type="Texture2D" uid="uid://b8hsbjrh36x2u" path="res://Sprites/wallpaper_3.jpg" id="2_km8s0"]
+[ext_resource type="Texture2D" uid="uid://2smyrybdaiac" path="res://Sprites/load.png" id="3_p1yny"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hmtje"]
-texture = ExtResource("2_b51h2")
+texture = ExtResource("2_km8s0")
 
 [node name="loading_screen" type="CanvasLayer"]
 layer = 100
@@ -66,18 +66,19 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 25
 
 [node name="LoadingSpinner" type="TextureRect" parent="Control"]
+texture_filter = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -40.0
+offset_left = -17.0
 offset_top = 58.0
+offset_right = 23.0
 offset_bottom = 98.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(2, 2)
-texture = ExtResource("2_lhmsj")
+texture = ExtResource("3_p1yny")
 expand_mode = 4
 stretch_mode = 4

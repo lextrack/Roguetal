@@ -10,7 +10,7 @@ var borders = Rect2()
 var step_history = []
 var steps_since_turn = 0
 var rooms = []
-var corridor_width = 2
+var corridor_width = 3
 
 func _init(starting_position, new_border) -> void:
 	assert(new_border.has_point(starting_position))
@@ -22,7 +22,7 @@ func walk(steps):
 	place_room(position)
 	
 	for step in steps:
-		if steps_since_turn >= 6: 
+		if steps_since_turn >= 8: 
 			change_direction()
 		if step():
 			step_history.append(position)

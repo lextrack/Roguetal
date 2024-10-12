@@ -15,12 +15,14 @@ const MAGNET_RADIUS = 100.0
 @onready var bullet_scenes = {
 	"bazooka": preload("res://Entities/Scenes/Bullets/bullet_1.tscn"),
 	"m16": preload("res://Entities/Scenes/Bullets/bullet_rapid.tscn"),
+	"shotgun": preload("res://Entities/Scenes/Bullets/bullet_shotgun.tscn"),
 }
 @onready var trail_scene = preload("res://Entities/Scenes/FX/scent_trail.tscn")
 @onready var weapons_container = $weapons_container
 @onready var sprite = $Sprite2D
 @onready var walk_sound_player = $Sounds/WalkSoundPlayer
 @onready var cursor_script = $mouse_icon
+@onready var audio_stream_shotgun_shot: AudioStreamPlayer2D = $Sounds/AudioStreamShotgunShot
 @onready var audio_stream_dead_player: AudioStreamPlayer2D = $Sounds/AudioStreamDeadPlayer
 @onready var damage_timer: Timer = $Timers/damage_timer
 @onready var magnet_area: Area2D = $MagnetArea
@@ -46,7 +48,8 @@ var weapons = []
 var current_weapon_index = 0
 var weapon_damage = {
 	"bazooka": 5,
-	"m16": 3
+	"m16": 3,
+	"shotgun": 2
 }
 
 func _ready() -> void:
@@ -177,43 +180,57 @@ func joystick_aiming(delta: float) -> void:
 			weapons_container.rotation = direction.angle()
 			rot = rad_to_deg(direction.angle())
 			update_weapon_flip()
-
+			
 func instance_bullet() -> void:
 	var current_weapon = weapons[current_weapon_index]
 	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
 	
 	var bullet_scene = bullet_scenes.get(bullet_type, bullet_scenes["bazooka"])
-	var bullet = bullet_scene.instantiate()
 	
 	var damage_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.DAMAGE)
-	bullet.damage = weapon_damage[bullet_type] * damage_multiplier
 	
 	var bullet_point = current_weapon.get_node("bullet_point")
-	bullet.direction = (bullet_point.global_position - weapons_container.global_position).normalized()
-	bullet.global_position = bullet_point.global_position
-	get_tree().root.add_child(bullet)
+	var base_direction = (bullet_point.global_position - weapons_container.global_position).normalized()
 	
-	if bullet_type == "bazooka":
-		$Sounds/AudioStreamBazookaShot.play()
-	elif bullet_type == "m16":
-		$Sounds/AudioStreamM16Shot.play()
+	if bullet_type == "shotgun":
+		var num_pellets = 5
+		for i in range(num_pellets):
+			var bullet = bullet_scene.instantiate()
+			bullet.damage = weapon_damage[bullet_type] * damage_multiplier
+			bullet.direction = base_direction
+			bullet.global_position = bullet_point.global_position
+			bullet.base_speed = 250
+			bullet.speed_variation = 50
+			bullet.start_delay_max = 0.05
+			get_tree().root.add_child(bullet)
+		$Sounds/AudioStreamShotgunShot.play()
+	else:
+		var bullet = bullet_scene.instantiate()
+		bullet.damage = weapon_damage[bullet_type] * damage_multiplier
+		bullet.direction = base_direction
+		bullet.global_position = bullet_point.global_position
+		get_tree().root.add_child(bullet)
+		
+		if bullet_type == "bazooka":
+			$Sounds/AudioStreamBazookaShot.play()
+		elif bullet_type == "m16":
+			$Sounds/AudioStreamM16Shot.play()
 
 func bullet_type_shooting(delta: float):
 	var current_weapon = weapons[current_weapon_index]
 	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
 
-	if bullet_type == "m16" and Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
+	if Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
 		shoot_timer -= delta
 		if shoot_timer <= 0.0:
 			player_data.ammo -= 1
 			instance_bullet()
-			shoot_timer = rapid_shoot_delay
-	elif bullet_type != "m16" and Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
-		shoot_timer -= delta
-		if shoot_timer <= 0.0:
-			player_data.ammo -= 1
-			instance_bullet()
-			shoot_timer = bazooka_shoot_delay
+			if bullet_type == "m16":
+				shoot_timer = rapid_shoot_delay
+			elif bullet_type == "shotgun":
+				shoot_timer = 0.9
+			else:
+				shoot_timer = bazooka_shoot_delay
 
 func setup_weapons():
 	for i in range(weapons.size()):
@@ -222,6 +239,8 @@ func setup_weapons():
 			weapon.set_meta("bullet_type", "bazooka")
 		elif i == 1:
 			weapon.set_meta("bullet_type", "m16")
+		elif i == 2:
+			weapon.set_meta("bullet_type", "shotgun")
 
 func handle_weapon_switch():
 	if Input.is_action_just_pressed("switch_weapon"):
@@ -338,7 +357,7 @@ func dead() -> void:
 		audio_stream_dead_player.play()
 		$player_animation.play("Dead")
 
-		player_data.ammo += 30
+		player_data.ammo += 20
 		player_data.kill_count = 0
 		player_data.reset_kill_streak()
 		

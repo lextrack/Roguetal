@@ -5,6 +5,11 @@ extends CharacterBody2D
 enum enemy_state {IDLE, PATROL, CHASE, ATTACK, REPOSITION}
 var current_state = enemy_state.IDLE
 
+static var last_hit_sound_time = 0
+static var last_death_sound_time = 0
+const HIT_SOUND_COOLDOWN = 0.1
+const DEATH_SOUND_COOLDOWN = 0.1
+
 var current_health
 var attack_cooldown = 0.0
 var path : Array = []
@@ -17,7 +22,7 @@ var reposition_timer : Timer
 var idle_timer : Timer
 
 @export var speed = 90 # The movement speed of the enemy
-@export var max_health: float = 50.0 # The maximum health points of the enemy
+@export var max_health: float = 60.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.6 # Time (in seconds) between enemy attacks
 @export var chase_range = 150.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 5.0 # Distance for detecting and avoiding obstacles
@@ -327,12 +332,19 @@ func take_damage(damage: int, bullet = null):
 		current_health = 0
 		die()
 	else:
-		hit_damage_sound.play()
+		play_hit_sound()
 		flash_damage()
 		show_damage(damage)
 	
 	if bullet:
 		bullet.queue_free()
+
+# Play hit sound with cooldown
+func play_hit_sound():
+	var current_time = Time.get_ticks_msec() / 1000.0
+	if current_time - last_hit_sound_time > HIT_SOUND_COOLDOWN:
+		hit_damage_sound.play()
+		last_hit_sound_time = current_time
 
 # Show damage number when hit
 func show_damage(damage: int):
@@ -348,7 +360,7 @@ func die():
 		return
 
 	is_dead = true
-	die_enemy_sound.play()
+	play_death_sound()
 	instance_ammo()
 	
 	player_data.kill_count += 1
@@ -366,6 +378,13 @@ func die():
 	
 	await die_animation_enemy.animation_finished
 	queue_free()
+
+# Play death sound with cooldown
+func play_death_sound():
+	var current_time = Time.get_ticks_msec() / 1000.0
+	if current_time - last_death_sound_time > DEATH_SOUND_COOLDOWN:
+		die_enemy_sound.play()
+		last_death_sound_time = current_time
 
 # Flash red when taking damage
 func flash_damage():

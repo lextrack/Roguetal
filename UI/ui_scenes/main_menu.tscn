@@ -76,7 +76,7 @@ offset_left = 20.0
 offset_top = 18.0
 offset_right = 70.0
 offset_bottom = 41.0
-text = "1.0.0.8"
+text = "1.0.0.9"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -166,10 +166,10 @@ theme_override_constants/line_separation = 3
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
 text = "[b][color=crimson]SOUND[/color][/b]
-klankbeeld, Lamp_, szegvari, newlocknew, SoundEffectsFactory, PK9 Sound Effect, el_boss, rubberduck, Mobeyee Sounds, IgnasD, Jamius.
+klankbeeld, Lamp_, szegvari, newlocknew, SoundEffectsFactory, PK9 Sound Effect, el_boss, rubberduck, Mobeyee Sounds, IgnasD, Jamius, AbuNijmeh, JoseIgnacioTriay, toxicwafflezz.
 
 [b][color=crimson]ART[/color][/b]
-Luck, Joan Stenstrup Frandsen, Szadi art, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Krystsina Mikhailouskaya.
+Luck, Joan Stenstrup Frandsen, Szadi art, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Fuzzee.
 
 [b][color=crimson]ADDITIONAL RESOURCES[/color][/b]
 Flaticon (Freepik, DinosoftLabs, surang, kiranshastry, bharat icons) for the awesome icons.

@@ -45,7 +45,7 @@ _data = {
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_luqk0"]
 radius = 7.0
-height = 24.0
+height = 22.0
 
 [node name="exit_portal" type="Area2D"]
 position = Vector2(-7, -25)

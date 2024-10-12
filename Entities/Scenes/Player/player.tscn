@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://brms7i87pfawr"]
+[gd_scene load_steps=27 format=3 uid="uid://brms7i87pfawr"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/player.gd" id="1_ukrib"]
 [ext_resource type="Shader" path="res://Shaders/hurt.gdshader" id="2_dwf4p"]
@@ -11,17 +11,25 @@
 [ext_resource type="Texture2D" uid="uid://cieogogxl8sko" path="res://Sprites/m16_2.png" id="6_r20b8"]
 [ext_resource type="AudioStream" uid="uid://bdst5cjd6a6qn" path="res://SoundEffects/Shot_bazooka.ogg" id="7_tfnia"]
 [ext_resource type="AudioStream" uid="uid://c41s3wtu5ym1u" path="res://SoundEffects/walking_sound1.ogg" id="8_01fvg"]
+[ext_resource type="Texture2D" uid="uid://u0hyhwgouco1" path="res://Sprites/shotgun.png" id="9_pmxyk"]
 [ext_resource type="AudioStream" uid="uid://bwk7dwlyljdul" path="res://SoundEffects/hurting_player.ogg" id="10_aj7pw"]
 [ext_resource type="AudioStream" uid="uid://chf2546e33apu" path="res://SoundEffects/AudioStreamM16Shot.ogg" id="10_emtum"]
 [ext_resource type="Texture2D" uid="uid://ippgb3ck7201" path="res://Sprites/ddamage_pickup.png" id="12_erptt"]
 [ext_resource type="Script" path="res://Entities/entities_scripts/power_up_manager.gd" id="14_o2miv"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3ud7"]
-size = Vector2(17.8571, 23.2143)
+[ext_resource type="AudioStream" uid="uid://3dqerkqyurwc" path="res://SoundEffects/shotgun_shoot.ogg" id="16_2typd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7das3"]
 shader = ExtResource("2_dwf4p")
 shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3ud7"]
+size = Vector2(17.8571, 23.2143)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_40p5x"]
+radius = 7.14286
+height = 32.143
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k86gn"]
 
 [sub_resource type="Animation" id="Animation_646v8"]
 resource_name = "Dead"
@@ -208,12 +216,6 @@ _data = {
 "RESET": SubResource("Animation_h3ykm")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_40p5x"]
-radius = 7.14286
-height = 32.143
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_k86gn"]
-
 [node name="Player" type="CharacterBody2D"]
 z_index = 3
 y_sort_enabled = true
@@ -223,8 +225,16 @@ collision_mask = 155
 script = ExtResource("1_ukrib")
 speed = 100
 
-[node name="PowerUpManager" type="Node" parent="."]
-script = ExtResource("14_o2miv")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_7das3")
+position = Vector2(-4.76837e-07, 8.57143)
+scale = Vector2(1.3, 1.4)
+texture = ExtResource("3_vnj0r")
+hframes = 10
+vframes = 8
+frame = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3.5, 3.5)
@@ -233,7 +243,14 @@ script = ExtResource("4_jek05")
 [node name="camera_shake" type="Timer" parent="Camera2D"]
 autostart = true
 
+[node name="player_colider" type="CollisionShape2D" parent="."]
+position = Vector2(2.85714, 13.5714)
+scale = Vector2(0.8, 0.8)
+shape = SubResource("RectangleShape2D_b3ud7")
+disabled = true
+
 [node name="hud_powerup" type="Node2D" parent="."]
+scale = Vector2(1, 1)
 
 [node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
 position = Vector2(-238.572, -67.1429)
@@ -249,46 +266,6 @@ texture = ExtResource("3_kwns6")
 position = Vector2(-215.714, -67.1429)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("6_7scbk")
-
-[node name="player_colider" type="CollisionShape2D" parent="."]
-position = Vector2(2.85714, 13.5714)
-scale = Vector2(0.8, 0.8)
-shape = SubResource("RectangleShape2D_b3ud7")
-disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 1
-y_sort_enabled = true
-material = SubResource("ShaderMaterial_7das3")
-position = Vector2(-4.76837e-07, 8.57143)
-scale = Vector2(1.3, 1.4)
-texture = ExtResource("3_vnj0r")
-hframes = 10
-vframes = 8
-frame = 1
-
-[node name="player_animation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_j2kxc")
-}
-autoplay = "Idle"
-
-[node name="hitbox" type="Area2D" parent="."]
-collision_mask = 32
-
-[node name="hitbox_colider" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(2.85714, 12.8571)
-scale = Vector2(0.8, 0.8)
-shape = SubResource("CapsuleShape2D_40p5x")
-disabled = true
-debug_color = Color(0.904192, 0.253779, 0.443605, 0.42)
-
-[node name="MagnetArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MagnetArea"]
-position = Vector2(2.85714, 10.7143)
-shape = SubResource("CircleShape2D_k86gn")
-debug_color = Color(0.625234, 0.551613, 0.0802094, 0.42)
 
 [node name="weapons_container" type="Node2D" parent="."]
 position = Vector2(0, 17.1429)
@@ -314,6 +291,38 @@ texture = ExtResource("6_r20b8")
 
 [node name="bullet_point" type="Marker2D" parent="weapons_container/m16"]
 position = Vector2(21.4286, -4.3869e-05)
+
+[node name="shotgun" type="Node2D" parent="weapons_container"]
+
+[node name="gun_sprite" type="Sprite2D" parent="weapons_container/shotgun"]
+z_index = 1
+texture_filter = 2
+position = Vector2(10.7429, 1.45711)
+scale = Vector2(0.0417411, 0.0333705)
+texture = ExtResource("9_pmxyk")
+
+[node name="bullet_point" type="Marker2D" parent="weapons_container/shotgun"]
+position = Vector2(21.4286, 0)
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_mask = 32
+
+[node name="hitbox_colider" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(2.85714, 12.8571)
+scale = Vector2(0.8, 0.8)
+shape = SubResource("CapsuleShape2D_40p5x")
+disabled = true
+debug_color = Color(0.904192, 0.253779, 0.443605, 0.42)
+
+[node name="MagnetArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MagnetArea"]
+position = Vector2(2.85714, 10.7143)
+shape = SubResource("CircleShape2D_k86gn")
+debug_color = Color(0.625234, 0.551613, 0.0802094, 0.42)
+
+[node name="PowerUpManager" type="Node" parent="."]
+script = ExtResource("14_o2miv")
 
 [node name="Sounds" type="Node" parent="."]
 
@@ -341,6 +350,11 @@ stream = ExtResource("10_aj7pw")
 volume_db = 4.0
 panning_strength = 0.0
 
+[node name="AudioStreamShotgunShot" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("16_2typd")
+volume_db = 4.0
+panning_strength = 0.0
+
 [node name="Timers" type="Node" parent="."]
 
 [node name="trail_timer" type="Timer" parent="Timers"]
@@ -352,10 +366,16 @@ autostart = true
 [node name="mouse_icon" parent="." instance=ExtResource("4_v52kv")]
 scale = Vector2(0.640001, 0.68)
 
+[node name="player_animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j2kxc")
+}
+autoplay = "Idle"
+
 [connection signal="timeout" from="Camera2D/camera_shake" to="Camera2D" method="_on_camera_shake_timeout"]
-[connection signal="animation_finished" from="player_animation" to="." method="_on_anim_animation_finished"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_exited" from="hitbox" to="." method="_on_hitbox_area_exited"]
 [connection signal="area_entered" from="MagnetArea" to="." method="_on_magnet_area_area_entered"]
 [connection signal="timeout" from="Timers/trail_timer" to="." method="_on_trail_timer_timeout"]
 [connection signal="timeout" from="Timers/damage_timer" to="." method="_on_damage_timer_timeout"]
+[connection signal="animation_finished" from="player_animation" to="." method="_on_anim_animation_finished"]

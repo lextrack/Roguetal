@@ -8,12 +8,12 @@ var next_scene: String = ""
 var tips = [
 	"Hi, I'm a loading screen.",
 	"Don't give up, use power-ups!",
-	"Pro tip: Don't die",
+	"Don't die it's bad for your health",
 	"Remember to blink occasionally",
 	"Tip: Winning is better than losing. But you can't get any of this here",
 	"Did you know? The cake is a lie",
 	"Random tips, like the levels of this game",
-	"Loading... Feel free to do some pushups",
+	"Loading... Cargando... Laden... 加载中... Ładowanie... Caricamento...",
 	"Tip: Water is wet, fire is hot",
 	"Loading game... and contemplating existence"
 ]
