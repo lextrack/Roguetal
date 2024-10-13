@@ -9,7 +9,7 @@ size = Vector2(6, 2)
 
 [node name="bullet_rapid" type="Area2D" groups=["Bullet"]]
 collision_layer = 2
-collision_mask = 40
+collision_mask = 8
 script = ExtResource("1_qaf3j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -25,7 +25,7 @@ scale = Vector2(0.3, 0.1)
 
 [node name="AudioStreamImpactRapid" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_wuusc")
-volume_db = -6.0
+volume_db = -10.0
 max_distance = 3000.0
 panning_strength = 0.0
 

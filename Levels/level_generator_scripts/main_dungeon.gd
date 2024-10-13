@@ -43,9 +43,7 @@ func generate_level() -> void:
 	create_navigation()
 	instance_enemies()
 	instance_health_pickup()
-	instance_double_damage_pickup()
-	instance_double_speed_pickup()
-	instance_double_defense_pickup()
+	instance_random_powerup()
 
 func create_navigation():
 	# Creates the navigation region for pathfinding using the map outline
@@ -63,6 +61,22 @@ func create_navigation():
 	navigation_polygon.add_outline(outline)
 	navigation_polygon.make_polygons_from_outlines()
 	navigation_region.navigation_polygon = navigation_polygon
+	
+func instance_random_powerup() -> void:
+	var powerups = [
+		"double_defense",
+		"double_speed",
+		"double_damage"
+	]
+	var chosen_powerup = powerups[randi() % powerups.size()]
+	
+	match chosen_powerup:
+		"double_defense":
+			instance_double_defense_pickup()
+		"double_speed":
+			instance_double_speed_pickup()
+		"double_damage":
+			instance_double_damage_pickup()
 	
 func instance_double_defense_pickup() -> void:
 	var player_node = get_node("Player")

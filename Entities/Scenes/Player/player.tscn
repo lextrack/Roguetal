@@ -250,7 +250,6 @@ shape = SubResource("RectangleShape2D_b3ud7")
 disabled = true
 
 [node name="hud_powerup" type="Node2D" parent="."]
-scale = Vector2(1, 1)
 
 [node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
 position = Vector2(-238.572, -67.1429)
@@ -297,8 +296,8 @@ position = Vector2(21.4286, -4.3869e-05)
 [node name="gun_sprite" type="Sprite2D" parent="weapons_container/shotgun"]
 z_index = 1
 texture_filter = 2
-position = Vector2(10.7429, 1.45711)
-scale = Vector2(0.0417411, 0.0333705)
+position = Vector2(10.7429, 0.0285339)
+scale = Vector2(0.042, 0.04)
 texture = ExtResource("9_pmxyk")
 
 [node name="bullet_point" type="Marker2D" parent="weapons_container/shotgun"]
@@ -342,7 +341,7 @@ panning_strength = 0.0
 
 [node name="AudioStreamM16Shot" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("10_emtum")
-volume_db = 2.0
+volume_db = 3.0
 panning_strength = 0.0
 
 [node name="AudioStreamDeadPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
@@ -352,7 +351,7 @@ panning_strength = 0.0
 
 [node name="AudioStreamShotgunShot" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("16_2typd")
-volume_db = 4.0
+volume_db = 5.0
 panning_strength = 0.0
 
 [node name="Timers" type="Node" parent="."]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8k6ra2ncel5w"
-path="res://.godot/imported/lpc-tileset-terrain-autumn.png-44f1a94267f0878f78edbddca8435904.ctex"
+uid="uid://u6dctjnfqjs1"
+path="res://.godot/imported/Impact_shotgun.png-434cebaf19ea74d785b929f8e7925bd9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/lpc-tileset-terrain-autumn.png"
-dest_files=["res://.godot/imported/lpc-tileset-terrain-autumn.png-44f1a94267f0878f78edbddca8435904.ctex"]
+source_file="res://Sprites/Impact_shotgun.png"
+dest_files=["res://.godot/imported/Impact_shotgun.png-434cebaf19ea74d785b929f8e7925bd9.ctex"]
 
 [params]
 

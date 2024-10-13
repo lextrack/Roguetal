@@ -1,4 +1,3 @@
-# File: power_up_manager.gd
 extends Node
 
 signal power_up_changed(type: int, multiplier: float)

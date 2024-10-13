@@ -9,7 +9,7 @@ const MAGNET_RADIUS = 100.0
 @export var base_speed: int
 @export var walk_sound_interval = 0.4
 @export var rapid_shoot_delay: float = 0.1
-@export var bazooka_shoot_delay: float = 0.5
+@export var bazooka_shoot_delay: float = 0.6
 @export var damage_interval = 0.2
 
 @onready var bullet_scenes = {
@@ -36,7 +36,7 @@ var current_state = player_states.MOVE
 var is_dead = false
 var is_using_gamepad = false
 var last_input_time = 0.0
-var gamepad_deadzone = 0.1
+var gamepad_deadzone = 0.0
 var walk_sound_timer = 0.0
 var shoot_timer: float = 0.0
 var is_in_portal = false
@@ -228,7 +228,7 @@ func bullet_type_shooting(delta: float):
 			if bullet_type == "m16":
 				shoot_timer = rapid_shoot_delay
 			elif bullet_type == "shotgun":
-				shoot_timer = 0.9
+				shoot_timer = 1.0
 			else:
 				shoot_timer = bazooka_shoot_delay
 

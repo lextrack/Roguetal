@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://d6jac7jgrn4w"]
+
+[ext_resource type="Texture2D" uid="uid://u6dctjnfqjs1" path="res://Sprites/Impact_shotgun.png" id="1_4v2dx"]
+
+[sub_resource type="GDScript" id="GDScript_rj60r"]
+script/source = "extends Node2D
+
+func _ready() -> void:
+	$animation_impact.play(\"Active\")
+	await get_tree().create_timer(0.4).timeout
+	queue_free()
+"
+
+[sub_resource type="Animation" id="Animation_yu1hk"]
+resource_name = "Active"
+length = 0.18
+step = 0.04
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.04, 0.08, 0.12, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_wray4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x4oik"]
+_data = {
+"Active": SubResource("Animation_yu1hk"),
+"RESET": SubResource("Animation_wray4")
+}
+
+[node name="fx_shotgun_bullet" type="Node2D"]
+z_index = 2
+y_sort_enabled = true
+script = SubResource("GDScript_rj60r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_4v2dx")
+hframes = 4
+
+[node name="animation_impact" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x4oik")
+}

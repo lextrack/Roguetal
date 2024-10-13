@@ -23,7 +23,7 @@ var instructions_pages = [
 	},
 	{	# PAUSE INSTRUCTIONS
 		"images": [
-			"res://UI/images_instructions/btn_xb_12.png",
+			"res://UI/images_instructions/btn_xb_11.png",
 			"res://UI/images_instructions/letter-esc.png"
 		],
 		"texts": [

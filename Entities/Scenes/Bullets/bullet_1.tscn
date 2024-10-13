@@ -5,12 +5,12 @@
 [ext_resource type="AudioStream" uid="uid://nqrkco01hlp2" path="res://SoundEffects/impact_bazooka.ogg" id="3_8skf3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y45nb"]
-size = Vector2(14, 8)
+size = Vector2(16, 8)
 
 [node name="bullet_1" type="Area2D" groups=["Bullet"]]
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
-collision_mask = 40
+collision_mask = 8
 script = ExtResource("1_w6bhc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -22,7 +22,7 @@ texture = ExtResource("2_gtkaa")
 shape = SubResource("RectangleShape2D_y45nb")
 
 [node name="visible" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-1.19209e-07, 0)
+position = Vector2(6.4373e-07, 0)
 scale = Vector2(0.8, 0.4)
 
 [node name="AudioStreamImpactBazooka" type="AudioStreamPlayer2D" parent="."]

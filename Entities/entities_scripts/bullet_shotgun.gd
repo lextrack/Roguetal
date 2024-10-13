@@ -1,18 +1,18 @@
 extends Area2D
 
-@onready var fx_scene = preload("res://Entities/Scenes/FX/fx_rapid_bullet.tscn")
+@onready var fx_scene = preload("res://Entities/Scenes/FX/fx_shotgun_bullet.tscn")
 @export var base_speed = 250
 @export var damage = 1
 @export var spread_angle = 20
-@export var speed_variation = 50  # New: variation in speed
-@export var start_delay_max = 0.05  # New: maximum delay before the pellet starts moving
+@export var speed_variation = 50
+@export var start_delay_max = 0.05
+
 var direction = Vector2.RIGHT
 var speed: float
 var start_delay: float
 
-# Cooldown system for impact sound
 static var last_impact_time = 0
-const IMPACT_SOUND_COOLDOWN = 0.1  # 100 ms cooldown
+const IMPACT_SOUND_COOLDOWN = 0.1
 
 func _ready() -> void:
 	apply_spread()
@@ -20,7 +20,6 @@ func _ready() -> void:
 	speed = base_speed + randf_range(-speed_variation, speed_variation)
 	start_delay = randf_range(0, start_delay_max)
 	
-	# Delay the start of movement
 	if start_delay > 0:
 		set_physics_process(false)
 		await get_tree().create_timer(start_delay).timeout
@@ -33,7 +32,6 @@ func apply_spread():
 	var random_angle = randf_range(-spread_angle, spread_angle)
 	direction = direction.rotated(deg_to_rad(random_angle))
 	
-	# Add some randomness to the direction
 	var additional_spread = randf_range(-5, 5)
 	direction = direction.rotated(deg_to_rad(additional_spread))
 
@@ -45,7 +43,7 @@ func _on_area_entered(area: Area2D) -> void:
 		impact(area)
 
 func impact(body: Node2D):
-	Globals.camera.screen_shake(0.5, 0.1, 0.04)
+	Globals.camera.screen_shake(1.0, 0.1, 0.03)
 	
 	$CollisionShape2D.call_deferred("set_disabled", true)
 	

@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var fx_scene = preload("res://Entities/Scenes/FX/fx_scene.tscn")
+@onready var fx_scene = preload("res://Entities/Scenes/FX/fx_missile_effect.tscn")
 @export var speed = 110
 @export var damage = 1
 @export var explosion_radius = 100
@@ -66,5 +66,5 @@ func _on_visible_screen_exited() -> void:
 func instance_fx():
 	var fx = fx_scene.instantiate()
 	fx.global_position = global_position
-	fx.scale = Vector2(explosion_radius / 60, explosion_radius / 60)
+	fx.scale = Vector2(explosion_radius / 70, explosion_radius / 70)
 	get_tree().root.add_child(fx)

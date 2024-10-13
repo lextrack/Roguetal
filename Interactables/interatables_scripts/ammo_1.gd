@@ -1,12 +1,12 @@
 extends Area2D
 
-@export var ammo = 20
+@export var ammo = 15
 @export var attraction_speed = 200
 
 @onready var pickup_ammo: AudioStreamPlayer2D = $pickup_ammo
 
 var being_attracted = false
-var player: WeakRef = null  # Usamos WeakRef para evitar referencias fuertes
+var player: WeakRef = null
 
 func _ready() -> void:
 	add_to_group("ammo")
