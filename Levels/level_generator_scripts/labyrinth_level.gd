@@ -40,9 +40,23 @@ func generate_level() -> void:
 	create_navigation()
 	instance_enemies()
 	instance_health_pickup()
-	instance_double_damage_pickup()
-	instance_double_speed_pickup()
-	instance_double_defense_pickup()
+	instance_random_powerup()
+	
+func instance_random_powerup() -> void:
+	var powerups = [
+		"double_defense",
+		"double_speed",
+		"double_damage"
+	]
+	var chosen_powerup = powerups[randi() % powerups.size()]
+	
+	match chosen_powerup:
+		"double_defense":
+			instance_double_defense_pickup()
+		"double_speed":
+			instance_double_speed_pickup()
+		"double_damage":
+			instance_double_damage_pickup()
 	
 func instance_double_defense_pickup() -> void:
 	var player_node = get_node("Player")
