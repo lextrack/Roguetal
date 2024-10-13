@@ -1,7 +1,7 @@
 extends Area2D
 
 @onready var fx_scene = preload("res://Entities/Scenes/FX/fx_missile_effect.tscn")
-@export var speed = 110
+@export var speed = 115
 @export var damage = 1
 @export var explosion_radius = 100
 @export var explosion_falloff = true

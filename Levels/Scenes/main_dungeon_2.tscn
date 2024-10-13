@@ -2758,6 +2758,7 @@ libraries = {
 }
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="pause_menu" parent="MenuLayer" instance=ExtResource("2_qreqx")]
 
