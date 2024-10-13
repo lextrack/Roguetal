@@ -30,13 +30,13 @@ func _process(delta: float) -> void:
 
 func resume():
 	get_tree().paused = false
-	$AnimationPlayer.play_backwards("blur")
+	$animation_menu.play_backwards("blur")
 	is_menu_visible = false
 	hide()
 
 func pause():
 	get_tree().paused = true
-	$AnimationPlayer.play("blur")
+	$animation_menu.play("blur")
 	is_menu_visible = true
 	show()
 	current_selection = 0
