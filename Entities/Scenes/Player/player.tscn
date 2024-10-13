@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://brms7i87pfawr"]
+[gd_scene load_steps=29 format=3 uid="uid://brms7i87pfawr"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/player.gd" id="1_ukrib"]
 [ext_resource type="Shader" path="res://Shaders/hurt.gdshader" id="2_dwf4p"]
@@ -216,6 +216,18 @@ _data = {
 "RESET": SubResource("Animation_h3ykm")
 }
 
+[sub_resource type="Gradient" id="Gradient_5mmme"]
+offsets = PackedFloat32Array(0, 0.951724)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_86cio"]
+gradient = SubResource("Gradient_5mmme")
+width = 120
+height = 120
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.861244, 0.114833)
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 3
 y_sort_enabled = true
@@ -370,6 +382,12 @@ libraries = {
 "": SubResource("AnimationLibrary_j2kxc")
 }
 autoplay = "Idle"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(2.85714, 11.4286)
+texture = SubResource("GradientTexture2D_86cio")
+texture_scale = 2.0
 
 [connection signal="timeout" from="Camera2D/camera_shake" to="Camera2D" method="_on_camera_shake_timeout"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
