@@ -2946,3 +2946,9 @@ layer_3/tile_data = PackedInt32Array(-196614, 262145, 2, -131078, 262145, 2, -65
 [node name="timer_light_level" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0.99558, 0.99558, 0.99558, 1)
+energy = 0.1
+blend_mode = 1
+shadow_color = Color(1, 0, 0, 1)

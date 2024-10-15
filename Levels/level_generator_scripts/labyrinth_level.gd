@@ -29,6 +29,7 @@ func _ready() -> void:
 	generate_level()
 	MusicDungeon.play_music_level()
 	MusicMainLevel.stop()
+	
 	if get_tree().current_scene.name == "labyrinth_level":
 		if timer_light_level:
 			if not timer_light_level.timeout.is_connected(Callable(self, "_on_timer_light_level_timeout")):

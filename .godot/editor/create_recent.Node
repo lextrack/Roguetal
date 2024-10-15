@@ -1,7 +1,7 @@
+DirectionalLight2D
 Label
 Timer
 PointLight2D
-DirectionalLight2D
 Panel
 AudioStreamPlayer2D
 Marker2D
