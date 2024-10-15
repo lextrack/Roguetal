@@ -18,18 +18,43 @@ const min_distance_from_player = 5
 
 @export var borders = Rect2(1, 1, 70, 50)
 
+@onready var timer_light_level: Timer = $timer_light_level
+@onready var player: CharacterBody2D = null
+
+var _initialized = false
+
 func _ready() -> void:
 	# Called when the scene is ready, sets up the level, plays music
 	randomize()
 	generate_level()
 	MusicDungeon.play_music_level()
 	MusicMainLevel.stop()
+	if get_tree().current_scene.name == "labyrinth_level":
+		if timer_light_level:
+			if not timer_light_level.timeout.is_connected(Callable(self, "_on_timer_light_level_timeout")):
+				timer_light_level.timeout.connect(Callable(self, "_on_timer_light_level_timeout"))
+			timer_light_level.start()
+			print("Timer started in labyrinth level")  # Añade este print para depuración
+		else:
+			print("Timer not found in labyrinth level")
 
 func _input(event: InputEvent) -> void:
 	# Detects input events, restarts level if necessary
 	if Input.is_action_just_pressed("restart_level"):
 		get_tree().reload_current_scene()
-
+		
+func _on_timer_light_level_timeout() -> void:
+	if player and player.has_method("disable_light"):
+		player.disable_light()
+		print("Timer reached zero, disabling player light")
+	timer_light_level.stop()  # Detenemos el timer para que no se reinicie automáticamente
+		
+func _on_next_level_portal_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D and body == player:
+		# El jugador alcanzó el portal del siguiente nivel
+		timer_light_level.stop()  # Detenemos el temporizador
+		# Aquí puedes añadir la lógica para pasar al siguiente nivel
+		
 func generate_level() -> void:
 	# Generates the entire level including map, player, enemies, and pickups
 	walker = Walker_room.new(Vector2(25,25), borders)
@@ -183,6 +208,7 @@ func instance_player():
 	var player = player_scene.instantiate()
 	add_child(player)
 	player.position = map.pop_front() * 16
+	self.player = player  # Guardamos la referencia al jugador
 
 func instance_portal():
 	# Instantiates the exit and next-level portals at different locations
@@ -223,7 +249,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(15, 25)
+	var total_enemies_to_spawn = randi_range(5, 20)
 
 	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
 		var random_position = map[randi() % len(map)]

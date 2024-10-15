@@ -15,7 +15,8 @@ var tips = [
 	"Random tips, like the levels of this game",
 	"Loading... Cargando... Laden... 加载中... Ładowanie... Caricamento...",
 	"Tip: Water is wet, fire is hot",
-	"Loading game... and contemplating existence"
+	"Loading game... and contemplating existence",
+	"How much water do you need at day? About 15.5 cups. Little cups."
 ]
 
 var used_tips = []

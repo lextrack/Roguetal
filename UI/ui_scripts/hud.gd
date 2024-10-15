@@ -10,13 +10,20 @@ const MAX_HEARTS = 4
 @onready var time_played_label: Label = $time_played_label
 @onready var highest_streak_label: Label = $highest_streak_label
 @onready var ammo_amount: Label = $ammo_amount
+@onready var timer_light_level: Timer = $"../timer_light_level"
 
 var previous_kill_count = 0
 var previous_highest_streak = 0
 
+@onready var timer_countdown_label: Label = $timer_countdown
+
 func _ready() -> void:
 	create_hearts()
 	time_played_label.modulate.a = 0
+	
+	var current_scene = get_tree().current_scene
+	if current_scene.name != "labyrinth_level":
+		timer_countdown_label.visible = false
 
 func create_hearts():
 	for i in range(MAX_HEARTS):
@@ -26,6 +33,10 @@ func create_hearts():
 		heart_container.add_child(new_heart)
 
 func _process(delta: float) -> void:
+	if get_tree().current_scene.name == "labyrinth_level":
+		if timer_light_level and timer_countdown_label:
+			timer_countdown_label.text = var_to_str(timer_light_level.time_left).pad_decimals(0)
+	
 	ammo_amount.text = str(player_data.ammo)
 	update_kill_count()
 	update_time_played(delta)

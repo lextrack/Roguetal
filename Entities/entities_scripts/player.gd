@@ -31,7 +31,9 @@ const MAGNET_RADIUS = 100.0
 @onready var double_speed_icon: Sprite2D = $hud_powerup/double_speed_icon
 @onready var double_defense_icon: Sprite2D = $hud_powerup/double_defense_icon
 @onready var power_up_manager = $PowerUpManager
+@onready var point_light: PointLight2D = $PointLight2D
 
+var light_disabled_by_timer = false
 var current_state = player_states.MOVE
 var is_dead = false
 var is_using_gamepad = false
@@ -69,6 +71,39 @@ func _ready() -> void:
 	add_to_group("player")
 	
 	power_up_manager_check()
+	update_light_state()
+	
+func _process(delta: float) -> void:
+	if player_data.health <= 0 and current_state != player_states.DEAD:
+		current_state = player_states.DEAD
+		dead()
+	else:
+		detect_input_device()
+		if not is_using_gamepad:
+			target_mouse()
+		joystick_aiming(delta)
+		movement(delta)
+		bullet_type_shooting(delta)
+		handle_weapon_switch()
+		
+func update_light_state() -> void:
+	if point_light:
+		var current_scene = get_tree().current_scene
+		if current_scene.name == "labyrinth_level" and not light_disabled_by_timer:
+			point_light.enabled = true
+			print("Player light enabled in labyrinth level")
+		else:
+			point_light.enabled = false
+	
+func disable_light() -> void:
+	if point_light and get_tree().current_scene.name == "labyrinth_level":
+		point_light.enabled = false
+		light_disabled_by_timer = true
+		print("Player light disabled by timer")
+
+func enable_light() -> void:
+	if point_light:
+		point_light.enabled = true
 	
 func power_up_manager_check() -> void:
 	if power_up_manager:
@@ -135,19 +170,6 @@ func setup_magnet_area():
 func _on_magnet_area_area_entered(area: Area2D):
 	if area.is_in_group("ammo") and area.has_method("start_attraction"):
 		area.start_attraction(self)
-
-func _process(delta: float) -> void:
-	if player_data.health <= 0 and current_state != player_states.DEAD:
-		current_state = player_states.DEAD
-		dead()
-	else:
-		detect_input_device()
-		if not is_using_gamepad:
-			target_mouse()
-		joystick_aiming(delta)
-		movement(delta)
-		bullet_type_shooting(delta)
-		handle_weapon_switch()
 
 func detect_input_device() -> void:
 	var gamepad_input = abs(Input.get_action_strength("rs_right")) + abs(Input.get_action_strength("rs_left")) + abs(Input.get_action_strength("rs_up")) + abs(Input.get_action_strength("rs_down"))
@@ -418,6 +440,12 @@ func enter_portal(portal_type: String = ""):
 		if power_up_manager:
 			power_up_manager.handle_level_transition("main_world")
 	elif portal_type == "next_level":
+		light_disabled_by_timer = false  # Reseteamos esta variable
+		update_light_state()  # Actualizamos el estado de la luz
+		var level_node = get_tree().get_root().get_node_or_null("Level")
+		if level_node and level_node.has_node("timer_light_level"):
+			level_node.get_node("timer_light_level").stop()
+		
 		var current_scene = get_tree().current_scene
 		var dungeon_levels = ["main_dungeon", "main_dungeon_2", "labyrinth_level"]
 		

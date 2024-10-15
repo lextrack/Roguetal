@@ -217,7 +217,7 @@ _data = {
 }
 
 [sub_resource type="Gradient" id="Gradient_5mmme"]
-offsets = PackedFloat32Array(0, 0.951724)
+offsets = PackedFloat32Array(0.172414, 0.972414)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_86cio"]
@@ -384,7 +384,6 @@ libraries = {
 autoplay = "Idle"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-visible = false
 position = Vector2(2.85714, 11.4286)
 texture = SubResource("GradientTexture2D_86cio")
 texture_scale = 2.0
