@@ -113,13 +113,13 @@ func reset_instructions():
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmbyn"]
-bg_color = Color(0, 0, 0, 0.545098)
+bg_color = Color(0, 0.321569, 0.764706, 0.576471)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
-shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.117647)
-shadow_size = 2
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
+shadow_size = 5
 
 [sub_resource type="Animation" id="Animation_mfy05"]
 length = 0.001
@@ -200,13 +200,13 @@ _data = {
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xi6px"]
-bg_color = Color(0, 0, 0, 0.545098)
+bg_color = Color(0, 0.321569, 0.764706, 0.576471)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
-shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.117647)
-shadow_size = 1
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
+shadow_size = 5
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ce5gt"]
 texture = ExtResource("7_654wf")
@@ -2862,3 +2862,9 @@ layer_1/tile_data = PackedInt32Array(-458766, 3407872, 23, -262158, 3473408, 24,
 [node name="timer_light_level" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0.99558, 0.99558, 0.99558, 1)
+energy = 0.1
+blend_mode = 1
+shadow_color = Color(1, 0, 0, 1)

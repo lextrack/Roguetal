@@ -1,9 +1,9 @@
+AudioStreamPlayer2D
 DirectionalLight2D
 Label
 Timer
 PointLight2D
 Panel
-AudioStreamPlayer2D
 Marker2D
 Sprite2D
 Node2D

@@ -25,9 +25,10 @@ func _ready() -> void:
 	# Called when the scene is ready, sets up the level, plays music
 	randomize()
 	generate_level()
-	MusicDungeon.play_music_level()
+	if not MusicDungeon.is_playing_level_music:
+		MusicDungeon.play_music_level()
 	MusicMainLevel.stop()
-
+	
 func _input(event: InputEvent) -> void:
 	# Detects input events, restarts level if necessary
 	if Input.is_action_just_pressed("restart_level"):

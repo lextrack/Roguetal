@@ -10,13 +10,13 @@
 [ext_resource type="Texture2D" uid="uid://02ay4cfoeh8i" path="res://Sprites/mainlevbuild.png" id="7_7o254"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl5p6"]
-bg_color = Color(0, 0, 0, 0.545098)
+bg_color = Color(0, 0.321569, 0.764706, 0.576471)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
-shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.117647)
-shadow_size = 2
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
+shadow_size = 5
 
 [sub_resource type="Animation" id="Animation_mfy05"]
 length = 0.001
@@ -97,7 +97,7 @@ _data = {
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5e0ll"]
-bg_color = Color(0, 0, 0, 0.545098)
+bg_color = Color(0, 0.321569, 0.764706, 0.576471)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -1726,7 +1726,7 @@ y_sort_enabled = true
 offset_left = 18.0
 offset_top = 108.0
 offset_right = 183.0
-offset_bottom = 216.0
+offset_bottom = 214.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5e0ll")
 
 [node name="Tiles" type="Node2D" parent="."]

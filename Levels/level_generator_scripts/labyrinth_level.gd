@@ -1,3 +1,5 @@
+# LABYRINTH LEVEL
+
 extends Node2D
 
 var walker
@@ -27,7 +29,8 @@ func _ready() -> void:
 	# Called when the scene is ready, sets up the level, plays music
 	randomize()
 	generate_level()
-	MusicDungeon.play_music_level()
+	if not MusicDungeon.is_playing_level_music:
+		MusicDungeon.play_music_level()
 	MusicMainLevel.stop()
 	
 	if get_tree().current_scene.name == "labyrinth_level":
@@ -35,7 +38,6 @@ func _ready() -> void:
 			if not timer_light_level.timeout.is_connected(Callable(self, "_on_timer_light_level_timeout")):
 				timer_light_level.timeout.connect(Callable(self, "_on_timer_light_level_timeout"))
 			timer_light_level.start()
-			print("Timer started in labyrinth level")  # Añade este print para depuración
 		else:
 			print("Timer not found in labyrinth level")
 
@@ -47,14 +49,11 @@ func _input(event: InputEvent) -> void:
 func _on_timer_light_level_timeout() -> void:
 	if player and player.has_method("disable_light"):
 		player.disable_light()
-		print("Timer reached zero, disabling player light")
-	timer_light_level.stop()  # Detenemos el timer para que no se reinicie automáticamente
+	timer_light_level.stop()
 		
 func _on_next_level_portal_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D and body == player:
-		# El jugador alcanzó el portal del siguiente nivel
-		timer_light_level.stop()  # Detenemos el temporizador
-		# Aquí puedes añadir la lógica para pasar al siguiente nivel
+		timer_light_level.stop()
 		
 func generate_level() -> void:
 	# Generates the entire level including map, player, enemies, and pickups

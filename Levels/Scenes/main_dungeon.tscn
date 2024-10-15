@@ -115,13 +115,13 @@ func reset_instructions():
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjeuj"]
-bg_color = Color(0, 0, 0, 0.545098)
+bg_color = Color(0, 0.321569, 0.764706, 0.576471)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
-shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.117647)
-shadow_size = 2
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
+shadow_size = 5
 
 [sub_resource type="Animation" id="Animation_mfy05"]
 length = 0.001
@@ -202,7 +202,7 @@ _data = {
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2uu83"]
-bg_color = Color(0, 0, 0, 0.545098)
+bg_color = Color(0, 0.321569, 0.764706, 0.576471)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -2948,7 +2948,6 @@ wait_time = 10.0
 autostart = true
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-color = Color(0.99558, 0.99558, 0.99558, 1)
 energy = 0.1
 blend_mode = 1
 shadow_color = Color(1, 0, 0, 1)
