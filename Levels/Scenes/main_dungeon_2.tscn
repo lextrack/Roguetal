@@ -1,8 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://qxvjn3o53fdy"]
+[gd_scene load_steps=22 format=3 uid="uid://qxvjn3o53fdy"]
 
 [ext_resource type="Script" path="res://Levels/level_generator_scripts/main_dungeon.gd" id="1_f0bfp"]
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="2_qreqx"]
+[ext_resource type="FontFile" uid="uid://foyead1qeonx" path="res://Fonts/Ubuntu-Regular.ttf" id="2_xffvh"]
 [ext_resource type="Script" path="res://UI/ui_scripts/hud.gd" id="3_1f71u"]
+[ext_resource type="FontFile" uid="uid://ck4ih0gyygcqd" path="res://Fonts/Ubuntu-Bold.ttf" id="3_2xvuf"]
 [ext_resource type="Texture2D" uid="uid://csx15aryqogte" path="res://Sprites/HeartSpriteSheet.png" id="4_f56xk"]
 [ext_resource type="Texture2D" uid="uid://dwphcmpag53is" path="res://Sprites/ammo_ui.png" id="5_uurhp"]
 [ext_resource type="Texture2D" uid="uid://02ay4cfoeh8i" path="res://Sprites/mainlevbuild.png" id="7_654wf"]
@@ -24,7 +26,7 @@ var instructions_pages = [
 			\"To [color=red]shoot[/color] at enemies (remember to hold down)\"
 		]
 	},
-		{
+	{
 		\"images\": [
 			\"res://UI/images_instructions/btn_xb_l1.png\",
 			\"res://UI/images_instructions/letter-c.png\"
@@ -43,10 +45,11 @@ var instructions_pages = [
 		]
 	},
 ]
-
 var current_page_index = 0
 
 func _ready():
+	apply_custom_font()
+	
 	timer = Timer.new()
 	timer.one_shot = true
 	timer.wait_time = display_time
@@ -61,15 +64,22 @@ func _ready():
 	else:
 		$PanelInstructions.hide()
 
+func apply_custom_font():
+	var font = load(\"res://Fonts/Ubuntu-Regular.ttf\")
+	if font:
+		var rich_label = $PanelInstructions/TextContainer/RichLabel
+		rich_label.add_theme_font_override(\"normal_font\", font)
+
 func show_instructions_page(index: int):
 	if index < instructions_pages.size():
 		var page = instructions_pages[index]
 		
 		var images_container = $PanelInstructions/ImagesContainer
-		var text_container = $PanelInstructions/TextContainer
-		for container in [images_container, text_container]:
-			for child in container.get_children():
-				child.queue_free()
+		var rich_label = $PanelInstructions/TextContainer/RichLabel
+		
+		for child in images_container.get_children():
+			child.queue_free()
+		rich_label.clear()
 		
 		for image_path in page[\"images\"]:
 			var texture_rect = TextureRect.new()
@@ -79,13 +89,10 @@ func show_instructions_page(index: int):
 			texture_rect.custom_minimum_size = Vector2(50, 50)
 			images_container.add_child(texture_rect)
 		
-		for text in page[\"texts\"]:
-			var rich_label = RichTextLabel.new()
-			rich_label.bbcode_enabled = true
-			rich_label.bbcode_text = text
-			rich_label.fit_content = true
-			rich_label.custom_minimum_size = Vector2(0, 20)
-			text_container.add_child(rich_label)
+		rich_label.bbcode_enabled = true
+		rich_label.text = page[\"texts\"][0]
+		
+		apply_custom_font()
 		
 		$PanelInstructions.show()
 		$PanelInstructions/AnimationPanel.play(\"fade_in\")
@@ -2708,18 +2715,17 @@ script = ExtResource("1_f0bfp")
 script = SubResource("GDScript_xboux")
 
 [node name="PanelInstructions" type="Panel" parent="CanvasInstructions"]
-texture_filter = 2
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 341.0
-offset_top = 272.0
-offset_right = 677.0
-offset_bottom = 378.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -339.0
+offset_top = -109.0
+offset_right = -3.0
+offset_bottom = -3.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pmbyn")
 
 [node name="ImagesContainer" type="HBoxContainer" parent="CanvasInstructions/PanelInstructions"]
@@ -2748,6 +2754,9 @@ texture_filter = 2
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/normal_font = ExtResource("2_xffvh")
+theme_override_fonts/bold_font = ExtResource("3_2xvuf")
+theme_override_font_sizes/normal_font_size = 20
 fit_content = true
 scroll_active = false
 drag_and_drop_selection_enabled = false
@@ -2784,10 +2793,10 @@ offset_right = 122.0
 offset_bottom = 102.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("2_xffvh")
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="kill_count_label" type="Label" parent="HUD"]
 texture_filter = 2
@@ -2797,8 +2806,10 @@ offset_right = 61.0
 offset_bottom = 134.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("2_xffvh")
 theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="highest_streak_label" type="Label" parent="HUD"]
 texture_filter = 2
@@ -2808,8 +2819,10 @@ offset_right = 61.0
 offset_bottom = 159.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("2_xffvh")
 theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="time_played_label" type="Label" parent="HUD"]
 texture_filter = 2
@@ -2819,8 +2832,19 @@ offset_right = 61.0
 offset_bottom = 184.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("2_xffvh")
 theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="timer_countdown" type="Label" parent="HUD"]
+offset_left = 21.0
+offset_top = 208.0
+offset_right = 61.0
+offset_bottom = 231.0
+theme_override_fonts/font = ExtResource("2_xffvh")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="background_stats" type="Panel" parent="HUD"]
 z_index = -1
@@ -2830,12 +2854,6 @@ offset_top = 108.0
 offset_right = 183.0
 offset_bottom = 185.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_xi6px")
-
-[node name="timer_countdown" type="Label" parent="HUD"]
-offset_left = 21.0
-offset_top = 208.0
-offset_right = 61.0
-offset_bottom = 231.0
 
 [node name="Tiles" type="Node2D" parent="."]
 

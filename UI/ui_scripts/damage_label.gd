@@ -2,8 +2,8 @@ extends RichTextLabel
 
 @export var rise_speed: float = 20.0
 @export var lifetime: float = 1.0
-@export var fade_start: float = 0.5
-@export var shake_amount: float = 6.0
+@export var fade_start: float = 0.6
+@export var shake_amount: float = 5.5
 
 var timer: float = 0.0
 var initial_position: Vector2
@@ -14,7 +14,7 @@ func _ready() -> void:
 	initial_position = position
 	rng.randomize()
 
-	var color = Color.RED if rng.randi() % 2 == 0 else Color.DARK_MAGENTA
+	var color = Color.RED if rng.randi() % 2 == 0 else Color.DARK_ORCHID
 	add_theme_color_override("default_color", color)
 	
 	set_process(true)

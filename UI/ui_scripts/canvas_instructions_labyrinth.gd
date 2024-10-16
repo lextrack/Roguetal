@@ -13,7 +13,7 @@ var instructions_pages = [
 			"To [color=red]shoot[/color] at enemies (remember to hold down)"
 		]
 	},
-		{
+	{
 		"images": [
 			"res://UI/images_instructions/btn_xb_l1.png",
 			"res://UI/images_instructions/letter-c.png"
@@ -32,10 +32,11 @@ var instructions_pages = [
 		]
 	},
 ]
-
 var current_page_index = 0
 
 func _ready():
+	apply_custom_font()
+	
 	timer = Timer.new()
 	timer.one_shot = true
 	timer.wait_time = display_time
@@ -50,15 +51,22 @@ func _ready():
 	else:
 		$PanelInstructions.hide()
 
+func apply_custom_font():
+	var font = load("res://Fonts/Ubuntu-Regular.ttf")
+	if font:
+		var rich_label = $PanelInstructions/TextContainer/RichLabel
+		rich_label.add_theme_font_override("normal_font", font)
+
 func show_instructions_page(index: int):
 	if index < instructions_pages.size():
 		var page = instructions_pages[index]
 		
 		var images_container = $PanelInstructions/ImagesContainer
-		var text_container = $PanelInstructions/TextContainer
-		for container in [images_container, text_container]:
-			for child in container.get_children():
-				child.queue_free()
+		var rich_label = $PanelInstructions/TextContainer/RichLabel
+		
+		for child in images_container.get_children():
+			child.queue_free()
+		rich_label.clear()
 		
 		for image_path in page["images"]:
 			var texture_rect = TextureRect.new()
@@ -68,13 +76,10 @@ func show_instructions_page(index: int):
 			texture_rect.custom_minimum_size = Vector2(50, 50)
 			images_container.add_child(texture_rect)
 		
-		for text in page["texts"]:
-			var rich_label = RichTextLabel.new()
-			rich_label.bbcode_enabled = true
-			rich_label.bbcode_text = text
-			rich_label.fit_content = true
-			rich_label.custom_minimum_size = Vector2(0, 20)
-			text_container.add_child(rich_label)
+		rich_label.bbcode_enabled = true 
+		rich_label.text = page["texts"][0] 
+		
+		apply_custom_font()
 		
 		$PanelInstructions.show()
 		$PanelInstructions/AnimationPanel.play("fade_in")

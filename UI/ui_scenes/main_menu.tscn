@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b4lyw756xgim2"]
+[gd_scene load_steps=13 format=3 uid="uid://b4lyw756xgim2"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
 [ext_resource type="Texture2D" uid="uid://ofya4eytvg0s" path="res://Sprites/wallpaper_blue_character_4.jpg" id="2_8mran"]
 [ext_resource type="AudioStream" uid="uid://cgr60uh2odmsm" path="res://SoundEffects/misc_01.ogg" id="3_c65tl"]
+[ext_resource type="FontFile" uid="uid://foyead1qeonx" path="res://Fonts/Ubuntu-Regular.ttf" id="3_okpdk"]
+[ext_resource type="FontFile" uid="uid://ck4ih0gyygcqd" path="res://Fonts/Ubuntu-Bold.ttf" id="4_acdd6"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_wmwv3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtrft"]
@@ -76,6 +78,7 @@ offset_left = 20.0
 offset_top = 18.0
 offset_right = 70.0
 offset_bottom = 41.0
+theme_override_fonts/font = ExtResource("3_okpdk")
 text = "1.0.1.1"
 horizontal_alignment = 1
 
@@ -102,6 +105,7 @@ theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
+theme_override_fonts/font = ExtResource("3_okpdk")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
@@ -115,6 +119,7 @@ theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
+theme_override_fonts/font = ExtResource("3_okpdk")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_eigt5")
@@ -128,14 +133,13 @@ theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
+theme_override_fonts/font = ExtResource("3_okpdk")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
 text = "Exit"
 
 [node name="CreditsPanel" type="Panel" parent="."]
-visible = false
-texture_filter = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -164,6 +168,8 @@ grow_vertical = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_constants/line_separation = 3
+theme_override_fonts/normal_font = ExtResource("3_okpdk")
+theme_override_fonts/bold_font = ExtResource("4_acdd6")
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
 text = "[b][color=crimson]SOUND[/color][/b]
@@ -175,6 +181,7 @@ Luck, Joan Stenstrup Frandsen, Szadi art, analogStudios_, Craftpix, Lammrenz, Ho
 [b][color=crimson]ADDITIONAL RESOURCES[/color][/b]
 Flaticon (Freepik, DinosoftLabs, surang, kiranshastry, bharat icons) for the awesome icons.
 Jean Vermeersch for his knowledge.
+Dalton Maag for create the Ubuntu font.
 
 Special thanks to all creators who made their free assets available for this game."
 
@@ -189,6 +196,7 @@ offset_left = -67.2721
 offset_top = -17.8
 offset_right = 66.7279
 offset_bottom = 18.2
+theme_override_fonts/font = ExtResource("3_okpdk")
 theme_override_font_sizes/font_size = 20
 text = "Close"
 
@@ -202,9 +210,11 @@ anchor_bottom = 1.0
 offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 14
+theme_override_fonts/font = ExtResource("3_okpdk")
+theme_override_font_sizes/font_size = 15
 text = "Author: Ariel Alejandro Muñoz (Lextrack)"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HoverSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_c65tl")
