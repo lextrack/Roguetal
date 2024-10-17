@@ -1,15 +1,38 @@
 extends Area2D
 
 @onready var enter_portal_sound: AudioStreamPlayer2D = $enter_portal_sound
-
 @onready var loading_screen: PackedScene = preload("res://UI/ui_scenes/loading_screen.tscn")
 
-var last_level: String = ""
+var last_levels: Array = []
 var levels = [
 	"res://Levels/Scenes/main_dungeon.tscn",
 	"res://Levels/Scenes/main_dungeon_2.tscn",
 	"res://Levels/Scenes/labyrinth_level.tscn"
 ]
+
+func _ready() -> void:
+	randomize()  # Inicializa la semilla aleatoria
+
+func select_random_level() -> String:
+	var available_levels = levels.duplicate()
+	
+	# Remover los últimos niveles visitados
+	for level in last_levels:
+		if available_levels.has(level):
+			available_levels.erase(level)
+	
+	# Si todos los niveles han sido visitados, reiniciar
+	if available_levels.is_empty():
+		available_levels = levels.duplicate()
+	
+	var selected_level = available_levels[randi() % available_levels.size()]
+	
+	# Actualizar la lista de últimos niveles
+	last_levels.append(selected_level)
+	if last_levels.size() > levels.size() / 2:
+		last_levels.pop_front()
+	
+	return selected_level
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
@@ -17,14 +40,11 @@ func _on_body_entered(body: Node2D) -> void:
 		enter_portal_sound.play()
 		await enter_portal_sound.finished
 		
-		levels.shuffle()
-		var selected_level = levels[0]
+		var selected_level = select_random_level()
 		
-		if selected_level != last_level:
-			last_level = selected_level
-			var loading_instance = loading_screen.instantiate()
-			get_tree().current_scene.add_child(loading_instance)
-			loading_instance.load_scene(selected_level)
+		var loading_instance = loading_screen.instantiate()
+		get_tree().current_scene.add_child(loading_instance)
+		loading_instance.load_scene(selected_level)
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.name == "Player":

@@ -208,7 +208,7 @@ func instance_player():
 	var player = player_scene.instantiate()
 	add_child(player)
 	player.position = map.pop_front() * 16
-	self.player = player  # Guardamos la referencia al jugador
+	self.player = player
 
 func instance_portal():
 	# Instantiates the exit and next-level portals at different locations
@@ -249,7 +249,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(5, 20)
+	var total_enemies_to_spawn = randi_range(10, 20)
 
 	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
 		var random_position = map[randi() % len(map)]

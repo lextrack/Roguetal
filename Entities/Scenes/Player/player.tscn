@@ -237,6 +237,28 @@ collision_mask = 155
 script = ExtResource("1_ukrib")
 speed = 100
 
+[node name="hud_powerup" type="Node2D" parent="."]
+z_index = 50
+scale = Vector2(1, 1)
+
+[node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
+z_index = 50
+position = Vector2(-212.858, -58.5714)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("12_erptt")
+
+[node name="double_speed_icon" type="Sprite2D" parent="hud_powerup"]
+z_index = 50
+position = Vector2(-235.715, -58.5714)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_kwns6")
+
+[node name="double_defense_icon" type="Sprite2D" parent="hud_powerup"]
+z_index = 50
+position = Vector2(-190, -58.5714)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_7scbk")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
 y_sort_enabled = true
@@ -249,7 +271,8 @@ vframes = 8
 frame = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3.5, 3.5)
+position = Vector2(15.7143, -1.42857)
+zoom = Vector2(3.7, 3.7)
 script = ExtResource("4_jek05")
 
 [node name="camera_shake" type="Timer" parent="Camera2D"]
@@ -260,23 +283,6 @@ position = Vector2(2.85714, 13.5714)
 scale = Vector2(0.8, 0.8)
 shape = SubResource("RectangleShape2D_b3ud7")
 disabled = true
-
-[node name="hud_powerup" type="Node2D" parent="."]
-
-[node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-238.572, -67.1429)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("12_erptt")
-
-[node name="double_speed_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-261.429, -67.1429)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_kwns6")
-
-[node name="double_defense_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-215.714, -67.1429)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("6_7scbk")
 
 [node name="weapons_container" type="Node2D" parent="."]
 position = Vector2(0, 17.1429)

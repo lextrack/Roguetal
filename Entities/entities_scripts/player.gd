@@ -91,7 +91,6 @@ func update_light_state() -> void:
 		var current_scene = get_tree().current_scene
 		if current_scene.name == "labyrinth_level" and not light_disabled_by_timer:
 			point_light.enabled = true
-			print("Player light enabled in labyrinth level")
 		else:
 			point_light.enabled = false
 	
@@ -99,7 +98,6 @@ func disable_light() -> void:
 	if point_light and get_tree().current_scene.name == "labyrinth_level":
 		point_light.enabled = false
 		light_disabled_by_timer = true
-		print("Player light disabled by timer")
 
 func enable_light() -> void:
 	if point_light:
