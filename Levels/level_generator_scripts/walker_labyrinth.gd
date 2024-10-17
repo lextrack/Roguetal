@@ -10,7 +10,7 @@ var borders = Rect2()
 var step_history = []
 var steps_since_turn = 0
 var rooms = []
-var corridor_width = 3
+var corridor_width = 2
 
 func _init(starting_position, new_border) -> void:
 	assert(new_border.has_point(starting_position))
@@ -22,7 +22,7 @@ func walk(steps):
 	place_room(position)
 	
 	for step in steps:
-		if steps_since_turn >= 8: 
+		if steps_since_turn >= 6: 
 			change_direction()
 		if step():
 			step_history.append(position)
@@ -66,17 +66,15 @@ func change_direction():
 	valid_directions.shuffle()
 	direction = valid_directions.front()
 
-func create_room(position, size):
-	return {position = position, size = size}
+func create_room(room_pos, size):
+	return {position = room_pos, size = size}
 	
-func place_room(position: Vector2) -> void:
-	var size = Vector2(randi() % 3 + 2, randi() % 3 + 2)
-	var top_left_corner = (position - size / 2).floor()
-
-	if is_too_close(position) or not is_room_within_bounds(top_left_corner, size):
+func place_room(room_pos: Vector2) -> void:
+	var size = Vector2(randi() % 5 + 3, randi() % 5 + 3) # Larger rooms
+	var top_left_corner = (room_pos - size / 2).floor()
+	if is_too_close(room_pos) or not is_room_within_bounds(top_left_corner, size):
 		return
-
-	rooms.append(create_room(position, size))
+	rooms.append(create_room(room_pos, size))
 	mark_room_on_history(top_left_corner, size)
 
 func is_room_within_bounds(top_left_corner: Vector2, size: Vector2) -> bool:
@@ -87,9 +85,9 @@ func is_room_within_bounds(top_left_corner: Vector2, size: Vector2) -> bool:
 				return false
 	return true
 
-func is_too_close(position: Vector2) -> bool:
+func is_too_close(check_pos: Vector2) -> bool:
 	for room in rooms:
-		if room.position.distance_to(position) < 6:
+		if room.position.distance_to(check_pos) < 7: # Increase for more space between rooms
 			return true
 	return false
 

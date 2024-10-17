@@ -270,14 +270,14 @@ func instance_enemies() -> void:
 	
 	print("Spawned enemies - Type 1: ", enemy_1_count, ", Type 2: ", enemy_2_count)
 
-func is_tile_occupied(position: Vector2) -> bool:
+func is_tile_occupied(tile_pos: Vector2) -> bool:
 	# Checks if a tile is occupied by a specific source ID
-	var cell_coords = tilemap.local_to_map(position)
+	var cell_coords = tilemap.local_to_map(tile_pos)
 	return tilemap.get_cell_source_id(ground_layer, cell_coords) != -1
 
-func is_position_valid(position: Vector2) -> bool:
+func is_position_valid(check_pos: Vector2) -> bool:
 	# Validates if a position is within bounds, on the map, and not occupied
-	var cell_coords = tilemap.local_to_map(position)
+	var cell_coords = tilemap.local_to_map(check_pos)
 	if not borders.has_point(cell_coords):
 		return false
 	if not map.has(cell_coords):

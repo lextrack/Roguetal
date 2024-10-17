@@ -2801,9 +2801,9 @@ vertical_alignment = 1
 [node name="kill_count_label" type="Label" parent="HUD"]
 texture_filter = 2
 offset_left = 21.0
-offset_top = 111.0
+offset_top = 114.0
 offset_right = 61.0
-offset_bottom = 134.0
+offset_bottom = 137.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("2_xffvh")
@@ -2814,9 +2814,9 @@ vertical_alignment = 1
 [node name="highest_streak_label" type="Label" parent="HUD"]
 texture_filter = 2
 offset_left = 21.0
-offset_top = 136.0
+offset_top = 139.0
 offset_right = 61.0
-offset_bottom = 159.0
+offset_bottom = 162.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("2_xffvh")
@@ -2827,9 +2827,9 @@ vertical_alignment = 1
 [node name="time_played_label" type="Label" parent="HUD"]
 texture_filter = 2
 offset_left = 21.0
-offset_top = 161.0
+offset_top = 164.0
 offset_right = 61.0
-offset_bottom = 184.0
+offset_bottom = 187.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("2_xffvh")
@@ -2839,9 +2839,9 @@ vertical_alignment = 1
 
 [node name="timer_countdown" type="Label" parent="HUD"]
 offset_left = 21.0
-offset_top = 208.0
+offset_top = 211.0
 offset_right = 61.0
-offset_bottom = 231.0
+offset_bottom = 234.0
 theme_override_fonts/font = ExtResource("2_xffvh")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -2850,9 +2850,9 @@ vertical_alignment = 1
 z_index = -1
 y_sort_enabled = true
 offset_left = 18.0
-offset_top = 108.0
+offset_top = 111.0
 offset_right = 183.0
-offset_bottom = 185.0
+offset_bottom = 188.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_xi6px")
 
 [node name="Tiles" type="Node2D" parent="."]

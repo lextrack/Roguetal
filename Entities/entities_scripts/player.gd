@@ -32,6 +32,8 @@ const MAGNET_RADIUS = 100.0
 @onready var double_defense_icon: Sprite2D = $hud_powerup/double_defense_icon
 @onready var power_up_manager = $PowerUpManager
 @onready var point_light: PointLight2D = $PointLight2D
+@onready var light_powerup: PointLight2D = $hud_powerup/light_powerup
+
 
 var light_disabled_by_timer = false
 var current_state = player_states.MOVE
@@ -91,17 +93,23 @@ func update_light_state() -> void:
 		var current_scene = get_tree().current_scene
 		if current_scene.name == "labyrinth_level" and not light_disabled_by_timer:
 			point_light.enabled = true
+			light_powerup.enabled = true
 		else:
 			point_light.enabled = false
+			light_powerup.enabled = false
 	
 func disable_light() -> void:
 	if point_light and get_tree().current_scene.name == "labyrinth_level":
 		point_light.enabled = false
+		light_powerup.enabled = false
 		light_disabled_by_timer = true
 
 func enable_light() -> void:
 	if point_light:
 		point_light.enabled = true
+		
+	if light_powerup:
+		light_powerup.enabled = true
 	
 func power_up_manager_check() -> void:
 	if power_up_manager:
@@ -410,9 +418,9 @@ func flash_damage():
 	
 	await get_tree().create_timer(flash_duration).timeout
 	
-	var tween = create_tween()
-	tween.tween_property($Sprite2D.material, "shader_parameter/flash_modifier", 0.0, fade_duration)
-	tween.tween_callback(func(): is_flashing = false)
+	var tween_instance = create_tween()
+	tween_instance.tween_property($Sprite2D.material, "shader_parameter/flash_modifier", 0.0, fade_duration)
+	tween_instance.tween_callback(func(): is_flashing = false)
 
 func _on_anim_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Dead":
@@ -438,8 +446,8 @@ func enter_portal(portal_type: String = ""):
 		if power_up_manager:
 			power_up_manager.handle_level_transition("main_world")
 	elif portal_type == "next_level":
-		light_disabled_by_timer = false  # Reseteamos esta variable
-		update_light_state()  # Actualizamos el estado de la luz
+		light_disabled_by_timer = false
+		update_light_state()
 		var level_node = get_tree().get_root().get_node_or_null("Level")
 		if level_node and level_node.has_node("timer_light_level"):
 			level_node.get_node("timer_light_level").stop()

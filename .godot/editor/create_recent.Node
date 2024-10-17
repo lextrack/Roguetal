@@ -1,8 +1,8 @@
+PointLight2D
 AudioStreamPlayer2D
 DirectionalLight2D
 Label
 Timer
-PointLight2D
 Panel
 Marker2D
 Sprite2D

@@ -1,5 +1,3 @@
-# LABYRINTH LEVEL
-
 extends Node2D
 
 var walker
@@ -22,8 +20,6 @@ const min_distance_from_player = 5
 
 @onready var timer_light_level: Timer = $timer_light_level
 @onready var player: CharacterBody2D = null
-
-var _initialized = false
 
 func _ready() -> void:
 	# Called when the scene is ready, sets up the level, plays music
@@ -57,7 +53,7 @@ func _on_next_level_portal_body_entered(body: Node2D) -> void:
 		
 func generate_level() -> void:
 	# Generates the entire level including map, player, enemies, and pickups
-	walker = Walker_room.new(Vector2(25,25), borders)
+	walker = Walker_labyrinth_room.new(Vector2(25,25), borders)
 	map = walker.walk(700)
 	clear_and_set_tiles()
 	instance_player()
@@ -269,14 +265,14 @@ func instance_enemies() -> void:
 	
 	print("Spawned enemies: ", enemies_spawned)
 
-func is_tile_occupied(position: Vector2) -> bool:
+func is_tile_occupied(tile_pos: Vector2) -> bool:
 	# Checks if a tile is occupied by a specific source ID
-	var cell_coords = tilemap.local_to_map(position)
+	var cell_coords = tilemap.local_to_map(tile_pos)
 	return tilemap.get_cell_source_id(ground_layer, cell_coords) != -1
 
-func is_position_valid(position: Vector2) -> bool:
+func is_position_valid(check_pos: Vector2) -> bool:
 	# Validates if a position is within bounds, on the map, and not occupied
-	var cell_coords = tilemap.local_to_map(position)
+	var cell_coords = tilemap.local_to_map(check_pos)
 	if not borders.has_point(cell_coords):
 		return false
 	if not map.has(cell_coords):

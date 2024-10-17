@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://brms7i87pfawr"]
+[gd_scene load_steps=31 format=3 uid="uid://brms7i87pfawr"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/player.gd" id="1_ukrib"]
 [ext_resource type="Shader" path="res://Shaders/hurt.gdshader" id="2_dwf4p"]
@@ -17,6 +17,17 @@
 [ext_resource type="Texture2D" uid="uid://ippgb3ck7201" path="res://Sprites/ddamage_pickup.png" id="12_erptt"]
 [ext_resource type="Script" path="res://Entities/entities_scripts/power_up_manager.gd" id="14_o2miv"]
 [ext_resource type="AudioStream" uid="uid://3dqerkqyurwc" path="res://SoundEffects/shotgun_shoot.ogg" id="16_2typd"]
+
+[sub_resource type="Gradient" id="Gradient_13efs"]
+offsets = PackedFloat32Array(0.283237, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ao5e7"]
+gradient = SubResource("Gradient_13efs")
+width = 120
+height = 120
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7das3"]
 shader = ExtResource("2_dwf4p")
@@ -239,7 +250,12 @@ speed = 100
 
 [node name="hud_powerup" type="Node2D" parent="."]
 z_index = 50
-scale = Vector2(1, 1)
+
+[node name="light_powerup" type="PointLight2D" parent="hud_powerup"]
+position = Vector2(-210.714, -59.2857)
+scale = Vector2(0.559524, 0.130952)
+energy = 0.6
+texture = SubResource("GradientTexture2D_ao5e7")
 
 [node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
 z_index = 50
