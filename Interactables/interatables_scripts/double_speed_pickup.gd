@@ -2,10 +2,6 @@ extends Area2D
 
 @onready var pickup_object: AudioStreamPlayer2D = $pickup_object
 
-func _process(delta):
-	for label in get_tree().get_nodes_in_group("labels"):
-		print(label.text, " position: ", label.global_position)
-
 func _on_body_entered(body):
 	if body.name == "Player" and body.has_node("PowerUpManager"):
 		pickup_object.play()
@@ -27,7 +23,7 @@ func create_pickup_effect():
 	effect.gravity = Vector2(0, 98)
 	effect.initial_velocity_min = 50
 	effect.initial_velocity_max = 100
-	effect.color = Color(0, 1, 0)  # Color verde para velocidad
+	effect.color = Color(0, 1, 0)  # Color verde
 	add_child(effect)
 	
 	await get_tree().create_timer(effect.lifetime).timeout

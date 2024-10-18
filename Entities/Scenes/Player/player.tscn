@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://brms7i87pfawr"]
+[gd_scene load_steps=32 format=3 uid="uid://brms7i87pfawr"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/player.gd" id="1_ukrib"]
 [ext_resource type="Shader" path="res://Shaders/hurt.gdshader" id="2_dwf4p"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d0xm4ir8srq7n" path="res://Sprites/satiro-Sheet v1.1.png" id="3_vnj0r"]
 [ext_resource type="Script" path="res://Entities/entities_scripts/camera.gd" id="4_jek05"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_v52kv"]
+[ext_resource type="Texture2D" uid="uid://by0g6raqjex4v" path="res://Sprites/bullet_hell_icon.png" id="5_him75"]
 [ext_resource type="Texture2D" uid="uid://c3re1sp6ho24b" path="res://Sprites/PikPng.com_bazooka-png_1896275.png" id="5_j8ek6"]
 [ext_resource type="Texture2D" uid="uid://dxisc7j5t2hmw" path="res://Sprites/double_defense_icon.png" id="6_7scbk"]
 [ext_resource type="Texture2D" uid="uid://cieogogxl8sko" path="res://Sprites/m16_2.png" id="6_r20b8"]
@@ -17,6 +18,18 @@
 [ext_resource type="Texture2D" uid="uid://ippgb3ck7201" path="res://Sprites/ddamage_pickup.png" id="12_erptt"]
 [ext_resource type="Script" path="res://Entities/entities_scripts/power_up_manager.gd" id="14_o2miv"]
 [ext_resource type="AudioStream" uid="uid://3dqerkqyurwc" path="res://SoundEffects/shotgun_shoot.ogg" id="16_2typd"]
+
+[sub_resource type="Gradient" id="Gradient_5mmme"]
+offsets = PackedFloat32Array(0.172414, 0.972414)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_86cio"]
+gradient = SubResource("Gradient_5mmme")
+width = 120
+height = 120
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.861244, 0.114833)
 
 [sub_resource type="Gradient" id="Gradient_13efs"]
 offsets = PackedFloat32Array(0.283237, 1)
@@ -227,18 +240,6 @@ _data = {
 "RESET": SubResource("Animation_h3ykm")
 }
 
-[sub_resource type="Gradient" id="Gradient_5mmme"]
-offsets = PackedFloat32Array(0.172414, 0.972414)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_86cio"]
-gradient = SubResource("Gradient_5mmme")
-width = 120
-height = 120
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.861244, 0.114833)
-
 [node name="Player" type="CharacterBody2D"]
 z_index = 3
 y_sort_enabled = true
@@ -248,32 +249,40 @@ collision_mask = 155
 script = ExtResource("1_ukrib")
 speed = 100
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(2.85714, 11.4286)
+scale = Vector2(1, 1)
+texture = SubResource("GradientTexture2D_86cio")
+texture_scale = 2.0
+
 [node name="hud_powerup" type="Node2D" parent="."]
 z_index = 50
 
 [node name="light_powerup" type="PointLight2D" parent="hud_powerup"]
-position = Vector2(-210.714, -59.2857)
-scale = Vector2(0.559524, 0.130952)
-energy = 0.6
+position = Vector2(-209.286, -60)
+scale = Vector2(0.535717, 0.0952381)
+energy = 0.95
 texture = SubResource("GradientTexture2D_ao5e7")
 
-[node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
-z_index = 50
-position = Vector2(-212.858, -58.5714)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("12_erptt")
-
 [node name="double_speed_icon" type="Sprite2D" parent="hud_powerup"]
-z_index = 50
-position = Vector2(-235.715, -58.5714)
-scale = Vector2(0.1, 0.1)
+position = Vector2(-232.858, -60)
+scale = Vector2(0.07, 0.07)
 texture = ExtResource("3_kwns6")
 
+[node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
+position = Vector2(-217.144, -60)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("12_erptt")
+
 [node name="double_defense_icon" type="Sprite2D" parent="hud_powerup"]
-z_index = 50
-position = Vector2(-190, -58.5714)
-scale = Vector2(0.1, 0.1)
+position = Vector2(-201.429, -60)
+scale = Vector2(0.07, 0.07)
 texture = ExtResource("6_7scbk")
+
+[node name="bullet_hell_icon" type="Sprite2D" parent="hud_powerup"]
+position = Vector2(-185.714, -60)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("5_him75")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
@@ -404,11 +413,6 @@ libraries = {
 "": SubResource("AnimationLibrary_j2kxc")
 }
 autoplay = "Idle"
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(2.85714, 11.4286)
-texture = SubResource("GradientTexture2D_86cio")
-texture_scale = 2.0
 
 [connection signal="timeout" from="Camera2D/camera_shake" to="Camera2D" method="_on_camera_shake_timeout"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

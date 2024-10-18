@@ -23,12 +23,8 @@ func create_pickup_effect():
 	effect.gravity = Vector2(0, 98)
 	effect.initial_velocity_min = 50
 	effect.initial_velocity_max = 100
-	effect.color = Color(0, 0, 1)  # Color azul para defensa
+	effect.color = Color(0, 0, 1)  # Color azul
 	add_child(effect)
 	
 	await get_tree().create_timer(effect.lifetime).timeout
 	effect.queue_free()
-
-
-func _on_area_entered(area: Area2D) -> void:
-	pass # Replace with function body.

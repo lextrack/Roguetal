@@ -30,10 +30,10 @@ const MAGNET_RADIUS = 100.0
 @onready var double_damage_icon: Sprite2D = $hud_powerup/double_damage_icon
 @onready var double_speed_icon: Sprite2D = $hud_powerup/double_speed_icon
 @onready var double_defense_icon: Sprite2D = $hud_powerup/double_defense_icon
+@onready var bullet_hell_icon: Sprite2D = $hud_powerup/bullet_hell_icon
 @onready var power_up_manager = $PowerUpManager
 @onready var point_light: PointLight2D = $PointLight2D
 @onready var light_powerup: PointLight2D = $hud_powerup/light_powerup
-
 
 var light_disabled_by_timer = false
 var current_state = player_states.MOVE
@@ -68,6 +68,9 @@ func _ready() -> void:
 	
 	setup_double_speed_icon()
 	base_speed = speed
+	
+	setup_bullet_hell_icon()
+	setup_double_defense_icon()
 	
 	setup_magnet_area()
 	add_to_group("player")
@@ -129,18 +132,13 @@ func _on_power_up_changed(type: int, multiplier: float) -> void:
 			update_double_speed_icon(multiplier)
 		PowerUpTypes.PowerUpType.DEFENSE:
 			update_double_defense_icon(multiplier)
+		PowerUpTypes.PowerUpType.BULLET_HELL:
+			update_bullet_hell_icon(multiplier)
 
 func update_double_defense_icon(multiplier: float):
 	if double_defense_icon:
 		double_defense_icon.visible = multiplier > 1.0
 
-func _on_damage_multiplier_changed(multiplier: float) -> void:
-	update_double_damage_icon(multiplier)
-
-func _on_speed_multiplier_changed(multiplier: float) -> void:
-	speed = base_speed * multiplier
-	update_double_speed_icon(multiplier)
-	
 func update_double_damage_icon(multiplier: float):
 	if double_damage_icon:
 		double_damage_icon.visible = multiplier > 1.0
@@ -148,11 +146,17 @@ func update_double_damage_icon(multiplier: float):
 func update_double_speed_icon(multiplier: float):
 	if double_speed_icon:
 		double_speed_icon.visible = multiplier > 1.0
-		
+
+func update_bullet_hell_icon(multiplier: float):
+	if bullet_hell_icon:
+		bullet_hell_icon.visible = multiplier >= 1.0
+	else:
+		print("bullet_hell_icon not found")
+
 func setup_double_defense_icon():
 	if double_defense_icon:
 		double_defense_icon.visible = false
-		
+
 func setup_double_damage_icon():
 	if double_damage_icon:
 		double_damage_icon.visible = false
@@ -160,6 +164,10 @@ func setup_double_damage_icon():
 func setup_double_speed_icon():
 	if double_speed_icon:
 		double_speed_icon.visible = false
+
+func setup_bullet_hell_icon():
+	if bullet_hell_icon:
+		bullet_hell_icon.visible = false
 	
 func setup_magnet_area():
 	if not magnet_area:
@@ -216,11 +224,14 @@ func instance_bullet() -> void:
 	var bullet_scene = bullet_scenes.get(bullet_type, bullet_scenes["bazooka"])
 	
 	var damage_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.DAMAGE)
+	var bullet_hell_active = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.BULLET_HELL) >= 1.0
 	
 	var bullet_point = current_weapon.get_node("bullet_point")
 	var base_direction = (bullet_point.global_position - weapons_container.global_position).normalized()
 	
-	if bullet_type == "shotgun":
+	if bullet_hell_active:
+		instance_bullet_hell(bullet_scene, bullet_point.global_position, damage_multiplier)
+	elif bullet_type == "shotgun":
 		var num_pellets = 5
 		for i in range(num_pellets):
 			var bullet = bullet_scene.instantiate()
@@ -243,6 +254,18 @@ func instance_bullet() -> void:
 			$Sounds/AudioStreamBazookaShot.play()
 		elif bullet_type == "m16":
 			$Sounds/AudioStreamM16Shot.play()
+			
+func instance_bullet_hell(bullet_scene: PackedScene, spawn_position: Vector2, damage_multiplier: float) -> void:
+	var num_bullets = 8
+	for i in range(num_bullets):
+		var angle = 2 * PI * i / num_bullets
+		var direction = Vector2(cos(angle), sin(angle))
+		
+		var bullet = bullet_scene.instantiate()
+		bullet.damage = weapon_damage[weapons[current_weapon_index].get_meta("bullet_type", "bazooka")] * damage_multiplier
+		bullet.direction = direction
+		bullet.global_position = spawn_position
+		get_tree().root.add_child(bullet)
 
 func bullet_type_shooting(delta: float):
 	var current_weapon = weapons[current_weapon_index]

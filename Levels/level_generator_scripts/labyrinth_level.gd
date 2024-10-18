@@ -14,6 +14,7 @@ const min_distance_from_player = 5
 @onready var double_damage_pickup_scene = preload("res://Interactables/Scenes/double_damage_pickup.tscn")
 @onready var double_defense_pickup_scene = preload("res://Interactables/Scenes/double_defense_pickup_scene.tscn")
 @onready var double_speed_pickup_scene = preload("res://Interactables/Scenes/double_speed_pickup.tscn")
+@onready var bullet_hell_pickup_scene = preload("res://Interactables/Scenes/bullet_hell_pickup_scene.tscn")
 @onready var tilemap = $Tiles/TileMap
 
 @export var borders = Rect2(1, 1, 70, 50)
@@ -62,6 +63,7 @@ func generate_level() -> void:
 	instance_enemies()
 	instance_health_pickup()
 	instance_random_powerup()
+	instance_bullet_hell_pickup()
 	
 func instance_random_powerup() -> void:
 	var powerups = [
@@ -78,6 +80,27 @@ func instance_random_powerup() -> void:
 			instance_double_speed_pickup()
 		"double_damage":
 			instance_double_damage_pickup()
+			
+func instance_bullet_hell_pickup() -> void:
+	var player_node = get_node("Player")
+	if not player_node:
+		return
+	var player_position = tilemap.local_to_map(player_node.position)
+	var attempts = 0
+	var max_attempts = 100
+	var bullet_hell_pickup_spawned = false
+	
+	while not bullet_hell_pickup_spawned and attempts < max_attempts:
+		var random_position = map[randi() % len(map)]
+		var world_position = tilemap.map_to_local(random_position)
+		
+		if random_position.distance_to(player_position) >= min_distance_from_player and not is_tile_occupied(world_position):
+			var bullet_hell_pickup = bullet_hell_pickup_scene.instantiate()
+			bullet_hell_pickup.position = world_position
+			add_child(bullet_hell_pickup)
+			bullet_hell_pickup_spawned = true
+		
+		attempts += 1
 	
 func instance_double_defense_pickup() -> void:
 	var player_node = get_node("Player")
@@ -204,7 +227,6 @@ func instance_player():
 	var player = player_scene.instantiate()
 	add_child(player)
 	player.position = map.pop_front() * 16
-	self.player = player
 
 func instance_portal():
 	# Instantiates the exit and next-level portals at different locations
@@ -245,7 +267,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(10, 20)
+	var total_enemies_to_spawn = randi_range(2, 5)
 
 	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
 		var random_position = map[randi() % len(map)]
