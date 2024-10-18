@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b4lyw756xgim2"]
+[gd_scene load_steps=15 format=3 uid="uid://b4lyw756xgim2"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
 [ext_resource type="Texture2D" uid="uid://ofya4eytvg0s" path="res://Sprites/wallpaper_blue_character_4.jpg" id="2_8mran"]
@@ -11,7 +11,25 @@
 texture = ExtResource("2_8mran")
 modulate_color = Color(0.753984, 0.753984, 0.753984, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r2pej"]
+bg_color = Color(0.458405, 0.458405, 0.458405, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
+shadow_size = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atj17"]
+bg_color = Color(0.458405, 0.458405, 0.458405, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yw7y1"]
 bg_color = Color(0.458405, 0.458405, 0.458405, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -84,21 +102,19 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -651.0
-offset_top = 144.0
-offset_right = -395.0
-offset_bottom = 331.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 15
+anchors_preset = -1
+anchor_left = 0.023
+anchor_top = 0.687
+anchor_right = 0.211
+anchor_bottom = 0.931
+offset_left = 0.581997
+offset_top = 0.383972
+offset_right = -0.226013
+offset_bottom = -0.00805664
+grow_vertical = 0
+theme_override_constants/separation = 20
 
 [node name="Play" type="Button" parent="VBoxContainer"]
-texture_filter = 2
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
@@ -107,12 +123,13 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_fonts/font = ExtResource("3_okpdk")
 theme_override_font_sizes/font_size = 35
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
 text = "Play"
 
 [node name="Credits" type="Button" parent="VBoxContainer"]
-texture_filter = 2
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
@@ -121,12 +138,13 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_fonts/font = ExtResource("3_okpdk")
 theme_override_font_sizes/font_size = 35
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_eigt5")
 text = "Credits"
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
-texture_filter = 2
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
@@ -135,21 +153,23 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_fonts/font = ExtResource("3_okpdk")
 theme_override_font_sizes/font_size = 35
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
 text = "Exit"
 
 [node name="CreditsPanel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -664.0
-offset_top = -366.0
-offset_right = 664.0
-offset_bottom = 334.0
+anchors_preset = -1
+anchor_left = 0.014
+anchor_top = 0.023
+anchor_right = 0.986
+anchor_bottom = 0.935
+offset_left = -0.124001
+offset_top = 0.335999
+offset_right = 0.123901
+offset_bottom = -0.0800781
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_w5uur")
@@ -176,7 +196,7 @@ text = "[b][color=crimson]SOUND[/color][/b]
 klankbeeld, Lamp_, szegvari, newlocknew, SoundEffectsFactory, PK9 Sound Effect, el_boss, rubberduck, Mobeyee Sounds, IgnasD, Jamius, AbuNijmeh, JoseIgnacioTriay, toxicwafflezz.
 
 [b][color=crimson]ART[/color][/b]
-Luck, Joan Stenstrup Frandsen, Szadi art, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Fuzzee, Chris Yang.
+Luck, Joan Stenstrup Frandsen, Szadi art, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Fuzzee, Chris Yang, Nikita Golubev.
 
 [b][color=crimson]ADDITIONAL RESOURCES[/color][/b]
 Flaticon (Freepik, DinosoftLabs, surang, kiranshastry, bharat icons) for the awesome icons.
@@ -218,6 +238,7 @@ vertical_alignment = 1
 
 [node name="HoverSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_c65tl")
+volume_db = 1.0
 panning_strength = 0.0
 
 [node name="mouse_icon" parent="." instance=ExtResource("4_wmwv3")]

@@ -2715,13 +2715,13 @@ script = ExtResource("1_f0bfp")
 script = SubResource("GDScript_xboux")
 
 [node name="PanelInstructions" type="Panel" parent="CanvasInstructions"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = -1
+anchor_left = 0.752
+anchor_top = 0.858
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -339.0
-offset_top = -109.0
+offset_left = -0.232056
+offset_top = 0.0559692
 offset_right = -3.0
 offset_bottom = -3.0
 grow_horizontal = 0
@@ -2849,10 +2849,15 @@ vertical_alignment = 1
 [node name="background_stats" type="Panel" parent="HUD"]
 z_index = -1
 y_sort_enabled = true
-offset_left = 18.0
-offset_top = 111.0
-offset_right = 183.0
-offset_bottom = 188.0
+anchors_preset = -1
+anchor_left = 0.013
+anchor_top = 0.145
+anchor_right = 0.134
+anchor_bottom = 0.245
+offset_left = 0.242001
+offset_top = -0.360008
+offset_right = -0.0440063
+offset_bottom = -0.160004
 theme_override_styles/panel = SubResource("StyleBoxFlat_xi6px")
 
 [node name="Tiles" type="Node2D" parent="."]

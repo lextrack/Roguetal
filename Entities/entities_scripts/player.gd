@@ -57,6 +57,11 @@ var weapon_damage = {
 }
 
 func _ready() -> void:
+	if power_up_manager:
+		print("PowerUpManager initialized successfully")
+	else:
+		print("PowerUpManager not found")
+		
 	weapons = weapons_container.get_children()
 	setup_weapons()
 	update_visible_weapon()

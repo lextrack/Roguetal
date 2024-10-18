@@ -5,7 +5,12 @@ signal power_up_changed(type: int, multiplier: float)
 const DUNGEON_LEVELS = ["main_dungeon", "main_dungeon_2", "labyrinth_level"]
 
 func _ready():
+	if not GlobalPowerUpState.is_connected("power_up_changed", Callable(self, "_on_global_power_up_changed")):
+		GlobalPowerUpState.connect("power_up_changed", Callable(self, "_on_global_power_up_changed"))
 	update_power_up_states()
+
+func _on_global_power_up_changed(type: int, multiplier: float):
+	emit_signal("power_up_changed", type, multiplier)
 
 func update_power_up_states() -> void:
 	for type in PowerUpTypes.PowerUpType.values():
@@ -13,11 +18,11 @@ func update_power_up_states() -> void:
 
 func activate_power_up(type: int) -> void:
 	GlobalPowerUpState.activate_power_up(type)
-	emit_signal("power_up_changed", type, GlobalPowerUpState.get_multiplier(type))
+	# La señal se emitirá a través de _on_global_power_up_changed
 
 func reset_power_ups() -> void:
 	GlobalPowerUpState.reset_power_ups()
-	update_power_up_states()
+	# Las señales se emitirán a través de _on_global_power_up_changed para cada power-up
 
 func get_multiplier(type: int) -> float:
 	return GlobalPowerUpState.get_multiplier(type)

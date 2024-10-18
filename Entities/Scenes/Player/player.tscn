@@ -32,7 +32,8 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.861244, 0.114833)
 
 [sub_resource type="Gradient" id="Gradient_13efs"]
-offsets = PackedFloat32Array(0.283237, 1)
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.391304, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ao5e7"]
@@ -251,7 +252,6 @@ speed = 100
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(2.85714, 11.4286)
-scale = Vector2(1, 1)
 texture = SubResource("GradientTexture2D_86cio")
 texture_scale = 2.0
 
@@ -259,28 +259,28 @@ texture_scale = 2.0
 z_index = 50
 
 [node name="light_powerup" type="PointLight2D" parent="hud_powerup"]
-position = Vector2(-209.286, -60)
-scale = Vector2(0.535717, 0.0952381)
+position = Vector2(-192.143, -57.1429)
+scale = Vector2(0.511905, 0.0952381)
 energy = 0.95
 texture = SubResource("GradientTexture2D_ao5e7")
 
 [node name="double_speed_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-232.858, -60)
+position = Vector2(-215.715, -57.1429)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("3_kwns6")
 
 [node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-217.144, -60)
+position = Vector2(-200.001, -57.1429)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("12_erptt")
 
 [node name="double_defense_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-201.429, -60)
+position = Vector2(-184.286, -57.1429)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("6_7scbk")
 
 [node name="bullet_hell_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-185.714, -60)
+position = Vector2(-168.571, -57.1429)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("5_him75")
 
@@ -297,7 +297,7 @@ frame = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(15.7143, -1.42857)
-zoom = Vector2(3.7, 3.7)
+zoom = Vector2(2, 2)
 script = ExtResource("4_jek05")
 
 [node name="camera_shake" type="Timer" parent="Camera2D"]

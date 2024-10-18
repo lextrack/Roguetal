@@ -8,7 +8,7 @@ enum PowerUpType {
 }
 
 const POWER_UP_BASE_MULTIPLIERS = {
-	PowerUpType.DAMAGE: 1.2,
+	PowerUpType.DAMAGE: 1.1,
 	PowerUpType.SPEED: 1.1,
 	PowerUpType.DEFENSE: 1.2,
 	PowerUpType.BULLET_HELL: 1.0
