@@ -9,3 +9,4 @@ res://Levels/level_generator_scripts/main_dungeon.gd
 res://Entities/entities_scripts/player.gd
 res://Entities/entities_scripts/power_up_manager.gd
 res://global_power_up_types.gd
+res://UI/ui_scenes/pause_menu.tscn

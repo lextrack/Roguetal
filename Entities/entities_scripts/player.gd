@@ -222,7 +222,7 @@ func joystick_aiming(delta: float) -> void:
 			rot = rad_to_deg(direction.angle())
 			update_weapon_flip()
 			
-func instance_bullet() -> void:
+func instance_bullet():
 	var current_weapon = weapons[current_weapon_index]
 	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
 	
@@ -234,34 +234,19 @@ func instance_bullet() -> void:
 	var bullet_point = current_weapon.get_node("bullet_point")
 	var base_direction = (bullet_point.global_position - weapons_container.global_position).normalized()
 	
+	var bullets_fired = 0
+	
 	if bullet_hell_active:
-		instance_bullet_hell(bullet_scene, bullet_point.global_position, damage_multiplier)
+		bullets_fired = instance_bullet_hell(bullet_scene, bullet_point.global_position, damage_multiplier)
 	elif bullet_type == "shotgun":
-		var num_pellets = 5
-		for i in range(num_pellets):
-			var bullet = bullet_scene.instantiate()
-			bullet.damage = weapon_damage[bullet_type] * damage_multiplier
-			bullet.direction = base_direction
-			bullet.global_position = bullet_point.global_position
-			bullet.base_speed = 250
-			bullet.speed_variation = 50
-			bullet.start_delay_max = 0.05
-			get_tree().root.add_child(bullet)
-		$Sounds/AudioStreamShotgunShot.play()
+		bullets_fired = instance_shotgun(bullet_scene, bullet_point.global_position, base_direction, damage_multiplier)
 	else:
-		var bullet = bullet_scene.instantiate()
-		bullet.damage = weapon_damage[bullet_type] * damage_multiplier
-		bullet.direction = base_direction
-		bullet.global_position = bullet_point.global_position
-		get_tree().root.add_child(bullet)
-		
-		if bullet_type == "bazooka":
-			$Sounds/AudioStreamBazookaShot.play()
-		elif bullet_type == "m16":
-			$Sounds/AudioStreamM16Shot.play()
+		bullets_fired = instance_single_bullet(bullet_scene, bullet_point.global_position, base_direction, damage_multiplier, bullet_type)
+	
+	return bullets_fired
 			
-func instance_bullet_hell(bullet_scene: PackedScene, spawn_position: Vector2, damage_multiplier: float) -> void:
-	var num_bullets = 8
+func instance_bullet_hell(bullet_scene: PackedScene, spawn_position: Vector2, damage_multiplier: float) -> int:
+	var num_bullets = 6
 	for i in range(num_bullets):
 		var angle = 2 * PI * i / num_bullets
 		var direction = Vector2(cos(angle), sin(angle))
@@ -271,6 +256,36 @@ func instance_bullet_hell(bullet_scene: PackedScene, spawn_position: Vector2, da
 		bullet.direction = direction
 		bullet.global_position = spawn_position
 		get_tree().root.add_child(bullet)
+	
+	return num_bullets
+	
+func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_direction: Vector2, damage_multiplier: float) -> int:
+	var num_pellets = 5
+	for i in range(num_pellets):
+		var bullet = bullet_scene.instantiate()
+		bullet.damage = weapon_damage["shotgun"] * damage_multiplier
+		bullet.direction = base_direction
+		bullet.global_position = spawn_position
+		bullet.base_speed = 250
+		bullet.speed_variation = 50
+		bullet.start_delay_max = 0.05
+		get_tree().root.add_child(bullet)
+	$Sounds/AudioStreamShotgunShot.play()
+	return num_pellets
+
+func instance_single_bullet(bullet_scene: PackedScene, spawn_position: Vector2, direction: Vector2, damage_multiplier: float, bullet_type: String) -> int:
+	var bullet = bullet_scene.instantiate()
+	bullet.damage = weapon_damage[bullet_type] * damage_multiplier
+	bullet.direction = direction
+	bullet.global_position = spawn_position
+	get_tree().root.add_child(bullet)
+	
+	if bullet_type == "bazooka":
+		$Sounds/AudioStreamBazookaShot.play()
+	elif bullet_type == "m16":
+		$Sounds/AudioStreamM16Shot.play()
+	
+	return 1
 
 func bullet_type_shooting(delta: float):
 	var current_weapon = weapons[current_weapon_index]
@@ -279,8 +294,11 @@ func bullet_type_shooting(delta: float):
 	if Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
 		shoot_timer -= delta
 		if shoot_timer <= 0.0:
-			player_data.ammo -= 1
-			instance_bullet()
+			var bullets_fired = instance_bullet()
+			player_data.ammo -= bullets_fired
+			if player_data.ammo < 0:
+				player_data.ammo = 0
+			
 			if bullet_type == "m16":
 				shoot_timer = rapid_shoot_delay
 			elif bullet_type == "shotgun":
