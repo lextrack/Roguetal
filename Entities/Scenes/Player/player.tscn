@@ -297,7 +297,7 @@ frame = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(15.7143, -1.42857)
-zoom = Vector2(2, 2)
+zoom = Vector2(4, 4)
 script = ExtResource("4_jek05")
 
 [node name="camera_shake" type="Timer" parent="Camera2D"]

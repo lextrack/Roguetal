@@ -1,14 +1,14 @@
 [gd_scene load_steps=15 format=3 uid="uid://b4lyw756xgim2"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
-[ext_resource type="Texture2D" uid="uid://ofya4eytvg0s" path="res://Sprites/wallpaper_blue_character_4.jpg" id="2_8mran"]
+[ext_resource type="Texture2D" uid="uid://bmngqr3v0mh2a" path="res://Sprites/wallpaper_blue_character_5.jpg" id="2_kf4ov"]
 [ext_resource type="AudioStream" uid="uid://cgr60uh2odmsm" path="res://SoundEffects/misc_01.ogg" id="3_c65tl"]
 [ext_resource type="FontFile" uid="uid://foyead1qeonx" path="res://Fonts/Ubuntu-Regular.ttf" id="3_okpdk"]
 [ext_resource type="FontFile" uid="uid://ck4ih0gyygcqd" path="res://Fonts/Ubuntu-Bold.ttf" id="4_acdd6"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_wmwv3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtrft"]
-texture = ExtResource("2_8mran")
+texture = ExtResource("2_kf4ov")
 modulate_color = Color(0.753984, 0.753984, 0.753984, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r2pej"]

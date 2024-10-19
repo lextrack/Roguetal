@@ -2841,7 +2841,6 @@ libraries = {
 layer = 2
 
 [node name="pause_menu" parent="MenuLayer" instance=ExtResource("7_lufcb")]
-z_index = 1
 
 [node name="HUD" type="CanvasLayer" parent="."]
 follow_viewport_scale = 2.0
