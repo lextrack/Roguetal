@@ -3,7 +3,7 @@ extends Node
 class_name player_data
 
 static var health: float = 4.0
-static var ammo: int = 100
+static var ammo: int = 200
 static var kill_count: int = 0
 static var time_played: float = 0.0
 static var highest_kill_streak: int = 0
