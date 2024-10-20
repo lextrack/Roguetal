@@ -235,8 +235,8 @@ func instance_enemies() -> void:
 			enemy.add_child(nav_agent)
 			
 			# Set random base_speed and speed_variation for each enemy
-			enemy.base_speed = randf_range(80, 102)
-			enemy.speed_variation = randf_range(10, 22)  # Reduced variation range
+			enemy.base_speed = randf_range(70, 100)
+			enemy.speed_variation = randf_range(10, 30)
 			
 			enemy.position = world_position
 			add_child(enemy)

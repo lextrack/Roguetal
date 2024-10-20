@@ -1,3 +1,4 @@
+PointLight2D
 Timer
 CanvasLayer
 AudioStreamPlayer2D
@@ -5,7 +6,6 @@ Sprite2D
 AnimationPlayer
 CollisionShape2D
 Area2D
-PointLight2D
 DirectionalLight2D
 Label
 Panel

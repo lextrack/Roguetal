@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://qxvjn3o53fdy"]
+[gd_scene load_steps=24 format=3 uid="uid://qxvjn3o53fdy"]
 
 [ext_resource type="Script" path="res://Levels/level_generator_scripts/main_dungeon.gd" id="1_f0bfp"]
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="2_qreqx"]
@@ -214,6 +214,16 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
 shadow_size = 5
+
+[sub_resource type="Gradient" id="Gradient_5mmme"]
+offsets = PackedFloat32Array(0.340741, 0.972414)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ubtwo"]
+gradient = SubResource("Gradient_5mmme")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.861244, 0.114833)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ce5gt"]
 texture = ExtResource("7_654wf")
@@ -2865,6 +2875,11 @@ offset_bottom = -0.160004
 theme_override_styles/panel = SubResource("StyleBoxFlat_xi6px")
 
 [node name="Tiles" type="Node2D" parent="."]
+
+[node name="PointLight2D" type="PointLight2D" parent="Tiles"]
+position = Vector2(1878, 1080)
+scale = Vector2(0.312499, 0.250002)
+texture = SubResource("GradientTexture2D_ubtwo")
 
 [node name="TileMap" type="TileMap" parent="Tiles"]
 z_index = 1

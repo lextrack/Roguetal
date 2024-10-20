@@ -19,10 +19,11 @@ var path_update_timer : Timer
 var reposition_timer : Timer
 var idle_timer : Timer
 
-@export var base_speed = 102 # The base movement speed of the enemy
+@export var base_speed = 95 # The base movement speed of the enemy
 @export var speed_variation = 20 # The range of speed variation
 
-var speed # The movement speed of the enemy
+var speed # The actual speed of this enemy instance
+var max_allowed_speed = 110 # Maximum allowed speed for any enemy
 @export var max_health: float = 60.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.6 # Time (in seconds) between enemy attacks
 @export var chase_range = 150.0 # Distance at which the enemy starts to chase the player
