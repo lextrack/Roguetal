@@ -21,15 +21,18 @@ var path_update_timer : Timer
 var reposition_timer : Timer
 var idle_timer : Timer
 
-@export var speed = 90 # The movement speed of the enemy
+@export var base_speed = 100 # The base movement speed of the enemy
+@export var speed_variation = 20 # The range of speed variation
+
+var speed # The movement speed of the enemy
 @export var max_health: float = 60.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.6 # Time (in seconds) between enemy attacks
 @export var chase_range = 150.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 5.0 # Distance for detecting and avoiding obstacles
 @export var reposition_distance = 30.0 # Distance the enemy moves to reposition during combat
 @export var attack_damage = 0.2 # Damage dealt by the enemy in each attack
-@export var attack_range = 25.0 # Distance within which the enemy can attack the player
-@export var attack_damage_range = 30.0 # Range of variability in the enemy's attack damage
+@export var attack_range = 5.0 # Distance within which the enemy can attack the player
+@export var attack_damage_range = 20.0 # Range of variability in the enemy's attack damage
 @export var idle_time_min = 3.0 # Minimum time to stay in idle state
 @export var idle_time_max = 7.0 # Maximum time to stay in idle state
 
@@ -49,6 +52,10 @@ var idle_timer : Timer
 
 # Initialize the enemy, set up navigation and timers
 func _ready():
+	randomize() # Ensure we get different random numbers each time
+	var speed_multiplier = 1 + randf_range(-speed_variation, speed_variation) / 100.0
+	speed = base_speed * speed_multiplier
+	speed = clamp(speed, 80, 100)  # Ensure speed is between 70 and 90
 	current_health = max_health
 	idle_sprite.hide()
 	
@@ -61,7 +68,7 @@ func _ready():
 	navigation_agent.path_max_distance = 50.0
 	
 	path_update_timer = Timer.new()
-	path_update_timer.wait_time = 0.5
+	path_update_timer.wait_time = 0.1
 	path_update_timer.one_shot = false
 	path_update_timer.timeout.connect(update_path)
 	add_child(path_update_timer)

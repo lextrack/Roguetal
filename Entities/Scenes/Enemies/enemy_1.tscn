@@ -295,7 +295,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5xl2"]
-size = Vector2(23.8462, 35.3846)
+size = Vector2(21.1539, 32.3077)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k3ijx"]
 size = Vector2(168.047, 120.71)
@@ -367,11 +367,12 @@ collision_layer = 32
 collision_mask = 3
 
 [node name="hitbox_collider" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(2.38419e-07, -2.30769)
+position = Vector2(0, -5.38462)
 shape = SubResource("RectangleShape2D_n5xl2")
 debug_color = Color(0.938574, 0.115461, 0.547082, 0.42)
 
 [node name="chase_box" type="Area2D" parent="."]
+visible = false
 collision_layer = 32
 collision_mask = 64
 
@@ -395,6 +396,10 @@ volume_db = 6.0
 panning_strength = 0.0
 
 [node name="navigation_agent" type="NavigationAgent2D" parent="."]
+
+[node name="formation_timer" type="Timer" parent="."]
+
+[node name="attack_decision_timer" type="Timer" parent="."]
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_entered" from="chase_box" to="." method="_on_chase_box_area_entered"]

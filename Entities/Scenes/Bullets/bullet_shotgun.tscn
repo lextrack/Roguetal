@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bf1ecqbuvwd13"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/bullet_shotgun.gd" id="1_00ndy"]
-[ext_resource type="Texture2D" uid="uid://cpoechfweyp11" path="res://Sprites/bullet.png" id="1_x88q3"]
+[ext_resource type="Texture2D" uid="uid://bo5raso18t0i8" path="res://Sprites/shotgun_bullet.png" id="2_nseoe"]
 [ext_resource type="AudioStream" uid="uid://o0wtnet6lm8j" path="res://SoundEffects/shotgun_impact.ogg" id="3_o6u38"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3w2es"]
@@ -13,8 +13,8 @@ collision_mask = 8
 script = ExtResource("1_00ndy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_x88q3")
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("2_nseoe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3w2es")

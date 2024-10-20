@@ -97,10 +97,11 @@ offset_top = 18.0
 offset_right = 70.0
 offset_bottom = 41.0
 theme_override_fonts/font = ExtResource("3_okpdk")
-text = "1.0.1.2"
+text = "1.0.0.4"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+texture_filter = 2
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.023
@@ -160,6 +161,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
 text = "Exit"
 
 [node name="CreditsPanel" type="Panel" parent="."]
+texture_filter = 2
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.014
@@ -231,7 +233,7 @@ offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("3_okpdk")
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 16
 text = "Author: Ariel Alejandro Muñoz (Lextrack)"
 horizontal_alignment = 1
 vertical_alignment = 1

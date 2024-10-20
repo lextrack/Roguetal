@@ -7,7 +7,7 @@ res://Entities/Scenes/Enemies/enemy_labyrinth.tscn::f84366f5a663a9375469a2ab9b53
 res://Entities/Scenes/FX/fx_blood.tscn::7b34bb107edd7366feddacfd1d3f0ec7::1729212999::res://.godot/exported/133200997/export-3e55f3d804599f61a31c9263c54c261b-fx_blood.scn
 res://Entities/Scenes/FX/fx_rapid_bullet.tscn::e0c5f902b686567c8a9f9587d38939af::1729212999::res://.godot/exported/133200997/export-3e2c740794fc97443698520c41ffde51-fx_rapid_bullet.scn
 res://Entities/Scenes/FX/scent_trail.tscn::9fc7bb48972103acfe6be508e83114a7::1729212999::res://.godot/exported/133200997/export-9458ba9882f7b35b6c525ee363852f97-scent_trail.scn
-res://Entities/Scenes/Player/player.tscn::ff4b00aa0aa068f7be558d472f2aebbd::1729359277::res://.godot/exported/133200997/export-d52f75ca2f42e93580a281ffca324912-player.scn
+res://Entities/Scenes/Player/player.tscn::ff4b00aa0aa068f7be558d472f2aebbd::1729359523::res://.godot/exported/133200997/export-d52f75ca2f42e93580a281ffca324912-player.scn
 res://Interactables/Scenes/ammo_1.tscn::1404cb8c9e1a95fc53b17949b6b6075f::1729212999::res://.godot/exported/133200997/export-eb828ee59a996be0f7a1ab58781b83d7-ammo_1.scn
 res://Interactables/Scenes/double_damage_pickup.tscn::f29f7e4b2b536d2e921fec7f20f6f071::1729212999::res://.godot/exported/133200997/export-1d6b7b4313bc17da9cdecb192c3da995-double_damage_pickup.scn
 res://Interactables/Scenes/double_speed_pickup.tscn::6df77f1bd825a7fa87cbf6fa55793ba9::1729212999::res://.godot/exported/133200997/export-70ed02f5ed230f1f8e5cc97f4b11ad85-double_speed_pickup.scn
@@ -16,7 +16,7 @@ res://Interactables/Scenes/health_pickup.tscn::6c8fe6feccc36be6d894af49d3a7a4d6:
 res://Interactables/Scenes/next_level.tscn::20563a75365dfa906b10a7a4832e312c::1729212999::res://.godot/exported/133200997/export-10afd2d4d6234604bdf7ab02604431ab-next_level.scn
 res://Interactables/Scenes/portal_dungeon.tscn::094a98bda3a6b3cc2dadbf162aab321c::1729212999::res://.godot/exported/133200997/export-08d157182c20e061db03c160bd59aa48-portal_dungeon.scn
 res://Levels/Scenes/labyrinth_level.tscn::99697441e0147322a14dde95a88909f0::1729294742::res://.godot/exported/133200997/export-5ea4d1a9179c8628111e3838790a5065-labyrinth_level.scn
-res://Levels/Scenes/main_dungeon.tscn::3b5e5d4c2394ccc35b392861071bb03c::1729359278::res://.godot/exported/133200997/export-b95c3d895478c8c46cf43cba856ff857-main_dungeon.scn
+res://Levels/Scenes/main_dungeon.tscn::3b5e5d4c2394ccc35b392861071bb03c::1729359321::res://.godot/exported/133200997/export-b95c3d895478c8c46cf43cba856ff857-main_dungeon.scn
 res://Levels/Scenes/main_dungeon_2.tscn::98ad59c0a9f3c9042c955615fe97dc44::1729255967::res://.godot/exported/133200997/export-afc49887eb8be18dcebaff5f877972a9-main_dungeon_2.scn
 res://Levels/Scenes/main_world.tscn::f1d193e6d49311b9b67782fd6531c97a::1729212999::res://.godot/exported/133200997/export-a2cdb577a545ce1c9e2b775ec100a405-main_world.scn
 res://SoundEffects/sound_scenes/music_dungeon.tscn::70018096bb8e57649cb75db4b2149729::1729212999::res://.godot/exported/133200997/export-b2e1a5803a32426ef7c88e78364e9a7c-music_dungeon.scn
@@ -24,9 +24,9 @@ res://SoundEffects/sound_scenes/music_main_level.tscn::82eaf4c9cea95d5e9ef78b519
 res://SoundEffects/sound_scenes/music_main_menu.tscn::8e7bca671365ca431851e4cbfe12bf10::1729212999::res://.godot/exported/133200997/export-b33b171fd8d4579a055dc09bb8bb493d-music_main_menu.scn
 res://UI/ui_scenes/damage_label.tscn::35ea5424688cd951c48211cbcfbd3949::1729212999::res://.godot/exported/133200997/export-11a8e8d1fea7f4b55ed570dff58795fd-damage_label.scn
 res://UI/ui_scenes/loading_screen.tscn::456e66003830d63e707a75ad119182e5::1729212999::res://.godot/exported/133200997/export-d99c1f8285224e16c2900048eaede01a-loading_screen.scn
-res://UI/ui_scenes/main_menu.tscn::f2bef94629509f969f1bae8ab096f99e::1729359277::res://.godot/exported/133200997/export-26952b5dde36398d84b71b66824f8290-main_menu.scn
+res://UI/ui_scenes/main_menu.tscn::f2bef94629509f969f1bae8ab096f99e::1729359320::res://.godot/exported/133200997/export-26952b5dde36398d84b71b66824f8290-main_menu.scn
 res://UI/ui_scenes/mouse_icon.tscn::85b2e10f5e58843e0832a3907824bab6::1729212999::res://.godot/exported/133200997/export-547ec8fde2ad34b7dd2570fd5d4c38b5-mouse_icon.scn
-res://UI/ui_scenes/pause_menu.tscn::2ae32c2ccb7adb43548e0f6ddec26e5e::1729359277::res://.godot/exported/133200997/export-3af9a7254570c91a677cd9a631c4eaa4-pause_menu.scn
+res://UI/ui_scenes/pause_menu.tscn::2ae32c2ccb7adb43548e0f6ddec26e5e::1729359320::res://.godot/exported/133200997/export-3af9a7254570c91a677cd9a631c4eaa4-pause_menu.scn
 res://Entities/Scenes/Bullets/bullet_shotgun.tscn::41f1fcca0db7dedcffec4a69679e7760::1729212999::res://.godot/exported/133200997/export-05bee6b6be0affd73984e6687cc4cb78-bullet_shotgun.scn
 res://Entities/Scenes/FX/fx_missile_effect.tscn::845f5d7888d82e861dee0c5c38403762::1729212999::res://.godot/exported/133200997/export-79f0454e3d63f7a729d1fc2f78ec7f88-fx_missile_effect.scn
 res://Entities/Scenes/FX/fx_shotgun_bullet.tscn::427581dd44e24113c31dfd8e2d8449ea::1729212999::res://.godot/exported/133200997/export-d2d32510cd10fb84fb36e125db9ba586-fx_shotgun_bullet.scn

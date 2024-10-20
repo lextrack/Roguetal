@@ -65,11 +65,24 @@ func create_navigation():
 	
 func instance_random_powerup() -> void:
 	var powerups = [
-		"double_defense",
-		"double_speed",
-		"double_damage"
+		{"name": "double_defense", "weight": 30},
+		{"name": "double_speed", "weight": 15},
+		{"name": "double_damage", "weight": 25}
 	]
-	var chosen_powerup = powerups[randi() % powerups.size()]
+	
+	var total_weight = 0
+	for powerup in powerups:
+		total_weight += powerup.weight
+	
+	var random_value = randf() * total_weight
+	var current_weight = 0
+	var chosen_powerup = ""
+	
+	for powerup in powerups:
+		current_weight += powerup.weight
+		if random_value <= current_weight:
+			chosen_powerup = powerup.name
+			break
 	
 	match chosen_powerup:
 		"double_defense":
@@ -78,72 +91,36 @@ func instance_random_powerup() -> void:
 			instance_double_speed_pickup()
 		"double_damage":
 			instance_double_damage_pickup()
+			
+func instance_specific_pickup(pickup_scene: PackedScene) -> void:
+	var player_node = get_node("Player")
+	if not player_node:
+		return
+	var player_position = tilemap.local_to_map(player_node.position)
+	var attempts = 0
+	var max_attempts = 100
+	var pickup_spawned = false
 	
+	while not pickup_spawned and attempts < max_attempts:
+		var random_position = map[randi() % len(map)]
+		var world_position = tilemap.map_to_local(random_position)
+		
+		if random_position.distance_to(player_position) >= min_distance_from_player and not is_tile_occupied(world_position):
+			var pickup = pickup_scene.instantiate()
+			pickup.position = world_position
+			add_child(pickup)
+			pickup_spawned = true
+		
+		attempts += 1
+
 func instance_double_defense_pickup() -> void:
-	var player_node = get_node("Player")
-	if not player_node:
-		return
+	instance_specific_pickup(double_defense_pickup_scene)
 
-	var player_position = tilemap.local_to_map(player_node.position)
-	var attempts = 0
-	var max_attempts = 100
-	var double_defense_pickup_spawned = false
-	
-	while not double_defense_pickup_spawned and attempts < max_attempts:
-		var random_position = map[randi() % len(map)]
-		var world_position = tilemap.map_to_local(random_position)
-		
-		if random_position.distance_to(player_position) >= min_distance_from_player and not is_tile_occupied(world_position):
-			var double_defense_pickup = double_defense_pickup_scene.instantiate()
-			double_defense_pickup.position = world_position
-			add_child(double_defense_pickup)
-			double_defense_pickup_spawned = true
-		
-		attempts += 1
-	
 func instance_double_speed_pickup() -> void:
-	var player_node = get_node("Player")
-	if not player_node:
-		return
+	instance_specific_pickup(double_speed_pickup_scene)
 
-	var player_position = tilemap.local_to_map(player_node.position)
-	var attempts = 0
-	var max_attempts = 100
-	var double_speed_pickup_spawned = false
-	
-	while not double_speed_pickup_spawned and attempts < max_attempts:
-		var random_position = map[randi() % len(map)]
-		var world_position = tilemap.map_to_local(random_position)
-		
-		if random_position.distance_to(player_position) >= min_distance_from_player and not is_tile_occupied(world_position):
-			var double_speed_pickup = double_speed_pickup_scene.instantiate()
-			double_speed_pickup.position = world_position
-			add_child(double_speed_pickup)
-			double_speed_pickup_spawned = true
-		
-		attempts += 1
-	
 func instance_double_damage_pickup() -> void:
-	var player_node = get_node("Player")
-	if not player_node:
-		return
-
-	var player_position = tilemap.local_to_map(player_node.position)
-	var attempts = 0
-	var max_attempts = 100
-	var double_damage_pickup_spawned = false
-	
-	while not double_damage_pickup_spawned and attempts < max_attempts:
-		var random_position = map[randi() % len(map)]
-		var world_position = tilemap.map_to_local(random_position)
-		
-		if random_position.distance_to(player_position) >= min_distance_from_player and not is_tile_occupied(world_position):
-			var double_damage_pickup = double_damage_pickup_scene.instantiate()
-			double_damage_pickup.position = world_position
-			add_child(double_damage_pickup)
-			double_damage_pickup_spawned = true
-		
-		attempts += 1
+	instance_specific_pickup(double_damage_pickup_scene)
 
 func instance_health_pickup() -> void:
 	# Instantiates health pickups at random valid locations on the map
@@ -227,7 +204,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(2, 5)
+	var total_enemies_to_spawn = randi_range(10, 25)
 	
 	var min_enemies_per_type = 5
 	var enemy_1_count = 0
@@ -256,6 +233,10 @@ func instance_enemies() -> void:
 			
 			var nav_agent = NavigationAgent2D.new()
 			enemy.add_child(nav_agent)
+			
+			# Set random base_speed and speed_variation for each enemy
+			enemy.base_speed = randf_range(80, 100)
+			enemy.speed_variation = randf_range(10, 20)  # Reduced variation range
 			
 			enemy.position = world_position
 			add_child(enemy)
