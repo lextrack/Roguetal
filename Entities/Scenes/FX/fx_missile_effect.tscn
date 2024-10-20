@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cuhwoefc6fmus"]
 
-[ext_resource type="Script" path="res://Entities/entities_scripts/fx_scene.gd" id="1_ttesv"]
+[ext_resource type="Script" path="res://Entities/entities_scripts/fx_missile_effect.gd" id="1_ttesv"]
 [ext_resource type="Texture2D" uid="uid://2f0h67q1g2rm" path="res://Sprites/bazooka_fx.png" id="2_2len7"]
 
 [sub_resource type="Animation" id="Animation_rms3j"]

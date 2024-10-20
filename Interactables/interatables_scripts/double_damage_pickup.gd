@@ -23,7 +23,7 @@ func create_pickup_effect():
 	effect.gravity = Vector2(0, 98)
 	effect.initial_velocity_min = 50
 	effect.initial_velocity_max = 100
-	effect.color = Color(1, 0, 0)  # Color rojo
+	effect.color = Color(1, 0, 0)
 	add_child(effect)
 	
 	await get_tree().create_timer(effect.lifetime).timeout

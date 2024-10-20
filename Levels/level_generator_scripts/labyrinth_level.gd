@@ -68,8 +68,8 @@ func instance_random_powerup() -> void:
 	var powerups = [
 		{"name": "double_defense", "weight": 30},
 		{"name": "double_speed", "weight": 15},
-		{"name": "double_damage", "weight": 25},
-		{"name": "bullet_hell", "weight": 5}
+		{"name": "double_damage", "weight": 20},
+		{"name": "bullet_hell", "weight": 3}
 	]
 	
 	var total_weight = 0
@@ -95,7 +95,6 @@ func instance_random_powerup() -> void:
 			instance_double_damage_pickup()
 		"bullet_hell":
 			instance_bullet_hell_pickup()
-			
 			
 func instance_specific_pickup(pickup_scene: PackedScene) -> void:
 	var player_node = get_node("Player")

@@ -11,23 +11,20 @@ var levels = [
 ]
 
 func _ready() -> void:
-	randomize()  # Inicializa la semilla aleatoria
+	randomize()
 
 func select_random_level() -> String:
 	var available_levels = levels.duplicate()
 	
-	# Remover los últimos niveles visitados
 	for level in last_levels:
 		if available_levels.has(level):
 			available_levels.erase(level)
 	
-	# Si todos los niveles han sido visitados, reiniciar
 	if available_levels.is_empty():
 		available_levels = levels.duplicate()
 	
 	var selected_level = available_levels[randi() % available_levels.size()]
 	
-	# Actualizar la lista de últimos niveles
 	last_levels.append(selected_level)
 	if last_levels.size() > levels.size() / 2:
 		last_levels.pop_front()

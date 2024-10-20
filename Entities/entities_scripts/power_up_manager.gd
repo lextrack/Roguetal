@@ -18,11 +18,9 @@ func update_power_up_states() -> void:
 
 func activate_power_up(type: int) -> void:
 	GlobalPowerUpState.activate_power_up(type)
-	# La señal se emitirá a través de _on_global_power_up_changed
 
 func reset_power_ups() -> void:
 	GlobalPowerUpState.reset_power_ups()
-	# Las señales se emitirán a través de _on_global_power_up_changed para cada power-up
 
 func get_multiplier(type: int) -> float:
 	return GlobalPowerUpState.get_multiplier(type)
