@@ -21,7 +21,7 @@ var path_update_timer : Timer
 var reposition_timer : Timer
 var idle_timer : Timer
 
-@export var base_speed = 100 # The base movement speed of the enemy
+@export var base_speed = 102 # The base movement speed of the enemy
 @export var speed_variation = 20 # The range of speed variation
 
 var speed # The movement speed of the enemy
@@ -55,7 +55,7 @@ func _ready():
 	randomize() # Ensure we get different random numbers each time
 	var speed_multiplier = 1 + randf_range(-speed_variation, speed_variation) / 100.0
 	speed = base_speed * speed_multiplier
-	speed = clamp(speed, 80, 100)  # Ensure speed is between 70 and 90
+	speed = clamp(speed, 80, 102)  # Ensure speed is between 70 and 90
 	current_health = max_health
 	idle_sprite.hide()
 	

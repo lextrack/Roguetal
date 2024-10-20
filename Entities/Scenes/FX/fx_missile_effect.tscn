@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cuhwoefc6fmus"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/fx_scene.gd" id="1_ttesv"]
-[ext_resource type="Texture2D" uid="uid://b61kbatqplhat" path="res://Sprites/dead_fx.png" id="2_38hnt"]
+[ext_resource type="Texture2D" uid="uid://2f0h67q1g2rm" path="res://Sprites/bazooka_fx.png" id="2_2len7"]
 
 [sub_resource type="Animation" id="Animation_rms3j"]
 resource_name = "Active"
@@ -49,7 +49,7 @@ script = ExtResource("1_ttesv")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("2_38hnt")
+texture = ExtResource("2_2len7")
 hframes = 5
 frame = 1
 
