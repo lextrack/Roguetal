@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://UI/ui_scripts/canvas_instructions.gd" id="2_kpvk5"]
 [ext_resource type="PackedScene" uid="uid://brms7i87pfawr" path="res://Entities/Scenes/Player/player.tscn" id="2_yswwr"]
 [ext_resource type="Texture2D" uid="uid://wtleq1220l72" path="res://Sprites/forest_/forest_ [resources].png" id="4_kpqyi"]
+[ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="5_ft5ih"]
 [ext_resource type="Texture2D" uid="uid://dx7jg2bjpfbq8" path="res://Sprites/Tree_SpriteSheet.png" id="5_pg1iv"]
-[ext_resource type="FontFile" uid="uid://dhouv75rhnust" path="res://Fonts/visitor1.ttf" id="5_ud2er"]
 [ext_resource type="PackedScene" uid="uid://22wqvtgu2aej" path="res://Entities/Scenes/Characters/vampire_girl_npc.tscn" id="8_1gq4h"]
 [ext_resource type="PackedScene" uid="uid://bly15dxgkrppy" path="res://Interactables/Scenes/portal_dungeon.tscn" id="10_4eyqo"]
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="10_k6uc6"]
@@ -1399,7 +1399,6 @@ position = Vector2(164, 62)
 script = ExtResource("2_kpvk5")
 
 [node name="PanelInstructions" type="Panel" parent="CanvasInstructions"]
-texture_filter = 2
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -1436,10 +1435,11 @@ alignment = 1
 
 [node name="RichLabel" type="RichTextLabel" parent="CanvasInstructions/PanelInstructions/TextContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/normal_font = ExtResource("5_ud2er")
-theme_override_font_sizes/normal_font_size = 20
+theme_override_fonts/normal_font = ExtResource("5_ft5ih")
+theme_override_font_sizes/normal_font_size = 18
 fit_content = true
 scroll_active = false
 drag_and_drop_selection_enabled = false

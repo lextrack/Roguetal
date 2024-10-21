@@ -1,15 +1,13 @@
-[gd_scene load_steps=26 format=3 uid="uid://dds8q0g2dsxuj"]
+[gd_scene load_steps=24 format=3 uid="uid://dds8q0g2dsxuj"]
 
 [ext_resource type="Script" path="res://Levels/level_generator_scripts/main_dungeon.gd" id="1_3hfxc"]
 [ext_resource type="Script" path="res://UI/ui_scripts/hud.gd" id="1_71e1o"]
 [ext_resource type="Texture2D" uid="uid://csx15aryqogte" path="res://Sprites/HeartSpriteSheet.png" id="2_c4pei"]
-[ext_resource type="FontFile" uid="uid://foyead1qeonx" path="res://Fonts/Ubuntu-Regular.ttf" id="2_xh2ot"]
-[ext_resource type="FontFile" uid="uid://ck4ih0gyygcqd" path="res://Fonts/Ubuntu-Bold.ttf" id="3_b53ip"]
+[ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="2_cj7x4"]
 [ext_resource type="Texture2D" uid="uid://c38bl01vdy0k6" path="res://Sprites/complex_tilemap_16px.png" id="3_rvspd"]
 [ext_resource type="Texture2D" uid="uid://dwphcmpag53is" path="res://Sprites/ammo_ui.png" id="4_rja0x"]
 [ext_resource type="Texture2D" uid="uid://02ay4cfoeh8i" path="res://Sprites/mainlevbuild.png" id="4_xmnl3"]
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="7_lufcb"]
-[ext_resource type="FontFile" uid="uid://dhouv75rhnust" path="res://Fonts/visitor1.ttf" id="8_3ywak"]
 [ext_resource type="Texture2D" uid="uid://c1df3if3xydge" path="res://Sprites/snow.png" id="8_80re2"]
 [ext_resource type="Texture2D" uid="uid://dtp1c1nysvom3" path="res://Sprites/Ice and snow tileset-Sheet-Sheet.png" id="9_y3rma"]
 
@@ -68,7 +66,7 @@ func _ready():
 		$PanelInstructions.hide()
 
 func apply_custom_font():
-	var font = load(\"res://Fonts/visitor1.ttf\")
+	var font = load(\"res://Fonts/Pixel Azure Bonds.otf\")
 	if font:
 		var rich_label = $PanelInstructions/TextContainer/RichLabel
 		rich_label.add_theme_font_override(\"normal_font\", font)
@@ -2788,7 +2786,6 @@ script = ExtResource("1_3hfxc")
 script = SubResource("GDScript_ijp32")
 
 [node name="PanelInstructions" type="Panel" parent="CanvasInstructions"]
-texture_filter = 2
 anchors_preset = -1
 anchor_left = 0.752
 anchor_top = 0.858
@@ -2826,10 +2823,9 @@ alignment = 1
 [node name="RichLabel" type="RichTextLabel" parent="CanvasInstructions/PanelInstructions/TextContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 5
-theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_xh2ot")
-theme_override_fonts/bold_font = ExtResource("3_b53ip")
-theme_override_font_sizes/normal_font_size = 20
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_cj7x4")
+theme_override_font_sizes/normal_font_size = 15
 fit_content = true
 scroll_active = false
 drag_and_drop_selection_enabled = false
@@ -2861,7 +2857,6 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_rja0x")
 
 [node name="ammo_amount" type="Label" parent="HUD"]
-texture_filter = 2
 anchors_preset = -1
 anchor_left = 0.06
 anchor_top = 0.074
@@ -2873,64 +2868,59 @@ offset_right = 0.425995
 offset_bottom = -0.143997
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/font = ExtResource("8_3ywak")
+theme_override_fonts/font = ExtResource("2_cj7x4")
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="kill_count_label" type="Label" parent="HUD"]
-texture_filter = 2
 offset_left = 24.0
 offset_top = 107.0
 offset_right = 64.0
 offset_bottom = 130.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("8_3ywak")
-theme_override_font_sizes/font_size = 15
+theme_override_fonts/font = ExtResource("2_cj7x4")
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="highest_streak_label" type="Label" parent="HUD"]
-texture_filter = 2
 offset_left = 24.0
 offset_top = 132.0
 offset_right = 64.0
 offset_bottom = 155.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("8_3ywak")
-theme_override_font_sizes/font_size = 15
+theme_override_fonts/font = ExtResource("2_cj7x4")
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="time_played_label" type="Label" parent="HUD"]
-texture_filter = 2
 offset_left = 24.0
 offset_top = 157.0
 offset_right = 64.0
 offset_bottom = 180.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("8_3ywak")
-theme_override_font_sizes/font_size = 15
+theme_override_fonts/font = ExtResource("2_cj7x4")
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="timer_countdown" type="Label" parent="HUD"]
 visible = false
-texture_filter = 2
 offset_left = 21.0
 offset_top = 211.0
 offset_right = 61.0
 offset_bottom = 234.0
-theme_override_fonts/font = ExtResource("8_3ywak")
+theme_override_fonts/font = ExtResource("2_cj7x4")
 vertical_alignment = 1
 
 [node name="background_stats" type="Panel" parent="HUD"]
 z_index = -1
 y_sort_enabled = true
-texture_filter = 2
 anchors_preset = -1
 anchor_left = 0.013
 anchor_top = 0.145

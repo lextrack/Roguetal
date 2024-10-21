@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://22wqvtgu2aej"]
 
 [ext_resource type="Texture2D" uid="uid://ct5agvxkjvs0x" path="res://Sprites/Vampire_Girl/Idle.png" id="2_1oje4"]
+[ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_c55m7"]
 [ext_resource type="Script" path="res://UI/ui_scripts/area_vampire_girl.gd" id="3_fvofm"]
-[ext_resource type="FontFile" uid="uid://dhouv75rhnust" path="res://Fonts/visitor1.ttf" id="4_nijij"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2x2kd"]
 size = Vector2(42.8571, 70.7908)
@@ -98,14 +98,14 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -23.0
-offset_right = 110.0
+offset_right = 130.0
 offset_bottom = 26.0
 grow_horizontal = 2
 scale = Vector2(0.3, 0.3)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("4_nijij")
-theme_override_font_sizes/normal_font_size = 18
+theme_override_fonts/normal_font = ExtResource("3_c55m7")
+theme_override_font_sizes/normal_font_size = 15
 text = " Vampire Girl"
 fit_content = true
 scroll_active = false
@@ -128,8 +128,8 @@ grow_vertical = 2
 scale = Vector2(0.3, 0.3)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_fonts/normal_font = ExtResource("4_nijij")
-theme_override_font_sizes/normal_font_size = 23
+theme_override_fonts/normal_font = ExtResource("3_c55m7")
+theme_override_font_sizes/normal_font_size = 18
 fit_content = true
 scroll_active = false
 scroll_following = true

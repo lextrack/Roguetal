@@ -20,13 +20,13 @@ var reposition_timer : Timer
 var idle_timer : Timer
 
 @export var base_speed = 95 # The base movement speed of the enemy
-@export var speed_variation = 20 # The range of speed variation
+@export var speed_variation = 30 # The range of speed variation
 
 var speed # The actual speed of this enemy instance
-var max_allowed_speed = 110 # Maximum allowed speed for any enemy
+var max_allowed_speed = 115 # Maximum allowed speed for any enemy
 @export var max_health: float = 60.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.6 # Time (in seconds) between enemy attacks
-@export var chase_range = 150.0 # Distance at which the enemy starts to chase the player
+@export var chase_range = 120.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 5.0 # Distance for detecting and avoiding obstacles
 @export var reposition_distance = 30.0 # Distance the enemy moves to reposition during combat
 @export var attack_damage = 0.2 # Damage dealt by the enemy in each attack
@@ -52,9 +52,9 @@ var max_allowed_speed = 110 # Maximum allowed speed for any enemy
 # Initialize the enemy, set up navigation and timers
 func _ready():
 	randomize() # Ensure we get different random numbers each time
-	var speed_multiplier = 1 + randf_range(-speed_variation, speed_variation) / 100.0
-	speed = base_speed * speed_multiplier
-	speed = clamp(speed, 80, 102)  # Ensure speed is between 70 and 90
+	var variation_percent = randf_range(-speed_variation, speed_variation) / 100.0
+	speed = base_speed * (1 + variation_percent)
+	speed = min(speed, max_allowed_speed)
 	current_health = max_health
 	idle_sprite.hide()
 	

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
 [ext_resource type="Texture2D" uid="uid://bmngqr3v0mh2a" path="res://Sprites/wallpaper_blue_character_5.jpg" id="2_kf4ov"]
 [ext_resource type="AudioStream" uid="uid://cgr60uh2odmsm" path="res://SoundEffects/misc_01.ogg" id="3_c65tl"]
-[ext_resource type="FontFile" uid="uid://dhouv75rhnust" path="res://Fonts/visitor1.ttf" id="4_emv6h"]
+[ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_ncx40"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_wmwv3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtrft"]
@@ -89,7 +89,6 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_dtrft")
 
 [node name="Version" type="Label" parent="."]
-texture_filter = 2
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.015
@@ -100,12 +99,12 @@ offset_left = -0.490002
 offset_top = 0.335999
 offset_right = -6.496
 offset_bottom = 0.295998
-theme_override_fonts/font = ExtResource("4_emv6h")
+theme_override_fonts/font = ExtResource("3_ncx40")
 text = "1.0.0.4"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-texture_filter = 2
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.023
@@ -126,7 +125,7 @@ theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
-theme_override_fonts/font = ExtResource("4_emv6h")
+theme_override_fonts/font = ExtResource("3_ncx40")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
@@ -141,7 +140,7 @@ theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
-theme_override_fonts/font = ExtResource("4_emv6h")
+theme_override_fonts/font = ExtResource("3_ncx40")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
@@ -156,7 +155,7 @@ theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
-theme_override_fonts/font = ExtResource("4_emv6h")
+theme_override_fonts/font = ExtResource("3_ncx40")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
@@ -165,7 +164,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
 text = "Exit"
 
 [node name="CreditsPanel" type="Panel" parent="."]
-texture_filter = 2
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.014
@@ -194,19 +192,19 @@ grow_vertical = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_constants/line_separation = 3
-theme_override_fonts/normal_font = ExtResource("4_emv6h")
-theme_override_font_sizes/normal_font_size = 30
+theme_override_fonts/normal_font = ExtResource("3_ncx40")
+theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
-text = "[b][color=crimson]SOUND[/color][/b]
+text = "[color=crimson]SOUND[/color]
 klankbeeld, Lamp_, szegvari, newlocknew, SoundEffectsFactory, PK9 Sound Effect, el_boss, rubberduck, Mobeyee Sounds, IgnasD, Jamius, AbuNijmeh, JoseIgnacioTriay, toxicwafflezz.
 
-[b][color=crimson]ART[/color][/b]
+[color=crimson]ART[/color]
 Luck, Joan Stenstrup Frandsen, Szadi art, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Fuzzee, Chris Yang, Nikita Golubev.
 
-[b][color=crimson]ADDITIONAL RESOURCES[/color][/b]
+[color=crimson]ADDITIONAL RESOURCES[/color]
 Flaticon (Freepik, DinosoftLabs, surang, kiranshastry, bharat icons) for the awesome icons.
 Jean Vermeersch for his knowledge.
-Ænigma for create the Visitor font.
+Pixel Sagas for create the Pixel Azure Bonds font.
 
 Special thanks to all creators who made their free assets available for this game."
 
@@ -220,12 +218,11 @@ anchor_bottom = 1.06
 offset_left = 0.455811
 offset_top = -0.299988
 offset_right = 0.327759
-theme_override_fonts/font = ExtResource("4_emv6h")
+theme_override_fonts/font = ExtResource("3_ncx40")
 theme_override_font_sizes/font_size = 20
 text = "Close"
 
 [node name="Author" type="Label" parent="."]
-texture_filter = 2
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -234,7 +231,7 @@ anchor_bottom = 1.0
 offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("4_emv6h")
+theme_override_fonts/font = ExtResource("3_ncx40")
 theme_override_font_sizes/font_size = 15
 text = "Author: Ariel Alejandro Muñoz (Lextrack)"
 horizontal_alignment = 1

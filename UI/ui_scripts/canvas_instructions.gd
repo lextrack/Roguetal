@@ -52,7 +52,7 @@ func _ready():
 		$PanelInstructions.hide()
 
 func apply_custom_font():
-	var font = load("res://Fonts/visitor1.ttf")
+	var font = load("res://Fonts/Pixel Azure Bonds.otf")
 	if font:
 		var rich_label = $PanelInstructions/TextContainer/RichLabel
 		rich_label.add_theme_font_override("normal_font", font)
