@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dds8q0g2dsxuj"]
+[gd_scene load_steps=26 format=3 uid="uid://dds8q0g2dsxuj"]
 
 [ext_resource type="Script" path="res://Levels/level_generator_scripts/main_dungeon.gd" id="1_3hfxc"]
 [ext_resource type="Script" path="res://UI/ui_scripts/hud.gd" id="1_71e1o"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dwphcmpag53is" path="res://Sprites/ammo_ui.png" id="4_rja0x"]
 [ext_resource type="Texture2D" uid="uid://02ay4cfoeh8i" path="res://Sprites/mainlevbuild.png" id="4_xmnl3"]
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="7_lufcb"]
+[ext_resource type="FontFile" uid="uid://dhouv75rhnust" path="res://Fonts/visitor1.ttf" id="8_3ywak"]
 [ext_resource type="Texture2D" uid="uid://c1df3if3xydge" path="res://Sprites/snow.png" id="8_80re2"]
 [ext_resource type="Texture2D" uid="uid://dtp1c1nysvom3" path="res://Sprites/Ice and snow tileset-Sheet-Sheet.png" id="9_y3rma"]
 
@@ -67,7 +68,7 @@ func _ready():
 		$PanelInstructions.hide()
 
 func apply_custom_font():
-	var font = load(\"res://Fonts/Ubuntu-Regular.ttf\")
+	var font = load(\"res://Fonts/visitor1.ttf\")
 	if font:
 		var rich_label = $PanelInstructions/TextContainer/RichLabel
 		rich_label.add_theme_font_override(\"normal_font\", font)
@@ -2787,6 +2788,7 @@ script = ExtResource("1_3hfxc")
 script = SubResource("GDScript_ijp32")
 
 [node name="PanelInstructions" type="Panel" parent="CanvasInstructions"]
+texture_filter = 2
 anchors_preset = -1
 anchor_left = 0.752
 anchor_top = 0.858
@@ -2871,46 +2873,49 @@ offset_right = 0.425995
 offset_bottom = -0.143997
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/font = ExtResource("2_xh2ot")
+theme_override_fonts/font = ExtResource("8_3ywak")
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="kill_count_label" type="Label" parent="HUD"]
 texture_filter = 2
-offset_left = 21.0
-offset_top = 114.0
-offset_right = 61.0
-offset_bottom = 137.0
+offset_left = 24.0
+offset_top = 107.0
+offset_right = 64.0
+offset_bottom = 130.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_xh2ot")
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("8_3ywak")
+theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="highest_streak_label" type="Label" parent="HUD"]
 texture_filter = 2
-offset_left = 21.0
-offset_top = 139.0
-offset_right = 61.0
-offset_bottom = 162.0
+offset_left = 24.0
+offset_top = 132.0
+offset_right = 64.0
+offset_bottom = 155.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_xh2ot")
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("8_3ywak")
+theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="time_played_label" type="Label" parent="HUD"]
 texture_filter = 2
-offset_left = 21.0
-offset_top = 164.0
-offset_right = 61.0
-offset_bottom = 187.0
+offset_left = 24.0
+offset_top = 157.0
+offset_right = 64.0
+offset_bottom = 180.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_xh2ot")
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("8_3ywak")
+theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="timer_countdown" type="Label" parent="HUD"]
 visible = false
@@ -2919,7 +2924,8 @@ offset_left = 21.0
 offset_top = 211.0
 offset_right = 61.0
 offset_bottom = 234.0
-theme_override_fonts/font = ExtResource("2_xh2ot")
+theme_override_fonts/font = ExtResource("8_3ywak")
+vertical_alignment = 1
 
 [node name="background_stats" type="Panel" parent="HUD"]
 z_index = -1
@@ -2930,10 +2936,10 @@ anchor_left = 0.013
 anchor_top = 0.145
 anchor_right = 0.134
 anchor_bottom = 0.245
-offset_left = 0.242001
-offset_top = -0.360008
-offset_right = -0.0440063
-offset_bottom = -0.160004
+offset_left = 3.242
+offset_top = -6.36
+offset_right = 7.95599
+offset_bottom = -6.16
 theme_override_styles/panel = SubResource("StyleBoxFlat_2uu83")
 
 [node name="Tiles" type="Node2D" parent="."]

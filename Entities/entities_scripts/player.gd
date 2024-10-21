@@ -51,8 +51,8 @@ var input_movement = Vector2()
 var weapons = []
 var current_weapon_index = 0
 var weapon_damage = {
-	"bazooka": 5,
-	"m16": 3,
+	"bazooka": 6,
+	"m16": 4,
 	"shotgun": 2
 }
 

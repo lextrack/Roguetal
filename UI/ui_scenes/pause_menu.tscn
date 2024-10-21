@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://UI/ui_scripts/pause_menu.gd" id="1_0dqyp"]
 [ext_resource type="Shader" path="res://UI/ui_shaders/pause_menu.gdshader" id="1_fx5nj"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="3_ns80s"]
-[ext_resource type="FontFile" uid="uid://foyead1qeonx" path="res://Fonts/Ubuntu-Regular.ttf" id="4_tuyfu"]
+[ext_resource type="FontFile" uid="uid://dhouv75rhnust" path="res://Fonts/visitor1.ttf" id="4_18xkl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x4gc0"]
 shader = ExtResource("1_fx5nj")
@@ -130,6 +130,7 @@ grow_vertical = 2
 
 [node name="PanelContainer" type="Panel" parent="."]
 modulate = Color(1, 1, 1, 0)
+texture_filter = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -164,7 +165,7 @@ theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_fonts/font = ExtResource("4_tuyfu")
+theme_override_fonts/font = ExtResource("4_18xkl")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_1503p")
 theme_override_styles/hover = SubResource("StyleBoxFlat_qd71r")
@@ -180,7 +181,7 @@ theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_fonts/font = ExtResource("4_tuyfu")
+theme_override_fonts/font = ExtResource("4_18xkl")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_1503p")
 theme_override_styles/hover = SubResource("StyleBoxFlat_qd71r")

@@ -1,12 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://qxvjn3o53fdy"]
+[gd_scene load_steps=21 format=3 uid="uid://qxvjn3o53fdy"]
 
 [ext_resource type="Script" path="res://Levels/level_generator_scripts/main_dungeon.gd" id="1_f0bfp"]
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="2_qreqx"]
-[ext_resource type="FontFile" uid="uid://foyead1qeonx" path="res://Fonts/Ubuntu-Regular.ttf" id="2_xffvh"]
-[ext_resource type="Script" path="res://UI/ui_scripts/hud.gd" id="3_1f71u"]
-[ext_resource type="FontFile" uid="uid://ck4ih0gyygcqd" path="res://Fonts/Ubuntu-Bold.ttf" id="3_2xvuf"]
 [ext_resource type="Texture2D" uid="uid://csx15aryqogte" path="res://Sprites/HeartSpriteSheet.png" id="4_f56xk"]
 [ext_resource type="Texture2D" uid="uid://dwphcmpag53is" path="res://Sprites/ammo_ui.png" id="5_uurhp"]
+[ext_resource type="FontFile" uid="uid://dhouv75rhnust" path="res://Fonts/visitor1.ttf" id="6_4owko"]
 [ext_resource type="Texture2D" uid="uid://02ay4cfoeh8i" path="res://Sprites/mainlevbuild.png" id="7_654wf"]
 [ext_resource type="Texture2D" uid="uid://l85tm3xdtcna" path="res://Sprites/Main_dungeon brick level.png" id="8_ujiuc"]
 
@@ -65,7 +63,7 @@ func _ready():
 		$PanelInstructions.hide()
 
 func apply_custom_font():
-	var font = load(\"res://Fonts/Ubuntu-Regular.ttf\")
+	var font = load(\"res://Fonts/visitor1.ttf\")
 	if font:
 		var rich_label = $PanelInstructions/TextContainer/RichLabel
 		rich_label.add_theme_font_override(\"normal_font\", font)
@@ -206,24 +204,116 @@ _data = {
 "fade_out": SubResource("Animation_vwc4g")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xi6px"]
+[sub_resource type="GDScript" id="GDScript_8ahdx"]
+script/source = "extends CanvasLayer
+
+const HEART_ROW_SIZE = 8
+const HEART_OFFSET = 16
+const MAX_HEARTS = 4
+
+@onready var heart_container = $heart
+@onready var heart_texture = $heart.texture
+@onready var kill_count_label: Label = $kill_count_label
+@onready var time_played_label: Label = $time_played_label
+@onready var highest_streak_label: Label = $highest_streak_label
+@onready var ammo_amount: Label = $ammo_amount
+@onready var timer_light_level: Timer = $\"../timer_light_level\"
+
+var previous_kill_count = 0
+var previous_highest_streak = 0
+
+@onready var timer_countdown_label: Label = $timer_countdown
+
+func _ready() -> void:
+	create_hearts()
+	time_played_label.modulate.a = 0
+	
+	var current_scene = get_tree().current_scene
+	if current_scene.name != \"labyrinth_level\":
+		timer_countdown_label.visible = false
+
+func create_hearts():
+	for i in range(MAX_HEARTS):
+		var new_heart = Sprite2D.new()
+		new_heart.texture = heart_texture
+		new_heart.hframes = $heart.hframes
+		heart_container.add_child(new_heart)
+
+func _process(delta: float) -> void:
+	if get_tree().current_scene.name == \"labyrinth_level\":
+		if timer_light_level and timer_countdown_label:
+			timer_countdown_label.text = var_to_str(timer_light_level.time_left).pad_decimals(0)
+	
+	ammo_amount.text = str(player_data.ammo)
+	update_kill_count()
+	update_time_played(delta)
+	update_highest_streak()
+	update_hearts()
+
+func update_kill_count():
+	if player_data.kill_count != previous_kill_count:
+		kill_count_label.text = \"Kills: \" + str(player_data.kill_count)
+		animate_kill_count()
+		previous_kill_count = player_data.kill_count
+
+func update_time_played(delta: float):
+	player_data.time_played += delta
+	time_played_label.text = \"Time: \" + format_time(player_data.time_played)
+	if time_played_label.modulate.a < 1:
+		time_played_label.modulate.a += delta
+
+func update_highest_streak():
+	if player_data.highest_kill_streak != previous_highest_streak:
+		highest_streak_label.text = \"Highest streak: \" + str(player_data.highest_kill_streak)
+		if player_data.highest_kill_streak > previous_highest_streak:
+			animate_highest_streak()
+		previous_highest_streak = player_data.highest_kill_streak
+
+func update_hearts():
+	var health = player_data.health
+	for i in range(MAX_HEARTS):
+		var heart = heart_container.get_child(i)
+		
+		if i < int(health):
+			heart.frame = 4
+		elif i == int(health) and (health - int(health)) > 0:
+			heart.frame = 2
+		else:
+			heart.frame = 0
+		var x = (i % HEART_ROW_SIZE) * HEART_OFFSET
+		var y = (i / HEART_ROW_SIZE) * HEART_OFFSET
+		heart.position = Vector2(x, y)
+
+func format_time(seconds: float) -> String:
+	var minutes = int(seconds / 60)
+	var remaining_seconds = int(seconds) % 60
+	return \"%02d:%02d\" % [minutes, remaining_seconds]
+
+func animate_kill_count():
+	var tween = create_tween()
+	tween.tween_property(kill_count_label, \"scale\", Vector2(1.2, 1.2), 0.1)
+	tween.tween_property(kill_count_label, \"scale\", Vector2(1, 1), 0.1)
+
+func animate_highest_streak():
+	var tween = create_tween()
+	tween.tween_property(highest_streak_label, \"scale\", Vector2(0, 0), 0)
+	tween.tween_property(highest_streak_label, \"scale\", Vector2(1.3, 1.3), 0.1)
+	tween.tween_property(highest_streak_label, \"scale\", Vector2(1, 1), 0.2)
+
+func reset_animations():
+	kill_count_label.scale = Vector2(1, 1)
+	highest_streak_label.scale = Vector2(1, 1)
+	time_played_label.modulate.a = 0
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5at4a"]
 bg_color = Color(0, 0.321569, 0.764706, 0.576471)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
-shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
-shadow_size = 5
-
-[sub_resource type="Gradient" id="Gradient_5mmme"]
-offsets = PackedFloat32Array(0.340741, 0.972414)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ubtwo"]
-gradient = SubResource("Gradient_5mmme")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.861244, 0.114833)
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.117647)
+shadow_size = 2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ce5gt"]
 texture = ExtResource("7_654wf")
@@ -2725,6 +2815,7 @@ script = ExtResource("1_f0bfp")
 script = SubResource("GDScript_xboux")
 
 [node name="PanelInstructions" type="Panel" parent="CanvasInstructions"]
+texture_filter = 2
 anchors_preset = -1
 anchor_left = 0.752
 anchor_top = 0.858
@@ -2760,12 +2851,10 @@ grow_horizontal = 0
 alignment = 1
 
 [node name="RichLabel" type="RichTextLabel" parent="CanvasInstructions/PanelInstructions/TextContainer"]
-texture_filter = 2
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/normal_font = ExtResource("2_xffvh")
-theme_override_fonts/bold_font = ExtResource("3_2xvuf")
+theme_override_fonts/normal_font = ExtResource("6_4owko")
 theme_override_font_sizes/normal_font_size = 20
 fit_content = true
 scroll_active = false
@@ -2782,7 +2871,8 @@ layer = 2
 [node name="pause_menu" parent="MenuLayer" instance=ExtResource("2_qreqx")]
 
 [node name="HUD" type="CanvasLayer" parent="."]
-script = ExtResource("3_1f71u")
+follow_viewport_scale = 2.0
+script = SubResource("GDScript_8ahdx")
 
 [node name="heart" type="Sprite2D" parent="HUD"]
 position = Vector2(34, 30)
@@ -2798,53 +2888,58 @@ texture = ExtResource("5_uurhp")
 
 [node name="ammo_amount" type="Label" parent="HUD"]
 texture_filter = 2
-offset_left = 82.0
-offset_top = 57.0
-offset_right = 122.0
-offset_bottom = 102.0
+anchors_preset = -1
+anchor_left = 0.06
+anchor_top = 0.074
+anchor_right = 0.089
+anchor_bottom = 0.133
+offset_left = 0.0399933
+offset_top = 0.167999
+offset_right = 0.425995
+offset_bottom = -0.143997
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 5
-theme_override_fonts/font = ExtResource("2_xffvh")
+theme_override_fonts/font = ExtResource("6_4owko")
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="kill_count_label" type="Label" parent="HUD"]
 texture_filter = 2
-offset_left = 21.0
-offset_top = 114.0
-offset_right = 61.0
-offset_bottom = 137.0
+offset_left = 24.0
+offset_top = 107.0
+offset_right = 64.0
+offset_bottom = 130.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_xffvh")
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("6_4owko")
+theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="highest_streak_label" type="Label" parent="HUD"]
 texture_filter = 2
-offset_left = 21.0
-offset_top = 139.0
-offset_right = 61.0
-offset_bottom = 162.0
+offset_left = 24.0
+offset_top = 132.0
+offset_right = 64.0
+offset_bottom = 155.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_xffvh")
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("6_4owko")
+theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="time_played_label" type="Label" parent="HUD"]
 texture_filter = 2
-offset_left = 21.0
-offset_top = 164.0
-offset_right = 61.0
-offset_bottom = 187.0
+offset_left = 24.0
+offset_top = 157.0
+offset_right = 64.0
+offset_bottom = 180.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_xffvh")
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("6_4owko")
+theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -2855,8 +2950,7 @@ offset_left = 21.0
 offset_top = 211.0
 offset_right = 61.0
 offset_bottom = 234.0
-theme_override_fonts/font = ExtResource("2_xffvh")
-horizontal_alignment = 1
+theme_override_fonts/font = ExtResource("6_4owko")
 vertical_alignment = 1
 
 [node name="background_stats" type="Panel" parent="HUD"]
@@ -2868,18 +2962,13 @@ anchor_left = 0.013
 anchor_top = 0.145
 anchor_right = 0.134
 anchor_bottom = 0.245
-offset_left = 0.242001
-offset_top = -0.360008
-offset_right = -0.0440063
-offset_bottom = -0.160004
-theme_override_styles/panel = SubResource("StyleBoxFlat_xi6px")
+offset_left = 3.242
+offset_top = -6.36
+offset_right = 7.95599
+offset_bottom = -6.16
+theme_override_styles/panel = SubResource("StyleBoxFlat_5at4a")
 
 [node name="Tiles" type="Node2D" parent="."]
-
-[node name="PointLight2D" type="PointLight2D" parent="Tiles"]
-position = Vector2(1878, 1080)
-scale = Vector2(0.312499, 0.250002)
-texture = SubResource("GradientTexture2D_ubtwo")
 
 [node name="TileMap" type="TileMap" parent="Tiles"]
 z_index = 1
