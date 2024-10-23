@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://blofjamcfsd6w"]
+[gd_scene load_steps=31 format=3 uid="uid://blofjamcfsd6w"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/enemy_1.gd" id="1_sm0wu"]
 [ext_resource type="Texture2D" uid="uid://jhnrsdmhw6n5" path="res://Sprites/orc1_run_full.png" id="2_dqu1u"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://da7pd82lmu4o3" path="res://Sprites/orc1_attack_full.png" id="4_1cm7m"]
 [ext_resource type="AudioStream" uid="uid://de5u1e46i3340" path="res://SoundEffects/goblin_die_01.ogg" id="4_vj180"]
 [ext_resource type="Texture2D" uid="uid://7qceacpux5bo" path="res://Sprites/orc1_idle_full.png" id="5_0q6ib"]
+[ext_resource type="AudioStream" uid="uid://csmmray4v77sw" path="res://Sprites/blade_02.ogg" id="8_0vds2"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ipwmt"]
 
@@ -393,6 +394,11 @@ panning_strength = 0.0
 [node name="die_enemy_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_vj180")
 volume_db = 6.0
+panning_strength = 0.0
+
+[node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_0vds2")
+volume_db = -1.0
 panning_strength = 0.0
 
 [node name="navigation_agent" type="NavigationAgent2D" parent="."]

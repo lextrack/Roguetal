@@ -5,8 +5,10 @@ var current_state = enemy_state.IDLE
 
 static var last_hit_sound_time = 0
 static var last_death_sound_time = 0
+static var last_attack_sound_time = 0
 const HIT_SOUND_COOLDOWN = 0.1
 const DEATH_SOUND_COOLDOWN = 0.1
+const ATTACK_SOUND_COOLDOWN = 0.7
 
 var current_health
 var attack_cooldown = 0.0
@@ -48,6 +50,7 @@ var max_allowed_speed = 115 # Maximum allowed speed for any enemy
 @onready var idle_animation_enemy: AnimationPlayer = $Animations/idle_animation_enemy
 @onready var idle_sprite: Sprite2D = $Sprites/idle_sprite
 @onready var timer_direction: Timer = $timer_direction if has_node("timer_direction") else null
+@onready var attack_sound: AudioStreamPlayer2D = $attack_sound
 
 # Initialize the enemy, set up navigation and timers
 func _ready():
@@ -319,11 +322,22 @@ func play_attack_animation():
 	
 	normal_sprite.hide()
 	attack_sprite.show()
+	
+	play_attack_sound()
+	
 	attack_animation_enemy.play(animation_name)
 	await attack_animation_enemy.animation_finished
 	normal_sprite.show()
 	attack_sprite.hide()
 	is_attacking = false
+
+# Coolddown the sound effect
+func play_attack_sound():
+	var current_time = Time.get_ticks_msec() / 1000.0
+	if current_time - last_attack_sound_time > ATTACK_SOUND_COOLDOWN:
+		if attack_sound:
+			attack_sound.play()
+		last_attack_sound_time = current_time
 
 # Handle taking damage
 func take_damage(damage: int, bullet = null):

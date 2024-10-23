@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://ewlauciudlet"]
+[gd_scene load_steps=31 format=3 uid="uid://ewlauciudlet"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/enemy_labyrinth.gd" id="1_p67c7"]
 [ext_resource type="Texture2D" uid="uid://bdsple7teiefn" path="res://Sprites/orc2_run_full.png" id="2_dlocr"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dc7awmpuyujem" path="res://Sprites/orc2_idle_full.png" id="5_1hk66"]
 [ext_resource type="AudioStream" uid="uid://ch1gxwwlpqohp" path="res://SoundEffects/Hit_bullet_damage.ogg" id="6_4002r"]
 [ext_resource type="AudioStream" uid="uid://de5u1e46i3340" path="res://SoundEffects/goblin_die_01.ogg" id="7_kb4wb"]
+[ext_resource type="AudioStream" uid="uid://csmmray4v77sw" path="res://Sprites/blade_02.ogg" id="8_q17q4"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ha1y1"]
 b = Vector2(0, 1.53842)
@@ -396,6 +397,15 @@ volume_db = 6.0
 panning_strength = 0.0
 
 [node name="navigation_agent" type="NavigationAgent2D" parent="."]
+
+[node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_q17q4")
+volume_db = -1.0
+panning_strength = 0.0
+
+[node name="formation_timer" type="Timer" parent="."]
+
+[node name="attack_decision_timer" type="Timer" parent="."]
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_entered" from="chase_box" to="." method="_on_chase_box_area_entered"]
