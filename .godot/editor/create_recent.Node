@@ -1,7 +1,9 @@
+HBoxContainer
+Control
+CanvasLayer
 AudioStreamPlayer2D
 PointLight2D
 Timer
-CanvasLayer
 Sprite2D
 AnimationPlayer
 CollisionShape2D
@@ -11,4 +13,3 @@ Label
 Panel
 Marker2D
 Node2D
-VisibleOnScreenNotifier2D

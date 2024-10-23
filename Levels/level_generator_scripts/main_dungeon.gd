@@ -45,6 +45,9 @@ func generate_level() -> void:
 	instance_enemies()
 	instance_health_pickup()
 	instance_random_powerup()
+	instance_double_defense_pickup()
+	instance_double_damage_pickup()
+	instance_double_speed_pickup()
 
 func create_navigation():
 	# Creates the navigation region for pathfinding using the map outline
@@ -204,7 +207,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(10, 35)
+	var total_enemies_to_spawn = randi_range(1, 2)
 	
 	var min_enemies_per_type = 5
 	var enemy_1_count = 0

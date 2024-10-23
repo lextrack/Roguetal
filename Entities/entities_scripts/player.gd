@@ -27,13 +27,14 @@ const MAGNET_RADIUS = 100.0
 @onready var damage_timer: Timer = $Timers/damage_timer
 @onready var magnet_area: Area2D = $MagnetArea
 @onready var tween: Tween
-@onready var double_damage_icon: Sprite2D = $hud_powerup/double_damage_icon
-@onready var double_speed_icon: Sprite2D = $hud_powerup/double_speed_icon
-@onready var double_defense_icon: Sprite2D = $hud_powerup/double_defense_icon
-@onready var bullet_hell_icon: Sprite2D = $hud_powerup/bullet_hell_icon
+@onready var hud_powerup: Node2D = $ControlPowerUpHud/hud_powerup
+@onready var light_powerup: PointLight2D = $ControlPowerUpHud/hud_powerup/light_powerup
+@onready var double_speed_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/double_speed_icon
+@onready var double_damage_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/double_damage_icon
+@onready var double_defense_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/double_defense_icon
+@onready var bullet_hell_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/bullet_hell_icon
 @onready var power_up_manager = $PowerUpManager
 @onready var point_light: PointLight2D = $PointLight2D
-@onready var light_powerup: PointLight2D = $hud_powerup/light_powerup
 
 var light_disabled_by_timer = false
 var current_state = player_states.MOVE

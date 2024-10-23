@@ -255,34 +255,49 @@ position = Vector2(2.85714, 11.4286)
 texture = SubResource("GradientTexture2D_86cio")
 texture_scale = 2.0
 
-[node name="hud_powerup" type="Node2D" parent="."]
+[node name="ControlPowerUpHud" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="hud_powerup" type="Node2D" parent="ControlPowerUpHud"]
 z_index = 50
+y_sort_enabled = true
 texture_filter = 2
 
-[node name="light_powerup" type="PointLight2D" parent="hud_powerup"]
-position = Vector2(-189.286, -58.5715)
-scale = Vector2(0.511905, 0.0952381)
+[node name="light_powerup" type="PointLight2D" parent="ControlPowerUpHud/hud_powerup"]
+position = Vector2(-6.42857, 1.78814e-07)
+scale = Vector2(0.416667, 0.0714286)
 energy = 0.95
 texture = SubResource("GradientTexture2D_ao5e7")
 
-[node name="double_speed_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-212.858, -58.5714)
-scale = Vector2(0.07, 0.07)
+[node name="double_speed_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
+position = Vector2(-25.7143, 0)
+scale = Vector2(0.06, 0.06)
 texture = ExtResource("3_kwns6")
 
-[node name="double_damage_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-197.144, -58.5714)
-scale = Vector2(0.07, 0.07)
+[node name="double_damage_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
+position = Vector2(-12.8563, 0)
+scale = Vector2(0.06, 0.06)
 texture = ExtResource("12_erptt")
 
-[node name="double_defense_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-181.429, -58.5714)
-scale = Vector2(0.07, 0.07)
+[node name="double_defense_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
+position = Vector2(0.00088501, 3.05176e-05)
+scale = Vector2(0.06, 0.06)
 texture = ExtResource("6_7scbk")
 
-[node name="bullet_hell_icon" type="Sprite2D" parent="hud_powerup"]
-position = Vector2(-165.714, -58.5714)
-scale = Vector2(0.07, 0.07)
+[node name="bullet_hell_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
+position = Vector2(12.8578, 3.05176e-05)
+scale = Vector2(0.06, 0.06)
 texture = ExtResource("5_him75")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -299,6 +314,8 @@ frame = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(15.7143, -1.42857)
 zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
 script = ExtResource("4_jek05")
 
 [node name="camera_shake" type="Timer" parent="Camera2D"]
