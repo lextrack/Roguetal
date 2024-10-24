@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://Levels/level_generator_scripts/labyrinth_level.gd" id="1_a3cw7"]
 [ext_resource type="Texture2D" uid="uid://b5twfi1wno2qw" path="res://Sprites/labyrinth_tilemap.png" id="1_we10i"]
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="2_mt8nt"]
-[ext_resource type="Script" path="res://UI/ui_scripts/hud.gd" id="3_bid4p"]
 [ext_resource type="Script" path="res://UI/ui_scripts/canvas_instructions_labyrinth.gd" id="3_ldgqx"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_thoc2"]
 [ext_resource type="Texture2D" uid="uid://csx15aryqogte" path="res://Sprites/HeartSpriteSheet.png" id="4_qqmdy"]
 [ext_resource type="Texture2D" uid="uid://dwphcmpag53is" path="res://Sprites/ammo_ui.png" id="5_im8i4"]
+[ext_resource type="Script" path="res://UI/ui_scripts/hud_labyrinth.gd" id="5_u8cql"]
 [ext_resource type="Texture2D" uid="uid://02ay4cfoeh8i" path="res://Sprites/mainlevbuild.png" id="7_7o254"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl5p6"]
@@ -1639,7 +1639,7 @@ layer = 2
 [node name="pause_menu" parent="MenuLayer" instance=ExtResource("2_mt8nt")]
 
 [node name="HUD" type="CanvasLayer" parent="."]
-script = ExtResource("3_bid4p")
+script = ExtResource("5_u8cql")
 
 [node name="heart" type="Sprite2D" parent="HUD"]
 position = Vector2(34, 30)
@@ -1713,6 +1713,7 @@ theme_override_font_sizes/font_size = 12
 text = "Essence of Light:"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="timer_countdown" type="Label" parent="HUD"]
 offset_left = 150.0

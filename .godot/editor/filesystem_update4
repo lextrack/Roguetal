@@ -1,3 +1,6 @@
 res://Levels/Scenes/labyrinth_level.tscn
 res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
+res://UI/ui_scripts/hud_labyrinth.gd
+res://Levels/Scenes/main_dungeon.tscn
+res://Entities/Scenes/Player/player.tscn
