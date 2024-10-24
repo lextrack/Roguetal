@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 enum player_states {MOVE, DEAD}
 
-const MAGNET_RADIUS = 100.0
+const MAGNET_RADIUS = 70.0
 
 @export var contact_damage = 0.1
 @export var speed: int
@@ -28,13 +28,14 @@ const MAGNET_RADIUS = 100.0
 @onready var magnet_area: Area2D = $MagnetArea
 @onready var tween: Tween
 @onready var hud_powerup: Node2D = $ControlPowerUpHud/hud_powerup
-@onready var light_powerup: PointLight2D = $ControlPowerUpHud/hud_powerup/light_powerup
 @onready var double_speed_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/double_speed_icon
 @onready var double_damage_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/double_damage_icon
 @onready var double_defense_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/double_defense_icon
 @onready var bullet_hell_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/bullet_hell_icon
 @onready var power_up_manager = $PowerUpManager
 @onready var point_light: PointLight2D = $PointLight2D
+
+var light_transition_tween: Tween
 
 var light_disabled_by_timer = false
 var current_state = player_states.MOVE
@@ -82,7 +83,11 @@ func _ready() -> void:
 	add_to_group("player")
 	
 	power_up_manager_check()
+	light_disabled_by_timer = false
 	update_light_state()
+	
+	if point_light:
+		point_light.energy = 1.0
 	
 func _process(delta: float) -> void:
 	if player_data.health <= 0 and current_state != player_states.DEAD:
@@ -100,25 +105,79 @@ func _process(delta: float) -> void:
 func update_light_state() -> void:
 	if point_light:
 		var current_scene = get_tree().current_scene
-		if current_scene.name == "labyrinth_level" and not light_disabled_by_timer:
-			point_light.enabled = true
-			light_powerup.enabled = true
+		if current_scene and current_scene.name == "labyrinth_level":
+			if not light_disabled_by_timer:
+				enable_light()
+			else:
+				point_light.enabled = false
+				point_light.energy = 0.0
 		else:
 			point_light.enabled = false
-			light_powerup.enabled = false
+			point_light.energy = 0.0
+	else:
+		print("point_light node not found")
 	
 func disable_light() -> void:
 	if point_light and get_tree().current_scene.name == "labyrinth_level":
-		point_light.enabled = false
-		light_powerup.enabled = false
-		light_disabled_by_timer = true
+		if light_transition_tween and light_transition_tween.is_valid():
+			light_transition_tween.kill()
+		
+		light_transition_tween = create_tween()
+		light_transition_tween.set_trans(Tween.TRANS_SINE)
+		light_transition_tween.set_ease(Tween.EASE_OUT) 
+		
+		light_transition_tween.tween_property(point_light, "energy", 0.0, 1.0)
+
+		light_transition_tween.tween_callback(func():
+			point_light.enabled = false
+			light_disabled_by_timer = true
+		)
+	else:
+		print("Could not disable light. point_light exists: ", point_light != null, " scene name: ", get_tree().current_scene.name)
 
 func enable_light() -> void:
 	if point_light:
-		point_light.enabled = true
+		if light_transition_tween and light_transition_tween.is_valid():
+			light_transition_tween.kill()
 		
-	if light_powerup:
-		light_powerup.enabled = true
+		point_light.enabled = true
+		point_light.energy = 0.0
+		
+		light_transition_tween = create_tween()
+		light_transition_tween.set_trans(Tween.TRANS_SINE)
+		light_transition_tween.set_ease(Tween.EASE_IN)
+		
+		light_transition_tween.tween_property(point_light, "energy", 1.0, 0.5)
+		light_disabled_by_timer = false
+		
+func enter_portal(portal_type: String = ""):
+	is_in_portal = true
+	
+	if light_transition_tween and light_transition_tween.is_valid():
+		light_transition_tween.kill()
+	
+	if portal_type == "exit_portal":
+		if power_up_manager:
+			power_up_manager.handle_level_transition("main_world")
+	elif portal_type == "next_level":
+		light_disabled_by_timer = false
+		update_light_state()
+		var level_node = get_tree().get_root().get_node_or_null("Level")
+		if level_node and level_node.has_node("timer_light_level"):
+			level_node.get_node("timer_light_level").stop()
+		
+		var current_scene = get_tree().current_scene
+		var dungeon_levels = ["main_dungeon", "main_dungeon_2", "labyrinth_level"]
+		
+		if current_scene.name in dungeon_levels:
+			if power_up_manager:
+				power_up_manager.handle_level_transition(current_scene.name)
+		else:
+			if power_up_manager:
+				power_up_manager.handle_level_transition("main_dungeon")
+
+func exit_portal():
+	is_in_portal = false
 	
 func power_up_manager_check() -> void:
 	if power_up_manager:
@@ -156,8 +215,6 @@ func update_double_speed_icon(multiplier: float):
 func update_bullet_hell_icon(multiplier: float):
 	if bullet_hell_icon:
 		bullet_hell_icon.visible = multiplier >= 1.0
-	else:
-		print("bullet_hell_icon not found")
 
 func setup_double_defense_icon():
 	if double_defense_icon:
@@ -485,32 +542,6 @@ func _on_trail_timer_timeout() -> void:
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemy") and not is_in_portal:
 		enemies_in_contact += 1
-		
-func enter_portal(portal_type: String = ""):
-	is_in_portal = true
-	
-	if portal_type == "exit_portal":
-		if power_up_manager:
-			power_up_manager.handle_level_transition("main_world")
-	elif portal_type == "next_level":
-		light_disabled_by_timer = false
-		update_light_state()
-		var level_node = get_tree().get_root().get_node_or_null("Level")
-		if level_node and level_node.has_node("timer_light_level"):
-			level_node.get_node("timer_light_level").stop()
-		
-		var current_scene = get_tree().current_scene
-		var dungeon_levels = ["main_dungeon", "main_dungeon_2", "labyrinth_level"]
-		
-		if current_scene.name in dungeon_levels:
-			if power_up_manager:
-				power_up_manager.handle_level_transition(current_scene.name)
-		else:
-			if power_up_manager:
-				power_up_manager.handle_level_transition("main_dungeon")
-
-func exit_portal():
-	is_in_portal = false
 
 func _on_hitbox_area_exited(area: Area2D) -> void:
 	pass

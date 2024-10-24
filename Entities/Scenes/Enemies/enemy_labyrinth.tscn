@@ -396,12 +396,12 @@ stream = ExtResource("7_kb4wb")
 volume_db = 6.0
 panning_strength = 0.0
 
-[node name="navigation_agent" type="NavigationAgent2D" parent="."]
-
 [node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_q17q4")
 volume_db = -1.0
 panning_strength = 0.0
+
+[node name="navigation_agent" type="NavigationAgent2D" parent="."]
 
 [node name="formation_timer" type="Timer" parent="."]
 

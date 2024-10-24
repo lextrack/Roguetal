@@ -31,9 +31,12 @@ func _ready() -> void:
 	MusicMainLevel.stop()
 	
 	if get_tree().current_scene.name == "labyrinth_level":
+		await get_tree().process_frame
+		
 		if timer_light_level:
 			if not timer_light_level.timeout.is_connected(Callable(self, "_on_timer_light_level_timeout")):
 				timer_light_level.timeout.connect(Callable(self, "_on_timer_light_level_timeout"))
+			print("Timer light level connected and started")
 			timer_light_level.start()
 		else:
 			print("Timer not found in labyrinth level")
@@ -44,8 +47,11 @@ func _input(event: InputEvent) -> void:
 		get_tree().reload_current_scene()
 		
 func _on_timer_light_level_timeout() -> void:
-	if player and player.has_method("disable_light"):
+	if player and is_instance_valid(player):
+		print("Disabling player light from timer")
 		player.disable_light()
+	else:
+		print("Player reference invalid in timer timeout. Player value: ", player)
 	timer_light_level.stop()
 		
 func _on_next_level_portal_body_entered(body: Node2D) -> void:
@@ -67,9 +73,9 @@ func generate_level() -> void:
 func instance_random_powerup() -> void:
 	var powerups = [
 		{"name": "double_defense", "weight": 30},
-		{"name": "double_speed", "weight": 15},
-		{"name": "double_damage", "weight": 20},
-		{"name": "bullet_hell", "weight": 5}
+		{"name": "double_speed", "weight": 20},
+		{"name": "double_damage", "weight": 15},
+		{"name": "bullet_hell", "weight": 7}
 	]
 	
 	var total_weight = 0
@@ -183,11 +189,12 @@ func clear_and_set_tiles() -> void:
 	tilemap.set_cells_terrain_connect(ground_layer, using_cells, ground_layer, ground_layer, false)
 	tilemap.set_cells_terrain_path(ground_layer, using_cells, ground_layer, ground_layer, false)
 
-func instance_player():
-	# Instantiates the player at the starting position
-	var player = player_scene.instantiate()
-	add_child(player)
-	player.position = map.pop_front() * 16
+func instance_player() -> void:
+	var player_instance = player_scene.instantiate()
+	player_instance.position = map[0] * tilemap.cell_quadrant_size
+	add_child(player_instance)
+	player = player_instance  # Asignar la referencia del jugador
+	print("Player instanced at: ", player_instance.position)
 
 func instance_portal():
 	# Instantiates the exit and next-level portals at different locations
