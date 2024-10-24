@@ -12,7 +12,6 @@ const MAX_HEARTS = 4
 @onready var ammo_amount: Label = $ammo_amount
 @onready var timer_light_level: Timer = $"../timer_light_level"
 @onready var countdown_warning: Label = $countdown_warning
-@onready var translation_manager: Node = $"../translation_manager"
 @onready var timer_countdown_label: Label = $timer_countdown
 
 var previous_kill_count = 0

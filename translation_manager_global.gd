@@ -15,7 +15,6 @@ func load_translations() -> void:
 		var json = JSON.parse_string(json_text)
 		if json:
 			translations = json
-			print("Translations loaded: ", translations)
 	else:
 		print("Failed to load translations file")
 

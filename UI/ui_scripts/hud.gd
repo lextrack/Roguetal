@@ -11,7 +11,6 @@ const MAX_HEARTS = 4
 @onready var highest_streak_label: Label = $highest_streak_label
 @onready var ammo_amount: Label = $ammo_amount
 @onready var timer_light_level: Timer = $"../timer_light_level"
-@onready var translation_manager: Node = $"../translation_manager"
 
 var previous_kill_count = 0
 var previous_highest_streak = 0

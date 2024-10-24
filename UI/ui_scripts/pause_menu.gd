@@ -12,16 +12,23 @@ func _ready() -> void:
 		buttons.append(resume_button)
 	else:
 		push_error("The button ResumeButton was not found.")
-
+	
 	if quit_button != null:
 		buttons.append(quit_button)
 	else:
 		push_error("The button QuitButton was not found.")
-
+	
 	if buttons.size() > 0:
 		update_selection()
 	else:
 		push_error("Buttons were not founds.")
+	
+	TranslationManager.language_changed.connect(update_translations)
+	update_translations()
+
+func update_translations() -> void:
+	resume_button.text = TranslationManager.get_text("resume_button")
+	quit_button.text = TranslationManager.get_text("quit_button_pause")
 
 func _process(delta: float) -> void:
 	toggle_menu_pause()

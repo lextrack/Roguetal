@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 enum player_states {MOVE, DEAD}
 
-const MAGNET_RADIUS = 70.0
+const MAGNET_RADIUS = 100.0
 
 @export var contact_damage = 0.1
 @export var speed: int
