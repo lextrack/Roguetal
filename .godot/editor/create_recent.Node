@@ -1,3 +1,4 @@
+Node
 HBoxContainer
 Control
 CanvasLayer
@@ -12,4 +13,3 @@ DirectionalLight2D
 Label
 Panel
 Marker2D
-Node2D

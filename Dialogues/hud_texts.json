@@ -1,0 +1,14 @@
+{
+	"es": {
+		"kills_text": "Kills: {0}",
+		"time_text": "Tiempo: {0}",
+		"highest_streak_text": "Racha más alta: {0}",
+		"countdown_warning_text": "Esencia de luz:"
+	},
+	"en": {
+		"kills_text": "Kills: {0}",
+		"time_text": "Time: {0}",
+		"highest_streak_text": "Highest streak: {0}",
+		"countdown_warning_text": "Essence of light:"
+	}
+}

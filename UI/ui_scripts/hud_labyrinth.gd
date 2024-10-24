@@ -12,6 +12,7 @@ const MAX_HEARTS = 4
 @onready var ammo_amount: Label = $ammo_amount
 @onready var timer_light_level: Timer = $"../timer_light_level"
 @onready var countdown_warning: Label = $countdown_warning
+@onready var translation_manager: Node = $"../translation_manager"
 
 var previous_kill_count = 0
 var previous_highest_streak = 0
@@ -25,6 +26,9 @@ func _ready() -> void:
 	var current_scene = get_tree().current_scene
 	if current_scene.name != "labyrinth_level":
 		timer_countdown_label.visible = false
+	
+	await get_tree().process_frame
+	update_translations()
 
 func create_hearts():
 	for i in range(MAX_HEARTS):
@@ -46,22 +50,39 @@ func _process(delta: float) -> void:
 
 func update_kill_count():
 	if player_data.kill_count != previous_kill_count:
-		kill_count_label.text = "Kills: " + str(player_data.kill_count)
+		var text = translation_manager.get_text("kills_text")
+		kill_count_label.text = text.format([str(player_data.kill_count)])
 		animate_kill_count()
 		previous_kill_count = player_data.kill_count
 
 func update_time_played(delta: float):
 	player_data.time_played += delta
-	time_played_label.text = "Time: " + format_time(player_data.time_played)
+	var formatted_time = format_time(player_data.time_played)
+	var text = translation_manager.get_text("time_text")
+	time_played_label.text = text.format([formatted_time])
 	if time_played_label.modulate.a < 1:
 		time_played_label.modulate.a += delta
 
 func update_highest_streak():
 	if player_data.highest_kill_streak != previous_highest_streak:
-		highest_streak_label.text = "Highest streak: " + str(player_data.highest_kill_streak)
+		var text = translation_manager.get_text("highest_streak_text")
+		highest_streak_label.text = text.format([str(player_data.highest_kill_streak)])
 		if player_data.highest_kill_streak > previous_highest_streak:
 			animate_highest_streak()
 		previous_highest_streak = player_data.highest_kill_streak
+
+func update_translations() -> void:
+	countdown_warning.text = translation_manager.get_text("countdown_warning_text")
+
+	var kills_text = translation_manager.get_text("kills_text")
+	kill_count_label.text = kills_text.format([str(player_data.kill_count)])
+	
+	var formatted_time = format_time(player_data.time_played)
+	var time_text = translation_manager.get_text("time_text")
+	time_played_label.text = time_text.format([formatted_time])
+	
+	var streak_text = translation_manager.get_text("highest_streak_text")
+	highest_streak_label.text = streak_text.format([str(player_data.highest_kill_streak)])
 
 func update_hearts():
 	var health = player_data.health
