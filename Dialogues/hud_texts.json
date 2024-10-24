@@ -3,12 +3,22 @@
 		"kills_text": "Kills: {0}",
 		"time_text": "Tiempo: {0}",
 		"highest_streak_text": "Racha más alta: {0}",
-		"countdown_warning_text": "Esencia de luz:"
+		"countdown_warning_text": "¡Cuidado! La luz se apagará pronto...",
+		"play_button": "Jugar",
+		"credits_button": "Créditos",
+		"quit_button": "Salir",
+		"language_button": "Idioma: Español",
+		"close_credits_button": "Cerrar"
 	},
 	"en": {
 		"kills_text": "Kills: {0}",
 		"time_text": "Time: {0}",
 		"highest_streak_text": "Highest streak: {0}",
-		"countdown_warning_text": "Essence of light:"
+		"countdown_warning_text": "Warning! The light will turn off soon...",
+		"play_button": "Play",
+		"credits_button": "Credits",
+		"quit_button": "Quit",
+		"language_button": "Language: English",
+		"close_credits_button": "Close"
 	}
 }

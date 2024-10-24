@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4lyw756xgim2"]
+[gd_scene load_steps=15 format=3 uid="uid://b4lyw756xgim2"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
 [ext_resource type="Texture2D" uid="uid://bmngqr3v0mh2a" path="res://Sprites/wallpaper_blue_character_5.jpg" id="2_kf4ov"]
 [ext_resource type="AudioStream" uid="uid://cgr60uh2odmsm" path="res://SoundEffects/misc_01.ogg" id="3_c65tl"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_ncx40"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_wmwv3"]
+[ext_resource type="Script" path="res://UI/ui_scripts/translation_manager_menupause.gd" id="6_uynis"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtrft"]
 texture = ExtResource("2_kf4ov")
@@ -148,6 +149,21 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_eigt5")
 text = "Credits"
 
+[node name="Language" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
+theme_override_fonts/font = ExtResource("3_ncx40")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
+theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
+text = "Language"
+
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -164,6 +180,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
 text = "Exit"
 
 [node name="CreditsPanel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.014
@@ -245,6 +262,10 @@ panning_strength = 0.0
 [node name="mouse_icon" parent="." instance=ExtResource("4_wmwv3")]
 position = Vector2(686, 333)
 
+[node name="translation_manager" type="Node" parent="."]
+script = ExtResource("6_uynis")
+
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="VBoxContainer/Language" to="." method="_on_language_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

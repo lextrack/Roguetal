@@ -3,9 +3,11 @@ extends Control
 @onready var play: Button = $VBoxContainer/Play
 @onready var credits: Button = $VBoxContainer/Credits
 @onready var quit: Button = $VBoxContainer/Quit
+@onready var language: Button = $VBoxContainer/Language  # Nuevo botón
 @onready var credits_panel: Panel = $CreditsPanel
 @onready var close_credits_button: Button = $CreditsPanel/CloseCreditsButton
 @onready var hover_sound: AudioStreamPlayer2D = $HoverSound
+@onready var translation_manager: Node = $translation_manager
 
 var current_selection = 0
 var buttons = []
@@ -18,7 +20,7 @@ func _ready() -> void:
 	credits_panel.hide()
 	close_credits_button.connect("pressed", Callable(self, "_on_close_credits_pressed"))
 	
-	buttons = [play, credits, quit]
+	buttons = [play, credits, language, quit]  # Añadido language a la lista
 	
 	for button in buttons:
 		if button == null:
@@ -31,6 +33,23 @@ func _ready() -> void:
 		update_selection()
 	else:
 		push_error("No buttons were found.")
+	
+	await get_tree().process_frame
+	TranslationManager.language_changed.connect(update_translations)
+	update_translations()
+	
+func update_translations() -> void:
+	play.text = TranslationManager.get_text("play_button")
+	credits.text = TranslationManager.get_text("credits_button")
+	quit.text = TranslationManager.get_text("quit_button")
+	language.text = TranslationManager.get_text("language_button")
+	close_credits_button.text = TranslationManager.get_text("close_credits_button")
+
+func _on_language_pressed() -> void:
+	animate_button(language)
+	# Cambiar entre idiomas usando el singleton
+	var new_language = "en" if TranslationManager.current_language == "es" else "es"
+	TranslationManager.set_language(new_language)
 
 func _process(delta: float) -> void:
 	if credits_open:

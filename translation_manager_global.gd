@@ -1,13 +1,12 @@
 extends Node
 
-static var current_language: String = "en"
-static var translations: Dictionary = {}
+signal language_changed
+
+var current_language: String = "en"
+var translations: Dictionary = {}
 
 func _ready() -> void:
-	if translations.is_empty():
-		load_translations()
-	else:
-		get_parent().update_translations()
+	load_translations()
 
 func load_translations() -> void:
 	var json_file = FileAccess.open("res://Dialogues/hud_texts.json", FileAccess.READ)
@@ -28,4 +27,4 @@ func get_text(key: String) -> String:
 func set_language(lang_code: String) -> void:
 	if translations.has(lang_code):
 		current_language = lang_code
-		get_parent().update_translations()
+		emit_signal("language_changed")

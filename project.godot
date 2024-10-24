@@ -24,6 +24,7 @@ MusicMainLevel="*res://SoundEffects/sound_scenes/music_main_level.tscn"
 MusicMainMenu="*res://SoundEffects/sound_scenes/music_main_menu.tscn"
 GlobalPowerUpState="*res://GlobalPowerUpState.gd"
 PowerUpTypes="*res://global_power_up_types.gd"
+TranslationManager="*res://translation_manager_global.gd"
 
 [display]
 

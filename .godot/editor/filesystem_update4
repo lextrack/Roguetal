@@ -7,3 +7,8 @@ res://Entities/Scenes/Player/player.tscn
 res://UI/ui_scripts/translations.gd
 res://Dialogues/hud_texts.json
 res://UI/ui_scenes/main_menu.tscn
+res://UI/ui_scripts/main_menu.gd
+res://UI/ui_scripts/translation_manager_menupause.gd
+res://UI/ui_scripts/translation_manager_dungeon_1.gd
+res://UI/ui_scripts/hud.gd
+res://translation_manager_global.gd

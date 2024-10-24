@@ -4,9 +4,11 @@ static var current_language: String = "en"
 static var translations: Dictionary = {}
 
 func _ready() -> void:
+	# Si las traducciones ya están cargadas, no cargarlas de nuevo
 	if translations.is_empty():
 		load_translations()
 	else:
+		# Si ya hay traducciones, solo actualizar la UI
 		get_parent().update_translations()
 
 func load_translations() -> void:

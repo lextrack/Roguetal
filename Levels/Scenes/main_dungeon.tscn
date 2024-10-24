@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dds8q0g2dsxuj"]
+[gd_scene load_steps=25 format=3 uid="uid://dds8q0g2dsxuj"]
 
 [ext_resource type="Script" path="res://Levels/level_generator_scripts/main_dungeon.gd" id="1_3hfxc"]
 [ext_resource type="Script" path="res://UI/ui_scripts/hud.gd" id="1_71e1o"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="7_lufcb"]
 [ext_resource type="Texture2D" uid="uid://c1df3if3xydge" path="res://Sprites/snow.png" id="8_80re2"]
 [ext_resource type="Texture2D" uid="uid://dtp1c1nysvom3" path="res://Sprites/Ice and snow tileset-Sheet-Sheet.png" id="9_y3rma"]
+[ext_resource type="Script" path="res://UI/ui_scripts/translation_manager_dungeon_1.gd" id="11_dgmgy"]
 
 [sub_resource type="GDScript" id="GDScript_ijp32"]
 script/source = "extends CanvasLayer
@@ -2967,3 +2968,6 @@ autostart = true
 energy = 0.1
 blend_mode = 1
 shadow_color = Color(1, 0, 0, 1)
+
+[node name="translation_manager" type="Node" parent="."]
+script = ExtResource("11_dgmgy")
