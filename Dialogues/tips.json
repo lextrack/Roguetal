@@ -1,0 +1,47 @@
+{
+	"es": {
+		"tips": [
+			"Hola, soy una pantalla de carga.",
+			"¡No te rindas, usa los power-ups!",
+			"No mueras, es malo para tu salud",
+			"Recuerda parpadear ocasionalmente",
+			"Consejo: Ganar es mejor que perder. Pero no conseguirás nada de esto aquí",
+			"El pepe",
+			"Consejos aleatorios, como los niveles de este juego",
+			"Cargando... Loading... Laden... 加载中... Ładowanie... Caricamento...",
+			"Consejo: El agua moja, el fuego quema",
+			"Cargando juego... y contemplando la existencia",
+			"¿Cuánta agua necesitas al día? Cerca de 15.5 tazas. Tazas pequeñas."
+		]
+	},
+	"en": {
+		"tips": [
+			"Hi, I'm a loading screen.",
+			"Don't give up, use power-ups!",
+			"Don't die it's bad for your health",
+			"Remember to blink occasionally",
+			"Tip: Winning is better than losing. But you can't get any of this here",
+			"Did you know? The cake is a lie",
+			"Random tips, like the levels of this game",
+			"Loading... Cargando... Laden... 加载中... Ładowanie... Caricamento...",
+			"Tip: Water is wet, fire is hot",
+			"Loading game... and contemplating existence",
+			"How much water do you need at day? About 15.5 cups. Little cups."
+		]
+	},
+	"zh": {
+		"tips": [
+			"嗨，我是加载界面。",
+			"别放弃，使用能力提升！",
+			"别死掉，对你的健康不好",
+			"记得偶尔眨眨眼",
+			"提示：赢比输好。但你在这里什么都得不到",
+			"你知道吗？蛋糕是个谎言",
+			"随机提示，就像这游戏的关卡一样",
+			"Loading... Cargando... Laden... 加载中... Ładowanie... Caricamento...",
+			"提示：水是湿的，火是热的",
+			"正在加载游戏...同时思考人生",
+			"你一天需要喝多少水？大约15.5杯。小杯的。"
+		]
+	}
+}

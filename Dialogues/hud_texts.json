@@ -2,12 +2,12 @@
 	"es": {
 		"kills_text": "Kills: {0}",
 		"time_text": "Tiempo: {0}",
-		"highest_streak_text": "Racha más alta: {0}",
-		"countdown_warning_text": "Esencia de luz:",
+		"highest_streak_text": "Racha: {0}",
+		"countdown_warning_text": "Luz:",
 		"play_button": "Jugar",
 		"credits_button": "Créditos",
 		"quit_button": "Salir",
-		"language_button": "Idioma: Español",
+		"language_button": "Español",
 		"close_credits_button": "Cerrar",
 		"resume_button": "Reanudar",
 		"quit_button_pause": "Salir"
@@ -15,14 +15,27 @@
 	"en": {
 		"kills_text": "Kills: {0}",
 		"time_text": "Time: {0}",
-		"highest_streak_text": "Highest streak: {0}",
-		"countdown_warning_text": "Essence of light:",
+		"highest_streak_text": "Streak: {0}",
+		"countdown_warning_text": "Light:",
 		"play_button": "Play",
 		"credits_button": "Credits",
 		"quit_button": "Quit",
-		"language_button": "Language: English",
+		"language_button": "English",
 		"close_credits_button": "Close",
 		"resume_button": "Resume",
 		"quit_button_pause": "Quit"
+	},
+	"zh": {
+		"kills_text": "击杀数: {0}",
+		"time_text": "时间: {0}",
+		"highest_streak_text": "最高连击: {0}",
+		"countdown_warning_text": "光明精华:",
+		"play_button": "开始游戏",
+		"credits_button": "制作人员",
+		"quit_button": "退出",
+		"language_button": "中文",
+		"close_credits_button": "关闭",
+		"resume_button": "继续",
+		"quit_button_pause": "退出"
 	}
 }

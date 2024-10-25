@@ -37,6 +37,16 @@ corner_radius_bottom_left = 5
 shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
 shadow_size = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a52th"]
+bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
+shadow_size = 3
+anti_aliasing_size = 2.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0fhw"]
 bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
 corner_radius_top_left = 5
@@ -48,16 +58,6 @@ shadow_size = 3
 anti_aliasing_size = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eigt5"]
-bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
-shadow_size = 3
-anti_aliasing_size = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a52th"]
 bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -100,9 +100,38 @@ offset_top = 0.335999
 offset_right = -6.496
 offset_bottom = 0.295998
 theme_override_fonts/font = ExtResource("3_ncx40")
-text = "1.0.0.4"
+text = "1.0.0.5"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="lang_vcontainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -238.0
+offset_top = -102.0
+offset_right = -19.0
+offset_bottom = -57.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Language" type="Button" parent="lang_vcontainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
+theme_override_fonts/font = ExtResource("3_ncx40")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
+theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
+text = "Language"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -147,21 +176,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_eigt5")
 text = "Credits"
-
-[node name="Language" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
-theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
-theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
-theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
-text = "Language"
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -261,7 +275,7 @@ panning_strength = 0.0
 [node name="mouse_icon" parent="." instance=ExtResource("4_wmwv3")]
 position = Vector2(686, 333)
 
+[connection signal="pressed" from="lang_vcontainer/Language" to="." method="_on_language_pressed"]
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
-[connection signal="pressed" from="VBoxContainer/Language" to="." method="_on_language_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

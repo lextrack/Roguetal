@@ -1,24 +1,12 @@
 extends CanvasLayer
+
 signal loading_finished
 
 @onready var loading_spinner: TextureRect = $Control/LoadingSpinner
 @onready var tip_label: Label = $Control/TipLabel
 
 var next_scene: String = ""
-var tips = [
-	"Hi, I'm a loading screen.",
-	"Don't give up, use power-ups!",
-	"Don't die it's bad for your health",
-	"Remember to blink occasionally",
-	"Tip: Winning is better than losing. But you can't get any of this here",
-	"Did you know? The cake is a lie",
-	"Random tips, like the levels of this game",
-	"Loading... Cargando... Laden... 加载中... Ładowanie... Caricamento...",
-	"Tip: Water is wet, fire is hot",
-	"Loading game... and contemplating existence",
-	"How much water do you need at day? About 15.5 cups. Little cups."
-]
-
+var tips = {}  # Cambio a diccionario para almacenar tips en diferentes idiomas
 var used_tips = []
 
 func _ready():
@@ -26,9 +14,62 @@ func _ready():
 		loading_spinner.pivot_offset = loading_spinner.size / 2
 	
 	randomize()
+	
+	# Conectar la señal de cambio de idioma
+	TranslationManager.language_changed.connect(reload_tips)
+	load_tips()
 	change_tip()
 	set_process(false)
+
+func load_tips():
+	if FileAccess.file_exists("res://Dialogues/tips.json"):
+		var json_as_text = FileAccess.open("res://Dialogues/tips.json", FileAccess.READ)
+		var json_as_dict = JSON.parse_string(json_as_text.get_as_text())
+		if json_as_dict:
+			tips = json_as_dict
+			used_tips.clear()  # Limpiar los tips usados al cargar nuevos
+	else:
+		push_error("Error: No se pudo encontrar el archivo tips.json")
+		tips = {
+			"es": {"tips": ["Cargando..."]},
+			"en": {"tips": ["Loading..."]}
+		}
+
+func reload_tips():
+	used_tips.clear()  # Limpiar los tips usados al cambiar de idioma
+	change_tip()
+
+func get_current_tips() -> Array:
+	var current_lang = TranslationManager.current_language
+	if tips.has(current_lang) and tips[current_lang].has("tips"):
+		return tips[current_lang]["tips"]
+	return ["Loading..."]  # Fallback tip
+
+func change_tip():
+	if tip_label:
+		var current_tips = get_current_tips()
+		
+		if current_tips.size() == used_tips.size():
+			used_tips.clear()
+		
+		var available_tips = current_tips.filter(func(tip): return tip not in used_tips)
+		if available_tips.is_empty():
+			available_tips = current_tips
+			used_tips.clear()
+		
+		var new_tip = available_tips[randi() % available_tips.size()]
+		tip_label.text = new_tip
+		used_tips.append(new_tip)
 	
+	if get_tree().has_meta("tip_timer"):
+		var old_timer = get_tree().get_meta("tip_timer")
+		if old_timer and old_timer.timeout.is_connected(change_tip):
+			old_timer.timeout.disconnect(change_tip)
+	
+	var timer = get_tree().create_timer(3.0)
+	timer.timeout.connect(change_tip)
+	get_tree().set_meta("tip_timer", timer)
+
 func _process(delta):
 	if loading_spinner:
 		loading_spinner.rotation += delta * 2
@@ -69,26 +110,6 @@ func finish_loading():
 		emit_signal("loading_finished")
 	else:
 		push_error("Failed to get loaded scene: " + next_scene)
-
-func change_tip():
-	if tip_label:
-		if tips.size() == used_tips.size():
-			used_tips.clear()
-		
-		var available_tips = tips.filter(func(tip): return tip not in used_tips)
-		var new_tip = available_tips[randi() % available_tips.size()]
-		
-		tip_label.text = new_tip
-		used_tips.append(new_tip)
-	
-	if get_tree().has_meta("tip_timer"):
-		var old_timer = get_tree().get_meta("tip_timer")
-		if old_timer and old_timer.timeout.is_connected(change_tip):
-			old_timer.timeout.disconnect(change_tip)
-
-	var timer = get_tree().create_timer(3.0)
-	timer.timeout.connect(change_tip)
-	get_tree().set_meta("tip_timer", timer)
 
 func _exit_tree():
 	if not next_scene.is_empty():

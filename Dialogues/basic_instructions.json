@@ -1,0 +1,95 @@
+{
+	"es": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l0.png",
+					"res://UI/images_instructions/wasd.png"
+				],
+				"texts": [
+					"Mover y controlar el personaje"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_01a.png",
+					"res://UI/images_instructions/letter-e.png"
+				],
+				"texts": [
+					"[color=yellow]Hablar[/color] con la gente"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/letter-esc.png"
+				],
+				"texts": [
+					"[color=yellow]Pausar[/color] el juego si estás aburrido"
+				]
+			}
+		]
+	},
+	"en": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l0.png",
+					"res://UI/images_instructions/wasd.png"
+				],
+				"texts": [
+					"Move and control the character"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_01a.png",
+					"res://UI/images_instructions/letter-e.png"
+				],
+				"texts": [
+					"[color=yellow]Talk[/color] with people"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/letter-esc.png"
+				],
+				"texts": [
+					"[color=yellow]Pause[/color] the game if you are bored"
+				]
+			}
+		]
+	},
+	"zh": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l0.png",
+					"res://UI/images_instructions/wasd.png"
+				],
+				"texts": [
+					"移动和控制角色"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_01a.png",
+					"res://UI/images_instructions/letter-e.png"
+				],
+				"texts": [
+					"[color=yellow]与人[/color]对话"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/letter-esc.png"
+				],
+				"texts": [
+					"如果你觉得无聊可以[color=yellow]暂停[/color]游戏"
+				]
+			}
+		]
+	}
+}

@@ -3,7 +3,7 @@ extends Control
 @onready var play: Button = $VBoxContainer/Play
 @onready var credits: Button = $VBoxContainer/Credits
 @onready var quit: Button = $VBoxContainer/Quit
-@onready var language: Button = $VBoxContainer/Language
+@onready var language: Button = $lang_vcontainer/Language
 @onready var credits_panel: Panel = $CreditsPanel
 @onready var close_credits_button: Button = $CreditsPanel/CloseCreditsButton
 @onready var hover_sound: AudioStreamPlayer2D = $HoverSound
@@ -47,7 +47,16 @@ func update_translations() -> void:
 func _on_language_pressed() -> void:
 	animate_button(language)
 	
-	var new_language = "en" if TranslationManager.current_language == "es" else "es"
+	# Modificar la lógica para rotar entre tres idiomas
+	var new_language = "en"
+	match TranslationManager.current_language:
+		"en":
+			new_language = "es"
+		"es":
+			new_language = "zh"
+		"zh":
+			new_language = "en"
+	
 	TranslationManager.set_language(new_language)
 
 func _process(delta: float) -> void:

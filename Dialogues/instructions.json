@@ -1,0 +1,98 @@
+{
+	"es": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_r2.png",
+					"res://UI/images_instructions/mouse_click.png",
+					"res://UI/images_instructions/space.png"
+				],
+				"texts": [
+					"Para [color=red]disparar[/color] a los enemigos (recuerda mantener presionado)"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l1.png",
+					"res://UI/images_instructions/letter-c.png"
+				],
+				"texts": [
+					"Para [color=yellow]cambiar[/color] de armas"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_r0.png",
+					"res://UI/images_instructions/mouse_move.png"
+				],
+				"texts": [
+					"Para [color=yellow]controlar[/color] y dirigir los disparos"
+				]
+			}
+		]
+	},
+	"en": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_r2.png",
+					"res://UI/images_instructions/mouse_click.png",
+					"res://UI/images_instructions/space.png"
+				],
+				"texts": [
+					"To [color=red]shoot[/color] at enemies (remember to hold down)"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l1.png",
+					"res://UI/images_instructions/letter-c.png"
+				],
+				"texts": [
+					"To [color=yellow]switch[/color] weapons"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_r0.png",
+					"res://UI/images_instructions/mouse_move.png"
+				],
+				"texts": [
+					"To [color=yellow]control[/color] and direct the shots"
+				]
+			}
+		]
+	},
+	"zh": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_r2.png",
+					"res://UI/images_instructions/mouse_click.png",
+					"res://UI/images_instructions/space.png"
+				],
+				"texts": [
+					"[color=red]射击[/color]敌人（记得按住）"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l1.png",
+					"res://UI/images_instructions/letter-c.png"
+				],
+				"texts": [
+					"[color=yellow]切换[/color]武器"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_r0.png",
+					"res://UI/images_instructions/mouse_move.png"
+				],
+				"texts": [
+					"[color=yellow]控制[/color]和瞄准射击"
+				]
+			}
+		]
+	}
+}

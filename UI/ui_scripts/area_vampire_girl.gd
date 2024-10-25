@@ -9,6 +9,7 @@ var rare_dialogue_index = 0
 
 func _ready() -> void:
 	randomize()
+	TranslationManager.language_changed.connect(load_dialogues)
 	load_dialogues()
 	hide_dialogue()
 	
@@ -19,14 +20,17 @@ func _ready() -> void:
 func load_dialogues() -> void:
 	var file = FileAccess.open("res://Dialogues/dialogues.json", FileAccess.READ)
 	if file:
-		var json = JSON.new()
 		var json_string = file.get_as_text()
-		var error = json.parse(json_string)
-		if error == OK:
-			var data = json.get_data()
-			dialogue = data["introductory_dialogues"]
-			rare_dialogues = data["rare_dialogues"]
+		var data = JSON.parse_string(json_string)
+		if data:
+			# Obtener los diálogos en el idioma actual
+			var current_lang_dialogues = data[TranslationManager.current_language]
+			dialogue = current_lang_dialogues["introductory_dialogues"]
+			rare_dialogues = current_lang_dialogues["rare_dialogues"]
 			rare_dialogues.shuffle()
+			
+			if $PanelDialogue.visible:
+				show_current_dialogue()
 		else:
 			print("Failed to parse JSON")
 		file.close()
@@ -45,6 +49,14 @@ func _on_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		player_in_range = false
 		hide_dialogue()
+
+func show_current_dialogue() -> void:
+	if showing_rare_dialogues:
+		if rare_dialogues.size() > 0:
+			$PanelDialogue/LabelContentDialogue.text = rare_dialogues[max(0, rare_dialogue_index - 1)]
+	else:
+		if dialogue_index > 0:
+			$PanelDialogue/LabelContentDialogue.text = dialogue[dialogue_index - 1]
 
 func show_dialogue():
 	if showing_rare_dialogues:

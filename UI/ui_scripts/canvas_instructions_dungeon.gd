@@ -2,39 +2,11 @@ extends CanvasLayer
 
 @export var display_time : float = 3.0
 var timer : Timer
-var instructions_pages = [
-	{
-		"images": [
-			"res://UI/images_instructions/btn_xb_r2.png",
-			"res://UI/images_instructions/mouse_click.png",
-			"res://UI/images_instructions/space.png"
-		],
-		"texts": [
-			"To [color=red]shoot[/color] at enemies (remember to hold down)"
-		]
-	},
-	{
-		"images": [
-			"res://UI/images_instructions/btn_xb_l1.png",
-			"res://UI/images_instructions/letter-c.png"
-		],
-		"texts": [
-			"To [color=yellow]switch[/color] weapons"
-		]
-	},
-	{
-		"images": [
-			"res://UI/images_instructions/btn_xb_r0.png",
-			"res://UI/images_instructions/mouse_move.png"
-		],
-		"texts": [
-			"To [color=yellow]control[/color] and direct the shots"
-		]
-	},
-]
+var instructions_pages = []
 var current_page_index = 0
 
 func _ready():
+	load_instructions()
 	apply_custom_font()
 	
 	timer = Timer.new()
@@ -51,8 +23,24 @@ func _ready():
 	else:
 		$PanelInstructions.hide()
 
+func load_instructions():
+	if FileAccess.file_exists("res://Dialogues/instructions.json"):
+		var json_as_text = FileAccess.open("res://Dialogues/instructions.json", FileAccess.READ)
+		var json_as_dict = JSON.parse_string(json_as_text.get_as_text())
+		if json_as_dict and "pages" in json_as_dict:
+			instructions_pages = json_as_dict.pages
+		else:
+			push_error("Error: Invalid instructions.json format")
+	else:
+		push_error("Error: Could not find instructions.json")
+		# Fallback a una instrucción básica si no se puede cargar el archivo
+		instructions_pages = [{
+			"images": [],
+			"texts": ["Welcome to the game!"]
+		}]
+
 func apply_custom_font():
-	var font = load("res://Fonts/Ubuntu-Regular.ttf")
+	var font = load("res://Fonts/Pixel Azure Bonds.otf")
 	if font:
 		var rich_label = $PanelInstructions/TextContainer/RichLabel
 		rich_label.add_theme_font_override("normal_font", font)

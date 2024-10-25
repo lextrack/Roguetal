@@ -1,55 +1,53 @@
 extends CanvasLayer
 
-@export var display_time : float = 3.0
-var timer : Timer
-var instructions_pages = [
-	{	# CONTROL INSTRUCTIONS
-		"images": [
-			"res://UI/images_instructions/btn_xb_l0.png",
-			"res://UI/images_instructions/wasd.png",
-		],
-		"texts": [
-			"Move and control the character"
-		]
-	},
-	{	# TALK INSTRUCCIONS
-		"images": [
-			"res://UI/images_instructions/btn_xb_01a.png",
-			"res://UI/images_instructions/letter-e.png"
-		],
-		"texts": [
-			"[color=yellow]Talk[/color] with people"
-		]
-	},
-	{	# PAUSE INSTRUCTIONS
-		"images": [
-			"res://UI/images_instructions/btn_xb_11.png",
-			"res://UI/images_instructions/letter-esc.png"
-		],
-		"texts": [
-			"[color=yellow]Pause[/color] the game if you are bored"
-		]
-	},
-]
-
+@export var display_time: float = 3.0
+var timer: Timer
+var instructions_pages = []
 var current_page_index = 0
 
 func _ready():
+	initialize_timer()
+	
+	setup_panel()
+	
+	TranslationManager.language_changed.connect(load_instructions)
+	load_instructions()
 	apply_custom_font()
 	
+	if not Globals.has_shown_intro:
+		await get_tree().process_frame
+		show_instructions_page(0)
+	else:
+		$PanelInstructions.hide()
+
+func initialize_timer():
 	timer = Timer.new()
 	timer.one_shot = true
 	timer.wait_time = display_time
 	timer.connect("timeout", Callable(self, "_on_timeout"))
 	add_child(timer)
-	
+
+func setup_panel():
 	$PanelInstructions.hide()
 	$PanelInstructions/AnimationPanel.connect("animation_finished", Callable(self, "_on_animation_finished"))
-	
-	if not Globals.has_shown_intro:
-		show_instructions_page(0)
+
+func load_instructions():
+	if FileAccess.file_exists("res://Dialogues/basic_instructions.json"):
+		var json_as_text = FileAccess.open("res://Dialogues/basic_instructions.json", FileAccess.READ)
+		var json_as_dict = JSON.parse_string(json_as_text.get_as_text())
+		if json_as_dict and TranslationManager.current_language in json_as_dict:
+			instructions_pages = json_as_dict[TranslationManager.current_language].pages
+
+			if $PanelInstructions.visible and current_page_index < instructions_pages.size():
+				show_instructions_page(current_page_index)
+		else:
+			push_error("Error: Invalid basic_instructions.json format or missing language")
 	else:
-		$PanelInstructions.hide()
+		push_error("Error: Could not find basic_instructions.json")
+		instructions_pages = [{
+			"images": [],
+			"texts": ["Error"]
+		}]
 
 func apply_custom_font():
 	var font = load("res://Fonts/Pixel Azure Bonds.otf")
@@ -75,7 +73,7 @@ func show_instructions_page(index: int):
 			texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 			texture_rect.custom_minimum_size = Vector2(50, 50)
 			images_container.add_child(texture_rect)
-
+		
 		rich_label.bbcode_enabled = true
 		rich_label.text = page["texts"][0]
 		
@@ -83,7 +81,9 @@ func show_instructions_page(index: int):
 		
 		$PanelInstructions.show()
 		$PanelInstructions/AnimationPanel.play("fade_in")
-		timer.start()
+		
+		if timer:
+			timer.start()
 	else:
 		print("Index out of bounds")
 
