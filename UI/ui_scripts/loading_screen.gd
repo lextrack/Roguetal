@@ -6,7 +6,7 @@ signal loading_finished
 @onready var tip_label: Label = $Control/TipLabel
 
 var next_scene: String = ""
-var tips = {}  # Cambio a diccionario para almacenar tips en diferentes idiomas
+var tips = {}
 var used_tips = []
 
 func _ready():
@@ -15,7 +15,6 @@ func _ready():
 	
 	randomize()
 	
-	# Conectar la señal de cambio de idioma
 	TranslationManager.language_changed.connect(reload_tips)
 	load_tips()
 	change_tip()
@@ -27,7 +26,7 @@ func load_tips():
 		var json_as_dict = JSON.parse_string(json_as_text.get_as_text())
 		if json_as_dict:
 			tips = json_as_dict
-			used_tips.clear()  # Limpiar los tips usados al cargar nuevos
+			used_tips.clear()
 	else:
 		push_error("Error: No se pudo encontrar el archivo tips.json")
 		tips = {
@@ -36,7 +35,7 @@ func load_tips():
 		}
 
 func reload_tips():
-	used_tips.clear()  # Limpiar los tips usados al cambiar de idioma
+	used_tips.clear()
 	change_tip()
 
 func get_current_tips() -> Array:

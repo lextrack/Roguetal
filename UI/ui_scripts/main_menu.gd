@@ -47,7 +47,6 @@ func update_translations() -> void:
 func _on_language_pressed() -> void:
 	animate_button(language)
 	
-	# Modificar la lógica para rotar entre tres idiomas
 	var new_language = "en"
 	match TranslationManager.current_language:
 		"en":

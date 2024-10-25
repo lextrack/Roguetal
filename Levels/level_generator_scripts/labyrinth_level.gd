@@ -75,7 +75,7 @@ func instance_random_powerup() -> void:
 		{"name": "double_defense", "weight": 30},
 		{"name": "double_speed", "weight": 20},
 		{"name": "double_damage", "weight": 15},
-		{"name": "bullet_hell", "weight": 7}
+		{"name": "bullet_hell", "weight": 8}
 	]
 	
 	var total_weight = 0
@@ -193,7 +193,7 @@ func instance_player() -> void:
 	var player_instance = player_scene.instantiate()
 	player_instance.position = map[0] * tilemap.cell_quadrant_size
 	add_child(player_instance)
-	player = player_instance  # Asignar la referencia del jugador
+	player = player_instance
 	print("Player instanced at: ", player_instance.position)
 
 func instance_portal():
@@ -234,7 +234,7 @@ func instance_enemy() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(8, 17)
+	var total_enemies_to_spawn = randi_range(8, 15)
 	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
 		var random_position = map[randi() % len(map)]
 		var world_position = tilemap.map_to_local(random_position)
