@@ -4,6 +4,13 @@ enum player_states {MOVE, DEAD}
 
 const MAGNET_RADIUS = 100.0
 
+var heat_level = 0.0
+const MAX_HEAT = 100.0
+const HEAT_COOLDOWN = 30.0
+const OVERHEAT_PENALTY_TIME = 2.0
+var is_overheated = false
+var overheat_timer = 0.0
+
 @export var contact_damage = 0.1
 @export var speed: int
 @export var base_speed: int
@@ -17,6 +24,11 @@ const MAGNET_RADIUS = 100.0
 	"m16": preload("res://Entities/Scenes/Bullets/bullet_rapid.tscn"),
 	"shotgun": preload("res://Entities/Scenes/Bullets/bullet_shotgun.tscn"),
 }
+@onready var shell_textures = {
+	"m16": preload("res://Sprites/bullet-casings_m16.png"),
+	"shotgun": preload("res://Sprites/shotgun_shell.png")
+}
+
 @onready var trail_scene = preload("res://Entities/Scenes/FX/scent_trail.tscn")
 @onready var weapons_container = $weapons_container
 @onready var sprite = $Sprite2D
@@ -37,7 +49,7 @@ const MAGNET_RADIUS = 100.0
 @onready var audio_stream_weapon_switch: AudioStreamPlayer2D = $Sounds/AudioStreamWeaponSwitch
 
 var light_transition_tween: Tween
-
+var is_weapon_switching = false
 var light_disabled_by_timer = false
 var current_state = player_states.MOVE
 var is_dead = false
@@ -58,7 +70,6 @@ var weapon_damage = {
 	"m16": 3,
 	"shotgun": 2
 }
-var is_weapon_switching = false
 
 func _ready() -> void:
 	if power_up_manager:
@@ -282,9 +293,119 @@ func joystick_aiming(delta: float) -> void:
 			rot = rad_to_deg(direction.angle())
 			update_weapon_flip()
 			
+func apply_recoil(weapon: Node2D, bullet_type: String):
+	var recoil_distance = 0.0
+	var recoil_duration = 0.0
+	
+	match bullet_type:
+		"bazooka":
+			recoil_distance = 20.0
+			recoil_duration = 0.2
+		"shotgun":
+			recoil_distance = 15.0
+			recoil_duration = 0.15
+		"m16":
+			recoil_distance = 5.0
+			recoil_duration = 0.05
+	
+	var direction = Vector2.LEFT.rotated(weapon.rotation)
+	var original_pos = weapon.position
+	
+	var tween = create_tween()
+	tween.tween_property(weapon, "position",
+		weapon.position + direction * recoil_distance,
+		recoil_duration * 0.25)
+	tween.tween_property(weapon, "position",
+		original_pos,
+		recoil_duration * 0.75)
+
+func create_muzzle_flash(weapon: Node2D, flash_color: Color, size: float):
+	var bullet_point = weapon.get_node("bullet_point")
+	var flash = Sprite2D.new()
+	flash.texture = preload("res://Sprites/muzzle_flash.png")
+	flash.position = bullet_point.position
+	flash.scale = Vector2(size, size)
+	flash.modulate = flash_color
+	weapon.add_child(flash)
+	
+	var tween = create_tween()
+	tween.tween_property(flash, "modulate:a", 0.0, 0.1)
+	tween.tween_callback(flash.queue_free)
+
+func create_shell_casing(weapon: Node2D, type: String):
+	var bullet_point = weapon.get_node("bullet_point")
+	var shell = Sprite2D.new()
+	
+	shell.texture = shell_textures[type]
+	
+	var settings = {
+		"m16": {
+			"scale": Vector2(0.4, 0.4),
+			"force": 25,
+			"arc_height": 15,
+			"rotation_speed": PI,
+			"lifetime": 0.4,
+			"fade_delay": 0.2,
+			"eject_angle": -60
+		},
+		"shotgun": {
+			"scale": Vector2(0.6, 0.6),
+			"force": 35,
+			"arc_height": 25,
+			"rotation_speed": PI/2,
+			"lifetime": 0.5,
+			"fade_delay": 0.3,
+			"eject_angle": -45
+		}
+	}
+	
+	var config = settings[type]
+	
+	shell.global_position = bullet_point.global_position
+	shell.scale = config["scale"]
+	get_tree().root.add_child(shell)
+	
+	var base_angle = deg_to_rad(config["eject_angle"])
+	var eject_direction = Vector2.RIGHT.rotated(base_angle)
+	eject_direction = eject_direction.rotated(weapon.global_rotation)
+	
+	var final_position = shell.global_position + (eject_direction * config["force"])
+	final_position.y += config["arc_height"] * 0.5
+	
+	var mid_position = shell.global_position + (eject_direction * config["force"] * 0.5)
+	mid_position.y -= config["arc_height"]
+	
+	var tween = create_tween()
+	tween.set_parallel(true)
+	
+	tween.tween_method(
+		func(progress: float):
+			var pos1 = shell.global_position.lerp(mid_position, progress)
+			var pos2 = mid_position.lerp(final_position, progress)
+			shell.global_position = pos1.lerp(pos2, progress),
+		0.0, 1.0, config["lifetime"]
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	
+	if type == "m16":
+		tween.tween_property(shell, "rotation",
+			randf_range(2 * PI, 4 * PI),
+			config["lifetime"])
+	else:
+		tween.tween_property(shell, "rotation",
+			PI/2,
+			config["lifetime"])
+	
+	tween.tween_property(shell, "modulate:a",
+		0.0,
+		0.2).set_delay(config["fade_delay"])
+	
+	tween.tween_callback(shell.queue_free).set_delay(config["lifetime"])
+			
 func instance_bullet():
 	var current_weapon = weapons[current_weapon_index]
 	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
+	
+	apply_recoil(current_weapon, bullet_type)
 	
 	var bullet_scene = bullet_scenes.get(bullet_type, bullet_scenes["bazooka"])
 	
@@ -298,10 +419,15 @@ func instance_bullet():
 	
 	match bullet_type:
 		"bazooka":
+			create_muzzle_flash(current_weapon, Color(1, 0.7, 0.2), 1.2)
 			Globals.camera.screen_shake(1.5, 0.25, 0.1)
 		"shotgun":
+			create_muzzle_flash(current_weapon, Color(1, 1, 0.5), 0.8)
+			create_shell_casing(current_weapon, "shotgun")
 			Globals.camera.screen_shake(1.0, 0.2, 0.1)
 		"m16":
+			create_muzzle_flash(current_weapon, Color(1, 1, 1), 0.5)
+			create_shell_casing(current_weapon, "m16")
 			Globals.camera.screen_shake(0.3, 0.08, 0.2)
 	
 	if bullet_hell_active:
@@ -360,11 +486,31 @@ func bullet_type_shooting(delta: float):
 	var current_weapon = weapons[current_weapon_index]
 	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
 
-	if Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
+	if is_overheated:
+		overheat_timer -= delta
+		if overheat_timer <= 0:
+			is_overheated = false
+			heat_level = 0.0
+
+	if not is_overheated:
+		heat_level = max(0.0, heat_level - HEAT_COOLDOWN * delta)
+	
+	update_weapon_heat_effect(current_weapon, heat_level / MAX_HEAT)
+
+	if not is_overheated and Input.is_action_pressed("ui_shoot") and player_data.ammo > 0 and weapons_container.visible:
 		shoot_timer -= delta
 		if shoot_timer <= 0.0:
 			var bullets_fired = instance_bullet()
 			player_data.ammo -= bullets_fired
+			
+			match bullet_type:
+				"bazooka":
+					add_heat(25)
+				"shotgun":
+					add_heat(30)
+				"m16":
+					add_heat(5)
+			
 			if player_data.ammo < 0:
 				player_data.ammo = 0
 			
@@ -374,6 +520,50 @@ func bullet_type_shooting(delta: float):
 				shoot_timer = 1.0
 			else:
 				shoot_timer = bazooka_shoot_delay
+
+func add_heat(amount: float):
+	heat_level = min(MAX_HEAT, heat_level + amount)
+	
+	if heat_level >= MAX_HEAT:
+		trigger_overheat()
+
+func trigger_overheat():
+	is_overheated = true
+	overheat_timer = OVERHEAT_PENALTY_TIME
+	
+	var current_weapon = weapons[current_weapon_index]
+	if current_weapon.has_node("gun_sprite"):
+		var gun_sprite = current_weapon.get_node("gun_sprite")
+		
+		var tween = create_tween()
+		tween.tween_property(gun_sprite, "modulate",
+			Color(2.0, 0.0, 0.0, 1.0), 0.1)
+		tween.tween_property(gun_sprite, "modulate",
+			Color(1.0, 0.0, 0.0, 1.0), 0.1)
+		
+		# Efecto de vapor (usando particles si las tienes)
+		# Aquí podrías instanciar un efecto de partículas si lo deseas
+
+func update_weapon_heat_effect(weapon: Node2D, heat_ratio: float):
+	if weapon.has_node("gun_sprite"):
+		var gun_sprite = weapon.get_node("gun_sprite")
+		if not is_overheated:
+			var heat_color = Color(
+				1.0 + heat_ratio * 0.5,
+				1.0 - heat_ratio * 0.5,
+				1.0 - heat_ratio * 0.5,
+				1.0
+			)
+			gun_sprite.modulate = heat_color
+		else:
+			var pulse = (1.0 + sin(Time.get_ticks_msec() * 0.01)) * 0.5
+			var overheat_color = Color(
+				1.0 + pulse * 0.5,
+				0.2,
+				0.2,
+				1.0
+			)
+			gun_sprite.modulate = overheat_color
 
 func setup_weapons():
 	for i in range(weapons.size()):
