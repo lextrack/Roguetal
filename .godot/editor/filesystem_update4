@@ -3,8 +3,6 @@ res://Entities/entities_scripts/player.gd
 res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
 res://Shaders/flash_shader.gdshader
-res://UI/ui_scripts/main_menu.gd
 res://UI/ui_scripts/menu_opciones.gd
 res://Entities/Scenes/Player/player.tscn
 res://Levels/Scenes/labyrinth_level.tscn
-res://Dialogues/hud_texts.json
