@@ -11,3 +11,4 @@ res://Dialogues/hud_texts.json
 res://Entities/entities_scripts/enemy_1.gd
 res://Levels/Scenes/main_dungeon.tscn
 res://Entities/entities_scripts/enemy_labyrinth.gd
+res://UI/ui_scenes/menu_opciones.tscn
