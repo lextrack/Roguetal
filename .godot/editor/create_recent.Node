@@ -1,3 +1,4 @@
+GPUParticles2D
 AudioStreamPlayer2D
 VBoxContainer
 Node
@@ -11,4 +12,3 @@ AnimationPlayer
 CollisionShape2D
 Area2D
 DirectionalLight2D
-Label

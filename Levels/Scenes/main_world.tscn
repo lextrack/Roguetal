@@ -1478,4 +1478,4 @@ tile_map_data = PackedByteArray("AAAcABsAAwAMAAEAAAAdABkAAwAGAAEAAAAgABkAAwAGAAE
 tile_set = SubResource("TileSet_63r5a")
 
 [node name="portal_dungeon" parent="." instance=ExtResource("10_4eyqo")]
-position = Vector2(76, 49)
+position = Vector2(106, 51)

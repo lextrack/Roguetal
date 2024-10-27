@@ -1,9 +1,12 @@
+res://Entities/entities_scripts
+res://Entities/Scenes/FX
+res://Effects/script_effect
+res://Effects
 res://Shaders
 res://UI/ui_scripts
 res://
 C:/C2_Roguelite
 C:/C2_Roguelite/AndroidKeyC2
-res://Entities/entities_scripts
 C:/Users/ariel/OneDrive/Desktop
 res://Interactables/interatables_scripts
 res://Interactables/Scenes
