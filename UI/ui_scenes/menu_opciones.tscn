@@ -1,0 +1,99 @@
+[gd_scene load_steps=4 format=3 uid="uid://rkamwmwfav1a"]
+
+[ext_resource type="Script" path="res://UI/ui_scripts/menu_opciones.gd" id="1_fnegt"]
+[ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="2_yj70g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mocei"]
+bg_color = Color(0, 0.321569, 0.764706, 0.682353)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
+shadow_size = 5
+
+[node name="MenuOpciones" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fnegt")
+
+[node name="PanelOpciones" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mocei")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelOpciones"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -41.5
+offset_right = 20.0
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Options" type="Label" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_font_sizes/font_size = 35
+text = "Options menu"
+horizontal_alignment = 1
+
+[node name="volume_label" type="Label" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_font_sizes/font_size = 35
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="VolumenSlider" type="HSlider" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="FullscreenCheck" type="CheckBox" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_font_sizes/font_size = 35
+text = "Fullscreen"
+
+[node name="LanguageButton" type="Button" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_font_sizes/font_size = 35
+text = "Language"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+
+[node name="button_save" type="Button" parent="PanelOpciones/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_font_sizes/font_size = 35
+text = "Save"
+
+[node name="button_cancel" type="Button" parent="PanelOpciones/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_font_sizes/font_size = 35
+text = "Cancel"
+
+[connection signal="pressed" from="PanelOpciones/VBoxContainer/LanguageButton" to="." method="_on_language_button_pressed"]
+[connection signal="pressed" from="PanelOpciones/VBoxContainer/VBoxContainer/button_save" to="." method="_on_button_save_pressed"]
+[connection signal="pressed" from="PanelOpciones/VBoxContainer/VBoxContainer/button_cancel" to="." method="_on_button_cancel_pressed"]

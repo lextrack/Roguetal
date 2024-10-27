@@ -1,11 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://b4lyw756xgim2"]
+[gd_scene load_steps=15 format=3 uid="uid://b4lyw756xgim2"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
 [ext_resource type="Texture2D" uid="uid://bmngqr3v0mh2a" path="res://Sprites/wallpaper_blue_character_5.jpg" id="2_kf4ov"]
 [ext_resource type="AudioStream" uid="uid://cgr60uh2odmsm" path="res://SoundEffects/misc_01.ogg" id="3_c65tl"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_ncx40"]
+[ext_resource type="PackedScene" uid="uid://rkamwmwfav1a" path="res://UI/ui_scenes/menu_opciones.tscn" id="4_stn02"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_wmwv3"]
-[ext_resource type="Script" path="res://UI/ui_scripts/menu_opciones.gd" id="6_p77v8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtrft"]
 texture = ExtResource("2_kf4ov")
@@ -67,15 +67,6 @@ corner_radius_bottom_left = 5
 shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
 shadow_size = 3
 anti_aliasing_size = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mocei"]
-bg_color = Color(0, 0.321569, 0.764706, 0.682353)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
-shadow_size = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5uur"]
 bg_color = Color(0.099986, 0.099986, 0.099986, 0.945098)
@@ -188,87 +179,8 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
 text = "Exit"
 
-[node name="MenuOpciones" type="Control" parent="."]
+[node name="MenuOpciones" parent="." instance=ExtResource("4_stn02")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("6_p77v8")
-
-[node name="PanelOpciones" type="Panel" parent="MenuOpciones"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_mocei")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuOpciones/PanelOpciones"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -41.5
-offset_right = 20.0
-offset_bottom = 41.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 15
-
-[node name="Options" type="Label" parent="MenuOpciones/PanelOpciones/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
-text = "Options menu"
-horizontal_alignment = 1
-
-[node name="volume_label" type="Label" parent="MenuOpciones/PanelOpciones/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
-text = "Volume"
-horizontal_alignment = 1
-
-[node name="VolumenSlider" type="HSlider" parent="MenuOpciones/PanelOpciones/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-
-[node name="FullscreenCheck" type="CheckBox" parent="MenuOpciones/PanelOpciones/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
-text = "Fullscreen"
-
-[node name="LanguageButton" type="Button" parent="MenuOpciones/PanelOpciones/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
-text = "Language"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuOpciones/PanelOpciones/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 15
-
-[node name="button_save" type="Button" parent="MenuOpciones/PanelOpciones/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
-text = "Save"
-
-[node name="button_cancel" type="Button" parent="MenuOpciones/PanelOpciones/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
-text = "Cancel"
 
 [node name="CreditsPanel" type="Panel" parent="."]
 visible = false
@@ -357,6 +269,3 @@ position = Vector2(686, 333)
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="MenuOpciones/PanelOpciones/VBoxContainer/LanguageButton" to="MenuOpciones" method="_on_language_button_pressed"]
-[connection signal="pressed" from="MenuOpciones/PanelOpciones/VBoxContainer/VBoxContainer/button_save" to="MenuOpciones" method="_on_button_save_pressed"]
-[connection signal="pressed" from="MenuOpciones/PanelOpciones/VBoxContainer/VBoxContainer/button_cancel" to="MenuOpciones" method="_on_button_cancel_pressed"]

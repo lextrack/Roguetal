@@ -32,10 +32,10 @@ var max_allowed_speed = 105 # Maximum allowed speed for any enemy
 @export var obstacle_avoidance_range = 5.0 # Distance for detecting and avoiding obstacles
 @export var reposition_distance = 30.0 # Distance the enemy moves to reposition during combat
 @export var attack_damage = 0.2 # Damage dealt by the enemy in each attack
-@export var attack_range = 5.0 # Distance within which the enemy can attack the player
+@export var attack_range = 4.0 # Distance within which the enemy can attack the player
 @export var attack_damage_range = 20.0 # Range of variability in the enemy's attack damage
 @export var idle_time_min = 3.0 # Minimum time to stay in idle state
-@export var idle_time_max = 7.0 # Maximum time to stay in idle state
+@export var idle_time_max = 6.0 # Maximum time to stay in idle state
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D if has_node("NavigationAgent2D") else null
 @onready var target = get_node("../Player")

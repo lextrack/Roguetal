@@ -14,6 +14,7 @@
 		"options_button": "Opciones",
 		"fullscreen_check": "Pantalla completa",
 		"options_menu": "Menú de opciones",
+		"options_pause": "Opciones",
 		"volume_label_game": "Ajustar volumen",
 		"button_save": "Guardar",
 		"button_cancel": "Cancelar"
@@ -33,6 +34,7 @@
 		"options_button": "Options",
 		"fullscreen_check": "Fullscreen",
 		"options_menu": "Options menu",
+		"options_pause": "Options",
 		"volume_label_game": "Set volume",
 		"button_save": "Save",
 		"button_cancel": "Cancel"
@@ -52,6 +54,7 @@
 		"options_button": "选项",
 		"fullscreen_check": "全屏",
 		"options_menu": "菜单选项",
+		"options_pause": "选项",
 		"volume_label_game": "设置音量",
 		"button_save": "保存设置",
 		"button_cancel": "取消"
