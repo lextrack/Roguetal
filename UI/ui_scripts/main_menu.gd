@@ -48,7 +48,8 @@ func update_translations() -> void:
 func _process(delta: float) -> void:
 	if credits_open:
 		handle_credits_input()
-	elif buttons.size() > 0:
+
+	elif buttons.size() > 0 and !$MenuOpciones.visible:
 		handle_menu_navigation()
 		
 func _on_play_pressed() -> void:
@@ -122,10 +123,8 @@ func play_hover_sound():
 func _on_button_hover():
 	play_hover_sound()
 
-
 func _on_options_pressed() -> void:
 	$MenuOpciones.show()
 
-
 func _on_boton_guardar_pressed() -> void:
-	pass # Replace with function body.
+	pass 

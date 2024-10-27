@@ -1,9 +1,9 @@
+VBoxContainer
 Label
 Button
 HBoxContainer
 CheckBox
 HSlider
-VBoxContainer
 Panel
 Control
 GPUParticles2D
