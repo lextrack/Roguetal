@@ -10,7 +10,13 @@
 		"language_button": "Español",
 		"close_credits_button": "Cerrar",
 		"resume_button": "Reanudar",
-		"quit_button_pause": "Salir"
+		"quit_button_pause": "Salir",
+		"options_button": "Opciones",
+		"fullscreen_check": "Pantalla completa",
+		"options_menu": "Menú de opciones",
+		"volume_label_game": "Ajustar volumen",
+		"button_save": "Guardar",
+		"button_cancel": "Cancelar"
 	},
 	"en": {
 		"kills_text": "Kills: {0}",
@@ -23,7 +29,13 @@
 		"language_button": "English",
 		"close_credits_button": "Close",
 		"resume_button": "Resume",
-		"quit_button_pause": "Quit"
+		"quit_button_pause": "Quit",
+		"options_button": "Options",
+		"fullscreen_check": "Fullscreen",
+		"options_menu": "Options menu",
+		"volume_label_game": "Set volume",
+		"button_save": "Save",
+		"button_cancel": "Cancel"
 	},
 	"zh": {
 		"kills_text": "击杀数: {0}",
@@ -36,6 +48,12 @@
 		"language_button": "中文",
 		"close_credits_button": "关闭",
 		"resume_button": "继续",
-		"quit_button_pause": "退出"
+		"quit_button_pause": "退出",
+		"options_button": "选项",
+		"fullscreen_check": "全屏",
+		"options_menu": "菜单选项",
+		"volume_label_game": "设置音量",
+		"button_save": "保存设置",
+		"button_cancel": "取消"
 	}
 }

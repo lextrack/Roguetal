@@ -3,10 +3,10 @@ extends Control
 @onready var play: Button = $VBoxContainer/Play
 @onready var credits: Button = $VBoxContainer/Credits
 @onready var quit: Button = $VBoxContainer/Quit
-@onready var language: Button = $lang_vcontainer/Language
 @onready var credits_panel: Panel = $CreditsPanel
 @onready var close_credits_button: Button = $CreditsPanel/CloseCreditsButton
 @onready var hover_sound: AudioStreamPlayer2D = $HoverSound
+@onready var options: Button = $VBoxContainer/Options
 
 var current_selection = 0
 var buttons = []
@@ -15,11 +15,12 @@ var loading_screen_scene = preload("res://UI/ui_scenes/loading_screen.tscn")
 var loading_screen: CanvasLayer = null
 
 func _ready() -> void:
+	$MenuOpciones.hide()
 	MusicMainMenu.play_music_level()
 	credits_panel.hide()
 	close_credits_button.connect("pressed", Callable(self, "_on_close_credits_pressed"))
 	
-	buttons = [play, credits, language, quit]
+	buttons = [play, options, credits, quit]
 	
 	for button in buttons:
 		if button == null:
@@ -39,31 +40,17 @@ func _ready() -> void:
 	
 func update_translations() -> void:
 	play.text = TranslationManager.get_text("play_button")
+	options.text = TranslationManager.get_text("options_button")
 	credits.text = TranslationManager.get_text("credits_button")
 	quit.text = TranslationManager.get_text("quit_button")
-	language.text = TranslationManager.get_text("language_button")
 	close_credits_button.text = TranslationManager.get_text("close_credits_button")
-
-func _on_language_pressed() -> void:
-	animate_button(language)
-	
-	var new_language = "en"
-	match TranslationManager.current_language:
-		"en":
-			new_language = "es"
-		"es":
-			new_language = "zh"
-		"zh":
-			new_language = "en"
-	
-	TranslationManager.set_language(new_language)
 
 func _process(delta: float) -> void:
 	if credits_open:
 		handle_credits_input()
 	elif buttons.size() > 0:
 		handle_menu_navigation()
-
+		
 func _on_play_pressed() -> void:
 	animate_button(play)
 	await get_tree().create_timer(0.2).timeout
@@ -134,3 +121,11 @@ func play_hover_sound():
 
 func _on_button_hover():
 	play_hover_sound()
+
+
+func _on_options_pressed() -> void:
+	$MenuOpciones.show()
+
+
+func _on_boton_guardar_pressed() -> void:
+	pass # Replace with function body.

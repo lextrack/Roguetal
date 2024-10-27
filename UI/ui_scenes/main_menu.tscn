@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4lyw756xgim2"]
+[gd_scene load_steps=16 format=3 uid="uid://b4lyw756xgim2"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
 [ext_resource type="Texture2D" uid="uid://bmngqr3v0mh2a" path="res://Sprites/wallpaper_blue_character_5.jpg" id="2_kf4ov"]
 [ext_resource type="AudioStream" uid="uid://cgr60uh2odmsm" path="res://SoundEffects/misc_01.ogg" id="3_c65tl"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_ncx40"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_wmwv3"]
+[ext_resource type="Script" path="res://UI/ui_scripts/menu_opciones.gd" id="6_p77v8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtrft"]
 texture = ExtResource("2_kf4ov")
@@ -37,16 +38,6 @@ corner_radius_bottom_left = 5
 shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
 shadow_size = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a52th"]
-bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
-shadow_size = 3
-anti_aliasing_size = 2.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0fhw"]
 bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
 corner_radius_top_left = 5
@@ -66,6 +57,25 @@ corner_radius_bottom_left = 5
 shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
 shadow_size = 3
 anti_aliasing_size = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a52th"]
+bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
+shadow_size = 3
+anti_aliasing_size = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mocei"]
+bg_color = Color(0, 0.321569, 0.764706, 0.682353)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
+shadow_size = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5uur"]
 bg_color = Color(0.099986, 0.099986, 0.099986, 0.945098)
@@ -104,35 +114,6 @@ text = "1.0.0.5"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="lang_vcontainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -238.0
-offset_top = -102.0
-offset_right = -19.0
-offset_bottom = -57.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="Language" type="Button" parent="lang_vcontainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
-theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
-theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
-theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
-text = "Language"
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -161,6 +142,21 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
 text = "Play"
+
+[node name="Options" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
+theme_override_fonts/font = ExtResource("3_ncx40")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
+theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
+text = "Options"
 
 [node name="Credits" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -191,6 +187,88 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
 text = "Exit"
+
+[node name="MenuOpciones" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_p77v8")
+
+[node name="PanelOpciones" type="Panel" parent="MenuOpciones"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mocei")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuOpciones/PanelOpciones"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -41.5
+offset_right = 20.0
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Options" type="Label" parent="MenuOpciones/PanelOpciones/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_ncx40")
+theme_override_font_sizes/font_size = 35
+text = "Options menu"
+horizontal_alignment = 1
+
+[node name="volume_label" type="Label" parent="MenuOpciones/PanelOpciones/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ncx40")
+theme_override_font_sizes/font_size = 35
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="VolumenSlider" type="HSlider" parent="MenuOpciones/PanelOpciones/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="FullscreenCheck" type="CheckBox" parent="MenuOpciones/PanelOpciones/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ncx40")
+theme_override_font_sizes/font_size = 35
+text = "Fullscreen"
+
+[node name="LanguageButton" type="Button" parent="MenuOpciones/PanelOpciones/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ncx40")
+theme_override_font_sizes/font_size = 35
+text = "Language"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuOpciones/PanelOpciones/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="button_save" type="Button" parent="MenuOpciones/PanelOpciones/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ncx40")
+theme_override_font_sizes/font_size = 35
+text = "Save"
+
+[node name="button_cancel" type="Button" parent="MenuOpciones/PanelOpciones/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ncx40")
+theme_override_font_sizes/font_size = 35
+text = "Cancel"
 
 [node name="CreditsPanel" type="Panel" parent="."]
 visible = false
@@ -275,7 +353,10 @@ panning_strength = 0.0
 [node name="mouse_icon" parent="." instance=ExtResource("4_wmwv3")]
 position = Vector2(686, 333)
 
-[connection signal="pressed" from="lang_vcontainer/Language" to="." method="_on_language_pressed"]
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MenuOpciones/PanelOpciones/VBoxContainer/LanguageButton" to="MenuOpciones" method="_on_language_button_pressed"]
+[connection signal="pressed" from="MenuOpciones/PanelOpciones/VBoxContainer/HBoxContainer/button_save" to="MenuOpciones" method="_on_button_save_pressed"]
+[connection signal="pressed" from="MenuOpciones/PanelOpciones/VBoxContainer/HBoxContainer/button_cancel" to="MenuOpciones" method="_on_button_cancel_pressed"]
