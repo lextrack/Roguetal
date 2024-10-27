@@ -23,7 +23,6 @@ const min_distance_from_player = 5
 @onready var player: CharacterBody2D = null
 
 func _ready() -> void:
-	# Called when the scene is ready, sets up the level, plays music
 	randomize()
 	generate_level()
 	if not MusicDungeon.is_playing_level_music:
@@ -42,7 +41,6 @@ func _ready() -> void:
 			print("Timer not found in labyrinth level")
 
 func _input(event: InputEvent) -> void:
-	# Detects input events, restarts level if necessary
 	if Input.is_action_just_pressed("restart_level"):
 		get_tree().reload_current_scene()
 		
@@ -59,7 +57,6 @@ func _on_next_level_portal_body_entered(body: Node2D) -> void:
 		timer_light_level.stop()
 		
 func generate_level() -> void:
-	# Generates the entire level including map, player, enemies, and pickups
 	walker = Walker_labyrinth_room.new(Vector2(25,25), borders)
 	map = walker.walk(700)
 	clear_and_set_tiles()
@@ -72,10 +69,10 @@ func generate_level() -> void:
 	
 func instance_random_powerup() -> void:
 	var powerups = [
-		{"name": "double_defense", "weight": 30},
-		{"name": "double_speed", "weight": 20},
-		{"name": "double_damage", "weight": 15},
-		{"name": "bullet_hell", "weight": 8}
+		{"name": "double_defense", "weight": 20},
+		{"name": "double_speed", "weight": 30},
+		{"name": "double_damage", "weight": 18},
+		{"name": "bullet_hell", "weight": 50}
 	]
 	
 	var total_weight = 0
@@ -136,7 +133,6 @@ func instance_bullet_hell_pickup() -> void:
 	instance_specific_pickup(bullet_hell_pickup_scene)
 
 func create_navigation():
-	# Creates the navigation region for pathfinding using the map outline
 	var navigation_region = NavigationRegion2D.new()
 	add_child(navigation_region)
 	
@@ -153,7 +149,6 @@ func create_navigation():
 	navigation_region.navigation_polygon = navigation_polygon
 
 func instance_health_pickup() -> void:
-	# Instantiates health pickups at random valid locations on the map
 	var player_node = get_node("Player")
 	if not player_node:
 		return
@@ -176,7 +171,6 @@ func instance_health_pickup() -> void:
 		attempts += 1
 
 func clear_and_set_tiles() -> void:
-	# Clears the existing tiles and sets the new tiles based on the map
 	var using_cells: Array = []
 	var all_cells: Array = tilemap.get_used_cells(ground_layer)
 	tilemap.clear()
@@ -197,7 +191,6 @@ func instance_player() -> void:
 	print("Player instanced at: ", player_instance.position)
 
 func instance_portal():
-	# Instantiates the exit and next-level portals at different locations
 	var exit_portal = exit_scene.instantiate()
 	var next_level_portal = next_level_scene.instantiate()
 	
@@ -211,7 +204,6 @@ func instance_portal():
 	next_level_portal.position = other_position
 
 func get_other_portal_position(existing_position):
-	# Finds a valid position for the other portal at a distance from the existing one
 	var attempts = 0
 	var max_attempts = 100
 	var min_distance = 160
@@ -225,7 +217,6 @@ func get_other_portal_position(existing_position):
 	return map[randi() % len(map)] * 16
 
 func instance_enemy() -> void:
-	# Instance enemy
 	var player_node = get_node("Player")
 	if not player_node:
 		return
@@ -245,8 +236,7 @@ func instance_enemy() -> void:
 			var nav_agent = NavigationAgent2D.new()
 			enemy.add_child(nav_agent)
 			
-			# Set random base_speed and speed_variation for each enemy
-			enemy.base_speed = randf_range(70, 100)
+			enemy.base_speed = randf_range(80, 100)
 			enemy.speed_variation = randf_range(10, 30)
 			
 			enemy.position = world_position
@@ -258,12 +248,10 @@ func instance_enemy() -> void:
 	print("Spawned enemies: ", enemies_spawned)
 
 func is_tile_occupied(tile_pos: Vector2) -> bool:
-	# Checks if a tile is occupied by a specific source ID
 	var cell_coords = tilemap.local_to_map(tile_pos)
 	return tilemap.get_cell_source_id(ground_layer, cell_coords) != -1
 
 func is_position_valid(check_pos: Vector2) -> bool:
-	# Validates if a position is within bounds, on the map, and not occupied
 	var cell_coords = tilemap.local_to_map(check_pos)
 	if not borders.has_point(cell_coords):
 		return false

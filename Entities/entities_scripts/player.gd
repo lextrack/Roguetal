@@ -34,6 +34,7 @@ const MAGNET_RADIUS = 100.0
 @onready var bullet_hell_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/bullet_hell_icon
 @onready var power_up_manager = $PowerUpManager
 @onready var point_light: PointLight2D = $PointLight2D
+@onready var audio_stream_weapon_switch: AudioStreamPlayer2D = $Sounds/AudioStreamWeaponSwitch
 
 var light_transition_tween: Tween
 
@@ -57,6 +58,7 @@ var weapon_damage = {
 	"m16": 3,
 	"shotgun": 2
 }
+var is_weapon_switching = false
 
 func _ready() -> void:
 	if power_up_manager:
@@ -124,7 +126,7 @@ func disable_light() -> void:
 		
 		light_transition_tween = create_tween()
 		light_transition_tween.set_trans(Tween.TRANS_SINE)
-		light_transition_tween.set_ease(Tween.EASE_OUT) 
+		light_transition_tween.set_ease(Tween.EASE_OUT)
 		
 		light_transition_tween.tween_property(point_light, "energy", 0.0, 1.0)
 
@@ -294,13 +296,22 @@ func instance_bullet():
 	
 	var bullets_fired = 0
 	
+	match bullet_type:
+		"bazooka":
+			Globals.camera.screen_shake(1.5, 0.25, 0.1)
+		"shotgun":
+			Globals.camera.screen_shake(1.0, 0.2, 0.1)
+		"m16":
+			Globals.camera.screen_shake(0.3, 0.08, 0.2)
+	
 	if bullet_hell_active:
 		bullets_fired = instance_bullet_hell(bullet_scene, bullet_point.global_position, damage_multiplier)
+		Globals.camera.screen_shake(1.2, 0.2, 0.1)
 	elif bullet_type == "shotgun":
 		bullets_fired = instance_shotgun(bullet_scene, bullet_point.global_position, base_direction, damage_multiplier)
 	else:
 		bullets_fired = instance_single_bullet(bullet_scene, bullet_point.global_position, base_direction, damage_multiplier, bullet_type)
-	
+		
 	return bullets_fired
 			
 func instance_bullet_hell(bullet_scene: PackedScene, spawn_position: Vector2, damage_multiplier: float) -> int:
@@ -379,12 +390,56 @@ func handle_weapon_switch():
 		switch_weapon()
 
 func switch_weapon():
+	if is_weapon_switching:
+		return
+		
+	is_weapon_switching = true
 	current_weapon_index = (current_weapon_index + 1) % weapons.size()
-	update_visible_weapon()
+	
+	if has_node("Sounds/AudioStreamWeaponSwitch"):
+		$Sounds/AudioStreamWeaponSwitch.play()
+	else:
+		var weapon_switch_player = AudioStreamPlayer2D.new()
+		weapon_switch_player.name = "AudioStreamWeaponSwitch"
+		$Sounds.add_child(weapon_switch_player)
+		
+		var weapon_switch_sound = preload("res://SoundEffects/switch_weapons.ogg")
+		weapon_switch_player.stream = weapon_switch_sound
+		weapon_switch_player.volume_db = 0.0
+		weapon_switch_player.play()
+	
+	var current_weapon = weapons[current_weapon_index]
+	
+	var tween = create_tween().set_parallel()
+	
+	tween.tween_property(current_weapon, "rotation_degrees", 360, 0.3).from(0)
+	
+	tween.tween_property(current_weapon, "scale", Vector2(1, 1), 0.3)\
+		.from(Vector2(0.5, 0.5))\
+		.set_trans(Tween.TRANS_BACK)\
+		.set_ease(Tween.EASE_OUT)
+	
+	if current_weapon.has_node("gun_sprite"):
+		var gun_sprite = current_weapon.get_node("gun_sprite")
+		gun_sprite.modulate = Color(3.0, 3.0, 3.0, 1.0)
+		tween.tween_property(gun_sprite, "modulate", Color(1, 1, 1, 1), 0.3)\
+			.set_trans(Tween.TRANS_SINE)\
+			.set_ease(Tween.EASE_OUT)
+	
+	tween.tween_callback(func():
+		is_weapon_switching = false
+		update_visible_weapon()
+	)
 
 func update_visible_weapon():
 	for i in range(weapons.size()):
-		weapons[i].visible = (i == current_weapon_index)
+		var weapon = weapons[i]
+		if i == current_weapon_index:
+			weapon.visible = true
+			weapon.scale = Vector2(1, 1)
+			weapon.rotation_degrees = 0
+		else:
+			weapon.visible = false
 
 func update_weapon_flip():
 	var current_weapon = weapons[current_weapon_index]

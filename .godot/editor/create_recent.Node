@@ -1,9 +1,9 @@
+AudioStreamPlayer2D
 VBoxContainer
 Node
 HBoxContainer
 Control
 CanvasLayer
-AudioStreamPlayer2D
 PointLight2D
 Timer
 Sprite2D
@@ -12,4 +12,3 @@ CollisionShape2D
 Area2D
 DirectionalLight2D
 Label
-Panel

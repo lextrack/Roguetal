@@ -25,7 +25,7 @@ var idle_timer : Timer
 @export var speed_variation = 30 # The range of speed variation
 
 var speed # The actual speed of this enemy instance
-var max_allowed_speed = 115 # Maximum allowed speed for any enemy
+var max_allowed_speed = 105 # Maximum allowed speed for any enemy
 @export var max_health: float = 60.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.6 # Time (in seconds) between enemy attacks
 @export var chase_range = 140.0 # Distance at which the enemy starts to chase the player

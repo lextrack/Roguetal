@@ -43,7 +43,7 @@ func _on_area_entered(area: Area2D) -> void:
 		impact(area)
 
 func impact(body: Node2D):
-	Globals.camera.screen_shake(1.0, 0.1, 0.03)
+	Globals.camera.screen_shake(1.0, 0.1, 0.05)
 	
 	$CollisionShape2D.call_deferred("set_disabled", true)
 	

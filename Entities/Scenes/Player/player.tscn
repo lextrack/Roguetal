@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://brms7i87pfawr"]
+[gd_scene load_steps=31 format=3 uid="uid://brms7i87pfawr"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/player.gd" id="1_ukrib"]
 [ext_resource type="Shader" path="res://Shaders/hurt.gdshader" id="2_dwf4p"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://ippgb3ck7201" path="res://Sprites/ddamage_pickup.png" id="12_erptt"]
 [ext_resource type="Script" path="res://Entities/entities_scripts/power_up_manager.gd" id="14_o2miv"]
 [ext_resource type="AudioStream" uid="uid://3dqerkqyurwc" path="res://SoundEffects/shotgun_shoot.ogg" id="16_2typd"]
+[ext_resource type="AudioStream" uid="uid://d15hst8pxxlu0" path="res://SoundEffects/switch_weapons.ogg" id="18_a0ygw"]
 
 [sub_resource type="Gradient" id="Gradient_62vgy"]
 offsets = PackedFloat32Array(0.23622, 1)
@@ -396,6 +397,10 @@ panning_strength = 0.0
 [node name="AudioStreamShotgunShot" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("16_2typd")
 volume_db = 5.0
+panning_strength = 0.0
+
+[node name="AudioStreamWeaponSwitch" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("18_a0ygw")
 panning_strength = 0.0
 
 [node name="Timers" type="Node" parent="."]
