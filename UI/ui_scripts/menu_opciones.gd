@@ -2,7 +2,7 @@ extends Control
 
 @onready var volumen_slider = $PanelOpciones/VBoxContainer/VolumenSlider
 @onready var fullscreen_check = $PanelOpciones/VBoxContainer/FullscreenCheck
-@onready var resolution_option = $PanelOpciones/VBoxContainer/ResolutionOption
+@onready var resolution_option: Button = $PanelOpciones/VBoxContainer/ResolutionOption
 @onready var language_button = $PanelOpciones/VBoxContainer/LanguageButton
 @onready var panel_opciones = $PanelOpciones
 @onready var options_menu: Label = $PanelOpciones/VBoxContainer/Options
@@ -14,13 +14,13 @@ var initial_settings = {}
 var has_unsaved_changes = false
 var current_selection = 0
 var focusable_elements = []
+var current_resolution_index: int = 0
 
 var available_resolutions = [
 	Vector2i(1920, 1080),
 	Vector2i(1600, 900),
 	Vector2i(1366, 768),
-	Vector2i(1280, 720),
-	Vector2i(1024, 576)
+	Vector2i(1280, 720)
 ]
 
 func _ready():
@@ -82,12 +82,22 @@ func handle_menu_navigation() -> void:
 		current_selection = (current_selection - 1 + focusable_elements.size()) % focusable_elements.size()
 	elif Input.is_action_just_pressed("ui_left_pause"):
 		get_viewport().set_input_as_handled()
-		if current_selection == 0:  # Volumen Slider
-			volumen_slider.value -= volumen_slider.step
+		match current_selection:
+			0:  # Volumen Slider
+				volumen_slider.value -= volumen_slider.step
+			3:  # Resolution Option
+				current_resolution_index = (current_resolution_index - 1 + available_resolutions.size()) % available_resolutions.size()
+				_update_resolution_button_text()
+				_on_setting_changed()
 	elif Input.is_action_just_pressed("ui_right_pause"):
 		get_viewport().set_input_as_handled()
-		if current_selection == 0:  # Volumen Slider
-			volumen_slider.value += volumen_slider.step
+		match current_selection:
+			0:  # Volumen Slider
+				volumen_slider.value += volumen_slider.step
+			3:  # Resolution Option
+				current_resolution_index = (current_resolution_index + 1) % available_resolutions.size()
+				_update_resolution_button_text()
+				_on_setting_changed()
 	elif Input.is_action_just_pressed("ui_accept_menu_pause"):
 		get_viewport().set_input_as_handled()
 		_handle_element_activation()
@@ -115,7 +125,7 @@ func _handle_element_activation() -> void:
 		language_button:
 			_on_language_button_pressed()
 		resolution_option:
-			resolution_option.show_popup()
+			_on_resolution_button_pressed()
 		button_save:
 			_on_button_save_pressed()
 		button_cancel:
@@ -129,9 +139,13 @@ func _on_element_focused() -> void:
 
 func _setup_resolution_option() -> void:
 	if resolution_option:
-		resolution_option.clear()
-		for resolution in available_resolutions:
-			resolution_option.add_item("%dx%d" % [resolution.x, resolution.y])
+		current_resolution_index = 0
+		_update_resolution_button_text()
+		
+func _update_resolution_button_text() -> void:
+	if resolution_option:
+		var res = available_resolutions[current_resolution_index]
+		resolution_option.text = "%dx%d" % [res.x, res.y]
 
 func _verify_required_nodes() -> bool:
 	var required_nodes = {
@@ -160,13 +174,9 @@ func _connect_signals() -> void:
 	
 	if !language_button.pressed.is_connected(_on_language_button_pressed):
 		language_button.pressed.connect(_on_language_button_pressed)
-
-	if resolution_option and !resolution_option.item_selected.is_connected(_on_resolution_selected):
-		resolution_option.item_selected.connect(_on_resolution_selected)
-
-func _on_resolution_selected(index: int) -> void:
-	if index >= 0 && index < available_resolutions.size():
-		_on_setting_changed()
+	
+	if resolution_option and !resolution_option.pressed.is_connected(_on_resolution_button_pressed):
+		resolution_option.pressed.connect(_on_resolution_button_pressed)
 
 func _setup_volume_slider() -> void:
 	volumen_slider.min_value = 0.0
@@ -175,11 +185,11 @@ func _setup_volume_slider() -> void:
 	volumen_slider.value_changed.connect(_update_volume_label)
 
 func _store_initial_settings() -> void:
-	if volumen_slider and fullscreen_check and resolution_option:
+	if volumen_slider and fullscreen_check:
 		initial_settings = {
 			"volumen": volumen_slider.value,
 			"fullscreen": fullscreen_check.button_pressed,
-			"resolution": resolution_option.selected,
+			"resolution": current_resolution_index,
 			"language": TranslationManager.current_language
 		}
 
@@ -190,7 +200,7 @@ func _check_for_changes() -> bool:
 	return (
 		initial_settings["volumen"] != volumen_slider.value or
 		initial_settings["fullscreen"] != fullscreen_check.button_pressed or
-		initial_settings["resolution"] != resolution_option.selected or
+		initial_settings["resolution"] != current_resolution_index or
 		initial_settings["language"] != TranslationManager.current_language
 	)
 
@@ -215,8 +225,7 @@ func _on_fullscreen_check_toggled(button_pressed: bool) -> void:
 		get_window().mode = Window.MODE_FULLSCREEN
 	else:
 		get_window().mode = Window.MODE_WINDOWED
-
-		var current_res = available_resolutions[resolution_option.selected]
+		var current_res = available_resolutions[current_resolution_index]
 		get_window().size = current_res
 
 		var screen_size = DisplayServer.screen_get_size()
@@ -263,10 +272,10 @@ func save_config() -> void:
 	
 	config.set_value("audio", "volumen", volumen_slider.value)
 	config.set_value("video", "fullscreen", fullscreen_check.button_pressed)
-	config.set_value("video", "resolution_index", resolution_option.selected)
+	config.set_value("video", "resolution_index", current_resolution_index)
 	config.set_value("language", "current", TranslationManager.current_language)
 	
-	var err = config.save("user://configuraciones.cfg")
+	var err = config.save("user://options_settings.cfg")
 	if err != OK:
 		push_error("Error saving the config file: " + str(err))
 	else:
@@ -276,7 +285,7 @@ func save_config() -> void:
 
 func load_config() -> void:
 	var config = ConfigFile.new()
-	var err = config.load("user://configuraciones.cfg")
+	var err = config.load("user://options_settings.cfg")
 	
 	if err == OK:
 		_apply_config(config)
@@ -285,8 +294,9 @@ func load_config() -> void:
 
 func _apply_config(config: ConfigFile) -> void:
 	if resolution_option:
-		var res_index = config.get_value("video", "resolution_index", 0)
-		resolution_option.selected = clamp(res_index, 0, available_resolutions.size() - 1)
+		current_resolution_index = config.get_value("video", "resolution_index", 0)
+		current_resolution_index = clamp(current_resolution_index, 0, available_resolutions.size() - 1)
+		_update_resolution_button_text()
 	
 	if fullscreen_check:
 		var fs = config.get_value("video", "fullscreen", false)
@@ -296,9 +306,8 @@ func _apply_config(config: ConfigFile) -> void:
 			get_window().mode = Window.MODE_FULLSCREEN
 		else:
 			get_window().mode = Window.MODE_WINDOWED
-			var current_res = available_resolutions[resolution_option.selected]
+			var current_res = available_resolutions[current_resolution_index]
 			get_window().size = current_res
-
 			var screen_size = DisplayServer.screen_get_size()
 			get_window().position = Vector2i(
 				(screen_size.x - current_res.x) / 2,
@@ -315,19 +324,23 @@ func _apply_config(config: ConfigFile) -> void:
 	update_language_button_text()
 
 func _apply_default_config() -> void:
+	
 	if resolution_option:
-		resolution_option.selected = 0
-
+		current_resolution_index = 0
+		_update_resolution_button_text()
+	
 	if fullscreen_check:
 		fullscreen_check.button_pressed = true
 		get_window().mode = Window.MODE_FULLSCREEN
-
+	
 	if volumen_slider:
 		volumen_slider.value = 1.0
 		_on_volumen_slider_value_changed(1.0)
-
+	
 	TranslationManager.set_language("en")
 	update_language_button_text()
+	
+	_store_initial_settings()
 
 func _on_button_save_pressed() -> void:
 	if !_verify_required_nodes():
@@ -335,7 +348,7 @@ func _on_button_save_pressed() -> void:
 	
 	save_config()
 	if !fullscreen_check.button_pressed:
-		var new_resolution = available_resolutions[resolution_option.selected]
+		var new_resolution = available_resolutions[current_resolution_index]
 		get_window().size = new_resolution
 		var screen_size = DisplayServer.screen_get_size()
 		get_window().position = Vector2i(
@@ -349,3 +362,8 @@ func _on_button_cancel_pressed() -> void:
 		_show_discard_changes_dialog()
 	load_config()
 	hide()
+
+func _on_resolution_button_pressed() -> void:
+	current_resolution_index = (current_resolution_index + 1) % available_resolutions.size()
+	_update_resolution_button_text()
+	_on_setting_changed()
