@@ -262,6 +262,7 @@ func _input(event: InputEvent) -> void:
 func _show_discard_changes_dialog() -> void:
 	pass
 
+
 func save_config() -> void:
 	var config = ConfigFile.new()
 	
