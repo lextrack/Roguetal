@@ -130,6 +130,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MenuOpciones" parent="." instance=ExtResource("5_das1d")]
+visible = false
 layout_mode = 1
 
 [node name="mouse_icon" parent="MenuOpciones" instance=ExtResource("3_ns80s")]
@@ -170,6 +171,7 @@ theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("4_5xvun")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_1503p")
@@ -186,6 +188,7 @@ theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("4_5xvun")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_1503p")
@@ -203,6 +206,7 @@ theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("4_5xvun")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_1503p")

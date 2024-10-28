@@ -161,17 +161,7 @@ func _connect_signals() -> void:
 # Nueva función para manejar el cambio de resolución
 func _on_resolution_selected(index: int) -> void:
 	if index >= 0 && index < available_resolutions.size():
-		var new_resolution = available_resolutions[index]
-		if !fullscreen_check.button_pressed:
-			get_window().mode = Window.MODE_WINDOWED
-			get_window().size = new_resolution
-			# Centrar la ventana
-			var screen_size = DisplayServer.screen_get_size()
-			get_window().position = Vector2i(
-				(screen_size.x - new_resolution.x) / 2,
-				(screen_size.y - new_resolution.y) / 2
-			)
-	_on_setting_changed()
+		_on_setting_changed()
 
 func _setup_volume_slider() -> void:
 	volumen_slider.min_value = 0.0
@@ -220,7 +210,7 @@ func _on_fullscreen_check_toggled(button_pressed: bool) -> void:
 		get_window().mode = Window.MODE_FULLSCREEN
 	else:
 		get_window().mode = Window.MODE_WINDOWED
-		# Aplicar la resolución actual cuando salimos de pantalla completa
+		# Usar la resolución actualmente seleccionada
 		var current_res = available_resolutions[resolution_option.selected]
 		get_window().size = current_res
 		# Centrar la ventana
@@ -261,7 +251,6 @@ func _input(event: InputEvent) -> void:
 
 func _show_discard_changes_dialog() -> void:
 	pass
-
 
 func save_config() -> void:
 	var config = ConfigFile.new()
@@ -353,6 +342,16 @@ func _on_button_save_pressed() -> void:
 		return
 	
 	save_config()
+	# Aplicar la resolución al guardar si no está en pantalla completa
+	if !fullscreen_check.button_pressed:
+		var new_resolution = available_resolutions[resolution_option.selected]
+		get_window().size = new_resolution
+		# Centrar la ventana
+		var screen_size = DisplayServer.screen_get_size()
+		get_window().position = Vector2i(
+			(screen_size.x - new_resolution.x) / 2,
+			(screen_size.y - new_resolution.y) / 2
+		)
 	hide()
 
 func _on_button_cancel_pressed() -> void:

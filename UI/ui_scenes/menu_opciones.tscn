@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://rkamwmwfav1a"]
+[gd_scene load_steps=8 format=3 uid="uid://rkamwmwfav1a"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/menu_opciones.gd" id="1_fnegt"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="2_yj70g"]
@@ -11,6 +11,43 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
 shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nkhk6"]
+bg_color = Color(0.458405, 0.458405, 0.458405, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mqnoc"]
+bg_color = Color(0.458405, 0.458405, 0.458405, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55sfx"]
+bg_color = Color(0.458405, 0.458405, 0.458405, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gdsst"]
+bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
+shadow_size = 3
+anti_aliasing_size = 2.0
 
 [node name="MenuOpciones" type="Control"]
 layout_mode = 3
@@ -32,15 +69,15 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_mocei")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelOpciones"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -41.5
-offset_right = 20.0
-offset_bottom = 41.5
+anchors_preset = -1
+anchor_left = 0.325
+anchor_top = 0.179
+anchor_right = 0.675
+anchor_bottom = 0.821
+offset_left = 204.0
+offset_top = 189.62
+offset_right = -204.0
+offset_bottom = -189.62
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 15
@@ -79,13 +116,34 @@ autowrap_mode = 2
 
 [node name="LanguageButton" type="Button" parent="PanelOpciones/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_yj70g")
 theme_override_font_sizes/font_size = 35
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nkhk6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mqnoc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_55sfx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gdsst")
 text = "Language"
 
 [node name="ResolutionOption" type="OptionButton" parent="PanelOpciones/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nkhk6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mqnoc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_55sfx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gdsst")
+alignment = 1
+autowrap_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelOpciones/VBoxContainer"]
 z_index = 2
@@ -95,16 +153,32 @@ theme_override_constants/separation = 15
 
 [node name="button_save" type="Button" parent="PanelOpciones/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_yj70g")
 theme_override_font_sizes/font_size = 35
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nkhk6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mqnoc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_55sfx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gdsst")
 text = "Save"
 
 [node name="button_cancel" type="Button" parent="PanelOpciones/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_yj70g")
 theme_override_font_sizes/font_size = 35
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nkhk6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mqnoc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_55sfx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gdsst")
 text = "Cancel"
 
 [connection signal="pressed" from="PanelOpciones/VBoxContainer/LanguageButton" to="." method="_on_language_button_pressed"]
