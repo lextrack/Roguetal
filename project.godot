@@ -30,6 +30,7 @@ TranslationManager="*res://translation_manager_global.gd"
 
 window/size/viewport_width=1366
 window/size/viewport_height=768
+window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

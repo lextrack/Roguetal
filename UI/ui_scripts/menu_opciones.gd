@@ -75,16 +75,21 @@ func handle_menu_navigation() -> void:
 	var old_selection = current_selection
 	
 	if Input.is_action_just_pressed("ui_down_pause"):
+		get_viewport().set_input_as_handled()
 		current_selection = (current_selection + 1) % focusable_elements.size()
 	elif Input.is_action_just_pressed("ui_up_pause"):
+		get_viewport().set_input_as_handled()
 		current_selection = (current_selection - 1 + focusable_elements.size()) % focusable_elements.size()
 	elif Input.is_action_just_pressed("ui_left_pause"):
+		get_viewport().set_input_as_handled()
 		if current_selection == 0:  # Volumen Slider
 			volumen_slider.value -= volumen_slider.step
 	elif Input.is_action_just_pressed("ui_right_pause"):
+		get_viewport().set_input_as_handled()
 		if current_selection == 0:  # Volumen Slider
 			volumen_slider.value += volumen_slider.step
 	elif Input.is_action_just_pressed("ui_accept_menu_pause"):
+		get_viewport().set_input_as_handled()
 		_handle_element_activation()
 	
 	if old_selection != current_selection:
@@ -109,6 +114,8 @@ func _handle_element_activation() -> void:
 			fullscreen_check.button_pressed = !fullscreen_check.button_pressed
 		language_button:
 			_on_language_button_pressed()
+		resolution_option:
+			resolution_option.show_popup()
 		button_save:
 			_on_button_save_pressed()
 		button_cancel:
@@ -153,12 +160,10 @@ func _connect_signals() -> void:
 	
 	if !language_button.pressed.is_connected(_on_language_button_pressed):
 		language_button.pressed.connect(_on_language_button_pressed)
-	
-	# Nueva conexión para el selector de resoluciones
+
 	if resolution_option and !resolution_option.item_selected.is_connected(_on_resolution_selected):
 		resolution_option.item_selected.connect(_on_resolution_selected)
 
-# Nueva función para manejar el cambio de resolución
 func _on_resolution_selected(index: int) -> void:
 	if index >= 0 && index < available_resolutions.size():
 		_on_setting_changed()
@@ -210,10 +215,10 @@ func _on_fullscreen_check_toggled(button_pressed: bool) -> void:
 		get_window().mode = Window.MODE_FULLSCREEN
 	else:
 		get_window().mode = Window.MODE_WINDOWED
-		# Usar la resolución actualmente seleccionada
+
 		var current_res = available_resolutions[resolution_option.selected]
 		get_window().size = current_res
-		# Centrar la ventana
+
 		var screen_size = DisplayServer.screen_get_size()
 		get_window().position = Vector2i(
 			(screen_size.x - current_res.x) / 2,
@@ -243,7 +248,8 @@ func update_language_button_text() -> void:
 	button_cancel.text = TranslationManager.get_text("button_cancel")
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if visible and event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
 		if has_unsaved_changes:
 			_show_discard_changes_dialog()
 		else:
@@ -278,7 +284,6 @@ func load_config() -> void:
 		_apply_default_config()
 
 func _apply_config(config: ConfigFile) -> void:
-	# Primero configuramos la resolución y el modo de pantalla
 	if resolution_option:
 		var res_index = config.get_value("video", "resolution_index", 0)
 		resolution_option.selected = clamp(res_index, 0, available_resolutions.size() - 1)
@@ -332,7 +337,6 @@ func _on_button_save_pressed() -> void:
 	if !fullscreen_check.button_pressed:
 		var new_resolution = available_resolutions[resolution_option.selected]
 		get_window().size = new_resolution
-		# Centrar la ventana
 		var screen_size = DisplayServer.screen_get_size()
 		get_window().position = Vector2i(
 			(screen_size.x - new_resolution.x) / 2,

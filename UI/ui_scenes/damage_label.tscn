@@ -4,15 +4,18 @@
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="1_dvbtc"]
 
 [node name="damage_label" type="RichTextLabel"]
-z_index = 20
+z_index = 50
 y_sort_enabled = true
 offset_right = 40.0
 offset_bottom = 23.0
 scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/normal_font = ExtResource("1_dvbtc")
-theme_override_font_sizes/normal_font_size = 15
+theme_override_font_sizes/normal_font_size = 17
+text = "1"
 fit_content = true
 scroll_active = false
 script = ExtResource("1_0rh81")

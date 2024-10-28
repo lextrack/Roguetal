@@ -46,10 +46,11 @@ func update_translations() -> void:
 	options_pause.text = TranslationManager.get_text("options_pause")
 	quit_button.text = TranslationManager.get_text("quit_button_pause")
 
-func _process(delta: float) -> void:
-	toggle_menu_pause()
-	if is_menu_visible and buttons.size() > 0:
-		handle_menu_navigation()
+func _process(_delta: float) -> void:
+	if !menu_opciones.visible:
+		toggle_menu_pause()
+		if is_menu_visible and buttons.size() > 0:
+			handle_menu_navigation()
 
 func resume() -> void:
 	get_tree().paused = false
@@ -69,9 +70,7 @@ func pause():
 
 func toggle_menu_pause() -> void:
 	if Input.is_action_just_pressed("esc"):
-		if menu_opciones.visible:
-			menu_opciones.hide()
-		elif get_tree().paused:
+		if get_tree().paused:
 			resume()
 		else:
 			pause()
@@ -103,9 +102,11 @@ func _on_quit_pressed() -> void:
 func _on_options_pressed() -> void:
 	panel_container.hide()
 	menu_opciones.show()
+	set_process(false)
 	
 func _on_options_menu_visibility_changed() -> void:
 	if !menu_opciones.visible:
 		panel_container.show()
 		current_selection = buttons.find(options_pause)
 		update_selection()
+		set_process(true)
