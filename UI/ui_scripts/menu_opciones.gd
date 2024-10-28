@@ -293,14 +293,13 @@ func _apply_config(config: ConfigFile) -> void:
 			get_window().mode = Window.MODE_WINDOWED
 			var current_res = available_resolutions[resolution_option.selected]
 			get_window().size = current_res
-			# Centrar la ventana
+
 			var screen_size = DisplayServer.screen_get_size()
 			get_window().position = Vector2i(
 				(screen_size.x - current_res.x) / 2,
 				(screen_size.y - current_res.y) / 2
 			)
 	
-	# Configuraciones de audio y lenguaje
 	if volumen_slider:
 		var vol = config.get_value("audio", "volumen", 1.0)
 		volumen_slider.value = vol
@@ -311,29 +310,17 @@ func _apply_config(config: ConfigFile) -> void:
 	update_language_button_text()
 
 func _apply_default_config() -> void:
-	# Configurar resolución por defecto
 	if resolution_option:
 		resolution_option.selected = 0
-	
-	# Configurar modo ventana por defecto
+
 	if fullscreen_check:
-		fullscreen_check.button_pressed = false
-		get_window().mode = Window.MODE_WINDOWED
-		
-		var default_res = available_resolutions[0]
-		get_window().size = default_res
-		# Centrar la ventana
-		var screen_size = DisplayServer.screen_get_size()
-		get_window().position = Vector2i(
-			(screen_size.x - default_res.x) / 2,
-			(screen_size.y - default_res.y) / 2
-		)
-	
-	# Configuraciones de audio y lenguaje
+		fullscreen_check.button_pressed = true
+		get_window().mode = Window.MODE_FULLSCREEN
+
 	if volumen_slider:
 		volumen_slider.value = 1.0
 		_on_volumen_slider_value_changed(1.0)
-	
+
 	TranslationManager.set_language("en")
 	update_language_button_text()
 
@@ -342,7 +329,6 @@ func _on_button_save_pressed() -> void:
 		return
 	
 	save_config()
-	# Aplicar la resolución al guardar si no está en pantalla completa
 	if !fullscreen_check.button_pressed:
 		var new_resolution = available_resolutions[resolution_option.selected]
 		get_window().size = new_resolution

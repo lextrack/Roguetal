@@ -1,10 +1,9 @@
-res://UI/ui_scenes/menu_opciones.tscn
+res://Entities/Scenes/Player/player.tscn
 res://Entities/entities_scripts/player.gd
 res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
 res://Shaders/flash_shader.gdshader
 res://UI/ui_scripts/menu_opciones.gd
-res://Entities/Scenes/Player/player.tscn
-res://Levels/Scenes/main_dungeon.tscn
+res://UI/ui_scenes/menu_opciones.tscn
 res://UI/ui_scenes/main_menu.tscn
 res://UI/ui_scenes/pause_menu.tscn
