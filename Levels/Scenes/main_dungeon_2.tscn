@@ -1,13 +1,118 @@
 [gd_scene load_steps=21 format=3 uid="uid://qxvjn3o53fdy"]
 
 [ext_resource type="Script" path="res://Levels/level_generator_scripts/main_dungeon.gd" id="1_f0bfp"]
-[ext_resource type="Script" path="res://UI/ui_scripts/canvas_instructions_dungeon_2.gd" id="2_2piox"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="2_66yo2"]
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="2_qreqx"]
 [ext_resource type="Texture2D" uid="uid://csx15aryqogte" path="res://Sprites/HeartSpriteSheet.png" id="4_f56xk"]
 [ext_resource type="Texture2D" uid="uid://dwphcmpag53is" path="res://Sprites/ammo_ui.png" id="5_uurhp"]
 [ext_resource type="Texture2D" uid="uid://02ay4cfoeh8i" path="res://Sprites/mainlevbuild.png" id="7_654wf"]
 [ext_resource type="Texture2D" uid="uid://l85tm3xdtcna" path="res://Sprites/Main_dungeon brick level.png" id="8_ujiuc"]
+
+[sub_resource type="GDScript" id="GDScript_t2pje"]
+script/source = "extends CanvasLayer
+
+@export var display_time : float = 3.0
+var timer : Timer
+var instructions_pages = []
+var current_page_index = 0
+
+func _ready():
+	initialize_timer()
+	setup_panel()
+
+	TranslationManager.language_changed.connect(load_instructions)
+	load_instructions()
+	apply_custom_font()
+	
+	if not Globals.has_shown_intro:
+		await get_tree().process_frame
+		show_instructions_page(0)
+	else:
+		$PanelInstructions.hide()
+		
+func initialize_timer():
+	timer = Timer.new()
+	timer.one_shot = true
+	timer.wait_time = display_time
+	timer.connect(\"timeout\", Callable(self, \"_on_timeout\"))
+	add_child(timer)
+
+func setup_panel():
+	$PanelInstructions.hide()
+	$PanelInstructions/AnimationPanel.connect(\"animation_finished\", Callable(self, \"_on_animation_finished\"))
+
+func load_instructions():
+	if FileAccess.file_exists(\"res://Dialogues/instructions.json\"):
+		var json_as_text = FileAccess.open(\"res://Dialogues/instructions.json\", FileAccess.READ)
+		var json_as_dict = JSON.parse_string(json_as_text.get_as_text())
+		if json_as_dict and TranslationManager.current_language in json_as_dict:
+			instructions_pages = json_as_dict[TranslationManager.current_language].pages
+			
+			if $PanelInstructions.visible and current_page_index < instructions_pages.size():
+				show_instructions_page(current_page_index)
+		else:
+			push_error(\"Error: Invalid instructions.json format or missing language\")
+	else:
+		push_error(\"Error: Could not find instructions.json\")
+		instructions_pages = [{
+			\"images\": [],
+			\"texts\": [\"Error\"]
+		}]
+
+func apply_custom_font():
+	var font = load(\"res://Fonts/Pixel Azure Bonds.otf\")
+	if font:
+		var rich_label = $PanelInstructions/TextContainer/RichLabel
+		rich_label.add_theme_font_override(\"normal_font\", font)
+
+func show_instructions_page(index: int):
+	if index < instructions_pages.size():
+		var page = instructions_pages[index]
+		
+		var images_container = $PanelInstructions/ImagesContainer
+		var rich_label = $PanelInstructions/TextContainer/RichLabel
+		
+		for child in images_container.get_children():
+			child.queue_free()
+		rich_label.clear()
+		
+		for image_path in page[\"images\"]:
+			var texture_rect = TextureRect.new()
+			texture_rect.texture = load(image_path)
+			texture_rect.expand = true
+			texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			texture_rect.custom_minimum_size = Vector2(50, 50)
+			images_container.add_child(texture_rect)
+		
+		rich_label.bbcode_enabled = true
+		rich_label.text = page[\"texts\"][0]
+		
+		apply_custom_font()
+		
+		$PanelInstructions.show()
+		$PanelInstructions/AnimationPanel.play(\"fade_in\")
+		
+		if timer:
+			timer.start()
+
+func _on_timeout():
+	$PanelInstructions/AnimationPanel.play(\"fade_out\")
+
+func _on_animation_finished(anim_name: String):
+	if anim_name == \"fade_out\":
+		$PanelInstructions.hide()
+		current_page_index += 1
+		if current_page_index < instructions_pages.size():
+			show_instructions_page(current_page_index)
+		else:
+			current_page_index = 0
+			Globals.has_shown_intro = true
+
+func reset_instructions():
+	if not Globals.has_shown_intro:
+		current_page_index = 0
+		show_instructions_page(0)
+"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgwdm"]
 bg_color = Color(0, 0.321569, 0.764706, 0.576471)
@@ -2722,10 +2827,10 @@ sources/0 = SubResource("TileSetAtlasSource_usjp0")
 y_sort_enabled = true
 script = ExtResource("1_f0bfp")
 
-[node name="CanvasInstructions" type="CanvasLayer" parent="."]
-script = ExtResource("2_2piox")
+[node name="CanvasInstructionsDungeon2" type="CanvasLayer" parent="."]
+script = SubResource("GDScript_t2pje")
 
-[node name="PanelInstructions" type="Panel" parent="CanvasInstructions"]
+[node name="PanelInstructions" type="Panel" parent="CanvasInstructionsDungeon2"]
 anchors_preset = -1
 anchor_left = 0.752
 anchor_top = 0.858
@@ -2739,18 +2844,18 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pgwdm")
 
-[node name="ImagesContainer" type="HBoxContainer" parent="CanvasInstructions/PanelInstructions"]
+[node name="ImagesContainer" type="HBoxContainer" parent="CanvasInstructionsDungeon2/PanelInstructions"]
 layout_mode = 1
 offset_left = 1.0
 offset_right = 41.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="CanvasInstructions/PanelInstructions/ImagesContainer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasInstructionsDungeon2/PanelInstructions/ImagesContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 expand_mode = 4
 
-[node name="TextContainer" type="VBoxContainer" parent="CanvasInstructions/PanelInstructions"]
+[node name="TextContainer" type="VBoxContainer" parent="CanvasInstructionsDungeon2/PanelInstructions"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -2760,7 +2865,7 @@ offset_bottom = 40.0
 grow_horizontal = 0
 alignment = 1
 
-[node name="RichLabel" type="RichTextLabel" parent="CanvasInstructions/PanelInstructions/TextContainer"]
+[node name="RichLabel" type="RichTextLabel" parent="CanvasInstructionsDungeon2/PanelInstructions/TextContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
@@ -2770,7 +2875,7 @@ fit_content = true
 scroll_active = false
 drag_and_drop_selection_enabled = false
 
-[node name="AnimationPanel" type="AnimationPlayer" parent="CanvasInstructions/PanelInstructions"]
+[node name="AnimationPanel" type="AnimationPlayer" parent="CanvasInstructionsDungeon2/PanelInstructions"]
 libraries = {
 "": SubResource("AnimationLibrary_xbyae")
 }

@@ -8,7 +8,7 @@
 					"res://UI/images_instructions/space.png"
 				],
 				"texts": [
-					"Para [color=red]disparar[/color] a los enemigos (recuerda mantener presionado)"
+					"Para [color=red]disparar[/color] a los enemigos"
 				]
 			},
 			{
@@ -40,7 +40,7 @@
 					"res://UI/images_instructions/space.png"
 				],
 				"texts": [
-					"To [color=red]shoot[/color] at enemies (remember to hold down)"
+					"To [color=red]shoot[/color] at enemies"
 				]
 			},
 			{
@@ -72,7 +72,7 @@
 					"res://UI/images_instructions/space.png"
 				],
 				"texts": [
-					"[color=red]射击[/color]敌人（记得按住）"
+					"[color=red]射击[/color]敌人"
 				]
 			},
 			{

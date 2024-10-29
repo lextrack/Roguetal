@@ -6,3 +6,7 @@ res://Shaders/flash_shader.gdshader
 res://UI/ui_scripts/menu_opciones.gd
 res://UI/ui_scenes/pause_menu.tscn
 res://UI/ui_scenes/main_menu.tscn
+res://Levels/Scenes/main_world.tscn
+res://Levels/Scenes/main_dungeon.tscn
+res://Levels/Scenes/main_dungeon_2.tscn
+res://Dialogues/instructions.json

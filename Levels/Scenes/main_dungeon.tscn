@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c1df3if3xydge" path="res://Sprites/snow.png" id="8_80re2"]
 [ext_resource type="Texture2D" uid="uid://dtp1c1nysvom3" path="res://Sprites/Ice and snow tileset-Sheet-Sheet.png" id="9_y3rma"]
 
-[sub_resource type="GDScript" id="GDScript_ijp32"]
+[sub_resource type="GDScript" id="GDScript_hthfv"]
 script/source = "extends CanvasLayer
 
 @export var display_time : float = 3.0
@@ -2779,10 +2779,10 @@ sources/1 = SubResource("TileSetAtlasSource_t85or")
 y_sort_enabled = true
 script = ExtResource("1_3hfxc")
 
-[node name="CanvasInstructions" type="CanvasLayer" parent="."]
-script = SubResource("GDScript_ijp32")
+[node name="CanvasInstructionsDungeon1" type="CanvasLayer" parent="."]
+script = SubResource("GDScript_hthfv")
 
-[node name="PanelInstructions" type="Panel" parent="CanvasInstructions"]
+[node name="PanelInstructions" type="Panel" parent="CanvasInstructionsDungeon1"]
 anchors_preset = -1
 anchor_left = 0.752
 anchor_top = 0.858
@@ -2796,18 +2796,18 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wjeuj")
 
-[node name="ImagesContainer" type="HBoxContainer" parent="CanvasInstructions/PanelInstructions"]
+[node name="ImagesContainer" type="HBoxContainer" parent="CanvasInstructionsDungeon1/PanelInstructions"]
 layout_mode = 1
 offset_left = 1.0
 offset_right = 41.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="CanvasInstructions/PanelInstructions/ImagesContainer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasInstructionsDungeon1/PanelInstructions/ImagesContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 expand_mode = 4
 
-[node name="TextContainer" type="VBoxContainer" parent="CanvasInstructions/PanelInstructions"]
+[node name="TextContainer" type="VBoxContainer" parent="CanvasInstructionsDungeon1/PanelInstructions"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -2817,7 +2817,7 @@ offset_bottom = 40.0
 grow_horizontal = 0
 alignment = 1
 
-[node name="RichLabel" type="RichTextLabel" parent="CanvasInstructions/PanelInstructions/TextContainer"]
+[node name="RichLabel" type="RichTextLabel" parent="CanvasInstructionsDungeon1/PanelInstructions/TextContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
@@ -2827,7 +2827,7 @@ fit_content = true
 scroll_active = false
 drag_and_drop_selection_enabled = false
 
-[node name="AnimationPanel" type="AnimationPlayer" parent="CanvasInstructions/PanelInstructions"]
+[node name="AnimationPanel" type="AnimationPlayer" parent="CanvasInstructionsDungeon1/PanelInstructions"]
 libraries = {
 "": SubResource("AnimationLibrary_xbyae")
 }
