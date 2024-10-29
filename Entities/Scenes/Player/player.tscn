@@ -7,12 +7,12 @@
 [ext_resource type="Script" path="res://Entities/entities_scripts/camera.gd" id="4_jek05"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_v52kv"]
 [ext_resource type="Texture2D" uid="uid://by0g6raqjex4v" path="res://Sprites/bullet_hell_icon.png" id="5_him75"]
-[ext_resource type="Texture2D" uid="uid://c3re1sp6ho24b" path="res://Sprites/PikPng.com_bazooka-png_1896275.png" id="5_j8ek6"]
 [ext_resource type="Texture2D" uid="uid://dxisc7j5t2hmw" path="res://Sprites/double_defense_icon.png" id="6_7scbk"]
 [ext_resource type="Texture2D" uid="uid://cieogogxl8sko" path="res://Sprites/m16_2.png" id="6_r20b8"]
 [ext_resource type="AudioStream" uid="uid://bdst5cjd6a6qn" path="res://SoundEffects/Shot_bazooka.ogg" id="7_tfnia"]
 [ext_resource type="AudioStream" uid="uid://c41s3wtu5ym1u" path="res://SoundEffects/walking_sound1.ogg" id="8_01fvg"]
 [ext_resource type="Texture2D" uid="uid://u0hyhwgouco1" path="res://Sprites/shotgun.png" id="9_pmxyk"]
+[ext_resource type="Texture2D" uid="uid://dt4rbj4kc7lgp" path="res://Sprites/rocket-launch_sprite.png" id="9_rmb78"]
 [ext_resource type="AudioStream" uid="uid://bwk7dwlyljdul" path="res://SoundEffects/hurting_player.ogg" id="10_aj7pw"]
 [ext_resource type="AudioStream" uid="uid://chf2546e33apu" path="res://SoundEffects/AudioStreamM16Shot.ogg" id="10_emtum"]
 [ext_resource type="Texture2D" uid="uid://ippgb3ck7201" path="res://Sprites/ddamage_pickup.png" id="12_erptt"]
@@ -315,9 +315,9 @@ position = Vector2(0, 17.1429)
 
 [node name="gun_sprite" type="Sprite2D" parent="weapons_container/bazooka"]
 z_index = 1
-position = Vector2(9.95319, -0.16153)
-scale = Vector2(0.0269692, 0.0254051)
-texture = ExtResource("5_j8ek6")
+position = Vector2(10.7143, -0.509735)
+scale = Vector2(0.0393185, 0.0374092)
+texture = ExtResource("9_rmb78")
 
 [node name="bullet_point" type="Marker2D" parent="weapons_container/bazooka"]
 position = Vector2(21.4286, -4.3869e-05)

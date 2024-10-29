@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2dw1c26m6dh0"
-path="res://.godot/imported/Crate-animated.png-52060f02bac830f81efe74eef7cc285a.ctex"
+uid="uid://dt4rbj4kc7lgp"
+path="res://.godot/imported/rocket-launch_sprite.png-6967834862276be17793f97b77f1e229.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Crate-animated.png"
-dest_files=["res://.godot/imported/Crate-animated.png-52060f02bac830f81efe74eef7cc285a.ctex"]
+source_file="res://Sprites/rocket-launch_sprite.png"
+dest_files=["res://.godot/imported/rocket-launch_sprite.png-6967834862276be17793f97b77f1e229.ctex"]
 
 [params]
 

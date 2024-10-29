@@ -184,7 +184,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
 text = "Exit"
 
 [node name="MenuOpciones" parent="." instance=ExtResource("4_stn02")]
-visible = false
 layout_mode = 1
 
 [node name="CreditsPanel" type="Panel" parent="."]
@@ -224,12 +223,13 @@ text = "[color=crimson]SOUND[/color]
 klankbeeld, Lamp_, szegvari, newlocknew, SoundEffectsFactory, PK9 Sound Effect, el_boss, rubberduck, Mobeyee Sounds, IgnasD, Jamius, AbuNijmeh, JoseIgnacioTriay, toxicwafflezz, SoundsForHim, twisterman.
 
 [color=crimson]ART[/color]
-Luck, Joan Stenstrup Frandsen, Szadi art, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Fuzzee, Chris Yang, Nikita Golubev, fightswithbears, 3dvaultz, Fupi.
+Luck (main character), Szadi art, Freepik, DinosoftLabs, surang, kiranshastry, bharat icons, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Fuzzee, Chris Yang, Nikita Golubev, fightswithbears, 3dvaultz, Fupi, max.icons.
 
 [color=crimson]ADDITIONAL RESOURCES[/color]
-Flaticon (Freepik, DinosoftLabs, surang, kiranshastry, bharat icons) for the awesome icons.
+Flaticon for the awesome icons.
 Jean Vermeersch for his knowledge.
-Pixel Sagas for create the Pixel Azure Bonds font.
+Pixel Sagas for creating the Pixel Azure Bonds font.
+FreeSound for various sound effects.
 
 Special thanks to all creators who made their free assets available for this game."
 
