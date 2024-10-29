@@ -245,26 +245,23 @@ scale = Vector2(1, 1.02083)
 texture = SubResource("GradientTexture2D_86cio")
 texture_scale = 2.0
 
-[node name="ControlPowerUpHud" type="Control" parent="."]
+[node name="ControlPowerUpHud" type="Control" parent="." groups=["powerup_hud"]]
+z_index = 25
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = 112.857
-offset_right = 40.0
-offset_bottom = 152.857
+offset_left = -25.5
+offset_top = 113.929
+offset_right = 25.5
+offset_bottom = 128.929
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
 [node name="hud_powerup" type="Node2D" parent="ControlPowerUpHud"]
-z_index = 50
-y_sort_enabled = true
-texture_filter = 2
-position = Vector2(8.57143, 8.57143)
+position = Vector2(31.4286, 10)
 
 [node name="double_speed_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
 position = Vector2(-25.7143, 0)

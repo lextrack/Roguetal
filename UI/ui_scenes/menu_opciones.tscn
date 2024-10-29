@@ -50,6 +50,7 @@ shadow_size = 3
 anti_aliasing_size = 2.0
 
 [node name="MenuOpciones" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -109,10 +110,21 @@ theme_override_constants/outline_size = 5
 theme_override_constants/h_separation = 5
 theme_override_constants/icon_max_width = 35
 theme_override_fonts/font = ExtResource("2_yj70g")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 30
 text = "Fullscreen"
 alignment = 1
 autowrap_mode = 2
+
+[node name="PowerUpHudCheck" type="CheckBox" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_constants/h_separation = 5
+theme_override_constants/icon_max_width = 35
+theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_font_sizes/font_size = 30
+text = "Power up hud"
+alignment = 1
+autowrap_mode = 3
 
 [node name="LanguageButton" type="Button" parent="PanelOpciones/VBoxContainer"]
 layout_mode = 2

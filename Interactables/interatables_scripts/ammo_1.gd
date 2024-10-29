@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var ammo = 15
+@export var ammo = 25
 @export var attraction_speed = 200
 
 @onready var pickup_ammo: AudioStreamPlayer2D = $pickup_ammo

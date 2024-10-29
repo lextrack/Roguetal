@@ -17,7 +17,8 @@
 		"options_pause": "Opciones",
 		"volume_label_game": "Ajustar volumen",
 		"button_save": "Guardar",
-		"button_cancel": "Cancelar"
+		"button_cancel": "Cancelar",
+		"powerup_hud_check": "Mostrar HUD de Power-ups"
 	},
 	"en": {
 		"kills_text": "Kills: {0}",
@@ -37,7 +38,8 @@
 		"options_pause": "Options",
 		"volume_label_game": "Set volume",
 		"button_save": "Save",
-		"button_cancel": "Cancel"
+		"button_cancel": "Cancel",
+		"powerup_hud_check": "Show Power-up HUD"
 	},
 	"zh": {
 		"kills_text": "击杀数: {0}",
@@ -57,6 +59,7 @@
 		"options_pause": "选项",
 		"volume_label_game": "设置音量",
 		"button_save": "保存设置",
-		"button_cancel": "取消"
+		"button_cancel": "取消",
+		"powerup_hud_check": "显示能力提升HUD"
 	}
 }

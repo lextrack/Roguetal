@@ -424,7 +424,7 @@ func instance_fx():
 # Spawn ammo pickup on death
 func instance_ammo():
 	var drop_chance = randf()
-	if drop_chance < 0.8:
+	if drop_chance < 0.9:
 		var ammo_scene = preload("res://Interactables/Scenes/ammo_1.tscn")
 		var ammo = ammo_scene.instantiate()
 		ammo.global_position = global_position

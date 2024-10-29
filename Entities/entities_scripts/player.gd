@@ -7,7 +7,7 @@ const MAGNET_RADIUS = 100.0
 var heat_level = 0.0
 const MAX_HEAT = 100.0
 const HEAT_COOLDOWN = 30.0
-const OVERHEAT_PENALTY_TIME = 2.0
+const OVERHEAT_PENALTY_TIME = 1.5
 var is_overheated = false
 var overheat_timer = 0.0
 
@@ -445,7 +445,7 @@ func instance_bullet():
 	return bullets_fired
 			
 func instance_bullet_hell(bullet_scene: PackedScene, spawn_position: Vector2, damage_multiplier: float) -> int:
-	var num_bullets = 6
+	var num_bullets = 5
 	for i in range(num_bullets):
 		var angle = 2 * PI * i / num_bullets
 		var direction = Vector2(cos(angle), sin(angle))
@@ -459,7 +459,7 @@ func instance_bullet_hell(bullet_scene: PackedScene, spawn_position: Vector2, da
 	return num_bullets
 	
 func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_direction: Vector2, damage_multiplier: float) -> int:
-	var num_pellets = 5
+	var num_pellets = 4
 	for i in range(num_pellets):
 		var bullet = bullet_scene.instantiate()
 		bullet.damage = weapon_damage["shotgun"] * damage_multiplier
@@ -509,9 +509,9 @@ func bullet_type_shooting(delta: float):
 			
 			match bullet_type:
 				"bazooka":
-					add_heat(25)
+					add_heat(22)
 				"shotgun":
-					add_heat(30)
+					add_heat(25)
 				"m16":
 					add_heat(5)
 			

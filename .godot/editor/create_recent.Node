@@ -1,10 +1,10 @@
+CheckBox
 Button
 OptionButton
 RichTextLabel
 VBoxContainer
 Label
 HBoxContainer
-CheckBox
 HSlider
 Panel
 Control
