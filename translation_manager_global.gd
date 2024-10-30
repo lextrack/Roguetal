@@ -2,7 +2,7 @@ extends Node
 
 signal language_changed
 
-var current_language: String = "en"
+var current_language: String = "en-us"
 var translations: Dictionary = {}
 
 func _ready() -> void:

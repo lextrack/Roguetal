@@ -1580,10 +1580,11 @@ sources/0 = SubResource("TileSetAtlasSource_nm88g")
 y_sort_enabled = true
 script = ExtResource("1_a3cw7")
 
-[node name="CanvasInstructions" type="CanvasLayer" parent="."]
+[node name="CanvasInstructionsLabyrinth" type="CanvasLayer" parent="." groups=["instruction_canvas"]]
 script = ExtResource("3_ldgqx")
+display_time = 5.0
 
-[node name="PanelInstructions" type="Panel" parent="CanvasInstructions"]
+[node name="PanelInstructions" type="Panel" parent="CanvasInstructionsLabyrinth"]
 anchors_preset = -1
 anchor_left = 0.753
 anchor_top = 0.858
@@ -1597,18 +1598,18 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_sl5p6")
 
-[node name="ImagesContainer" type="HBoxContainer" parent="CanvasInstructions/PanelInstructions"]
+[node name="ImagesContainer" type="HBoxContainer" parent="CanvasInstructionsLabyrinth/PanelInstructions"]
 layout_mode = 1
 offset_left = 1.0
 offset_right = 41.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="CanvasInstructions/PanelInstructions/ImagesContainer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasInstructionsLabyrinth/PanelInstructions/ImagesContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 expand_mode = 4
 
-[node name="TextContainer" type="VBoxContainer" parent="CanvasInstructions/PanelInstructions"]
+[node name="TextContainer" type="VBoxContainer" parent="CanvasInstructionsLabyrinth/PanelInstructions"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -1618,7 +1619,7 @@ offset_bottom = 40.0
 grow_horizontal = 0
 alignment = 1
 
-[node name="RichLabel" type="RichTextLabel" parent="CanvasInstructions/PanelInstructions/TextContainer"]
+[node name="RichLabel" type="RichTextLabel" parent="CanvasInstructionsLabyrinth/PanelInstructions/TextContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
@@ -1628,7 +1629,7 @@ fit_content = true
 scroll_active = false
 drag_and_drop_selection_enabled = false
 
-[node name="AnimationPanel" type="AnimationPlayer" parent="CanvasInstructions/PanelInstructions"]
+[node name="AnimationPanel" type="AnimationPlayer" parent="CanvasInstructionsLabyrinth/PanelInstructions"]
 libraries = {
 "": SubResource("AnimationLibrary_xbyae")
 }

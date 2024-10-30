@@ -10,3 +10,11 @@ res://Levels/Scenes/main_world.tscn
 res://Levels/Scenes/main_dungeon.tscn
 res://Levels/Scenes/main_dungeon_2.tscn
 res://Dialogues/instructions.json
+res://Levels/Scenes/labyrinth_level.tscn
+res://Dialogues/hud_texts.json
+res://UI/ui_scenes/damage_label.tscn
+res://translation_manager_global.gd
+res://Dialogues/basic_instructions.json
+res://Entities/Scenes/Characters/vampire_girl_npc.tscn
+res://Dialogues/dialogues.json
+res://Dialogues/tips.json

@@ -18,7 +18,8 @@
 		"volume_label_game": "Ajustar volumen",
 		"button_save": "Guardar",
 		"button_cancel": "Cancelar",
-		"powerup_hud_check": "Mostrar HUD de Power-ups"
+		"powerup_hud_check": "Mostrar HUD de Power-ups",
+		"instructions_check": "Mostrar Instrucciones"
 	},
 	"en": {
 		"kills_text": "Kills: {0}",
@@ -39,7 +40,8 @@
 		"volume_label_game": "Set volume",
 		"button_save": "Save",
 		"button_cancel": "Cancel",
-		"powerup_hud_check": "Show Power-up HUD"
+		"powerup_hud_check": "Show Power-up HUD",
+		"instructions_check": "Show Instructions"
 	},
 	"zh": {
 		"kills_text": "击杀数: {0}",
@@ -60,6 +62,29 @@
 		"volume_label_game": "设置音量",
 		"button_save": "保存设置",
 		"button_cancel": "取消",
-		"powerup_hud_check": "显示能力提升HUD"
+		"powerup_hud_check": "显示能力提升HUD",
+		"instructions_check": "显示说明"
+	},
+	"pt": {
+		"kills_text": "Abates: {0}",
+		"time_text": "Tempo: {0}",
+		"highest_streak_text": "Sequência: {0}",
+		"countdown_warning_text": "Luz:",
+		"play_button": "Jogar",
+		"credits_button": "Créditos",
+		"quit_button": "Sair",
+		"language_button": "Português",
+		"close_credits_button": "Fechar",
+		"resume_button": "Continuar",
+		"quit_button_pause": "Sair",
+		"options_button": "Opções",
+		"fullscreen_check": "Tela cheia",
+		"options_menu": "Menu de opções",
+		"options_pause": "Opções",
+		"volume_label_game": "Ajustar volume",
+		"button_save": "Salvar",
+		"button_cancel": "Cancelar",
+		"powerup_hud_check": "Mostrar HUD de Power-ups",
+		"instructions_check": "Mostrar Instruções"
 	}
 }

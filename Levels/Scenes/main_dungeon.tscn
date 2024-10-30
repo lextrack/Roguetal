@@ -2779,8 +2779,9 @@ sources/1 = SubResource("TileSetAtlasSource_t85or")
 y_sort_enabled = true
 script = ExtResource("1_3hfxc")
 
-[node name="CanvasInstructionsDungeon1" type="CanvasLayer" parent="."]
+[node name="CanvasInstructionsDungeon1" type="CanvasLayer" parent="." groups=["instruction_canvas"]]
 script = SubResource("GDScript_hthfv")
+display_time = 5.0
 
 [node name="PanelInstructions" type="Panel" parent="CanvasInstructionsDungeon1"]
 anchors_preset = -1

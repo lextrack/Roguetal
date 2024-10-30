@@ -95,7 +95,7 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_yj70g")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 30
 text = "Volume"
 horizontal_alignment = 1
 
@@ -107,23 +107,28 @@ size_flags_vertical = 1
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/h_separation = 5
-theme_override_constants/icon_max_width = 35
 theme_override_fonts/font = ExtResource("2_yj70g")
 theme_override_font_sizes/font_size = 30
 text = "Fullscreen"
 alignment = 1
-autowrap_mode = 2
 
 [node name="PowerUpHudCheck" type="CheckBox" parent="PanelOpciones/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/h_separation = 5
-theme_override_constants/icon_max_width = 35
 theme_override_fonts/font = ExtResource("2_yj70g")
 theme_override_font_sizes/font_size = 30
 text = "Power up hud"
 alignment = 1
-autowrap_mode = 3
+
+[node name="InstructionsCheck" type="CheckBox" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_constants/h_separation = 5
+theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_font_sizes/font_size = 30
+text = "Show Instructions"
+alignment = 1
 
 [node name="ResolutionOption" type="Button" parent="PanelOpciones/VBoxContainer"]
 layout_mode = 2
@@ -133,7 +138,7 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_yj70g")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 30
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nkhk6")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mqnoc")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_55sfx")
@@ -149,7 +154,7 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_yj70g")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 30
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nkhk6")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mqnoc")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_55sfx")
@@ -170,7 +175,7 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_yj70g")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 30
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nkhk6")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mqnoc")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_55sfx")
@@ -185,7 +190,7 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_yj70g")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 30
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nkhk6")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mqnoc")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_55sfx")

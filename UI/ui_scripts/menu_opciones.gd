@@ -1,5 +1,5 @@
 extends Control
-
+@onready var instructions_check: CheckBox = $PanelOpciones/VBoxContainer/InstructionsCheck
 @onready var powerup_hud_check: CheckBox = $PanelOpciones/VBoxContainer/PowerUpHudCheck
 @onready var volumen_slider = $PanelOpciones/VBoxContainer/VolumenSlider
 @onready var fullscreen_check = $PanelOpciones/VBoxContainer/FullscreenCheck
@@ -39,6 +39,7 @@ func _ready():
 		volumen_slider,
 		fullscreen_check,
 		powerup_hud_check,
+		instructions_check,
 		resolution_option,
 		language_button,
 		button_save,
@@ -126,6 +127,8 @@ func _handle_element_activation() -> void:
 			fullscreen_check.button_pressed = !fullscreen_check.button_pressed
 		powerup_hud_check:
 			powerup_hud_check.button_pressed = !powerup_hud_check.button_pressed
+		instructions_check:
+			instructions_check.button_pressed = !instructions_check.button_pressed
 		resolution_option:
 			_on_resolution_button_pressed()
 		language_button:
@@ -157,6 +160,7 @@ func _verify_required_nodes() -> bool:
 		"VolumenSlider": volumen_slider,
 		"FullscreenCheck": fullscreen_check,
 		"PowerUpHudCheck": powerup_hud_check,
+		"InstructionsCheck": instructions_check,
 		"ResolutionOption": resolution_option,
 		"LanguageButton": language_button,
 		"Volume Label": volume_label_game,
@@ -182,9 +186,18 @@ func _connect_signals() -> void:
 	
 	if !powerup_hud_check.toggled.is_connected(_on_powerup_hud_toggled):
 		powerup_hud_check.toggled.connect(_on_powerup_hud_toggled)
+		
+	if !instructions_check.toggled.is_connected(_on_instructions_toggled):
+		instructions_check.toggled.connect(_on_instructions_toggled)
 	
 	if !language_button.pressed.is_connected(_on_language_button_pressed):
 		language_button.pressed.connect(_on_language_button_pressed)
+		
+func _on_instructions_toggled(button_pressed: bool) -> void:
+	var instruction_nodes = get_tree().get_nodes_in_group("instruction_canvas")
+	for node in instruction_nodes:
+		node.visible = button_pressed
+	_on_setting_changed()
 		
 func _on_powerup_hud_toggled(button_pressed: bool) -> void:
 	var powerup_huds = get_tree().get_nodes_in_group("powerup_hud")
@@ -205,6 +218,7 @@ func _store_initial_settings() -> void:
 			"fullscreen": fullscreen_check.button_pressed,
 			"resolution": current_resolution_index,
 			"powerup_hud": powerup_hud_check.button_pressed,
+			"instructions": instructions_check.button_pressed,
 			"language": TranslationManager.current_language
 		}
 
@@ -216,7 +230,8 @@ func _check_for_changes() -> bool:
 		initial_settings["volumen"] != volumen_slider.value or
 		initial_settings["fullscreen"] != fullscreen_check.button_pressed or
 		initial_settings["resolution"] != current_resolution_index or
-		initial_settings["powerup_hud"] != powerup_hud_check.button_pressed or 
+		initial_settings["powerup_hud"] != powerup_hud_check.button_pressed or
+		initial_settings["instructions"] != instructions_check.button_pressed or
 		initial_settings["language"] != TranslationManager.current_language
 	)
 
@@ -268,6 +283,7 @@ func update_language_button_text() -> void:
 	
 	fullscreen_check.text = TranslationManager.get_text("fullscreen_check")
 	powerup_hud_check.text = TranslationManager.get_text("powerup_hud_check")
+	instructions_check.text = TranslationManager.get_text("instructions_check")
 	options_menu.text = TranslationManager.get_text("options_menu")
 	_update_volume_label(volumen_slider.value)
 	button_save.text = TranslationManager.get_text("button_save")
@@ -290,7 +306,8 @@ func save_config() -> void:
 	config.set_value("audio", "volumen", volumen_slider.value)
 	config.set_value("video", "fullscreen", fullscreen_check.button_pressed)
 	config.set_value("video", "resolution_index", current_resolution_index)
-	config.set_value("interface", "powerup_hud", powerup_hud_check.button_pressed) 
+	config.set_value("interface", "powerup_hud", powerup_hud_check.button_pressed)
+	config.set_value("interface", "instructions", instructions_check.button_pressed)  
 	config.set_value("language", "current", TranslationManager.current_language)
 	
 	var err = config.save("user://options_settings.cfg")
@@ -320,6 +337,11 @@ func _apply_config(config: ConfigFile) -> void:
 		var show_hud = config.get_value("interface", "powerup_hud", true)
 		powerup_hud_check.button_pressed = show_hud
 		_on_powerup_hud_toggled(show_hud)
+		
+	if instructions_check:
+		var show_instructions = config.get_value("interface", "instructions", true)
+		instructions_check.button_pressed = show_instructions
+		_on_instructions_toggled(show_instructions)
 	
 	if fullscreen_check:
 		var fs = config.get_value("video", "fullscreen", false)
@@ -358,6 +380,10 @@ func _apply_default_config() -> void:
 	if powerup_hud_check:
 		powerup_hud_check.button_pressed = true
 		_on_powerup_hud_toggled(true)
+		
+	if instructions_check:
+		instructions_check.button_pressed = true
+		_on_instructions_toggled(true)
 	
 	if volumen_slider:
 		volumen_slider.value = 1.0
