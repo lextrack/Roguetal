@@ -91,5 +91,36 @@
 				]
 			}
 		]
+	},
+	"pt": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l0.png",
+					"res://UI/images_instructions/wasd.png"
+				],
+				"texts": [
+					"Mover e controlar o personagem"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_01a.png",
+					"res://UI/images_instructions/letter-e.png"
+				],
+				"texts": [
+					"[color=yellow]Falar[/color] com as pessoas"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/letter-esc.png"
+				],
+				"texts": [
+					"[color=yellow]Pausar[/color] o jogo se estiver entediado"
+				]
+			}
+		]
 	}
 }

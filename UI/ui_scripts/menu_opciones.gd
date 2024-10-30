@@ -29,7 +29,7 @@ func _ready():
 		return
 	
 	_setup_volume_slider()
-	_setup_resolution_option() 
+	_setup_resolution_option()
 	_connect_signals()
 	load_config()
 	update_language_button_text()
@@ -267,13 +267,17 @@ func _on_fullscreen_check_toggled(button_pressed: bool) -> void:
 	_on_setting_changed()
 
 func _on_language_button_pressed() -> void:
-	var new_language = "en"
-	match TranslationManager.current_language:
-		"en": new_language = "es"
-		"es": new_language = "zh"
-		"zh": new_language = "en"
+	# Always finish in ENGLISH (to a new language replace the final EN)
+	var language_rotation = {
+		"en": "es",
+		"es": "zh",
+		"zh": "pt",
+		"pt": "en"
+	}
 	
-	TranslationManager.set_language(new_language)
+	var next_language = language_rotation.get(TranslationManager.current_language, "en")
+	
+	TranslationManager.set_language(next_language)
 	update_language_button_text()
 	_on_setting_changed()
 
@@ -307,7 +311,7 @@ func save_config() -> void:
 	config.set_value("video", "fullscreen", fullscreen_check.button_pressed)
 	config.set_value("video", "resolution_index", current_resolution_index)
 	config.set_value("interface", "powerup_hud", powerup_hud_check.button_pressed)
-	config.set_value("interface", "instructions", instructions_check.button_pressed)  
+	config.set_value("interface", "instructions", instructions_check.button_pressed)
 	config.set_value("language", "current", TranslationManager.current_language)
 	
 	var err = config.save("user://options_settings.cfg")

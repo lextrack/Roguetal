@@ -120,5 +120,46 @@
 			"起初，似乎霰弹枪没有从伤害加成中受益，但它确实有效果，等着看吧。",
 			"我有能力，而你看起来像是不知道怎么使用枪的人，所以每次你死亡时，你都会自动获得一些子弹。"
 		]
+	},
+	"pt": {
+		"introductory_dialogues": [
+			"Ei, bem-vindo de volta.",
+			"Para começar a batalha, entre naquele buraco ali.",
+			"Dentro da masmorra, há dois portais.",
+			"Um azul para voltar aqui e um vermelho para ir ao próximo nível e continuar matando inimigos."
+		],
+		"rare_dialogues": [
+			"Às vezes me pergunto se a floresta está viva.",
+			"Você viu aquela criatura estranha?",
+			"Azul = saída. Vermelho = continuar lutando.",
+			"Você já leu as instruções no canto inferior direito da tela?",
+			"O pepe.",
+			"Às vezes as balas ricocheteiam nas armas dos orcs... não tem nada a ver com um problema de colisão nem nada do tipo.",
+			"Você já se perguntou o que há além desta floresta?",
+			"Não é todo dia que você encontra um aventureiro nestes lugares solitários.",
+			"Dizem que há um antigo feitiço escondido nestes... Ah, estou brincando. Neste lugar, só há portais. Isso é tudo.",
+			"O último idiota que veio aqui não sabia como usar o lança-foguetes.",
+			"Nunca subestime o poder de uma flor na floresta; ela pode conter mais magia do que você imagina.",
+			"Isso é uma cópia ruim de qualquer roguelite que você já jogou.",
+			"Espero que você não esteja esperando nada especial aqui. Tudo que você vai encontrar é uma perda de tempo.",
+			"Um aventureiro corajoso! Ou apenas mais um idiota que vai acabar morto, derrubado por goblins nas profundezas da masmorra",
+			"Às vezes, quando o vento sopra do jeito certo, você pode ouvir... absolutamente nada. O som de fundo deveria melhorar!",
+			"Três armas são suficientes!",
+			"Troque de armas pressionando LB no controle ou C no teclado",
+			"Espera, você ainda está lendo isso? Você deve realmente amar diálogos... diálogos borrados.",
+			"Os orcs causam dano por contato, eu tentaria manter distância deles.",
+			"Encontre e combine power-ups para dar variedade ao gameplay!",
+			"Andar na diagonal te dá mais velocidade, como em System Shook 2 ou Thief.",
+			"Alt+F4 abre o console de comandos",
+			"Boa sorte com o design ruim 🥱",
+			"É impressão minha, ou aquela árvore acabou de se mover?",
+			"Bruh.",
+			"Os power-ups são acumuláveis, então tente coletar quantos puder",
+			"Níveis escuros? Você brilha, irmão. Mas tic-tac, o relógio está correndo! Tente escapar usando o portal vermelho. Embora, há uma surpresa",
+			"Talvez você não acredite, mas se você fugir, evita a maioria das lutas com os inimigos, exceto pelo dano por contato.",
+			"Dá pra acreditar? Alguém disse que sua maior sequência de abates foi 666. Eu nunca passei de 100, bem, uma vez, estava bêbada e em transe e cheguei a pouco mais de 100.",
+			"No começo, parece que a espingarda não se beneficia do power-up de mais dano, mas está tendo efeito, só espere.",
+			"Tenho poderes e você parece alguém que não sabe manusear armas, então cada vez que morrer, automaticamente receberá algumas balas."
+		]
 	}
 }
