@@ -86,5 +86,27 @@
 		"button_cancel": "Cancelar",
 		"powerup_hud_check": "Mostrar HUD de Power-ups",
 		"instructions_check": "Mostrar Instruções"
+	},
+	"pl": {
+		"kills_text": "Zabicia: {0}",
+		"time_text": "Czas: {0}",
+		"highest_streak_text": "Seria: {0}",
+		"countdown_warning_text": "Światło:",
+		"play_button": "Graj",
+		"credits_button": "Twórcy",
+		"quit_button": "Wyjdź",
+		"language_button": "Polski",
+		"close_credits_button": "Zamknij",
+		"resume_button": "Wznów",
+		"quit_button_pause": "Wyjdź",
+		"options_button": "Opcje",
+		"fullscreen_check": "Pełny ekran",
+		"options_menu": "Menu opcji",
+		"options_pause": "Opcje",
+		"volume_label_game": "Ustaw głośność",
+		"button_save": "Zapisz",
+		"button_cancel": "Anuluj",
+		"powerup_hud_check": "Pokaż HUD wzmocnień",
+		"instructions_check": "Pokaż instrukcje"
 	}
 }

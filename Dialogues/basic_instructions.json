@@ -122,5 +122,36 @@
 				]
 			}
 		]
+	},
+	"pl": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l0.png",
+					"res://UI/images_instructions/wasd.png"
+				],
+				"texts": [
+					"Poruszaj się i kontroluj postać"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_01a.png",
+					"res://UI/images_instructions/letter-e.png"
+				],
+				"texts": [
+					"[color=yellow]Rozmawiaj[/color] z ludźmi"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/letter-esc.png"
+				],
+				"texts": [
+					"[color=yellow]Zatrzymaj[/color] grę jeśli się znudzisz"
+				]
+			}
+		]
 	}
 }

@@ -46,17 +46,32 @@
 	},
 	"pt": {
 	   "tips": [
-	   	"Olá, eu sou uma tela de carregamento.",
-	   	"Não desista, use os power-ups!",
-	   	"Não morra, é ruim para sua saúde",
-	   	"Lembre-se de piscar ocasionalmente",
-	   	"Dica: Ganhar é melhor que perder. Mas você não vai conseguir nada disso aqui",
-	   	"O pepe",
-	   	"Dicas aleatórias, como os níveis deste jogo",
-	   	"Carregando... Loading... Laden... 加载中... Ładowanie... Caricamento...",
-	   	"Dica: A água molha, o fogo queima",
-	   	"Carregando jogo... e contemplando a existência",
-	   	"Quanta água você precisa por dia? Cerca de 15.5 copos. Copos pequenos."
+		   	"Olá, eu sou uma tela de carregamento.",
+		   	"Não desista, use os power-ups!",
+		   	"Não morra, é ruim para sua saúde",
+		   	"Lembre-se de piscar ocasionalmente",
+		   	"Dica: Ganhar é melhor que perder. Mas você não vai conseguir nada disso aqui",
+		   	"O pepe",
+		   	"Dicas aleatórias, como os níveis deste jogo",
+		   	"Carregando... Loading... Laden... 加载中... Ładowanie... Caricamento...",
+		   	"Dica: A água molha, o fogo queima",
+		   	"Carregando jogo... e contemplando a existência",
+		   	"Quanta água você precisa por dia? Cerca de 15.5 copos. Copos pequenos."
 	   ]
 	},
+   "pl": {
+	   	"tips": [
+	   		"Cześć, jestem ekranem ładowania.",
+	   		"Nie poddawaj się, używaj wzmocnień!",
+	   		"Nie umieraj, to szkodzi twojemu zdrowiu",
+	   		"Pamiętaj, żeby od czasu do czasu mrugnąć",
+	   		"Porada: Wygrywanie jest lepsze niż przegrywanie. Ale tutaj tego nie doświadczysz",
+	   		"Czy wiedziałeś? Ciasto to kłamstwo",
+	   		"Losowe porady, jak poziomy tej gry",
+	   		"Loading... Cargando... Laden... 加载中... Ładowanie... Caricamento...",
+	   		"Porada: Woda jest mokra, ogień jest gorący",
+	   		"Ładowanie gry... i kontemplacja istnienia",
+	   		"Ile wody potrzebujesz dziennie? Około 15.5 filiżanek. Małych filiżanek."
+	   	]
+	}
 }

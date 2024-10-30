@@ -133,7 +133,6 @@
 			"Você viu aquela criatura estranha?",
 			"Azul = saída. Vermelho = continuar lutando.",
 			"Você já leu as instruções no canto inferior direito da tela?",
-			"O pepe.",
 			"Às vezes as balas ricocheteiam nas armas dos orcs... não tem nada a ver com um problema de colisão nem nada do tipo.",
 			"Você já se perguntou o que há além desta floresta?",
 			"Não é todo dia que você encontra um aventureiro nestes lugares solitários.",
@@ -160,6 +159,47 @@
 			"Dá pra acreditar? Alguém disse que sua maior sequência de abates foi 666. Eu nunca passei de 100, bem, uma vez, estava bêbada e em transe e cheguei a pouco mais de 100.",
 			"No começo, parece que a espingarda não se beneficia do power-up de mais dano, mas está tendo efeito, só espere.",
 			"Tenho poderes e você parece alguém que não sabe manusear armas, então cada vez que morrer, automaticamente receberá algumas balas."
+		]
+	},
+	"pl": {
+		"introductory_dialogues": [
+			"Hej, witaj z powrotem.",
+			"Aby rozpocząć walkę, wejdź do tej dziury.",
+			"Wewnątrz lochu znajdują się dwa portale.",
+			"Niebieski, aby wrócić tutaj i czerwony, aby przejść do następnego poziomu i dalej zabijać wrogów."
+		],
+		"rare_dialogues": [
+			"Czasami zastanawiam się, czy las żyje.",
+			"Widziałeś tę dziwną istotę?",
+			"Niebieski = wyjście. Czerwony = dalsza walka.",
+			"Czy czytałeś kiedyś instrukcje w prawym dolnym rogu ekranu?",
+			"El pepe.",
+			"Czasami pociski odbijają się od broni orków... nie ma to nic wspólnego z problemem z kolizjami ani niczym takim.",
+			"Czy zastanawiałeś się kiedyś, co kryje się za tym lasem?",
+			"Nie każdego dnia spotyka się poszukiwacza przygód w tych samotnych miejscach.",
+			"Podobno jest tu ukryte starożytne zaklęcie... Nie, żartuję. W tym miejscu są tylko portale. To wszystko.",
+			"Ostatni głupiec, który tu przyszedł, nie wiedział jak używać wyrzutni rakiet.",
+			"Nigdy nie lekceważ mocy kwiatu w lesie; może kryć więcej magii niż ci się wydaje.",
+			"To kiepska kopia każdego roguelite, w którego kiedykolwiek grałeś.",
+			"Mam nadzieję, że nie spodziewasz się tu niczego specjalnego. Jedyne co znajdziesz to strata czasu.",
+			"Odważny poszukiwacz przygód! Albo kolejny kretyn, który skończy martwy, pokonany przez gobliny głęboko w lochu",
+			"Czasami, gdy wiatr wieje we właściwym kierunku, możesz usłyszeć... absolutnie nic. Dźwięk w tle powinien być lepszy!",
+			"Trzy bronie wystarczą!",
+			"Zmieniaj broń naciskając LB na kontrolerze lub C na klawiaturze.",
+			"Czekaj, nadal to czytasz? Musisz naprawdę kochać dialogi... rozmyte dialogi.",
+			"Orkowie zadają obrażenia przy kontakcie, trzymałbym się od nich z daleka.",
+			"Znajdź i połącz wzmocnienia, aby urozmaicić rozgrywkę!",
+			"Chodzenie po przekątnej daje ci większą prędkość, jak w System Shook 2 czy Thief.",
+			"Alt+F4 otwiera konsolę poleceń",
+			"Powodzenia ze złym designem 🥱",
+			"Czy to tylko ja, czy to drzewo się właśnie poruszyło?",
+			"Bruh.",
+			"Wzmocnienia można kumulować, więc postaraj się zebrać ich jak najwięcej",
+			"Ciemne poziomy? Świecisz, ziom. Ale tik-tak, zegar tyka! Spróbuj uciec używając czerwonego portalu. Jest jednak niespodzianka.",
+			"Może w to kurwa nie wierzysz, ale jeśli uciekniesz, unikniesz większości walk z wrogami, z wyjątkiem obrażeń kontaktowych.",
+			"Możesz w to uwierzyć, ktoś powiedział, że jego najwyższa seria zabójstw to 666. Nigdy nie przekroczyłem 100, no dobra, raz byłem pijany i w transie i przekroczyłem ledwo 100.",
+			"Na początku wydaje się, że strzelba nie korzysta ze wzmocnienia obrażeń, ale ma ono wpływ, po prostu poczekaj.",
+			"Mam moce i wyglądasz jak ktoś, kto nie umie obchodzić się z bronią, więc za każdym razem, gdy zginiesz, automatycznie dostaniesz kilka pocisków."
 		]
 	}
 }
