@@ -1,11 +1,9 @@
 extends RichTextLabel
-
 @export var rise_speed: float = 20.0
 @export var lifetime: float = 1.0
 @export var fade_start: float = 0.6
 @export var shake_amount: float = 5.0
 @export var spread_range: float = 30.0
-
 var timer: float = 0.0
 var initial_position: Vector2
 var offset_x: float = 0.0
@@ -23,8 +21,20 @@ func _ready() -> void:
 	position.x += offset_x
 	position.y += offset_y
 	
-	var color = Color.RED if rng.randi() % 2 == 0 else Color.DARK_ORCHID
-	add_theme_color_override("default_color", color)
+	var colors = [
+		Color.RED,
+		Color.DARK_ORCHID,
+		Color.ORANGE,
+		Color.YELLOW,
+		Color.GREEN,
+		Color.PURPLE,
+		Color.CYAN,
+		Color.MAGENTA,
+		Color.GOLD
+	]
+	
+	var random_color = colors[rng.randi() % colors.size()]
+	add_theme_color_override("default_color", random_color)
 	
 	set_process(true)
 
@@ -32,7 +42,6 @@ func _process(delta: float) -> void:
 	timer += delta
 	
 	position.y -= rise_speed * delta
-	
 	position.x = initial_position.x + offset_x + sin(timer * 10) * shake_amount
 	
 	if timer >= fade_start:
