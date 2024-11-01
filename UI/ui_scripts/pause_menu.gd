@@ -100,9 +100,20 @@ func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 func _on_options_pressed() -> void:
+	$OptionsMenu.scale = Vector2(0.8, 0.8)
+	$OptionsMenu.modulate.a = 0
+	$OptionsMenu.show()
+	animate_options_menu()
 	panel_container.hide()
 	options_menu.show()
 	set_process(false)
+	
+func animate_options_menu() -> void:
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_LINEAR)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property($OptionsMenu, "scale", Vector2(1.0, 1.0), 0.2)
+	tween.tween_property($OptionsMenu, "modulate:a", 1.0, 0.2)
 	
 func _on_options_menu_visibility_changed() -> void:
 	if !options_menu.visible:

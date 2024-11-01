@@ -183,9 +183,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_a52th")
 text = "Exit"
 
-[node name="MenuOpciones" parent="." instance=ExtResource("4_stn02")]
-layout_mode = 1
-
 [node name="CreditsPanel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -269,6 +266,9 @@ panning_strength = 0.0
 
 [node name="mouse_icon" parent="." instance=ExtResource("4_wmwv3")]
 position = Vector2(686, 333)
+
+[node name="OptionsMenu" parent="." instance=ExtResource("4_stn02")]
+layout_mode = 1
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]

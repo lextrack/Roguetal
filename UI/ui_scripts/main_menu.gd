@@ -15,7 +15,7 @@ var loading_screen_scene = preload("res://UI/ui_scenes/loading_screen.tscn")
 var loading_screen: CanvasLayer = null
 
 func _ready() -> void:
-	$MenuOpciones.hide()
+	$OptionsMenu.hide()
 	MusicMainMenu.play_music_level()
 	credits_panel.hide()
 	close_credits_button.connect("pressed", Callable(self, "_on_close_credits_pressed"))
@@ -49,7 +49,7 @@ func _process(delta: float) -> void:
 	if credits_open:
 		handle_credits_input()
 
-	elif buttons.size() > 0 and !$MenuOpciones.visible:
+	elif buttons.size() > 0 and !$OptionsMenu.visible:
 		handle_menu_navigation()
 		
 func _on_play_pressed() -> void:
@@ -124,7 +124,19 @@ func _on_button_hover():
 	play_hover_sound()
 
 func _on_options_pressed() -> void:
-	$MenuOpciones.show()
+	animate_button(options)
+	await get_tree().create_timer(0.2).timeout
+	$OptionsMenu.scale = Vector2(0.8, 0.8)
+	$OptionsMenu.modulate.a = 0
+	$OptionsMenu.show()
+	animate_options_menu()
+
+func animate_options_menu() -> void:
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_LINEAR)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property($OptionsMenu, "scale", Vector2(1.0, 1.0), 0.2)
+	tween.tween_property($OptionsMenu, "modulate:a", 1.0, 0.2)
 
 func _on_boton_guardar_pressed() -> void:
 	pass 

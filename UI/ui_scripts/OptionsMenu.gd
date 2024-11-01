@@ -89,7 +89,7 @@ func handle_menu_navigation() -> void:
 		match current_selection:
 			0:  # Volumen Slider
 				volumen_slider.value -= volumen_slider.step
-			3:  # Resolution Option
+			4:  # Resolution Option
 				current_resolution_index = (current_resolution_index - 1 + available_resolutions.size()) % available_resolutions.size()
 				_update_resolution_button_text()
 				_on_setting_changed()
@@ -98,7 +98,7 @@ func handle_menu_navigation() -> void:
 		match current_selection:
 			0:  # Volumen Slider
 				volumen_slider.value += volumen_slider.step
-			3:  # Resolution Option
+			4:  # Resolution Option
 				current_resolution_index = (current_resolution_index + 1) % available_resolutions.size()
 				_update_resolution_button_text()
 				_on_setting_changed()
