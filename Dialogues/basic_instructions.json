@@ -153,5 +153,36 @@
 				]
 			}
 		]
+	},
+	"ja": {
+	   "pages": [
+		   {
+			   "images": [
+				   "res://UI/images_instructions/btn_xb_l0.png",
+				   "res://UI/images_instructions/wasd.png"
+			   ],
+			   "texts": [
+				   "キャラクターを動かして操作する"
+			   ]
+		   },
+		   {
+			   "images": [
+				   "res://UI/images_instructions/btn_xb_01a.png",
+				   "res://UI/images_instructions/letter-e.png"
+			   ],
+			   "texts": [
+				   "[color=yellow]話す[/color]"
+			   ]
+		   },
+		   {
+			   "images": [
+				   "res://UI/images_instructions/btn_xb_11.png",
+				   "res://UI/images_instructions/letter-esc.png"
+			   ],
+			   "texts": [
+				   "退屈したら[color=yellow]ポーズ[/color]する"
+			   ]
+		   }
+	   ]
 	}
 }

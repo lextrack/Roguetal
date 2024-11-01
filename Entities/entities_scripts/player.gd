@@ -458,9 +458,9 @@ func bullet_type_shooting(delta: float):
 				"bazooka":
 					add_heat(20)
 				"shotgun":
-					add_heat(25)
+					add_heat(35)
 				"m16":
-					add_heat(3)
+					add_heat(5)
 			
 			if player_data.ammo < 0:
 				player_data.ammo = 0

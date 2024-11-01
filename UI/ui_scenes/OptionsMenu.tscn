@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://rkamwmwfav1a"]
 
-[ext_resource type="Script" path="res://UI/ui_scripts/menu_opciones.gd" id="1_fnegt"]
-[ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="2_yj70g"]
+[ext_resource type="Script" path="res://UI/ui_scripts/OptionsMenu.gd" id="1_6nbto"]
+[ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="2_344qp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mocei"]
 bg_color = Color(0, 0.321569, 0.764706, 0.682353)
@@ -49,14 +49,14 @@ shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
 shadow_size = 3
 anti_aliasing_size = 2.0
 
-[node name="MenuOpciones" type="Control"]
+[node name="OptionsMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_fnegt")
+script = ExtResource("1_6nbto")
 
 [node name="PanelOpciones" type="Panel" parent="."]
 layout_mode = 1
@@ -86,7 +86,7 @@ theme_override_constants/separation = 15
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 50
 text = "Options menu"
 horizontal_alignment = 1
@@ -94,7 +94,7 @@ horizontal_alignment = 1
 [node name="volume_label" type="Label" parent="PanelOpciones/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30
 text = "Volume"
 horizontal_alignment = 1
@@ -107,7 +107,7 @@ size_flags_vertical = 1
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/h_separation = 5
-theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30
 text = "Fullscreen"
 alignment = 1
@@ -116,7 +116,7 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/h_separation = 5
-theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30
 text = "Power up hud"
 alignment = 1
@@ -125,7 +125,7 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_constants/h_separation = 5
-theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30
 text = "Show Instructions"
 alignment = 1
@@ -137,7 +137,7 @@ theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nkhk6")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mqnoc")
@@ -153,7 +153,7 @@ theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nkhk6")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mqnoc")
@@ -174,7 +174,7 @@ theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nkhk6")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mqnoc")
@@ -189,7 +189,7 @@ theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1
 theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("2_yj70g")
+theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nkhk6")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mqnoc")

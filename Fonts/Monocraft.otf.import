@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://ck4ih0gyygcqd"
-path="res://.godot/imported/Ubuntu-Bold.ttf-8983af4fb31c7ece060fab919d5a4c90.fontdata"
+uid="uid://pubnxm8i4mwb"
+path="res://.godot/imported/Monocraft.otf-7c3b3aea1bd9f88803eb595306c4ee2d.fontdata"
 
 [deps]
 
-source_file="res://Fonts/Ubuntu-Bold.ttf"
-dest_files=["res://.godot/imported/Ubuntu-Bold.ttf-8983af4fb31c7ece060fab919d5a4c90.fontdata"]
+source_file="res://Fonts/Monocraft.otf"
+dest_files=["res://.godot/imported/Monocraft.otf-7c3b3aea1bd9f88803eb595306c4ee2d.fontdata"]
 
 [params]
 

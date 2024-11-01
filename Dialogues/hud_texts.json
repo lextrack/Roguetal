@@ -108,5 +108,27 @@
 		"button_cancel": "Anuluj",
 		"powerup_hud_check": "Pokaż HUD wzmocnień",
 		"instructions_check": "Pokaż instrukcje"
+	},
+	"ja": {
+	   "kills_text": "キル数: {0}",
+	   "time_text": "タイム: {0}",
+	   "highest_streak_text": "連続キル: {0}",
+	   "countdown_warning_text": "ライト:",
+	   "play_button": "プレイ",
+	   "credits_button": "クレジット",
+	   "quit_button": "終了",
+	   "language_button": "日本語",
+	   "close_credits_button": "閉じる",
+	   "resume_button": "続ける", 
+	   "quit_button_pause": "終了",
+	   "options_button": "設定",
+	   "fullscreen_check": "フルスクリーン",
+	   "options_menu": "設定メニュー",
+	   "options_pause": "設定",
+	   "volume_label_game": "音量設定",
+	   "button_save": "保存",
+	   "button_cancel": "キャンセル",
+	   "powerup_hud_check": "パワーアップHUDを表示",
+	   "instructions_check": "説明を表示"
 	}
 }

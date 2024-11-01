@@ -4,7 +4,7 @@ extends Control
 @onready var resume_button: Button = $PanelContainer/VBoxContainer/Resume
 @onready var quit_button: Button = $PanelContainer/VBoxContainer/Quit
 @onready var panel_container: Panel = $PanelContainer
-@onready var menu_opciones: Control = $MenuOpciones
+@onready var options_menu: Control = $OptionsMenu
 @onready var buttons_container = $PanelContainer/VBoxContainer
 
 var current_selection = 0
@@ -17,8 +17,8 @@ func _ready() -> void:
 	TranslationManager.language_changed.connect(update_translations)
 	update_translations()
 	
-	if menu_opciones:
-		menu_opciones.visibility_changed.connect(_on_options_menu_visibility_changed)
+	if options_menu:
+		options_menu.visibility_changed.connect(_on_options_menu_visibility_changed)
 	
 func check_buttons_state():
 	if resume_button != null:
@@ -47,7 +47,7 @@ func update_translations() -> void:
 	quit_button.text = TranslationManager.get_text("quit_button_pause")
 
 func _process(_delta: float) -> void:
-	if !menu_opciones.visible:
+	if !options_menu.visible:
 		toggle_menu_pause()
 		if is_menu_visible and buttons.size() > 0:
 			handle_menu_navigation()
@@ -56,7 +56,7 @@ func resume() -> void:
 	get_tree().paused = false
 	$animation_menu.play_backwards("blur")
 	is_menu_visible = false
-	menu_opciones.hide()
+	options_menu.hide()
 	hide()
 
 func pause():
@@ -101,11 +101,11 @@ func _on_quit_pressed() -> void:
 
 func _on_options_pressed() -> void:
 	panel_container.hide()
-	menu_opciones.show()
+	options_menu.show()
 	set_process(false)
 	
 func _on_options_menu_visibility_changed() -> void:
-	if !menu_opciones.visible:
+	if !options_menu.visible:
 		panel_container.show()
 		current_selection = buttons.find(options_pause)
 		update_selection()

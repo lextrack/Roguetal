@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bmngqr3v0mh2a" path="res://Sprites/wallpaper_blue_character_5.jpg" id="2_kf4ov"]
 [ext_resource type="AudioStream" uid="uid://cgr60uh2odmsm" path="res://SoundEffects/misc_01.ogg" id="3_c65tl"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_ncx40"]
-[ext_resource type="PackedScene" uid="uid://rkamwmwfav1a" path="res://UI/ui_scenes/menu_opciones.tscn" id="4_stn02"]
+[ext_resource type="PackedScene" uid="uid://rkamwmwfav1a" path="res://UI/ui_scenes/OptionsMenu.tscn" id="4_stn02"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_wmwv3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtrft"]
@@ -187,7 +187,6 @@ text = "Exit"
 layout_mode = 1
 
 [node name="CreditsPanel" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.014

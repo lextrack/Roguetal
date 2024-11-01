@@ -158,5 +158,37 @@
 	   			]
 	   		}
 	   	]
+	},
+	"ja": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_r2.png",
+					"res://UI/images_instructions/mouse_click.png",
+					"res://UI/images_instructions/space.png"
+				],
+				"texts": [
+					"敵に[color=red]発射[/color]する"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l1.png",
+					"res://UI/images_instructions/letter-c.png"
+				],
+				"texts": [
+					"武器を[color=yellow]切り替える[/color]"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_r0.png",
+					"res://UI/images_instructions/mouse_move.png"
+				],
+				"texts": [
+					"射撃を[color=yellow]操作[/color]して向きを変える"
+				]
+			}
+		]
 	}
  }

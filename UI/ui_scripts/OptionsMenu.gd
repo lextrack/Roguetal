@@ -1,4 +1,5 @@
 extends Control
+
 @onready var instructions_check: CheckBox = $PanelOpciones/VBoxContainer/InstructionsCheck
 @onready var powerup_hud_check: CheckBox = $PanelOpciones/VBoxContainer/PowerUpHudCheck
 @onready var volumen_slider = $PanelOpciones/VBoxContainer/VolumenSlider
@@ -272,7 +273,9 @@ func _on_language_button_pressed() -> void:
 		"en": "es",
 		"es": "zh",
 		"zh": "pt",
-		"pt": "en"
+		"pt": "pl",
+		"pl": "ja",
+		"ja": "en"
 	}
 	
 	var next_language = language_rotation.get(TranslationManager.current_language, "en")
