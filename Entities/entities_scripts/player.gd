@@ -456,11 +456,11 @@ func bullet_type_shooting(delta: float):
 			
 			match bullet_type:
 				"bazooka":
-					add_heat(22)
+					add_heat(20)
 				"shotgun":
 					add_heat(25)
 				"m16":
-					add_heat(5)
+					add_heat(3)
 			
 			if player_data.ammo < 0:
 				player_data.ammo = 0

@@ -2,7 +2,7 @@
 	"es": {
 		"introductory_dialogues": [
 			"Eh, bienvenido de nuevo.",
-			"Para comenzar la batalla, entra en ese agujero de allí.",
+			"Para comenzar la batalla, entra en ese portal de allí.",
 			"Dentro de la mazmorra, hay dos portales.",
 			"Uno azul para volver aquí y uno rojo para ir al siguiente nivel y continuar matando enemigos."
 		],
@@ -10,6 +10,7 @@
 			"A veces me pregunto si el bosque está vivo.",
 			"¿Viste esa extraña criatura?",
 			"Azul = salida. Rojo = seguir luchando.",
+			"El robot armado tiene un 50% de posibilidades de fallar el tiro, pero inflige más daño que la espada de los orcos.",
 			"¿Has leído alguna vez las instrucciones en la parte inferior derecha de la pantalla?",
 			"El pepe.",
 			"A veces las balas rebotan en las armas de los orcos... no tiene nada que ver con un problema de colisiones ni nada por el estilo.",
@@ -43,13 +44,14 @@
 	"en": {
 		"introductory_dialogues": [
 			"Hey, welcome back.",
-			"To start the battle, enter in that hole over there.",
+			"To start the battle, enter in that portal over there.",
 			"Inside the dungeon, there are two portals.",
 			"A blue one to come back here and a red one to go to the next level and continue killing enemies."
 		],
 		"rare_dialogues": [
 			"Sometimes I wonder if the forest is alive.",
 			"Did you see that strange creature?",
+			"The armed robot has a 50% chance of missing the shot, but inflicts more damage than the orcs' sword.",
 			"Blue = exit. Red = keep fighting.",
 			"Have you ever read the instructions at the bottom right of the screen?",
 			"El pepe.",
@@ -84,13 +86,14 @@
 	"zh": {
 		"introductory_dialogues": [
 			"嘿，欢迎回来。",
-			"要开始战斗，进入那边的洞里。",
+			"要开始战斗，请进入那边的传送门。",
 			"地下城里有两个传送门。",
 			"蓝色的用来回到这里，红色的用来去下一关继续杀敌。"
 		],
 		"rare_dialogues": [
 			"有时我在想这森林是不是活的。",
 			"你看见那个奇怪的生物了吗？",
+			"武装机器人有 50% 的几率射偏，但造成的伤害比兽人的剑更大。",
 			"蓝色 = 出口。红色 = 继续战斗。",
 			"你有没有读过屏幕右下角的说明？",
 			"有时子弹会从兽人的枪上弹开...这与碰撞问题无关。",
@@ -124,7 +127,7 @@
 	"pt": {
 		"introductory_dialogues": [
 			"Ei, bem-vindo de volta.",
-			"Para começar a batalha, entre naquele buraco ali.",
+			"Para iniciar a batalha, entre no portal que está ali",
 			"Dentro da masmorra, há dois portais.",
 			"Um azul para voltar aqui e um vermelho para ir ao próximo nível e continuar matando inimigos."
 		],
@@ -132,6 +135,7 @@
 			"Às vezes me pergunto se a floresta está viva.",
 			"Você viu aquela criatura estranha?",
 			"Azul = saída. Vermelho = continuar lutando.",
+			"O robô armado tem 50% de chance de errar o tiro, mas causa mais dano do que a espada dos orcs.",
 			"Você já leu as instruções no canto inferior direito da tela?",
 			"Às vezes as balas ricocheteiam nas armas dos orcs... não tem nada a ver com um problema de colisão nem nada do tipo.",
 			"Você já se perguntou o que há além desta floresta?",
@@ -164,7 +168,7 @@
 	"pl": {
 		"introductory_dialogues": [
 			"Hej, witaj z powrotem.",
-			"Aby rozpocząć walkę, wejdź do tej dziury.",
+			"Aby rozpocząć bitwę, wejdź do portalu znajdującego się tam.",
 			"Wewnątrz lochu znajdują się dwa portale.",
 			"Niebieski, aby wrócić tutaj i czerwony, aby przejść do następnego poziomu i dalej zabijać wrogów."
 		],
@@ -172,8 +176,8 @@
 			"Czasami zastanawiam się, czy las żyje.",
 			"Widziałeś tę dziwną istotę?",
 			"Niebieski = wyjście. Czerwony = dalsza walka.",
+			"Uzbrojony robot ma 50% szans na chybienie strzału, ale zadaje więcej obrażeń niż miecz orków.",
 			"Czy czytałeś kiedyś instrukcje w prawym dolnym rogu ekranu?",
-			"El pepe.",
 			"Czasami pociski odbijają się od broni orków... nie ma to nic wspólnego z problemem z kolizjami ani niczym takim.",
 			"Czy zastanawiałeś się kiedyś, co kryje się za tym lasem?",
 			"Nie każdego dnia spotyka się poszukiwacza przygód w tych samotnych miejscach.",

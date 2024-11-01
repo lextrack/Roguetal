@@ -10,3 +10,8 @@ res://Entities/entities_scripts/shooter_enemy.gd
 res://UI/ui_scenes/main_menu.tscn
 res://Entities/Scenes/Enemies/enemy_1.tscn
 res://Entities/Scenes/Enemies/enemy_2.tscn
+res://UI/ui_scenes/mouse_icon.tscn
+res://Dialogues/dialogues.json
+res://UI/ui_scripts/canvas_instructions.gd
+res://UI/ui_scripts/canvas_instructions_dungeon.gd
+res://UI/ui_scripts/canvas_instructions_dungeon_2.gd

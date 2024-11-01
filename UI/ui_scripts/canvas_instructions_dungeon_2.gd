@@ -45,7 +45,7 @@ func load_instructions():
 		push_error("Error: Could not find instructions.json")
 		instructions_pages = [{
 			"images": [],
-			"texts": ["Error"]
+			"texts": ["Welcome to the game!"]
 		}]
 
 func apply_custom_font():

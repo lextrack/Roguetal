@@ -23,7 +23,7 @@ var idle_timer : Timer
 
 @export var max_accuracy_distance = 60.0
 @export var min_attack_distance = 50.0
-@export var miss_chance = 0.4  # 40% probability to miss the shot
+@export var miss_chance = 0.5  # 50% probability to miss the shot
 @export var base_speed = 100 # The base movement speed of the enemy
 @export var speed_variation = 30 # The range of speed variation
 
@@ -31,11 +31,11 @@ var speed # The actual speed of this enemy instance
 var max_allowed_speed = 140 # Maximum allowed speed for any enemy
 @export var max_health: float = 70.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.7 # Time (in seconds) between enemy attacks
-@export var chase_range = 170.0 # Distance at which the enemy starts to chase the player
+@export var chase_range = 160.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 10.0 # Distance for detecting and avoiding obstacles
 @export var reposition_distance = 40.0 # Distance the enemy moves to reposition during combat
 @export var attack_damage = 0.2 # Damage dealt by the enemy in each attack
-@export var attack_range = 100.0 # Distance within which the enemy can attack the player
+@export var attack_range = 80.0 # Distance within which the enemy can attack the player
 @export var attack_damage_range = 30.0 # Range of variability in the enemy's attack damage
 @export var idle_time_min = 2.0 # Minimum time to stay in idle state
 @export var idle_time_max = 4.0 # Maximum time to stay in idle state
@@ -98,14 +98,14 @@ func _ready():
 	if timer_direction:
 		if not timer_direction.timeout.is_connected(_on_timer_direction_timeout):
 			timer_direction.timeout.connect(_on_timer_direction_timeout)
-			
+
+# Verify if the enemy can attack the player (something in front of the enemy)
 func has_clear_shot() -> bool:
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsRayQueryParameters2D.create(global_position, target.global_position)
 	query.exclude = [self]
 	var result = space_state.intersect_ray(query)
 
-	# Si el rayo no encontró ninguna colisión o solo colisionó con el jugador, retorna true
 	return not result or result.collider == target
 
 # Main physics process, handles state machine and cooldowns
@@ -308,13 +308,15 @@ func avoid_obstacles(direction):
 
 # Play movement animation based on direction
 func play_movement_animation(direction):
+	# Evitar reproducir la animación de caminar mientras está atacando
 	if is_attacking:
 		return
 	
 	exit_idle_state()
 	if velocity.length() > 0:
-		# Simplemente reproducir la animación "walk" si el enemigo se está moviendo
-		move_animation_enemy.play("walk")
+		# Reproducir la animación de caminar solo si no está atacando
+		if not move_animation_enemy.is_playing():
+			move_animation_enemy.play("walk")
 		
 		# Voltear el sprite según la dirección horizontal
 		if direction.x != 0:
@@ -326,30 +328,24 @@ func play_movement_animation(direction):
 func play_attack_animation():
 	if not is_instance_valid(target):
 		return
-
-	var direction = global_position.direction_to(target.global_position)
 	
-	# Voltear el sprite según la dirección del objetivo
-	attack_sprite.flip_h = direction.x < 0
-	
+	# Detener la animación de caminar mientras ataca
+	move_animation_enemy.stop()
 	normal_sprite.hide()
+	
+	var direction = global_position.direction_to(target.global_position)
+	attack_sprite.flip_h = direction.x < 0
 	attack_sprite.show()
 	
-	# Reproducir la única animación de ataque
 	attack_animation_enemy.play("attack")
-	
-	# Llama a play_attack_sound aquí, después de reproducir la animación
 	play_attack_sound()
 	
 	await attack_animation_enemy.animation_finished
-	
 	normal_sprite.show()
 	attack_sprite.hide()
 	is_attacking = false
 
-# Coolddown the sound effect
 func play_attack_sound():
-	# No se necesita un cooldown para el sonido, simplemente reproducirlo
 	if attack_sound and not attack_sound.playing:
 		attack_sound.play()
 
