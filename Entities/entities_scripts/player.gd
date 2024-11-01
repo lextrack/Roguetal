@@ -11,7 +11,7 @@ const OVERHEAT_PENALTY_TIME = 1.5
 var is_overheated = false
 var overheat_timer = 0.0
 
-@export var contact_damage = 0.1
+@export var contact_damage = 0.02
 @export var speed: int
 @export var base_speed: int
 @export var walk_sound_interval = 0.4
@@ -201,59 +201,6 @@ func update_animation_without_gun() -> void:
 	else:
 		if not $player_animation.is_playing() or $player_animation.current_animation != "Idle":
 			$player_animation.play("Idle")
-
-func power_up_manager_check() -> void:
-	if power_up_manager:
-		power_up_manager.connect("power_up_changed", Callable(self, "_on_power_up_changed"))
-	else:
-		push_error("PowerUpManager not found.")
-
-	for type in PowerUpTypes.PowerUpType.values():
-		_on_power_up_changed(type, power_up_manager.get_multiplier(type))
-
-func _on_power_up_changed(type: int, multiplier: float) -> void:
-	match type:
-		PowerUpTypes.PowerUpType.DAMAGE:
-			update_double_damage_icon(multiplier)
-		PowerUpTypes.PowerUpType.SPEED:
-			speed = base_speed * multiplier
-			update_double_speed_icon(multiplier)
-		PowerUpTypes.PowerUpType.DEFENSE:
-			update_double_defense_icon(multiplier)
-		PowerUpTypes.PowerUpType.BULLET_HELL:
-			update_bullet_hell_icon(multiplier)
-
-func update_double_defense_icon(multiplier: float):
-	if double_defense_icon:
-		double_defense_icon.visible = multiplier > 1.0
-
-func update_double_damage_icon(multiplier: float):
-	if double_damage_icon:
-		double_damage_icon.visible = multiplier > 1.0
-
-func update_double_speed_icon(multiplier: float):
-	if double_speed_icon:
-		double_speed_icon.visible = multiplier > 1.0
-
-func update_bullet_hell_icon(multiplier: float):
-	if bullet_hell_icon:
-		bullet_hell_icon.visible = multiplier >= 1.0
-
-func setup_double_defense_icon():
-	if double_defense_icon:
-		double_defense_icon.visible = false
-
-func setup_double_damage_icon():
-	if double_damage_icon:
-		double_damage_icon.visible = false
-
-func setup_double_speed_icon():
-	if double_speed_icon:
-		double_speed_icon.visible = false
-
-func setup_bullet_hell_icon():
-	if bullet_hell_icon:
-		bullet_hell_icon.visible = false
 
 func animation() -> void:
 	if is_dead:
@@ -656,6 +603,59 @@ func increase_health(amount: int) -> void:
 	player_data.health += amount
 	if player_data.health > 4:
 		player_data.health = 4
+		
+func power_up_manager_check() -> void:
+	if power_up_manager:
+		power_up_manager.connect("power_up_changed", Callable(self, "_on_power_up_changed"))
+	else:
+		push_error("PowerUpManager not found.")
+
+	for type in PowerUpTypes.PowerUpType.values():
+		_on_power_up_changed(type, power_up_manager.get_multiplier(type))
+
+func _on_power_up_changed(type: int, multiplier: float) -> void:
+	match type:
+		PowerUpTypes.PowerUpType.DAMAGE:
+			update_double_damage_icon(multiplier)
+		PowerUpTypes.PowerUpType.SPEED:
+			speed = base_speed * multiplier
+			update_double_speed_icon(multiplier)
+		PowerUpTypes.PowerUpType.DEFENSE:
+			update_double_defense_icon(multiplier)
+		PowerUpTypes.PowerUpType.BULLET_HELL:
+			update_bullet_hell_icon(multiplier)
+
+func update_double_defense_icon(multiplier: float):
+	if double_defense_icon:
+		double_defense_icon.visible = multiplier > 1.0
+
+func update_double_damage_icon(multiplier: float):
+	if double_damage_icon:
+		double_damage_icon.visible = multiplier > 1.0
+
+func update_double_speed_icon(multiplier: float):
+	if double_speed_icon:
+		double_speed_icon.visible = multiplier > 1.0
+
+func update_bullet_hell_icon(multiplier: float):
+	if bullet_hell_icon:
+		bullet_hell_icon.visible = multiplier >= 1.0
+
+func setup_double_defense_icon():
+	if double_defense_icon:
+		double_defense_icon.visible = false
+
+func setup_double_damage_icon():
+	if double_damage_icon:
+		double_damage_icon.visible = false
+
+func setup_double_speed_icon():
+	if double_speed_icon:
+		double_speed_icon.visible = false
+
+func setup_bullet_hell_icon():
+	if bullet_hell_icon:
+		bullet_hell_icon.visible = false
 
 func dead() -> void:
 	if not is_dead:

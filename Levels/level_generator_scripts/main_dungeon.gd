@@ -44,7 +44,7 @@ func generate_level() -> void:
 	instance_enemies()
 	instance_health_pickup()
 	instance_random_powerup()
-	instance_boss1()
+	instance_shooter_enemy()
 
 func create_navigation():
 	# Creates the navigation region for pathfinding using the map outline
@@ -193,7 +193,7 @@ func get_other_portal_position(existing_position):
 	
 	return map[randi() % len(map)] * 16
 	
-func instance_boss1() -> void:
+func instance_shooter_enemy() -> void:
 	var player_node = get_node("Player")
 	if not player_node:
 		return
@@ -202,7 +202,7 @@ func instance_boss1() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(2, 5)
+	var total_enemies_to_spawn = randi_range(3, 6)
 	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
 		var random_position = map[randi() % len(map)]
 		var world_position = tilemap.map_to_local(random_position)
@@ -213,8 +213,8 @@ func instance_boss1() -> void:
 			var nav_agent = NavigationAgent2D.new()
 			enemy.add_child(nav_agent)
 			
-			enemy.base_speed = randf_range(90, 115)
-			enemy.speed_variation = randf_range(40, 60)
+			enemy.base_speed = randf_range(90, 130)
+			enemy.speed_variation = randf_range(45, 60)
 			
 			enemy.position = world_position
 			add_child(enemy)
@@ -222,7 +222,7 @@ func instance_boss1() -> void:
 		
 		attempts += 1
 	
-	print("Spawned enemies: ", enemies_spawned)
+	print("Spawned shooter enemy: ", enemies_spawned)
 
 func instance_enemies() -> void:
 	# Instantiates enemies at random valid locations, ensuring a minimum number of each type
@@ -235,7 +235,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(2, 5)
+	var total_enemies_to_spawn = randi_range(10, 20)
 	
 	var min_enemies_per_type = 5
 	var enemy_1_count = 0

@@ -225,7 +225,7 @@ func instance_enemy() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(8, 15)
+	var total_enemies_to_spawn = randi_range(10, 15)
 	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
 		var random_position = map[randi() % len(map)]
 		var world_position = tilemap.map_to_local(random_position)
@@ -237,7 +237,7 @@ func instance_enemy() -> void:
 			enemy.add_child(nav_agent)
 			
 			enemy.base_speed = randf_range(80, 100)
-			enemy.speed_variation = randf_range(10, 30)
+			enemy.speed_variation = randf_range(15, 30)
 			
 			enemy.position = world_position
 			add_child(enemy)

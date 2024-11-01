@@ -22,19 +22,19 @@ var reposition_timer : Timer
 var idle_timer : Timer
 
 @export var max_accuracy_distance = 60.0
+@export var min_attack_distance = 50.0
 @export var miss_chance = 0.4  # 40% probability to miss the shot
-
 @export var base_speed = 100 # The base movement speed of the enemy
 @export var speed_variation = 30 # The range of speed variation
 
 var speed # The actual speed of this enemy instance
 var max_allowed_speed = 140 # Maximum allowed speed for any enemy
-@export var max_health: float = 75.0 # The maximum health points of the enemy
+@export var max_health: float = 70.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.7 # Time (in seconds) between enemy attacks
-@export var chase_range = 160.0 # Distance at which the enemy starts to chase the player
+@export var chase_range = 170.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 10.0 # Distance for detecting and avoiding obstacles
 @export var reposition_distance = 40.0 # Distance the enemy moves to reposition during combat
-@export var attack_damage = 0.3 # Damage dealt by the enemy in each attack
+@export var attack_damage = 0.2 # Damage dealt by the enemy in each attack
 @export var attack_range = 100.0 # Distance within which the enemy can attack the player
 @export var attack_damage_range = 30.0 # Range of variability in the enemy's attack damage
 @export var idle_time_min = 2.0 # Minimum time to stay in idle state
@@ -198,16 +198,15 @@ func attack_state(delta):
 	if distance_to_target <= attack_range and has_clear_shot():
 		if attack_cooldown <= 0:
 			perform_attack()
-			if distance_to_target < max_accuracy_distance * 0.5:  # Si el jugador está muy cerca, reposicionarse
+			if distance_to_target < reposition_distance:
 				current_state = enemy_state.REPOSITION
-				reposition_timer.start(randf_range(1.5, 2.0))  # Duración del reposicionamiento
+				reposition_timer.start(randf_range(1.0, 2.5))
 		else:
 			velocity = Vector2.ZERO
 	else:
 		current_state = enemy_state.CHASE
 		is_attacking = false
 		stop_attack_animation()
-
 
 # Reposition state: enemy moves to a new position after attacking
 func reposition_state(delta):
