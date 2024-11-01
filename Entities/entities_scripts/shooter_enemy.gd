@@ -38,7 +38,7 @@ var max_allowed_speed = 140 # Maximum allowed speed for any enemy
 @export var attack_range = 100.0 # Distance within which the enemy can attack the player
 @export var attack_damage_range = 30.0 # Range of variability in the enemy's attack damage
 @export var idle_time_min = 2.0 # Minimum time to stay in idle state
-@export var idle_time_max = 5.0 # Maximum time to stay in idle state
+@export var idle_time_max = 4.0 # Maximum time to stay in idle state
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D if has_node("NavigationAgent2D") else null
 @onready var target = get_node("../Player")
@@ -335,10 +335,12 @@ func play_attack_animation():
 	normal_sprite.hide()
 	attack_sprite.show()
 	
-	play_attack_sound()
-	
 	# Reproducir la única animación de ataque
 	attack_animation_enemy.play("attack")
+	
+	# Llama a play_attack_sound aquí, después de reproducir la animación
+	play_attack_sound()
+	
 	await attack_animation_enemy.animation_finished
 	
 	normal_sprite.show()
@@ -347,11 +349,9 @@ func play_attack_animation():
 
 # Coolddown the sound effect
 func play_attack_sound():
-	var current_time = Time.get_ticks_msec() / 1000.0
-	if current_time - last_attack_sound_time > ATTACK_SOUND_COOLDOWN:
-		if attack_sound:
-			attack_sound.play()
-		last_attack_sound_time = current_time
+	# No se necesita un cooldown para el sonido, simplemente reproducirlo
+	if attack_sound and not attack_sound.playing:
+		attack_sound.play()
 
 # Handle taking damage
 func take_damage(damage: int, bullet = null):

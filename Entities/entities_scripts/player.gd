@@ -777,7 +777,7 @@ func flash_damage():
 	is_flashing = true
 	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.7)
 	
-	var flash_duration = 0.1
+	var flash_duration = 0.2
 	var fade_duration = 0.1
 	
 	await get_tree().create_timer(flash_duration).timeout
