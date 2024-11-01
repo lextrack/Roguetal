@@ -11,7 +11,7 @@ const min_distance_from_player = 5
 @onready var next_level_scene = preload("res://Interactables/Scenes/next_level.tscn")
 @onready var enemy_scene = preload("res://Entities/Scenes/Enemies/enemy_1.tscn")
 @onready var enemy_2_scene = preload("res://Entities/Scenes/Enemies/enemy_2.tscn")
-@onready var boss_1 = preload("res://Entities/Scenes/Enemies/boss_1.tscn")
+@onready var boss_1 = preload("res://Entities/Scenes/Enemies/shooter_enemy.tscn")
 @onready var health_pickup_scene = preload("res://Interactables/Scenes/health_pickup.tscn")
 @onready var double_damage_pickup_scene = preload("res://Interactables/Scenes/double_damage_pickup.tscn")
 @onready var double_speed_pickup_scene = preload("res://Interactables/Scenes/double_speed_pickup.tscn")
@@ -213,8 +213,8 @@ func instance_boss1() -> void:
 			var nav_agent = NavigationAgent2D.new()
 			enemy.add_child(nav_agent)
 			
-			enemy.base_speed = randf_range(80, 100)
-			enemy.speed_variation = randf_range(20, 30)
+			enemy.base_speed = randf_range(90, 115)
+			enemy.speed_variation = randf_range(40, 60)
 			
 			enemy.position = world_position
 			add_child(enemy)
@@ -235,7 +235,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(1, 1)
+	var total_enemies_to_spawn = randi_range(2, 5)
 	
 	var min_enemies_per_type = 5
 	var enemy_1_count = 0
@@ -267,7 +267,7 @@ func instance_enemies() -> void:
 			
 			# Set random base_speed and speed_variation for each enemy
 			enemy.base_speed = randf_range(80, 100)
-			enemy.speed_variation = randf_range(10, 30)
+			enemy.speed_variation = randf_range(15, 30)
 			
 			enemy.position = world_position
 			add_child(enemy)
