@@ -11,6 +11,7 @@ const min_distance_from_player = 5
 @onready var next_level_scene = preload("res://Interactables/Scenes/next_level.tscn")
 @onready var enemy_scene = preload("res://Entities/Scenes/Enemies/enemy_1.tscn")
 @onready var enemy_2_scene = preload("res://Entities/Scenes/Enemies/enemy_2.tscn")
+@onready var boss_1 = preload("res://Entities/Scenes/Enemies/boss_1.tscn")
 @onready var health_pickup_scene = preload("res://Interactables/Scenes/health_pickup.tscn")
 @onready var double_damage_pickup_scene = preload("res://Interactables/Scenes/double_damage_pickup.tscn")
 @onready var double_speed_pickup_scene = preload("res://Interactables/Scenes/double_speed_pickup.tscn")
@@ -43,6 +44,7 @@ func generate_level() -> void:
 	instance_enemies()
 	instance_health_pickup()
 	instance_random_powerup()
+	instance_boss1()
 
 func create_navigation():
 	# Creates the navigation region for pathfinding using the map outline
@@ -190,6 +192,37 @@ func get_other_portal_position(existing_position):
 		attempts += 1
 	
 	return map[randi() % len(map)] * 16
+	
+func instance_boss1() -> void:
+	var player_node = get_node("Player")
+	if not player_node:
+		return
+	var player_position = tilemap.local_to_map(player_node.position)
+	var attempts = 0
+	var max_attempts = 500
+	var enemies_spawned = 0
+	
+	var total_enemies_to_spawn = randi_range(2, 5)
+	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
+		var random_position = map[randi() % len(map)]
+		var world_position = tilemap.map_to_local(random_position)
+		
+		if random_position.distance_to(player_position) >= min_distance_from_player:
+			var enemy = boss_1.instantiate()
+			
+			var nav_agent = NavigationAgent2D.new()
+			enemy.add_child(nav_agent)
+			
+			enemy.base_speed = randf_range(80, 100)
+			enemy.speed_variation = randf_range(20, 30)
+			
+			enemy.position = world_position
+			add_child(enemy)
+			enemies_spawned += 1
+		
+		attempts += 1
+	
+	print("Spawned enemies: ", enemies_spawned)
 
 func instance_enemies() -> void:
 	# Instantiates enemies at random valid locations, ensuring a minimum number of each type
@@ -202,7 +235,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(10, 15)
+	var total_enemies_to_spawn = randi_range(1, 1)
 	
 	var min_enemies_per_type = 5
 	var enemy_1_count = 0

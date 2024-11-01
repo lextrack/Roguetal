@@ -1,8 +1,10 @@
+res://Levels/level_generator_scripts
+res://Entities/entities_scripts
+res://Levels/Scenes
 res://
 C:/Users/ariel/OneDrive/Desktop
 res://UI/ui_scenes
 res://UI/ui_scripts
-res://Entities/entities_scripts
 res://Entities/Scenes/FX
 res://Shaders
 C:/C2_Roguelite

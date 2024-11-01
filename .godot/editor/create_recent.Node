@@ -1,3 +1,5 @@
+TileMapLayer
+Node2D
 CheckBox
 Button
 OptionButton
@@ -11,4 +13,3 @@ Control
 GPUParticles2D
 AudioStreamPlayer2D
 Node
-CanvasLayer

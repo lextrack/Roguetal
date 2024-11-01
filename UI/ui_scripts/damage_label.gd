@@ -24,11 +24,7 @@ func _ready() -> void:
 	var colors = [
 		Color.RED,
 		Color.DARK_ORCHID,
-		Color.ORANGE,
 		Color.YELLOW,
-		Color.GREEN,
-		Color.PURPLE,
-		Color.CYAN,
 		Color.MAGENTA,
 		Color.GOLD
 	]
