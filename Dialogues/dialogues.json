@@ -8,6 +8,7 @@
 		],
 		"rare_dialogues": [
 			"A veces me pregunto si el bosque está vivo.",
+			"Si tienes más de 25 muertes, el robot armado te temerá y la probabilidad de que te lastime con un disparo disminuirá.",
 			"¿Viste esa extraña criatura?",
 			"Azul = salida. Rojo = seguir luchando.",
 			"El robot armado tiene un 50% de posibilidades de fallar el tiro, pero inflige más daño que la espada de los orcos.",
@@ -50,6 +51,7 @@
 		],
 		"rare_dialogues": [
 			"Sometimes I wonder if the forest is alive.",
+			"If you have more than 25 kills, the armed robot will fear you and the probability of being hurt by a shot will decrease.",
 			"Did you see that strange creature?",
 			"The armed robot has a 50% chance of missing the shot, but inflicts more damage than the orcs' sword.",
 			"Blue = exit. Red = keep fighting.",
@@ -92,6 +94,7 @@
 		],
 		"rare_dialogues": [
 			"有时我在想这森林是不是活的。",
+			"如果您的击杀次数超过 25 次，武装机器人就会惧怕您，被击中的概率也会降低。",
 			"你看见那个奇怪的生物了吗？",
 			"武装机器人有 50% 的几率射偏，但造成的伤害比兽人的剑更大。",
 			"蓝色 = 出口。红色 = 继续战斗。",
@@ -133,6 +136,7 @@
 		],
 		"rare_dialogues": [
 			"Às vezes me pergunto se a floresta está viva.",
+			"Se você tiver mais de 25 mortes, o robô armado terá medo de você e a probabilidade de ser ferido por um tiro diminuirá.",
 			"Você viu aquela criatura estranha?",
 			"Azul = saída. Vermelho = continuar lutando.",
 			"O robô armado tem 50% de chance de errar o tiro, mas causa mais dano do que a espada dos orcs.",
@@ -174,6 +178,7 @@
 		],
 		"rare_dialogues": [
 			"Czasami zastanawiam się, czy las żyje.",
+			"Jeśli masz więcej niż 25 zabójstw, uzbrojony robot będzie się ciebie obawiał, a prawdopodobieństwo zranienia przez strzał spadnie.",
 			"Widziałeś tę dziwną istotę?",
 			"Niebieski = wyjście. Czerwony = dalsza walka.",
 			"Uzbrojony robot ma 50% szans na chybienie strzału, ale zadaje więcej obrażeń niż miecz orków.",
@@ -215,6 +220,7 @@
 	   ],
 	   "rare_dialogues": [
 			"時々、この森は生きているのかなと考えることがあります。",
+			"キル数が25を超えると、武装ロボットはあなたを恐れるようになり、撃たれて傷つく確率が下がる。",
 			"あの奇妙な生き物を見ましたか？",
 			"武装ロボットは50%の確率で攻撃を外しますが、オークの剣より大きなダメージを与えます。",
 			"青 = 出口。赤 = 戦い続ける。",

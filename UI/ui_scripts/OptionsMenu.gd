@@ -273,8 +273,7 @@ func _on_language_button_pressed() -> void:
 		"en": "es",
 		"es": "zh",
 		"zh": "pt",
-		"pt": "pl",
-		"pl": "ja",
+		"pt": "ja",
 		"ja": "en"
 	}
 	

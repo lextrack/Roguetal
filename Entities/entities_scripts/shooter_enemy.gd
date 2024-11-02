@@ -20,22 +20,24 @@ var is_attacking = false
 var path_update_timer : Timer
 var reposition_timer : Timer
 var idle_timer : Timer
+var speed # The actual speed of this enemy instance
+var max_allowed_speed = 130 # Maximum allowed speed for any enemy
 
+@export var base_damage = 0.2
 @export var max_accuracy_distance = 60.0
 @export var min_attack_distance = 50.0
 @export var miss_chance = 0.5  # 50% probability to miss the shot
+@export var base_miss_chance = 0.5
+@export var max_damage_variability = 0.1
 @export var base_speed = 100 # The base movement speed of the enemy
 @export var speed_variation = 30 # The range of speed variation
-
-var speed # The actual speed of this enemy instance
-var max_allowed_speed = 130 # Maximum allowed speed for any enemy
-@export var max_health: float = 60.0 # The maximum health points of the enemy
+@export var max_health: float = 65.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.7 # Time (in seconds) between enemy attacks
-@export var chase_range = 150.0 # Distance at which the enemy starts to chase the player
+@export var chase_range = 160.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 10.0 # Distance for detecting and avoiding obstacles
 @export var reposition_distance = 40.0 # Distance the enemy moves to reposition during combat
 @export var attack_damage = 0.2 # Damage dealt by the enemy in each attack
-@export var attack_range = 80.0 # Distance within which the enemy can attack the player
+@export var attack_range = 85.0 # Distance within which the enemy can attack the player
 @export var attack_damage_range = 30.0 # Range of variability in the enemy's attack damage
 @export var idle_time_min = 2.0 # Minimum time to stay in idle state
 @export var idle_time_max = 4.0 # Maximum time to stay in idle state
@@ -194,8 +196,12 @@ func attack_state(delta):
 		return
 
 	var distance_to_target = global_position.distance_to(target.global_position)
-	
-	if distance_to_target <= attack_range and has_clear_shot():
+
+	if distance_to_target <= min_attack_distance:
+		# Retrocede en lugar de atacar si está demasiado cerca del jugador
+		current_state = enemy_state.REPOSITION
+		reposition_timer.start(randf_range(0.5, 1.5))
+	elif distance_to_target <= attack_range and has_clear_shot():
 		if attack_cooldown <= 0:
 			perform_attack()
 			if distance_to_target < reposition_distance:
@@ -217,6 +223,8 @@ func reposition_state(delta):
 	play_movement_animation(direction)
 	
 	if navigation_agent.is_navigation_finished():
+		var target_position = global_position + direction.rotated(PI / 4) * reposition_distance
+		navigation_agent.target_position = target_position
 		current_state = enemy_state.CHASE
 
 # End reposition state and return to chase state
@@ -253,14 +261,30 @@ func perform_attack():
 	is_attacking = true
 
 	if global_position.distance_to(target.global_position) <= attack_range:
-		# Aumentar precisión a medida que el enemigo está más cerca
-		var accuracy_factor = clamp(1 - (global_position.distance_to(target.global_position) / max_accuracy_distance), 0.5, 1.0)
-		if randf() > miss_chance * (1 - accuracy_factor):
-			if target.has_method("take_damage") and not target.is_dead and not target.is_in_portal:
-				target.take_damage(attack_damage)
-	
+		var successful_hit = calculate_attack_effectiveness()
+		
+		play_attack_animation()
+		
 	attack_cooldown = attack_cooldown_time
-	play_attack_animation()
+	
+func calculate_attack_effectiveness() -> bool:
+	var distance_to_target = global_position.distance_to(target.global_position)
+	var distance_factor = clamp(1 - (distance_to_target / max_accuracy_distance), 0.3, 1.0)
+	
+	var miss_chance_adjusted = base_miss_chance * (1 - distance_factor)
+	
+	if player_data.kill_count >= 25:
+		miss_chance_adjusted += 0.2
+
+	var successful_hit = randf() > miss_chance_adjusted
+	
+	var damage_variability = randf_range(-max_damage_variability, max_damage_variability)
+	var final_damage = base_damage + damage_variability
+	
+	if successful_hit:
+		target.take_damage(final_damage)
+	
+	return successful_hit
 
 func stop_attack_animation():
 	if attack_animation_enemy.is_playing():
