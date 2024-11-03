@@ -1,15 +1,14 @@
+RichTextLabel
+Label
 TileMapLayer
 Node2D
 CheckBox
 Button
 OptionButton
-RichTextLabel
 VBoxContainer
-Label
 HBoxContainer
 HSlider
 Panel
 Control
 GPUParticles2D
 AudioStreamPlayer2D
-Node
