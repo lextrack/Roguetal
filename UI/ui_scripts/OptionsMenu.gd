@@ -61,7 +61,7 @@ func _ready():
 	
 func _setup_mouse_sensitivity_slider() -> void:
 	mouse_sensitivity_slider.min_value = 0.1
-	mouse_sensitivity_slider.max_value = 1.0
+	mouse_sensitivity_slider.max_value = 1.5
 	mouse_sensitivity_slider.step = 0.1
 	mouse_sensitivity_slider.value_changed.connect(_update_sensitivity_label)
 

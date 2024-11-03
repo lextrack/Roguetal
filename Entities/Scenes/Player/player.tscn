@@ -37,7 +37,7 @@ shader = ExtResource("2_dwf4p")
 shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b3ud7"]
-size = Vector2(17.8571, 23.2143)
+size = Vector2(16.0714, 19.6428)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_40p5x"]
 radius = 7.14286
@@ -303,7 +303,7 @@ script = ExtResource("4_jek05")
 autostart = true
 
 [node name="player_colider" type="CollisionShape2D" parent="."]
-position = Vector2(2.85714, 13.5714)
+position = Vector2(2.14286, 15)
 scale = Vector2(0.8, 0.8)
 shape = SubResource("RectangleShape2D_b3ud7")
 disabled = true
