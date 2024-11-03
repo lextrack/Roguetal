@@ -8,3 +8,5 @@ res://Levels/Scenes/main_dungeon.tscn
 res://UI/ui_scenes/OptionsMenu.tscn
 res://UI/ui_scenes/mouse_icon.tscn
 res://Entities/Scenes/FX/scent_trail.tscn
+res://Entities/entities_scripts/shooter_enemy.gd
+res://Levels/level_generator_scripts/main_dungeon.gd
