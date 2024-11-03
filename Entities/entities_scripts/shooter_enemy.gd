@@ -38,7 +38,7 @@ var is_strafing = false # Strafing movement state
 var strafe_direction = 1 # Strafing direction (1 or -1)
 var last_strafe_change = 0.0 # Timer for strafe direction changes
 var speed # The actual speed of this enemy instance
-var max_allowed_speed = 110 # Maximum allowed speed for any enemy
+var max_allowed_speed = 120 # Maximum allowed speed for any enemy
 
 @export var projectile_detection_radius_bazooka = 110.0 # Detection radius for bazooka projectiles
 @export var projectile_detection_radius_normal = 85.0 # Detection radius for standard projectiles

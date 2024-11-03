@@ -1,14 +1,10 @@
-res://UI/ui_scenes/OptionsMenu.tscn
+res://Entities/Scenes/Player/player.tscn
 res://Entities/entities_scripts/player.gd
 res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
 res://Shaders/flash_shader.gdshader
-res://events.gd
-res://UI/ui_scripts/OptionsMenu.gd
-res://Entities/Scenes/Player/player.tscn
 res://Levels/Scenes/main_dungeon.tscn
-res://UI/ui_scenes/main_menu.tscn
-res://UI/ui_scripts/mouse_icon.gd
+res://UI/ui_scenes/OptionsMenu.tscn
 res://UI/ui_scenes/mouse_icon.tscn
 res://Levels/level_generator_scripts/main_dungeon.gd
-res://Dialogues/hud_texts.json
+res://Entities/entities_scripts/shooter_enemy.gd

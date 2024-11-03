@@ -203,7 +203,7 @@ func instance_shooter_enemy() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(1, 0) # 5, 7
+	var total_enemies_to_spawn = randi_range(1, 10) # 5, 7
 	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
 		var random_position = map[randi() % len(map)]
 		var world_position = tilemap.map_to_local(random_position)
@@ -236,7 +236,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(0, 0) #10, 15
+	var total_enemies_to_spawn = randi_range(5, 10) #10, 15
 	
 	var min_enemies_per_type = 5
 	var enemy_1_count = 0
