@@ -238,7 +238,8 @@ libraries = {
 }
 
 [node name="enemy_collider" type="CollisionShape2D" parent="."]
-position = Vector2(0, 12)
+position = Vector2(0, 13)
+scale = Vector2(0.5, 1)
 shape = SubResource("SegmentShape2D_dy3ke")
 
 [node name="hitbox" type="Area2D" parent="."]

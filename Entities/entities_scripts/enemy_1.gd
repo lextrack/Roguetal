@@ -54,13 +54,36 @@ var max_allowed_speed = 100 # Maximum allowed speed for any enemy
 
 # Initialize the enemy, set up navigation and timers
 func _ready():
-	randomize() # Ensure we get different random numbers each time
+	randomize()
+	initialize_speed()
+	initialize_health()
+	setup_sprites()
+	setup_navigation()
+	setup_timers()
+	setup_initial_state()
+	connect_signals()
+
+func initialize_speed():
 	var variation_percent = randf_range(-speed_variation, speed_variation) / 100.0
 	speed = base_speed * (1 + variation_percent)
 	speed = min(speed, max_allowed_speed)
+
+func initialize_health():
 	current_health = max_health
+
+func setup_sprites():
 	idle_sprite.hide()
-	
+	if die_sprite:
+		die_sprite.hide()
+	else:
+		print("Warning: die_sprite not found")
+		
+	if attack_sprite:
+		attack_sprite.hide()
+	else:
+		print("Warning: attack_sprite not found")
+
+func setup_navigation():
 	if not navigation_agent:
 		navigation_agent = NavigationAgent2D.new()
 		add_child(navigation_agent)
@@ -68,33 +91,40 @@ func _ready():
 	navigation_agent.path_desired_distance = 2.0
 	navigation_agent.target_desired_distance = 2.0
 	navigation_agent.path_max_distance = 50.0
-	
+
+func setup_timers():
+	setup_path_update_timer()
+	setup_reposition_timer()
+	setup_idle_timer()
+
+func setup_path_update_timer():
 	path_update_timer = Timer.new()
-	path_update_timer.wait_time = 0.1
+	path_update_timer.wait_time = 0.2
 	path_update_timer.one_shot = false
 	path_update_timer.timeout.connect(update_path)
 	add_child(path_update_timer)
 	path_update_timer.start()
-	
+
+func setup_reposition_timer():
 	reposition_timer = Timer.new()
-	reposition_timer.wait_time = 3.0
+	reposition_timer.wait_time = 2.0
 	reposition_timer.one_shot = true
 	reposition_timer.timeout.connect(end_reposition)
 	add_child(reposition_timer)
-	
+
+func setup_idle_timer():
 	idle_timer = Timer.new()
 	idle_timer.one_shot = true
 	idle_timer.timeout.connect(end_idle_state)
 	add_child(idle_timer)
-	
+
+func setup_initial_state():
 	await get_tree().physics_frame
 	update_path()
-	
-	die_sprite.hide() if die_sprite else print("Warning: die_sprite not found")
-	attack_sprite.hide() if attack_sprite else print("Warning: attack_sprite not found")
-	if timer_direction:
-		if not timer_direction.timeout.is_connected(_on_timer_direction_timeout):
-			timer_direction.timeout.connect(_on_timer_direction_timeout)
+
+func connect_signals():
+	if timer_direction and not timer_direction.timeout.is_connected(_on_timer_direction_timeout):
+		timer_direction.timeout.connect(_on_timer_direction_timeout)
 
 # Main physics process, handles state machine and cooldowns
 func _physics_process(delta):

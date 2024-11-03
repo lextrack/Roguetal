@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_3w2es"]
 radius = 3.0
 
-[node name="bullet_shotgun" type="Area2D" groups=["Bullet"]]
+[node name="bullet_shotgun" type="Area2D" groups=["Bullet", "player_projectiles", "shotgun"]]
 collision_layer = 2
 collision_mask = 8
 script = ExtResource("1_00ndy")
