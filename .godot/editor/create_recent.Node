@@ -1,5 +1,6 @@
-RichTextLabel
 Label
+HSlider
+RichTextLabel
 TileMapLayer
 Node2D
 CheckBox
@@ -7,7 +8,6 @@ Button
 OptionButton
 VBoxContainer
 HBoxContainer
-HSlider
 Panel
 Control
 GPUParticles2D

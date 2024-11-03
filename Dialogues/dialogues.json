@@ -264,5 +264,49 @@
 			"最初、ショットガンはダメージアップのパワーアップの恩恵を受けていないように見えますが、効果は出ています。待ってみてください。",
 			"私には力があり、あなたは銃の扱いに慣れていないように見えるので、死ぬたびに自動的に弾丸を少し補充してあげます。"
 	   ]
+	},
+	"de": {
+		"introductory_dialogues": [
+			"Hey, willkommen zurück.",
+			"Um den Kampf zu beginnen, geh durch das Portal dort drüben.",
+			"Im Verlies gibt es zwei Portale.",
+			"Ein blaues, um hierher zurückzukehren, und ein rotes, um zum nächsten Level zu gelangen und weiter Feinde zu töten."
+		],
+		"rare_dialogues": [
+			"Manchmal frage ich mich, ob der Wald lebendig ist.",
+			"Wenn du mehr als 25 Kills hast, wird der bewaffnete Roboter dich fürchten und die Wahrscheinlichkeit, von einem Schuss getroffen zu werden, sinkt.",
+			"Hast du diese seltsame Kreatur gesehen?",
+			"Bleib in Bewegung; das ist das Einzige, was in den Verliesen zählt.",
+			"Wie viele Kills brauchst du, damit die Roboter dich insgeheim fürchten und die Wahrscheinlichkeit, dich zu erschießen, sinkt? Mehr als 25.",
+			"Bewaffnete Roboter haben eine 30-prozentige Chance, ihren Schuss zu verfehlen, bewegen sich aber schneller und unberechenbar. Wenn du jedoch mehrere Kills schaffst, werden sie dich fürchten und ihre Trefferchance sinkt.",
+			"Blau = Ausgang. Rot = weiterkämpfen.",
+			"Hast du jemals die Anweisungen unten rechts auf dem Bildschirm gelesen?",
+			"Manchmal prallen die Kugeln von der Waffe der Orks ab... das hat nichts mit einem Kollisionsproblem oder so zu tun.",
+			"Hast du dich je gefragt, was jenseits dieses Waldes liegt?",
+			"Nicht jeden Tag trifft man einen Abenteurer an diesen einsamen Orten.",
+			"Man sagt, es gäbe einen uralten Zauber in diesen... Ach was, ich mache nur Spaß. An diesem Ort gibt es nur Portale. Das ist alles.",
+			"Der letzte Narr, der hier war, wusste nicht, wie man den Raketenwerfer benutzt.",
+			"Unterschätze niemals die Kraft einer Blume im Wald; sie könnte mehr Magie in sich bergen als du dir vorstellst.",
+			"Dies ist eine schlechte Kopie jedes Roguelite-Spiels, das du je gespielt hast.",
+			"Ich hoffe, du erwartest hier nichts Besonderes. Das Einzige, was du finden wirst, ist Zeitverschwendung.",
+			"Ein mutiger Abenteurer! Oder nur ein weiterer Idiot, der am Ende tot sein wird, von Goblins tief im Verlies zur Strecke gebracht",
+			"Manchmal, wenn der Wind gerade richtig weht, kannst du... absolut nichts hören. Der Hintergrundton sollte verbessert werden!",
+			"Drei Waffen sind genug!",
+			"Wechsle die Waffen durch Drücken von LB auf dem Controller oder C auf der Tastatur.",
+			"Moment, du liest das immer noch? Du musst Dialoge wirklich lieben... verschwommene Dialoge.",
+			"Orks verursachen Kontaktschaden, ich würde versuchen, mich von ihnen fernzuhalten.",
+			"Finde und kombiniere Power-ups, um dem Gameplay Abwechslung zu verleihen!",
+			"Diagonales Laufen gibt dir mehr Geschwindigkeit, wie in System Shook 2 oder Thief.",
+			"Alt+F4 öffnet die Befehlskonsole",
+			"Viel Glück mit dem schlechten Design 🥱",
+			"Liegt es nur an mir, oder hat sich dieser Baum gerade bewegt?",
+			"Bruh.",
+			"Die Power-ups sind stapelbar, also versuche, so viele wie möglich zu sammeln",
+			"Dunkle Level? Du leuchtest, Bruder. Aber tick-tack, die Uhr tickt! Versuche durch das rote Portal zu entkommen. Es gibt allerdings eine Überraschung.",
+			"Vielleicht glaubst du es verdammt nochmal nicht, aber wenn du wegrennst, vermeidest du die meisten Kämpfe mit den Feinden, außer dem Kontaktschaden.",
+			"Kannst du es glauben, jemand sagte, seine höchste Killserie war 666. Ich bin nie über 100 gekommen, na ja, einmal war ich betrunken und in Trance und kam knapp über 100.",
+			"Zunächst scheint es, als würde die Schrotflinte nicht vom Mehr-Schaden-Power-up profitieren, aber es wirkt sich aus, warte nur ab.",
+			"Ich habe Kräfte und du siehst aus wie jemand, der nicht weiß, wie man mit Waffen umgeht, also bekommst du jedes Mal, wenn du stirbst, automatisch ein paar Kugeln."
+		]
 	}
 }

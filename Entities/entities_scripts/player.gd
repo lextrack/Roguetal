@@ -147,6 +147,12 @@ func detect_input_device() -> void:
 
 func target_mouse() -> void:
 	if not is_dead and weapons_container.visible:
+		var config = ConfigFile.new()
+		var mouse_sensitivity = 1.0
+		
+		if config.load("user://options_settings.cfg") == OK:
+			mouse_sensitivity = config.get_value("controls", "mouse_sensitivity", 1.0)
+			
 		var mouse_movement = get_global_mouse_position()
 		weapons_container.look_at(mouse_movement)
 		rot = rad_to_deg((mouse_movement - global_position).angle())
@@ -159,6 +165,12 @@ func joystick_aiming(delta: float) -> void:
 		direction.y = Input.get_action_strength("rs_down") - Input.get_action_strength("rs_up")
 
 		if direction.length() > gamepad_deadzone:
+			var config = ConfigFile.new()
+			var mouse_sensitivity = 1.0
+			
+			if config.load("user://options_settings.cfg") == OK:
+				mouse_sensitivity = config.get_value("controls", "mouse_sensitivity", 1.0)
+				
 			weapons_container.rotation = direction.angle()
 			rot = rad_to_deg(direction.angle())
 			update_weapon_flip()
@@ -588,8 +600,8 @@ func switch_weapon():
 func take_damage(damage: float):
 	if not is_in_portal:
 		var defense_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.DEFENSE)
-		var actual_damage = damage / defense_multiplier
-		player_data.health -= actual_damage
+		var reduced_damage = damage / defense_multiplier
+		player_data.health -= reduced_damage
 		if not is_flashing:
 			flash_damage()
 		if player_data.health <= 0:

@@ -1,6 +1,6 @@
 {
 	"es": {
-		"kills_text": "Kills: {0}",
+		"kills_text": "Bajas: {0}",
 		"time_text": "Tiempo: {0}",
 		"highest_streak_text": "Racha: {0}",
 		"countdown_warning_text": "Luz:",
@@ -19,7 +19,8 @@
 		"button_save": "Guardar",
 		"button_cancel": "Cancelar",
 		"powerup_hud_check": "Mostrar HUD de Power-ups",
-		"instructions_check": "Mostrar Instrucciones"
+		"instructions_check": "Mostrar Instrucciones",
+		"mouse_sensitivity_label": "Sensibilidad del cursor"
 	},
 	"en": {
 		"kills_text": "Kills: {0}",
@@ -41,7 +42,8 @@
 		"button_save": "Save",
 		"button_cancel": "Cancel",
 		"powerup_hud_check": "Show Power-up HUD",
-		"instructions_check": "Show Instructions"
+		"instructions_check": "Show Instructions",
+		"mouse_sensitivity_label": "Mouse Sensitivity"
 	},
 	"zh": {
 		"kills_text": "击杀数: {0}",
@@ -63,7 +65,8 @@
 		"button_save": "保存设置",
 		"button_cancel": "取消",
 		"powerup_hud_check": "显示能力提升HUD",
-		"instructions_check": "显示说明"
+		"instructions_check": "显示说明",
+		"mouse_sensitivity_label": "鼠标灵敏度"
 	},
 	"pt": {
 		"kills_text": "Abates: {0}",
@@ -85,10 +88,11 @@
 		"button_save": "Salvar",
 		"button_cancel": "Cancelar",
 		"powerup_hud_check": "Mostrar HUD de Power-ups",
-		"instructions_check": "Mostrar Instruções"
+		"instructions_check": "Mostrar Instruções",
+		"mouse_sensitivity_label": "Sensibilidade do Mouse"
 	},
 	"pl": {
-		"kills_text": "Zabicia: {0}",
+		"kills_text": "Zabici: {0}",
 		"time_text": "Czas: {0}",
 		"highest_streak_text": "Seria: {0}",
 		"countdown_warning_text": "Światło:",
@@ -110,25 +114,49 @@
 		"instructions_check": "Pokaż instrukcje"
 	},
 	"ja": {
-	   "kills_text": "キル数: {0}",
-	   "time_text": "タイム: {0}",
-	   "highest_streak_text": "連続キル: {0}",
-	   "countdown_warning_text": "ライト:",
-	   "play_button": "プレイ",
-	   "credits_button": "クレジット",
-	   "quit_button": "終了",
-	   "language_button": "日本語",
-	   "close_credits_button": "閉じる",
-	   "resume_button": "続ける", 
-	   "quit_button_pause": "終了",
-	   "options_button": "設定",
-	   "fullscreen_check": "フルスクリーン",
-	   "options_menu": "設定メニュー",
-	   "options_pause": "設定",
-	   "volume_label_game": "音量設定",
-	   "button_save": "保存",
-	   "button_cancel": "キャンセル",
-	   "powerup_hud_check": "パワーアップHUDを表示",
-	   "instructions_check": "説明を表示"
+		"kills_text": "キル数: {0}",
+		"time_text": "タイム: {0}",
+		"highest_streak_text": "連続キル: {0}",
+		"countdown_warning_text": "ライト:",
+		"play_button": "プレイ",
+		"credits_button": "クレジット",
+		"quit_button": "終了",
+		"language_button": "日本語",
+		"close_credits_button": "閉じる",
+		"resume_button": "続ける", 
+		"quit_button_pause": "終了",
+		"options_button": "設定",
+		"fullscreen_check": "フルスクリーン",
+		"options_menu": "設定メニュー",
+		"options_pause": "設定",
+		"volume_label_game": "音量設定",
+		"button_save": "保存",
+		"button_cancel": "キャンセル",
+		"powerup_hud_check": "パワーアップHUDを表示",
+		"instructions_check": "説明を表示",
+		"mouse_sensitivity_label": "マウス感度"
+	},
+	"de": {
+		"kills_text": "Kills: {0}",
+		"time_text": "Zeit: {0}",
+		"highest_streak_text": "Serie: {0}",
+		"countdown_warning_text": "Licht:",
+		"play_button": "Spielen",
+		"credits_button": "Credits",
+		"quit_button": "Beenden",
+		"language_button": "Deutsch",
+		"close_credits_button": "Schließen",
+		"resume_button": "Fortsetzen",
+		"quit_button_pause": "Beenden",
+		"options_button": "Optionen",
+		"fullscreen_check": "Vollbild",
+		"options_menu": "Optionsmenü",
+		"options_pause": "Optionen",
+		"volume_label_game": "Lautstärke einstellen",
+		"button_save": "Speichern",
+		"button_cancel": "Abbrechen",
+		"powerup_hud_check": "Power-up HUD anzeigen",
+		"instructions_check": "Anleitung anzeigen",
+		"mouse_sensitivity_label": "Maus-Empfindlichkeit"
 	}
 }

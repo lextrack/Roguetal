@@ -11,6 +11,8 @@ extends Control
 @onready var volume_label_game: Label = $PanelOpciones/VBoxContainer/volume_label
 @onready var button_save: Button = $PanelOpciones/VBoxContainer/VBoxContainer/button_save
 @onready var button_cancel: Button = $PanelOpciones/VBoxContainer/VBoxContainer/button_cancel
+@onready var mouse_sensitivity_label: Label = $PanelOpciones/VBoxContainer/mouse_sensitivity_label
+@onready var mouse_sensitivity_slider: HSlider = $PanelOpciones/VBoxContainer/MouseSensitivitySlider
 
 var initial_settings = {}
 var has_unsaved_changes = false
@@ -30,6 +32,7 @@ func _ready():
 		return
 	
 	_setup_volume_slider()
+	_setup_mouse_sensitivity_slider()
 	_setup_resolution_option()
 	_connect_signals()
 	load_config()
@@ -38,6 +41,7 @@ func _ready():
 	
 	focusable_elements = [
 		volumen_slider,
+		mouse_sensitivity_slider,
 		fullscreen_check,
 		powerup_hud_check,
 		instructions_check,
@@ -54,6 +58,19 @@ func _ready():
 	hide()
 	
 	visibility_changed.connect(_on_visibility_changed)
+	
+func _setup_mouse_sensitivity_slider() -> void:
+	mouse_sensitivity_slider.min_value = 0.1
+	mouse_sensitivity_slider.max_value = 1.0
+	mouse_sensitivity_slider.step = 0.1
+	mouse_sensitivity_slider.value_changed.connect(_update_sensitivity_label)
+
+func _update_sensitivity_label(value: float) -> void:
+	mouse_sensitivity_label.text = TranslationManager.get_text("mouse_sensitivity_label") + " " + str(int(value * 100)) + "%"
+
+func _on_mouse_sensitivity_changed(value: float) -> void:
+	Events.emit_signal("mouse_sensitivity_changed", value)
+	_on_setting_changed()
 
 func _on_hide_menu() -> void:
 	for element in focusable_elements:
@@ -89,6 +106,8 @@ func handle_menu_navigation() -> void:
 		match current_selection:
 			0:  # Volumen Slider
 				volumen_slider.value -= volumen_slider.step
+			1:  # Mouse Sensitivity Slider
+				mouse_sensitivity_slider.value -= mouse_sensitivity_slider.step
 			4:  # Resolution Option
 				current_resolution_index = (current_resolution_index - 1 + available_resolutions.size()) % available_resolutions.size()
 				_update_resolution_button_text()
@@ -98,6 +117,8 @@ func handle_menu_navigation() -> void:
 		match current_selection:
 			0:  # Volumen Slider
 				volumen_slider.value += volumen_slider.step
+			1:  # Mouse Sensitivity Slider
+				mouse_sensitivity_slider.value += mouse_sensitivity_slider.step
 			4:  # Resolution Option
 				current_resolution_index = (current_resolution_index + 1) % available_resolutions.size()
 				_update_resolution_button_text()
@@ -123,6 +144,8 @@ func _handle_element_activation() -> void:
 	
 	match current_element:
 		volumen_slider:
+			pass
+		mouse_sensitivity_slider:
 			pass
 		fullscreen_check:
 			fullscreen_check.button_pressed = !fullscreen_check.button_pressed
@@ -179,6 +202,9 @@ func _connect_signals() -> void:
 	if !volumen_slider.value_changed.is_connected(_on_volumen_slider_value_changed):
 		volumen_slider.value_changed.connect(_on_volumen_slider_value_changed)
 	
+	if !mouse_sensitivity_slider.value_changed.is_connected(_on_mouse_sensitivity_changed):
+		mouse_sensitivity_slider.value_changed.connect(_on_mouse_sensitivity_changed)
+	
 	if !fullscreen_check.toggled.is_connected(_on_fullscreen_check_toggled):
 		fullscreen_check.toggled.connect(_on_fullscreen_check_toggled)
 
@@ -213,9 +239,10 @@ func _setup_volume_slider() -> void:
 	volumen_slider.value_changed.connect(_update_volume_label)
 
 func _store_initial_settings() -> void:
-	if volumen_slider and fullscreen_check and powerup_hud_check:
+	if volumen_slider and fullscreen_check and powerup_hud_check and mouse_sensitivity_slider:
 		initial_settings = {
 			"volumen": volumen_slider.value,
+			"mouse_sensitivity": mouse_sensitivity_slider.value,
 			"fullscreen": fullscreen_check.button_pressed,
 			"resolution": current_resolution_index,
 			"powerup_hud": powerup_hud_check.button_pressed,
@@ -229,6 +256,7 @@ func _check_for_changes() -> bool:
 		
 	return (
 		initial_settings["volumen"] != volumen_slider.value or
+		initial_settings["mouse_sensitivity"] != mouse_sensitivity_slider.value or
 		initial_settings["fullscreen"] != fullscreen_check.button_pressed or
 		initial_settings["resolution"] != current_resolution_index or
 		initial_settings["powerup_hud"] != powerup_hud_check.button_pressed or
@@ -274,7 +302,8 @@ func _on_language_button_pressed() -> void:
 		"es": "zh",
 		"zh": "pt",
 		"pt": "ja",
-		"ja": "en"
+		"ja": "de",
+		"de": "en"
 	}
 	
 	var next_language = language_rotation.get(TranslationManager.current_language, "en")
@@ -292,6 +321,7 @@ func update_language_button_text() -> void:
 	instructions_check.text = TranslationManager.get_text("instructions_check")
 	options_menu.text = TranslationManager.get_text("options_menu")
 	_update_volume_label(volumen_slider.value)
+	_update_sensitivity_label(mouse_sensitivity_slider.value)
 	button_save.text = TranslationManager.get_text("button_save")
 	button_cancel.text = TranslationManager.get_text("button_cancel")
 
@@ -310,6 +340,7 @@ func save_config() -> void:
 	var config = ConfigFile.new()
 	
 	config.set_value("audio", "volumen", volumen_slider.value)
+	config.set_value("controls", "mouse_sensitivity", mouse_sensitivity_slider.value)
 	config.set_value("video", "fullscreen", fullscreen_check.button_pressed)
 	config.set_value("video", "resolution_index", current_resolution_index)
 	config.set_value("interface", "powerup_hud", powerup_hud_check.button_pressed)
@@ -369,6 +400,11 @@ func _apply_config(config: ConfigFile) -> void:
 		var vol = config.get_value("audio", "volumen", 1.0)
 		volumen_slider.value = vol
 		_on_volumen_slider_value_changed(vol)
+		
+	if mouse_sensitivity_slider:
+		var sensitivity = config.get_value("controls", "mouse_sensitivity", 1.0)
+		mouse_sensitivity_slider.value = sensitivity
+		_on_mouse_sensitivity_changed(sensitivity)
 	
 	var saved_language = config.get_value("language", "current", "en")
 	TranslationManager.set_language(saved_language)
@@ -394,6 +430,10 @@ func _apply_default_config() -> void:
 	if volumen_slider:
 		volumen_slider.value = 1.0
 		_on_volumen_slider_value_changed(1.0)
+		
+	if mouse_sensitivity_slider:
+		mouse_sensitivity_slider.value = 1.0
+		_on_mouse_sensitivity_changed(1.0)
 	
 	TranslationManager.set_language("en")
 	update_language_button_text()
