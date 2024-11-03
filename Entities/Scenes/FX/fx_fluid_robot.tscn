@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5k767mutwinx"]
+[gd_scene load_steps=5 format=3 uid="uid://dd8fqwl370t5c"]
 
-[ext_resource type="Texture2D" uid="uid://cqytdejq2ihra" path="res://Sprites/blood_splatter_sprite_sheet.png" id="1_euwoq"]
+[ext_resource type="Texture2D" uid="uid://kqx62h7hbajl" path="res://Sprites/fluid_splatter_sprite_sheet.png" id="1_knxt5"]
 
 [sub_resource type="Animation" id="Animation_pry0o"]
 length = 0.001
@@ -43,7 +43,7 @@ _data = {
 [node name="fx_blood" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_euwoq")
+texture = ExtResource("1_knxt5")
 hframes = 7
 
 [node name="blood_animation" type="AnimationPlayer" parent="."]

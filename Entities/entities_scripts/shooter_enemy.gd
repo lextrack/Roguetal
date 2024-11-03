@@ -21,30 +21,30 @@ var is_attacking = false
 var path_update_timer : Timer
 var reposition_timer : Timer
 var idle_timer : Timer
+
+@export var optimal_attack_distance = 130.0 # Optimal distance to attack from
+@export var strafe_speed_multiplier = 0.7 # Speed multiplier while strafing
+@export var retreat_threshold = 0.3 # Health threshold for retreat (30%)
+@export var dodge_cooldown = 2.0 # Time between dodges
+@export var dodge_chance = 0.3 # Probability to perform a dodge
+@export var flank_distance = 100.0 # Distance for flanking maneuvers
+@export var max_shots_before_reposition = 3 # Maximum shots before repositioning
+@export var optimal_distance_tolerance = 30.0 # Tolerance range for optimal distance
+@export var distance_adjustment_speed = 0.2 # Speed for position adjustments
+
+var current_shots = 0 # Counter for shots fired
+var dodge_timer = 0.0 # Timer for dodge cooldown
+var is_strafing = false # Strafing movement state
+var strafe_direction = 1 # Strafing direction (1 or -1)
+var last_strafe_change = 0.0 # Timer for strafe direction changes
 var speed # The actual speed of this enemy instance
 var max_allowed_speed = 110 # Maximum allowed speed for any enemy
 
-@export var optimal_attack_distance = 130.0  # Optimal distance to attack from
-@export var strafe_speed_multiplier = 0.7    # Speed multiplier while strafing
-@export var retreat_threshold = 0.3          # Health threshold for retreat (30%)
-@export var dodge_cooldown = 2.0             # Time between dodges
-@export var dodge_chance = 0.3               # Probability to perform a dodge
-@export var flank_distance = 100.0           # Distance for flanking maneuvers
-@export var max_shots_before_reposition = 3  # Maximum shots before repositioning
-@export var optimal_distance_tolerance = 30.0 # Tolerance range for optimal distance
-@export var distance_adjustment_speed = 0.2   # Speed for position adjustments
-
-var current_shots = 0                        # Counter for shots fired
-var dodge_timer = 0.0                        # Timer for dodge cooldown
-var is_strafing = false                      # Strafing movement state
-var strafe_direction = 1                     # Strafing direction (1 or -1)
-var last_strafe_change = 0.0                # Timer for strafe direction changes
-
-@export var projectile_detection_radius_bazooka = 110.0  # Detection radius for bazooka projectiles
-@export var projectile_detection_radius_normal = 85.0    # Detection radius for standard projectiles
-@export var dodge_speed_multiplier_bazooka = 1.2        # Dodge speed multiplier for bazooka
-@export var dodge_speed_multiplier_normal = 1.3         # Dodge speed multiplier for standard projectiles
-@export var dodge_duration = 0.3                        # Duration of dodge movement
+@export var projectile_detection_radius_bazooka = 110.0 # Detection radius for bazooka projectiles
+@export var projectile_detection_radius_normal = 85.0 # Detection radius for standard projectiles
+@export var dodge_speed_multiplier_bazooka = 1.2 # Dodge speed multiplier for bazooka
+@export var dodge_speed_multiplier_normal = 1.3 # Dodge speed multiplier for standard projectiles
+@export var dodge_duration = 0.3 # Duration of dodge movement
 
 @export var base_damage = 0.2
 @export var max_accuracy_distance = 70.0
@@ -54,7 +54,7 @@ var last_strafe_change = 0.0                # Timer for strafe direction changes
 @export var max_damage_variability = 0.1
 @export var base_speed = 100 # The base movement speed of the enemy
 @export var speed_variation = 30 # The range of speed variation
-@export var max_health: float = 65.0 # The maximum health points of the enemy
+@export var max_health: float = 60.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.7 # Time (in seconds) between enemy attacks
 @export var chase_range = 165.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 10.0 # Distance for detecting and avoiding obstacles
@@ -741,9 +741,9 @@ func flash_damage():
 	await get_tree().create_timer(0.1).timeout
 	normal_sprite.modulate = Color(1, 1, 1)
 
-# Create blood effect on death
+# Create fluid effect on death
 func instance_fx():
-	var fx_blood = preload("res://Entities/Scenes/FX/fx_blood.tscn")
+	var fx_blood = preload("res://Entities/Scenes/FX/fx_fluid_robot.tscn")
 	var fx = fx_blood.instantiate()
 	var random_offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
 	fx.global_position = global_position + random_offset

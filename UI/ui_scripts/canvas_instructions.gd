@@ -7,7 +7,6 @@ var current_page_index = 0
 
 func _ready():
 	initialize_timer()
-	
 	setup_panel()
 	
 	TranslationManager.language_changed.connect(load_instructions)

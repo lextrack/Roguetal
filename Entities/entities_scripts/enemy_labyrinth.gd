@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 enum enemy_state {IDLE, PATROL, CHASE, ATTACK, REPOSITION}
 var current_state = enemy_state.IDLE
+var current_animation_state = "idle"
 
 static var last_hit_sound_time = 0
 static var last_death_sound_time = 0
@@ -20,15 +21,14 @@ var is_attacking = false
 var path_update_timer : Timer
 var reposition_timer : Timer
 var idle_timer : Timer
+var speed # The actual speed of this enemy instance
+var max_allowed_speed = 100 # Maximum allowed speed for any enemy
 
 @export var base_speed = 95 # The base movement speed of the enemy
-@export var speed_variation = 30 # The range of speed variation
-
-var speed # The actual speed of this enemy instance
-var max_allowed_speed = 105 # Maximum allowed speed for any enemy
+@export var speed_variation = 20 # The range of speed variation
 @export var max_health: float = 50.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.6 # Time (in seconds) between enemy attacks
-@export var chase_range = 140.0 # Distance at which the enemy starts to chase the player
+@export var chase_range = 160.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 5.0 # Distance for detecting and avoiding obstacles
 @export var reposition_distance = 30.0 # Distance the enemy moves to reposition during combat
 @export var attack_damage = 0.2 # Damage dealt by the enemy in each attack
@@ -188,6 +188,12 @@ func chase_state(delta):
 
 	var distance_to_target = global_position.distance_to(target.global_position)
 	
+	var speed_multiplier = 1.0
+	if distance_to_target > chase_range * 0.7:
+		speed_multiplier = 1.2
+	elif distance_to_target < attack_range * 1.5:
+		speed_multiplier = 0.8 
+		
 	if distance_to_target <= attack_range:
 		current_state = enemy_state.ATTACK
 	elif distance_to_target > chase_range:
@@ -199,7 +205,7 @@ func chase_state(delta):
 	if not navigation_agent.is_navigation_finished() and not is_attacking:
 		var direction = global_position.direction_to(navigation_agent.get_next_path_position())
 		direction = avoid_obstacles(direction)
-		velocity = direction * speed
+		velocity = direction * speed * speed_multiplier
 		move_and_slide()
 		play_movement_animation(direction)
 
@@ -212,25 +218,33 @@ func attack_state(delta):
 		return
 
 	var distance_to_target = global_position.distance_to(target.global_position)
+	var direction_to_target = global_position.direction_to(target.global_position)
 	
 	if distance_to_target <= attack_range:
-		if attack_cooldown <= 0:
-			perform_attack()
-		else:
-			# Stop moving when in attack range
+		if attack_cooldown > 0:
 			velocity = Vector2.ZERO
+		else:
+			perform_attack()
 	else:
-		current_state = enemy_state.CHASE
-		is_attacking = false
-		stop_attack_animation()
+		velocity = direction_to_target * speed * 1.2
+		move_and_slide()
+		play_movement_animation(direction_to_target)
 
 # Reposition state: enemy moves to a new position after attacking
 func reposition_state(delta):
-	var direction = global_position.direction_to(navigation_agent.get_next_path_position())
-	direction = avoid_obstacles(direction)
-	velocity = direction * speed
+	var to_target = global_position.direction_to(target.global_position)
+	var distance = global_position.distance_to(target.global_position)
+	
+	if distance < attack_range * 1.5:
+		var escape_direction = -to_target.rotated(PI/4 * (1 if randf() > 0.5 else -1))
+		velocity = escape_direction * speed
+	else:
+		var direction = global_position.direction_to(navigation_agent.get_next_path_position())
+		direction = avoid_obstacles(direction)
+		velocity = direction * speed
+		
 	move_and_slide()
-	play_movement_animation(direction)
+	play_movement_animation(velocity.normalized())
 	
 	if navigation_agent.is_navigation_finished():
 		current_state = enemy_state.CHASE
@@ -267,11 +281,14 @@ func play_idle_animation():
 # Perform an attack on the player
 func perform_attack():
 	is_attacking = true
+	current_animation_state = "attack"
+	
 	if global_position.distance_to(target.global_position) <= attack_range:
 		if target.has_method("take_damage") and not target.is_dead and not target.is_in_portal:
 			target.take_damage(attack_damage)
-	attack_cooldown = attack_cooldown_time
+	
 	play_attack_animation()
+	attack_cooldown = attack_cooldown_time
 
 func stop_attack_animation():
 	if attack_animation_enemy.is_playing():
@@ -319,22 +336,30 @@ func avoid_obstacles(direction):
 
 # Play movement animation based on direction
 func play_movement_animation(direction):
-	if is_attacking:
+	if is_attacking or current_animation_state == "attack":
 		return
 	
 	exit_idle_state()
 	if velocity.length() > 0:
+		current_animation_state = "move"
+		
+		# Determinar la animación basada en la dirección dominante
 		if abs(direction.x) > abs(direction.y):
 			if direction.x > 0:
-				move_animation_enemy.play("move_right")
+				if not move_animation_enemy.is_playing() or move_animation_enemy.current_animation != "move_right":
+					move_animation_enemy.play("move_right")
 			else:
-				move_animation_enemy.play("move_left")
+				if not move_animation_enemy.is_playing() or move_animation_enemy.current_animation != "move_left":
+					move_animation_enemy.play("move_left")
 		else:
 			if direction.y > 0:
-				move_animation_enemy.play("move_down")
+				if not move_animation_enemy.is_playing() or move_animation_enemy.current_animation != "move_down":
+					move_animation_enemy.play("move_down")
 			else:
-				move_animation_enemy.play("move_up")
+				if not move_animation_enemy.is_playing() or move_animation_enemy.current_animation != "move_up":
+					move_animation_enemy.play("move_up")
 	else:
+		current_animation_state = "idle"
 		play_idle_animation()
 
 # Play attack animation based on direction to player
@@ -342,24 +367,29 @@ func play_attack_animation():
 	if not is_instance_valid(target):
 		return
 
+	current_animation_state = "attack"
+	move_animation_enemy.stop()
+	normal_sprite.hide()
+	
 	var direction = global_position.direction_to(target.global_position)
 	var animation_name = "attack_right"
 	
+	# Determinar la dirección del ataque
 	if abs(direction.x) > abs(direction.y):
 		animation_name = "attack_right" if direction.x > 0 else "attack_left"
 	else:
 		animation_name = "attack_down" if direction.y > 0 else "attack_up"
 	
-	normal_sprite.hide()
 	attack_sprite.show()
-	
 	play_attack_sound()
 	
 	attack_animation_enemy.play(animation_name)
 	await attack_animation_enemy.animation_finished
+	
 	normal_sprite.show()
 	attack_sprite.hide()
 	is_attacking = false
+	current_animation_state = "idle"
 
 # Coolddown the sound effect
 func play_attack_sound():
@@ -454,7 +484,7 @@ func instance_fx():
 # Spawn ammo pickup on death
 func instance_ammo():
 	var drop_chance = randf()
-	if drop_chance < 0.8:
+	if drop_chance < 0.9:
 		var ammo_scene = preload("res://Interactables/Scenes/ammo_1.tscn")
 		var ammo = ammo_scene.instantiate()
 		ammo.global_position = global_position

@@ -24,6 +24,7 @@ func _ready() -> void:
 	# Called when the scene is ready, sets up the level, plays music
 	randomize()
 	generate_level()
+	
 	if not MusicDungeon.is_playing_level_music:
 		MusicDungeon.play_music_level()
 	MusicMainLevel.stop()
@@ -235,7 +236,7 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(5, 15)
+	var total_enemies_to_spawn = randi_range(10, 15)
 	
 	var min_enemies_per_type = 5
 	var enemy_1_count = 0

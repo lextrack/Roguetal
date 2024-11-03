@@ -12,3 +12,13 @@ res://Dialogues/dialogues.json
 res://Entities/Scenes/Characters/vampire_girl_npc.tscn
 res://Levels/level_generator_scripts/main_dungeon.gd
 res://Entities/entities_scripts/shooter_enemy.gd
+res://Entities/entities_scripts/enemy_1.gd
+res://Entities/Scenes/Enemies/enemy_1.tscn
+res://Entities/Scenes/FX/fx_blood.tscn
+res://UI/ui_scenes/main_menu.tscn
+res://Entities/Scenes/FX/fx_fluid_robot.tscn
+res://Entities/entities_scripts/enemy_labyrinth.gd
+res://UI/ui_scenes/damage_label.tscn
+res://UI/ui_scripts/canvas_instructions.gd
+res://UI/ui_scripts/canvas_instructions_dungeon.gd
+res://UI/ui_scripts/damage_label.gd

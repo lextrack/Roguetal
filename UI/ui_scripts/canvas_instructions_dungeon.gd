@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-@export var display_time : float = 3.0
-var timer : Timer
+@export var display_time: float = 3.0
+var timer: Timer
 var instructions_pages = []
 var current_page_index = 0
 

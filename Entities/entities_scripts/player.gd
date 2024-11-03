@@ -3,13 +3,9 @@ extends CharacterBody2D
 enum player_states {MOVE, DEAD}
 
 const MAGNET_RADIUS = 100.0
-
-var heat_level = 0.0
 const MAX_HEAT = 100.0
 const HEAT_COOLDOWN = 30.0
 const OVERHEAT_PENALTY_TIME = 1.5
-var is_overheated = false
-var overheat_timer = 0.0
 
 @export var contact_damage = 0.02
 @export var speed: int
@@ -17,7 +13,7 @@ var overheat_timer = 0.0
 @export var walk_sound_interval = 0.4
 @export var rapid_shoot_delay: float = 0.1
 @export var bazooka_shoot_delay: float = 0.6
-@export var damage_interval = 0.2
+@export var damage_interval = 0.1
 
 @onready var bullet_scenes = {
 	"bazooka": preload("res://Entities/Scenes/Bullets/bullet_1.tscn"),
@@ -49,10 +45,13 @@ var overheat_timer = 0.0
 @onready var audio_stream_weapon_switch: AudioStreamPlayer2D = $Sounds/AudioStreamWeaponSwitch
 @onready var smoke_particles_scene = preload("res://Entities/Scenes/FX/smoke_particles.tscn")
 
+var current_state = player_states.MOVE
+var heat_level = 0.0
+var is_overheated = false
+var overheat_timer = 0.0
 var light_transition_tween: Tween
 var is_weapon_switching = false
 var light_disabled_by_timer = false
-var current_state = player_states.MOVE
 var is_dead = false
 var is_using_gamepad = false
 var last_input_time = 0.0
