@@ -5,7 +5,9 @@ enum player_states {MOVE, DEAD}
 const MAGNET_RADIUS = 100.0
 const MAX_HEAT = 100.0
 const HEAT_COOLDOWN = 30.0
-const OVERHEAT_PENALTY_TIME = 1.5
+const OVERHEAT_PENALTY_TIME = 1.2
+const CONFIG_PATH = "user://options_settings.cfg"
+const DEFAULT_SENSITIVITY = 1.0
 
 @export var contact_damage = 0.02
 @export var speed: int
@@ -14,6 +16,7 @@ const OVERHEAT_PENALTY_TIME = 1.5
 @export var rapid_shoot_delay: float = 0.1
 @export var bazooka_shoot_delay: float = 0.6
 @export var damage_interval = 0.1
+@export var gamepad_deadzone: float = 0.1
 
 @onready var bullet_scenes = {
 	"bazooka": preload("res://Entities/Scenes/Bullets/bullet_1.tscn"),
@@ -55,7 +58,6 @@ var light_disabled_by_timer = false
 var is_dead = false
 var is_using_gamepad = false
 var last_input_time = 0.0
-var gamepad_deadzone = 0.0
 var walk_sound_timer = 0.0
 var shoot_timer: float = 0.0
 var is_in_portal = false
@@ -131,69 +133,72 @@ func _on_magnet_area_area_entered(area: Area2D):
 	if area.is_in_group("ammo") and area.has_method("start_attraction"):
 		area.start_attraction(self)
 
+func get_mouse_sensitivity() -> float:
+	var config = ConfigFile.new()
+	if config.load(CONFIG_PATH) == OK:
+		return config.get_value("controls", "mouse_sensitivity", DEFAULT_SENSITIVITY)
+	return DEFAULT_SENSITIVITY
+
 func detect_input_device() -> void:
-	var gamepad_input = abs(Input.get_action_strength("rs_right")) + abs(Input.get_action_strength("rs_left")) + abs(Input.get_action_strength("rs_up")) + abs(Input.get_action_strength("rs_down"))
+	var gamepad_input = _get_total_gamepad_input()
 	var mouse_movement = Input.get_last_mouse_velocity()
-
+	
 	if gamepad_input > gamepad_deadzone:
-		is_using_gamepad = true
-		cursor_script.is_using_gamepad = true
-		last_input_time = Time.get_ticks_msec()
+		_switch_to_gamepad(true)
 	elif mouse_movement.length() > 0:
-		is_using_gamepad = false
-		cursor_script.is_using_gamepad = false
-
+		_switch_to_gamepad(false)
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
+func _get_total_gamepad_input() -> float:
+	return abs(Input.get_action_strength("rs_right")) + \
+		abs(Input.get_action_strength("rs_left")) + \
+		abs(Input.get_action_strength("rs_up")) + \
+		abs(Input.get_action_strength("rs_down"))
+
+func _switch_to_gamepad(use_gamepad: bool) -> void:
+	is_using_gamepad = use_gamepad
+	cursor_script.is_using_gamepad = use_gamepad
+	if use_gamepad:
+		last_input_time = Time.get_ticks_msec()
+
 func target_mouse() -> void:
-	if not is_dead and weapons_container.visible:
-		var config = ConfigFile.new()
-		var mouse_sensitivity = 1.0
-		
-		if config.load("user://options_settings.cfg") == OK:
-			mouse_sensitivity = config.get_value("controls", "mouse_sensitivity", 1.0)
-			
-		var mouse_movement = get_global_mouse_position()
-		weapons_container.look_at(mouse_movement)
-		rot = rad_to_deg((mouse_movement - global_position).angle())
-		update_weapon_flip()
+	if _can_update_aim():
+		var mouse_pos = get_global_mouse_position()
+		_update_weapon_rotation((mouse_pos - global_position).angle())
 
 func joystick_aiming(delta: float) -> void:
-	if not is_dead and is_using_gamepad and weapons_container.visible:
-		var direction: Vector2
-		direction.x = Input.get_action_strength("rs_right") - Input.get_action_strength("rs_left")
-		direction.y = Input.get_action_strength("rs_down") - Input.get_action_strength("rs_up")
-
+	if _can_update_aim() and is_using_gamepad:
+		var direction = _get_joystick_direction()
 		if direction.length() > gamepad_deadzone:
-			var config = ConfigFile.new()
-			var mouse_sensitivity = 1.0
-			
-			if config.load("user://options_settings.cfg") == OK:
-				mouse_sensitivity = config.get_value("controls", "mouse_sensitivity", 1.0)
-				
-			weapons_container.rotation = direction.angle()
-			rot = rad_to_deg(direction.angle())
-			update_weapon_flip()
-			
-func update_visible_weapon():
-	for i in range(weapons.size()):
-		var weapon = weapons[i]
-		if i == current_weapon_index:
-			weapon.visible = true
-			weapon.scale = Vector2(1, 1)
-			weapon.rotation_degrees = 0
-		else:
-			weapon.visible = false
+			_update_weapon_rotation(direction.angle())
 
-func update_weapon_flip():
-	var current_weapon = weapons[current_weapon_index]
-	var gun_sprite = current_weapon.get_node("gun_sprite")
-	if rot >= -90 and rot <= 90:
-		gun_sprite.flip_v = false
-		sprite.flip_h = false
-	else:
-		gun_sprite.flip_v = true
-		sprite.flip_h = true
+func _get_joystick_direction() -> Vector2:
+	return Vector2(
+		Input.get_action_strength("rs_right") - Input.get_action_strength("rs_left"),
+		Input.get_action_strength("rs_down") - Input.get_action_strength("rs_up")
+	)
+
+func _can_update_aim() -> bool:
+	return not is_dead and weapons_container.visible
+
+func _update_weapon_rotation(angle: float) -> void:
+	weapons_container.rotation = angle
+	rot = rad_to_deg(angle)
+	update_weapon_flip()
+
+func update_visible_weapon() -> void:
+	for i in weapons.size():
+		weapons[i].visible = (i == current_weapon_index)
+		if i == current_weapon_index:
+			weapons[i].scale = Vector2.ONE
+			weapons[i].rotation_degrees = 0
+
+func update_weapon_flip() -> void:
+	var gun_sprite = weapons[current_weapon_index].get_node("gun_sprite")
+	var should_flip = not (rot >= -90 and rot <= 90)
+	gun_sprite.flip_v = should_flip
+	sprite.flip_h = should_flip
 
 func check_level_and_set_weapon() -> void:
 	var current_scene = get_tree().current_scene
