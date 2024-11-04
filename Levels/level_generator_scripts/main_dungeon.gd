@@ -16,6 +16,7 @@ const min_distance_from_player = 5
 @onready var double_damage_pickup_scene = preload("res://Interactables/Scenes/double_damage_pickup.tscn")
 @onready var double_speed_pickup_scene = preload("res://Interactables/Scenes/double_speed_pickup.tscn")
 @onready var double_defense_pickup_scene = preload("res://Interactables/Scenes/double_defense_pickup_scene.tscn")
+@onready var critical_chance_pickup = preload("res://Interactables/Scenes/critical_chance_pickup.tscn")
 @onready var tilemap = $Tiles/TileMap
 
 @export var borders = Rect2(1, 1, 70, 50)
@@ -68,7 +69,8 @@ func instance_random_powerup() -> void:
 	var powerups = [
 		{"name": "double_defense", "weight": 30},
 		{"name": "double_speed", "weight": 10},
-		{"name": "double_damage", "weight": 20}
+		{"name": "double_damage", "weight": 20},
+		{"name": "critical_chance", "weight": 90}
 	]
 	
 	var total_weight = 0
@@ -92,6 +94,8 @@ func instance_random_powerup() -> void:
 			instance_double_speed_pickup()
 		"double_damage":
 			instance_double_damage_pickup()
+		"critical_chance":
+			instance_critical_chance_pickup()
 			
 func instance_specific_pickup(pickup_scene: PackedScene) -> void:
 	var player_node = get_node("Player")
@@ -123,6 +127,9 @@ func instance_double_speed_pickup() -> void:
 func instance_double_damage_pickup() -> void:
 	instance_specific_pickup(double_damage_pickup_scene)
 
+func instance_critical_chance_pickup() -> void:
+	instance_specific_pickup(critical_chance_pickup)
+	
 func instance_health_pickup() -> void:
 	# Instantiates health pickups at random valid locations on the map
 	var player_node = get_node("Player")

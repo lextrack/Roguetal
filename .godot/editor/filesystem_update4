@@ -3,10 +3,13 @@ res://Entities/entities_scripts/player.gd
 res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
 res://Shaders/flash_shader.gdshader
-res://UI/ui_scripts/OptionsMenu.gd
+res://GlobalPowerUpState.gd
+res://global_power_up_types.gd
 res://Levels/Scenes/main_dungeon.tscn
-res://UI/ui_scenes/OptionsMenu.tscn
 res://UI/ui_scenes/mouse_icon.tscn
-res://Entities/Scenes/FX/scent_trail.tscn
-res://Entities/entities_scripts/shooter_enemy.gd
 res://Levels/level_generator_scripts/main_dungeon.gd
+res://Interactables/Scenes/critical_chance_pickup.tscn
+res://Interactables/interatables_scripts/critical_chance_pickup.gd
+res://Levels/Scenes/main_dungeon_2.tscn
+res://Entities/Scenes/Bullets/bullet_rapid.tscn
+res://Entities/entities_scripts/bullet_rapid.gd

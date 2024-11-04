@@ -1,3 +1,5 @@
+res://Interactables/interatables_scripts
+res://Interactables/Scenes
 res://
 res://Levels/level_generator_scripts
 res://Entities/entities_scripts
@@ -9,7 +11,5 @@ res://Entities/Scenes/FX
 res://Shaders
 C:/C2_Roguelite
 C:/C2_Roguelite/AndroidKeyC2
-res://Interactables/interatables_scripts
-res://Interactables/Scenes
 res://Fonts
 res://Entities/Scenes/Bullets

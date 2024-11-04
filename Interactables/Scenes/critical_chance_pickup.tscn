@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://bo6xqcu8hhy6j"]
+
+[ext_resource type="Script" path="res://Interactables/interatables_scripts/critical_chance_pickup.gd" id="1_51ulx"]
+[ext_resource type="Texture2D" uid="uid://devncfpf0c8l7" path="res://Sprites/Ready Potion I.png" id="2_7s5hx"]
+[ext_resource type="AudioStream" uid="uid://dshr8u3mysecc" path="res://SoundEffects/41529__jamius__potiondrinklong.ogg" id="2_fklab"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vd7fu"]
+
+[sub_resource type="Animation" id="Animation_vl1qe"]
+resource_name = "active"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_0clxu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [19]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7rupb"]
+_data = {
+"RESET": SubResource("Animation_0clxu"),
+"active": SubResource("Animation_vl1qe")
+}
+
+[node name="critical_chance_pickup" type="Area2D"]
+script = ExtResource("1_51ulx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_7s5hx")
+hframes = 6
+vframes = 10
+frame = 19
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vd7fu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7rupb")
+}
+autoplay = "active"
+
+[node name="pickup_object" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_fklab")
+panning_strength = 0.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

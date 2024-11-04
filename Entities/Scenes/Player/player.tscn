@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://brms7i87pfawr"]
+[gd_scene load_steps=32 format=3 uid="uid://brms7i87pfawr"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/player.gd" id="1_ukrib"]
 [ext_resource type="Shader" path="res://Shaders/hurt.gdshader" id="2_dwf4p"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_v52kv"]
 [ext_resource type="Texture2D" uid="uid://by0g6raqjex4v" path="res://Sprites/bullet_hell_icon.png" id="5_him75"]
 [ext_resource type="Texture2D" uid="uid://dxisc7j5t2hmw" path="res://Sprites/double_defense_icon.png" id="6_7scbk"]
+[ext_resource type="Texture2D" uid="uid://cm8gumdynsn3t" path="res://Sprites/critical.png" id="6_q1p7r"]
 [ext_resource type="Texture2D" uid="uid://cieogogxl8sko" path="res://Sprites/m16_2.png" id="6_r20b8"]
 [ext_resource type="AudioStream" uid="uid://bdst5cjd6a6qn" path="res://SoundEffects/Shot_bazooka.ogg" id="7_tfnia"]
 [ext_resource type="AudioStream" uid="uid://c41s3wtu5ym1u" path="res://SoundEffects/walking_sound1.ogg" id="8_01fvg"]
@@ -253,35 +254,41 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -25.5
-offset_top = 113.929
-offset_right = 25.5
-offset_bottom = 128.929
+offset_left = -34.2857
+offset_top = 111.429
+offset_right = 43.7143
+offset_bottom = 126.429
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="hud_powerup" type="Node2D" parent="ControlPowerUpHud"]
+texture_filter = 2
 position = Vector2(31.4286, 10)
 
 [node name="double_speed_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
-position = Vector2(-25.7143, 0)
-scale = Vector2(0.06, 0.06)
+position = Vector2(-24.2857, -1.42859)
+scale = Vector2(0.07, 0.07)
 texture = ExtResource("3_kwns6")
 
 [node name="double_damage_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
-position = Vector2(-12.8563, 0)
-scale = Vector2(0.06, 0.06)
+position = Vector2(-8.57057, -1.42859)
+scale = Vector2(0.07, 0.07)
 texture = ExtResource("12_erptt")
 
 [node name="double_defense_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
-position = Vector2(0.00088501, 3.05176e-05)
-scale = Vector2(0.06, 0.06)
+position = Vector2(7.14374, -1.42859)
+scale = Vector2(0.07, 0.07)
 texture = ExtResource("6_7scbk")
 
 [node name="bullet_hell_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
-position = Vector2(12.8578, 3.05176e-05)
-scale = Vector2(0.06, 0.06)
+position = Vector2(22.8578, -1.42859)
+scale = Vector2(0.07, 0.07)
 texture = ExtResource("5_him75")
+
+[node name="critical_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
+position = Vector2(38.5715, -1.42859)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("6_q1p7r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1

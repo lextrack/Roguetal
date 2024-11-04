@@ -6,7 +6,8 @@ var multipliers = {
 	PowerUpTypes.PowerUpType.DAMAGE: 1.0,
 	PowerUpTypes.PowerUpType.SPEED: 1.0,
 	PowerUpTypes.PowerUpType.DEFENSE: 1.0,
-	PowerUpTypes.PowerUpType.BULLET_HELL: 0.0
+	PowerUpTypes.PowerUpType.BULLET_HELL: 0.0,
+	PowerUpTypes.PowerUpType.CRITICAL_CHANCE: 1.0  # Nuevo power-up
 }
 
 func reset_power_ups():

@@ -1,3 +1,8 @@
+AudioStreamPlayer2D
+AnimationPlayer
+CollisionShape2D
+Sprite2D
+Area2D
 Label
 HSlider
 RichTextLabel
@@ -8,7 +13,3 @@ Button
 OptionButton
 VBoxContainer
 HBoxContainer
-Panel
-Control
-GPUParticles2D
-AudioStreamPlayer2D

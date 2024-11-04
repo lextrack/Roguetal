@@ -43,6 +43,7 @@ const DEFAULT_SENSITIVITY = 1.0
 @onready var double_damage_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/double_damage_icon
 @onready var double_defense_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/double_defense_icon
 @onready var bullet_hell_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/bullet_hell_icon
+@onready var critical_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/critical_icon
 @onready var power_up_manager = $PowerUpManager
 @onready var point_light: PointLight2D = $PointLight2D
 @onready var audio_stream_weapon_switch: AudioStreamPlayer2D = $Sounds/AudioStreamWeaponSwitch
@@ -116,6 +117,69 @@ func _process(delta: float) -> void:
 		movement(delta)
 		bullet_type_shooting(delta)
 		handle_weapon_switch()
+		
+func power_up_manager_check() -> void:
+	if power_up_manager:
+		power_up_manager.connect("power_up_changed", Callable(self, "_on_power_up_changed"))
+	else:
+		push_error("PowerUpManager not found.")
+
+	for type in PowerUpTypes.PowerUpType.values():
+		_on_power_up_changed(type, power_up_manager.get_multiplier(type))
+
+func _on_power_up_changed(type: int, multiplier: float) -> void:
+	match type:
+		PowerUpTypes.PowerUpType.DAMAGE:
+			update_double_damage_icon(multiplier)
+		PowerUpTypes.PowerUpType.SPEED:
+			speed = base_speed * multiplier
+			update_double_speed_icon(multiplier)
+		PowerUpTypes.PowerUpType.DEFENSE:
+			update_double_defense_icon(multiplier)
+		PowerUpTypes.PowerUpType.BULLET_HELL:
+			update_bullet_hell_icon(multiplier)
+		PowerUpTypes.PowerUpType.CRITICAL_CHANCE:
+			update_critical_icon(multiplier)
+
+func update_double_defense_icon(multiplier: float):
+	if double_defense_icon:
+		double_defense_icon.visible = multiplier > 1.0
+
+func update_double_damage_icon(multiplier: float):
+	if double_damage_icon:
+		double_damage_icon.visible = multiplier > 1.0
+
+func update_double_speed_icon(multiplier: float):
+	if double_speed_icon:
+		double_speed_icon.visible = multiplier > 1.0
+
+func update_bullet_hell_icon(multiplier: float):
+	if bullet_hell_icon:
+		bullet_hell_icon.visible = multiplier >= 1.0
+
+func setup_double_defense_icon():
+	if double_defense_icon:
+		double_defense_icon.visible = false
+
+func setup_double_damage_icon():
+	if double_damage_icon:
+		double_damage_icon.visible = false
+
+func setup_double_speed_icon():
+	if double_speed_icon:
+		double_speed_icon.visible = false
+
+func setup_bullet_hell_icon():
+	if bullet_hell_icon:
+		bullet_hell_icon.visible = false
+		
+func setup_critical_icon():
+	if critical_icon:
+		critical_icon.visible = false
+
+func update_critical_icon(multiplier: float):
+	if critical_icon:
+		critical_icon.visible = multiplier > 1.0
 	
 func setup_magnet_area():
 	if not magnet_area:
@@ -423,23 +487,87 @@ func instance_bullet_hell(bullet_scene: PackedScene, spawn_position: Vector2, da
 	
 func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_direction: Vector2, damage_multiplier: float) -> int:
 	var num_pellets = 4
+	
+	# Cálculo de crítico - se hace una sola vez para todas las balas
+	var crit_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.CRITICAL_CHANCE)
+	var crit_chance = (crit_multiplier - 1.0) * 100
+	var is_critical = randf() * 100 <= crit_chance
+	
+	if is_critical:
+		# Efecto de pantalla y sonido para críticos
+		Globals.camera.screen_shake(1.2, 0.2, 0.1)
+		
+		# Efecto de flash crítico en el arma
+		var current_weapon = weapons[current_weapon_index]
+		if current_weapon.has_node("gun_sprite"):
+			var gun_sprite = current_weapon.get_node("gun_sprite")
+			var tween = create_tween()
+			tween.tween_property(gun_sprite, "modulate",
+				Color(2.0, 1.5, 0.0, 1.0), 0.1)
+			tween.tween_property(gun_sprite, "modulate",
+				Color(1.0, 1.0, 1.0, 0.2), 0.2)
+	
 	for i in range(num_pellets):
 		var bullet = bullet_scene.instantiate()
-		bullet.damage = weapon_damage["shotgun"] * damage_multiplier
+		var final_damage = weapon_damage["shotgun"] * damage_multiplier
+		
+		if is_critical:
+			final_damage *= 2.0
+			apply_critical_effect(bullet, "shotgun")
+			bullet.base_speed = 300  # Velocidad aumentada para críticos
+			bullet.speed_variation = 30  # Menos dispersión en críticos
+		else:
+			bullet.base_speed = 250
+			bullet.speed_variation = 50
+		
+		bullet.damage = final_damage
 		bullet.direction = base_direction
 		bullet.global_position = spawn_position
-		bullet.base_speed = 250
-		bullet.speed_variation = 50
 		bullet.start_delay_max = 0.05
 		get_tree().root.add_child(bullet)
+	
 	$Sounds/AudioStreamShotgunShot.play()
 	return num_pellets
 
 func instance_single_bullet(bullet_scene: PackedScene, spawn_position: Vector2, direction: Vector2, damage_multiplier: float, bullet_type: String) -> int:
 	var bullet = bullet_scene.instantiate()
-	bullet.damage = weapon_damage[bullet_type] * damage_multiplier
+	
+	# Cálculo de crítico
+	var crit_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.CRITICAL_CHANCE)
+	var crit_chance = (crit_multiplier - 1.0) * 100
+	var is_critical = randf() * 100 <= crit_chance
+	
+	var final_damage = weapon_damage[bullet_type] * damage_multiplier
+	if is_critical:
+		final_damage *= 2.0
+		apply_critical_effect(bullet, bullet_type)
+		
+		# Efecto de pantalla y sonido para críticos
+		Globals.camera.screen_shake(0.8, 0.15, 0.1)
+		
+		# Efecto de flash crítico en el arma
+		var current_weapon = weapons[current_weapon_index]
+		if current_weapon.has_node("gun_sprite"):
+			var gun_sprite = current_weapon.get_node("gun_sprite")
+			var tween = create_tween()
+			tween.tween_property(gun_sprite, "modulate",
+				Color(2.0, 1.5, 0.0, 1.0), 0.1)
+			tween.tween_property(gun_sprite, "modulate",
+				Color(1.0, 1.0, 1.0, 1.0), 0.2)
+	
+	bullet.damage = final_damage
 	bullet.direction = direction
 	bullet.global_position = spawn_position
+	
+	# Propiedades específicas por tipo de bala
+	match bullet_type:
+		"m16":
+			bullet.speed = 400 if is_critical else 300
+		"bazooka":
+			if is_critical:
+				bullet.explosion_radius = bullet.explosion_radius * 1.2
+				bullet.speed = bullet.speed * 1.1
+	
 	get_tree().root.add_child(bullet)
 	
 	if bullet_type == "bazooka":
@@ -448,6 +576,39 @@ func instance_single_bullet(bullet_scene: PackedScene, spawn_position: Vector2, 
 		$Sounds/AudioStreamM16Shot.play()
 	
 	return 1
+
+func apply_critical_effect(bullet: Node2D, bullet_type: String) -> void:
+	# Efectos base para cualquier tipo de bala
+	var crit_color = Color(1.5, 1.0, 0.0, 1.0)  # Dorado brillante
+	var crit_scale = Vector2(1.2, 1.2)
+	
+	# Efectos específicos por tipo de bala
+	match bullet_type:
+		"m16":
+			bullet.modulate = Color(1.3, 1.0, 0.0, 1.0)
+			bullet.scale = Vector2(1.6, 1.6)
+			
+			# Añadir trail para balas críticas de m16
+			if bullet.has_node("GPUParticles2D"):
+				var particles = bullet.get_node("GPUParticles2D")
+				particles.modulate = Color(1.5, 1.2, 0.0, 1.0)
+				particles.amount = particles.amount * 1.5
+				
+		"bazooka":
+			# Para la bazooka, efecto más dramático
+			bullet.modulate = crit_color
+			bullet.scale = crit_scale
+			
+			# Si tiene sistema de partículas, modificarlo
+			if bullet.has_node("GPUParticles2D"):
+				var particles = bullet.get_node("GPUParticles2D")
+				particles.modulate = Color(1.5, 1.0, 0.0, 1.0)
+				particles.amount = particles.amount * 2
+				
+		"shotgun":
+			# Para la escopeta, efecto medio
+			bullet.modulate = Color(1.4, 1.0, 0.0, 1.0)
+			bullet.scale = Vector2(1.15, 1.15)
 
 func bullet_type_shooting(delta: float):
 	var current_weapon = weapons[current_weapon_index]
@@ -619,59 +780,6 @@ func increase_health(amount: int) -> void:
 	player_data.health += amount
 	if player_data.health > 4:
 		player_data.health = 4
-		
-func power_up_manager_check() -> void:
-	if power_up_manager:
-		power_up_manager.connect("power_up_changed", Callable(self, "_on_power_up_changed"))
-	else:
-		push_error("PowerUpManager not found.")
-
-	for type in PowerUpTypes.PowerUpType.values():
-		_on_power_up_changed(type, power_up_manager.get_multiplier(type))
-
-func _on_power_up_changed(type: int, multiplier: float) -> void:
-	match type:
-		PowerUpTypes.PowerUpType.DAMAGE:
-			update_double_damage_icon(multiplier)
-		PowerUpTypes.PowerUpType.SPEED:
-			speed = base_speed * multiplier
-			update_double_speed_icon(multiplier)
-		PowerUpTypes.PowerUpType.DEFENSE:
-			update_double_defense_icon(multiplier)
-		PowerUpTypes.PowerUpType.BULLET_HELL:
-			update_bullet_hell_icon(multiplier)
-
-func update_double_defense_icon(multiplier: float):
-	if double_defense_icon:
-		double_defense_icon.visible = multiplier > 1.0
-
-func update_double_damage_icon(multiplier: float):
-	if double_damage_icon:
-		double_damage_icon.visible = multiplier > 1.0
-
-func update_double_speed_icon(multiplier: float):
-	if double_speed_icon:
-		double_speed_icon.visible = multiplier > 1.0
-
-func update_bullet_hell_icon(multiplier: float):
-	if bullet_hell_icon:
-		bullet_hell_icon.visible = multiplier >= 1.0
-
-func setup_double_defense_icon():
-	if double_defense_icon:
-		double_defense_icon.visible = false
-
-func setup_double_damage_icon():
-	if double_damage_icon:
-		double_damage_icon.visible = false
-
-func setup_double_speed_icon():
-	if double_speed_icon:
-		double_speed_icon.visible = false
-
-func setup_bullet_hell_icon():
-	if bullet_hell_icon:
-		bullet_hell_icon.visible = false
 
 func dead() -> void:
 	if not is_dead:
@@ -688,7 +796,7 @@ func dead() -> void:
 		audio_stream_dead_player.play()
 		$player_animation.play("Dead")
 
-		player_data.ammo += 30
+		player_data.ammo += 50
 		player_data.kill_count = 0
 		player_data.reset_kill_streak()
 		
