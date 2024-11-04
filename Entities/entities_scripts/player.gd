@@ -488,16 +488,13 @@ func instance_bullet_hell(bullet_scene: PackedScene, spawn_position: Vector2, da
 func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_direction: Vector2, damage_multiplier: float) -> int:
 	var num_pellets = 4
 	
-	# Cálculo de crítico - se hace una sola vez para todas las balas
 	var crit_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.CRITICAL_CHANCE)
 	var crit_chance = (crit_multiplier - 1.0) * 100
 	var is_critical = randf() * 100 <= crit_chance
 	
 	if is_critical:
-		# Efecto de pantalla y sonido para críticos
 		Globals.camera.screen_shake(1.2, 0.2, 0.1)
 		
-		# Efecto de flash crítico en el arma
 		var current_weapon = weapons[current_weapon_index]
 		if current_weapon.has_node("gun_sprite"):
 			var gun_sprite = current_weapon.get_node("gun_sprite")
@@ -514,8 +511,8 @@ func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_d
 		if is_critical:
 			final_damage *= 2.0
 			apply_critical_effect(bullet, "shotgun")
-			bullet.base_speed = 300  # Velocidad aumentada para críticos
-			bullet.speed_variation = 30  # Menos dispersión en críticos
+			bullet.base_speed = 300
+			bullet.speed_variation = 30
 		else:
 			bullet.base_speed = 250
 			bullet.speed_variation = 50
@@ -532,7 +529,6 @@ func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_d
 func instance_single_bullet(bullet_scene: PackedScene, spawn_position: Vector2, direction: Vector2, damage_multiplier: float, bullet_type: String) -> int:
 	var bullet = bullet_scene.instantiate()
 	
-	# Cálculo de crítico
 	var crit_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.CRITICAL_CHANCE)
 	var crit_chance = (crit_multiplier - 1.0) * 100
 	var is_critical = randf() * 100 <= crit_chance
@@ -542,10 +538,8 @@ func instance_single_bullet(bullet_scene: PackedScene, spawn_position: Vector2, 
 		final_damage *= 2.0
 		apply_critical_effect(bullet, bullet_type)
 		
-		# Efecto de pantalla y sonido para críticos
 		Globals.camera.screen_shake(0.8, 0.15, 0.1)
 		
-		# Efecto de flash crítico en el arma
 		var current_weapon = weapons[current_weapon_index]
 		if current_weapon.has_node("gun_sprite"):
 			var gun_sprite = current_weapon.get_node("gun_sprite")
@@ -559,7 +553,6 @@ func instance_single_bullet(bullet_scene: PackedScene, spawn_position: Vector2, 
 	bullet.direction = direction
 	bullet.global_position = spawn_position
 	
-	# Propiedades específicas por tipo de bala
 	match bullet_type:
 		"m16":
 			bullet.speed = 400 if is_critical else 300
@@ -578,35 +571,29 @@ func instance_single_bullet(bullet_scene: PackedScene, spawn_position: Vector2, 
 	return 1
 
 func apply_critical_effect(bullet: Node2D, bullet_type: String) -> void:
-	# Efectos base para cualquier tipo de bala
-	var crit_color = Color(1.5, 1.0, 0.0, 1.0)  # Dorado brillante
+	var crit_color = Color(1.5, 1.0, 0.0, 1.0)
 	var crit_scale = Vector2(1.2, 1.2)
 	
-	# Efectos específicos por tipo de bala
 	match bullet_type:
 		"m16":
 			bullet.modulate = Color(1.3, 1.0, 0.0, 1.0)
 			bullet.scale = Vector2(1.6, 1.6)
-			
-			# Añadir trail para balas críticas de m16
+		
 			if bullet.has_node("GPUParticles2D"):
 				var particles = bullet.get_node("GPUParticles2D")
 				particles.modulate = Color(1.5, 1.2, 0.0, 1.0)
 				particles.amount = particles.amount * 1.5
 				
 		"bazooka":
-			# Para la bazooka, efecto más dramático
 			bullet.modulate = crit_color
 			bullet.scale = crit_scale
 			
-			# Si tiene sistema de partículas, modificarlo
 			if bullet.has_node("GPUParticles2D"):
 				var particles = bullet.get_node("GPUParticles2D")
 				particles.modulate = Color(1.5, 1.0, 0.0, 1.0)
 				particles.amount = particles.amount * 2
 				
 		"shotgun":
-			# Para la escopeta, efecto medio
 			bullet.modulate = Color(1.4, 1.0, 0.0, 1.0)
 			bullet.scale = Vector2(1.15, 1.15)
 
