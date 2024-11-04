@@ -263,6 +263,31 @@ func update_weapon_flip() -> void:
 	var should_flip = not (rot >= -90 and rot <= 90)
 	gun_sprite.flip_v = should_flip
 	sprite.flip_h = should_flip
+	
+func dead() -> void:
+	if not is_dead:
+		is_dead = true
+		
+		var current_scene = get_tree().current_scene.scene_file_path
+		EnemyScalingManagerGlobal.register_player_death(current_scene)
+		
+		stop_all_attractions()
+		
+		if magnet_area:
+			magnet_area.monitoring = false
+			magnet_area.monitorable = false
+		
+		velocity = Vector2.ZERO
+		weapons_container.visible = false
+		audio_stream_dead_player.play()
+		$player_animation.play("Dead")
+
+		player_data.ammo += 50
+		player_data.kill_count = 0
+		player_data.reset_kill_streak()
+		
+		if power_up_manager:
+			power_up_manager.reset_power_ups()
 
 func check_level_and_set_weapon() -> void:
 	var current_scene = get_tree().current_scene
@@ -767,28 +792,6 @@ func increase_health(amount: int) -> void:
 	player_data.health += amount
 	if player_data.health > 4:
 		player_data.health = 4
-
-func dead() -> void:
-	if not is_dead:
-		is_dead = true
-		
-		stop_all_attractions()
-		
-		if magnet_area:
-			magnet_area.monitoring = false
-			magnet_area.monitorable = false
-		
-		velocity = Vector2.ZERO
-		weapons_container.visible = false
-		audio_stream_dead_player.play()
-		$player_animation.play("Dead")
-
-		player_data.ammo += 50
-		player_data.kill_count = 0
-		player_data.reset_kill_streak()
-		
-		if power_up_manager:
-			power_up_manager.reset_power_ups()
 
 func stop_all_attractions():
 	var ammo_items = get_tree().get_nodes_in_group("ammo")

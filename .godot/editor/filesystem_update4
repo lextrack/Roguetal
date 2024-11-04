@@ -3,3 +3,9 @@ res://Entities/entities_scripts/player.gd
 res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
 res://Shaders/flash_shader.gdshader
+res://Levels/Scenes/main_dungeon.tscn
+res://Levels/level_generator_scripts/main_dungeon.gd
+res://enemy_scaling_manager.gd
+res://Interactables/interatables_scripts/next_level.gd
+res://Levels/Scenes/labyrinth_level.tscn
+res://Levels/level_generator_scripts/labyrinth_level.gd

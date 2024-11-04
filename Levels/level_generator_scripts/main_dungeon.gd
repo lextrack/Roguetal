@@ -43,8 +43,12 @@ func generate_level() -> void:
 	instance_player()
 	instance_portal()
 	create_navigation()
-	instance_enemies()
-	instance_shooter_enemy()
+	
+	var current_scene = get_tree().current_scene.scene_file_path
+	var enemy_counts = EnemyScalingManagerGlobal.get_enemy_counts(current_scene)
+	
+	instance_enemies(enemy_counts.normal_enemies)
+	instance_shooter_enemy(enemy_counts.shooter_enemies)
 	instance_health_pickup()
 	instance_random_powerup()
 
@@ -68,9 +72,9 @@ func create_navigation():
 func instance_random_powerup() -> void:
 	var powerups = [
 		{"name": "double_defense", "weight": 30},
-		{"name": "double_speed", "weight": 10},
+		{"name": "double_speed", "weight": 12},
 		{"name": "double_damage", "weight": 20},
-		{"name": "critical_chance", "weight": 90}
+		{"name": "critical_chance", "weight": 15}
 	]
 	
 	var total_weight = 0
@@ -201,7 +205,7 @@ func get_other_portal_position(existing_position):
 	
 	return map[randi() % len(map)] * 16
 	
-func instance_shooter_enemy() -> void:
+func instance_shooter_enemy(base_count: int = 5) -> void:
 	var player_node = get_node("Player")
 	if not player_node:
 		return
@@ -210,7 +214,7 @@ func instance_shooter_enemy() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(5, 9)
+	var total_enemies_to_spawn = randi_range(base_count, base_count + 3)
 	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
 		var random_position = map[randi() % len(map)]
 		var world_position = tilemap.map_to_local(random_position)
@@ -232,8 +236,7 @@ func instance_shooter_enemy() -> void:
 	
 	print("Spawned shooter enemy: ", enemies_spawned)
 
-func instance_enemies() -> void:
-	# Instantiates enemies at random valid locations, ensuring a minimum number of each type
+func instance_enemies(base_count: int = 8) -> void:
 	var player_node = get_node("Player")
 	if not player_node:
 		return
@@ -243,9 +246,8 @@ func instance_enemies() -> void:
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(10, 15)
-	
-	var min_enemies_per_type = 5
+	var total_enemies_to_spawn = randi_range(base_count, base_count + 3)
+	var min_enemies_per_type = ceil(base_count / 3.0)
 	var enemy_1_count = 0
 	var enemy_2_count = 0
 

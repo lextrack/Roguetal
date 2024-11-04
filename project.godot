@@ -26,6 +26,7 @@ GlobalPowerUpState="*res://GlobalPowerUpState.gd"
 PowerUpTypes="*res://global_power_up_types.gd"
 TranslationManager="*res://translation_manager_global.gd"
 Events="*res://events.gd"
+EnemyScalingManagerGlobal="*res://enemy_scaling_manager.gd"
 
 [display]
 

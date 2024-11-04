@@ -15,6 +15,7 @@ const min_distance_from_player = 5
 @onready var double_defense_pickup_scene = preload("res://Interactables/Scenes/double_defense_pickup_scene.tscn")
 @onready var double_speed_pickup_scene = preload("res://Interactables/Scenes/double_speed_pickup.tscn")
 @onready var bullet_hell_pickup_scene = preload("res://Interactables/Scenes/bullet_hell_pickup_scene.tscn")
+@onready var critical_chance_pickup = preload("res://Interactables/Scenes/critical_chance_pickup.tscn")
 @onready var tilemap = $Tiles/TileMap
 
 @export var borders = Rect2(1, 1, 70, 50)
@@ -57,13 +58,18 @@ func _on_next_level_portal_body_entered(body: Node2D) -> void:
 		timer_light_level.stop()
 		
 func generate_level() -> void:
-	walker = Walker_labyrinth_room.new(Vector2(25,25), borders)
+	# Generates the entire level including map, player, enemies, and pickups
+	walker = Walker_room.new(Vector2(25,25), borders)
 	map = walker.walk(700)
 	clear_and_set_tiles()
 	instance_player()
 	instance_portal()
 	create_navigation()
-	instance_enemy()
+	
+	var current_scene = get_tree().current_scene.scene_file_path
+	var enemy_counts = EnemyScalingManagerGlobal.get_enemy_counts(current_scene)
+	
+	instance_enemies(enemy_counts.normal_enemies)
 	instance_health_pickup()
 	instance_random_powerup()
 	
@@ -72,7 +78,8 @@ func instance_random_powerup() -> void:
 		{"name": "double_defense", "weight": 20},
 		{"name": "double_speed", "weight": 30},
 		{"name": "double_damage", "weight": 18},
-		{"name": "bullet_hell", "weight": 12}
+		{"name": "bullet_hell", "weight": 12},
+		{"name": "critical_chance", "weight": 15}
 	]
 	
 	var total_weight = 0
@@ -98,6 +105,8 @@ func instance_random_powerup() -> void:
 			instance_double_damage_pickup()
 		"bullet_hell":
 			instance_bullet_hell_pickup()
+		"critical_chance":
+			instance_critical_chance_pickup()
 			
 func instance_specific_pickup(pickup_scene: PackedScene) -> void:
 	var player_node = get_node("Player")
@@ -131,6 +140,9 @@ func instance_double_damage_pickup() -> void:
 
 func instance_bullet_hell_pickup() -> void:
 	instance_specific_pickup(bullet_hell_pickup_scene)
+	
+func instance_critical_chance_pickup() -> void:
+	instance_specific_pickup(critical_chance_pickup)
 
 func create_navigation():
 	var navigation_region = NavigationRegion2D.new()
@@ -216,16 +228,18 @@ func get_other_portal_position(existing_position):
 	
 	return map[randi() % len(map)] * 16
 
-func instance_enemy() -> void:
+func instance_enemies(base_count: int = 5) -> void:
 	var player_node = get_node("Player")
 	if not player_node:
 		return
+
 	var player_position = tilemap.local_to_map(player_node.position)
 	var attempts = 0
 	var max_attempts = 500
 	var enemies_spawned = 0
 	
-	var total_enemies_to_spawn = randi_range(10, 15)
+	var total_enemies_to_spawn = randi_range(base_count, base_count + 3)
+	
 	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
 		var random_position = map[randi() % len(map)]
 		var world_position = tilemap.map_to_local(random_position)
