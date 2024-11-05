@@ -5,7 +5,7 @@ enum player_states {MOVE, DEAD}
 const MAGNET_RADIUS = 100.0
 const MAX_HEAT = 100.0
 const HEAT_COOLDOWN = 30.0
-const OVERHEAT_PENALTY_TIME = 1.2
+const OVERHEAT_PENALTY_TIME = 1.3
 const CONFIG_PATH = "user://options_settings.cfg"
 const DEFAULT_SENSITIVITY = 1.0
 

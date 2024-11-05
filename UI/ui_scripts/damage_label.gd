@@ -25,10 +25,8 @@ func _ready() -> void:
 	
 	var colors = [
 		Color.RED,
-		Color.DARK_ORCHID,
-		Color.YELLOW,
 		Color.MAGENTA,
-		Color.GOLD
+		Color.BLUE_VIOLET
 	]
 	
 	var random_color = colors[rng.randi() % colors.size()]
