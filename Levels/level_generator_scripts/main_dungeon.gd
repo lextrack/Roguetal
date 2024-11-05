@@ -16,7 +16,9 @@ const min_distance_from_player = 5
 @onready var double_damage_pickup_scene = preload("res://Interactables/Scenes/double_damage_pickup.tscn")
 @onready var double_speed_pickup_scene = preload("res://Interactables/Scenes/double_speed_pickup.tscn")
 @onready var double_defense_pickup_scene = preload("res://Interactables/Scenes/double_defense_pickup_scene.tscn")
+@onready var slow_enemy_pickup_scene = preload("res://Interactables/Scenes/slow_enemy_pickup.tscn")
 @onready var critical_chance_pickup = preload("res://Interactables/Scenes/critical_chance_pickup.tscn")
+@onready var shotgun_shell_incendiary_pickup = preload("res://Interactables/Scenes/shotgun_shell_incendiary.tscn")
 @onready var tilemap = $Tiles/TileMap
 
 @export var borders = Rect2(1, 1, 70, 50)
@@ -72,9 +74,11 @@ func create_navigation():
 func instance_random_powerup() -> void:
 	var powerups = [
 		{"name": "double_defense", "weight": 30},
-		{"name": "double_speed", "weight": 12},
+		{"name": "double_speed", "weight": 15},
 		{"name": "double_damage", "weight": 20},
-		{"name": "critical_chance", "weight": 15}
+		{"name": "critical_chance", "weight": 12},
+		{"name": "slow_enemy", "weight": 8},
+		{"name": "incendiary_shotgun", "weight": 5}
 	]
 	
 	var total_weight = 0
@@ -100,6 +104,10 @@ func instance_random_powerup() -> void:
 			instance_double_damage_pickup()
 		"critical_chance":
 			instance_critical_chance_pickup()
+		"slow_enemy":
+			instance_slow_enemy_pickup()
+		"incendiary_shotgun":
+			instance_shotgun_shell_incendiary_pickup()
 			
 func instance_specific_pickup(pickup_scene: PackedScene) -> void:
 	var player_node = get_node("Player")
@@ -133,6 +141,12 @@ func instance_double_damage_pickup() -> void:
 
 func instance_critical_chance_pickup() -> void:
 	instance_specific_pickup(critical_chance_pickup)
+	
+func instance_slow_enemy_pickup() -> void:
+	instance_specific_pickup(slow_enemy_pickup_scene)
+	
+func instance_shotgun_shell_incendiary_pickup() -> void:
+	instance_specific_pickup(shotgun_shell_incendiary_pickup)
 	
 func instance_health_pickup() -> void:
 	# Instantiates health pickups at random valid locations on the map
@@ -205,7 +219,7 @@ func get_other_portal_position(existing_position):
 	
 	return map[randi() % len(map)] * 16
 	
-func instance_shooter_enemy(base_count: int = 5) -> void:
+func instance_shooter_enemy(base_count: int = 3) -> void:
 	var player_node = get_node("Player")
 	if not player_node:
 		return
@@ -236,7 +250,7 @@ func instance_shooter_enemy(base_count: int = 5) -> void:
 	
 	print("Spawned shooter enemy: ", enemies_spawned)
 
-func instance_enemies(base_count: int = 8) -> void:
+func instance_enemies(base_count: int = 6) -> void:
 	var player_node = get_node("Player")
 	if not player_node:
 		return

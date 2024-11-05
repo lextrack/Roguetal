@@ -1,13 +1,13 @@
-res://
-res://Interactables/interatables_scripts
 res://Interactables/Scenes
+res://Entities/Scenes/FX
+res://Interactables/interatables_scripts
+res://
 res://Levels/level_generator_scripts
 res://Entities/entities_scripts
 res://Levels/Scenes
 C:/Users/ariel/OneDrive/Desktop
 res://UI/ui_scenes
 res://UI/ui_scripts
-res://Entities/Scenes/FX
 res://Shaders
 C:/C2_Roguelite
 C:/C2_Roguelite/AndroidKeyC2

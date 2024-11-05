@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://tgk6ft411cc7"]
+
+[ext_resource type="Script" path="res://Interactables/Scenes/shotgun_shell_incendiary.gd" id="1_1dqig"]
+[ext_resource type="Texture2D" uid="uid://devncfpf0c8l7" path="res://Sprites/Ready Potion I.png" id="1_ujsvv"]
+[ext_resource type="AudioStream" uid="uid://dshr8u3mysecc" path="res://SoundEffects/41529__jamius__potiondrinklong.ogg" id="2_3rqmt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2kgb"]
+
+[sub_resource type="Animation" id="Animation_u1mp0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [42]
+}
+
+[sub_resource type="Animation" id="Animation_g8ac1"]
+resource_name = "active"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [42, 43, 44, 45, 46, 47]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j6rq0"]
+_data = {
+"RESET": SubResource("Animation_u1mp0"),
+"active": SubResource("Animation_g8ac1")
+}
+
+[node name="shotgun_shell_incendiary" type="Area2D"]
+script = ExtResource("1_1dqig")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ujsvv")
+hframes = 6
+vframes = 10
+frame = 42
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y2kgb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j6rq0")
+}
+autoplay = "active"
+
+[node name="pickup_object" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_3rqmt")
+panning_strength = 0.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -12,13 +12,13 @@ var level_difficulty = {
 var last_death_level = ""
 
 # Base values
-var base_normal_enemies: int = 8
-var base_shooter_enemies: int = 5
+var base_normal_enemies: int = 6
+var base_shooter_enemies: int = 3
 
 # Scaling configuration
 var scaling_factor: float = 0.20
-var max_normal_enemies: int = 25
-var max_shooter_enemies: int = 15
+var max_normal_enemies: int = 30
+var max_shooter_enemies: int = 18
 var min_increase: int = 2
 
 func increment_difficulty(level_path: String) -> void:

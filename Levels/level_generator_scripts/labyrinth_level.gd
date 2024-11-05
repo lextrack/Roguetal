@@ -15,6 +15,8 @@ const min_distance_from_player = 5
 @onready var double_defense_pickup_scene = preload("res://Interactables/Scenes/double_defense_pickup_scene.tscn")
 @onready var double_speed_pickup_scene = preload("res://Interactables/Scenes/double_speed_pickup.tscn")
 @onready var bullet_hell_pickup_scene = preload("res://Interactables/Scenes/bullet_hell_pickup_scene.tscn")
+@onready var slow_enemy_pickup_scene = preload("res://Interactables/Scenes/slow_enemy_pickup.tscn")
+@onready var shotgun_shell_incendiary_pickup = preload("res://Interactables/Scenes/shotgun_shell_incendiary.tscn")
 @onready var critical_chance_pickup = preload("res://Interactables/Scenes/critical_chance_pickup.tscn")
 @onready var tilemap = $Tiles/TileMap
 
@@ -76,10 +78,12 @@ func generate_level() -> void:
 func instance_random_powerup() -> void:
 	var powerups = [
 		{"name": "double_defense", "weight": 20},
-		{"name": "double_speed", "weight": 30},
+		{"name": "double_speed", "weight": 28},
 		{"name": "double_damage", "weight": 18},
-		{"name": "bullet_hell", "weight": 12},
-		{"name": "critical_chance", "weight": 15}
+		{"name": "bullet_hell", "weight": 3},
+		{"name": "critical_chance", "weight": 15},
+		{"name": "slow_enemy", "weight": 8},
+		{"name": "incendiary_shotgun", "weight": 5}
 	]
 	
 	var total_weight = 0
@@ -107,6 +111,10 @@ func instance_random_powerup() -> void:
 			instance_bullet_hell_pickup()
 		"critical_chance":
 			instance_critical_chance_pickup()
+		"slow_enemy":
+			instance_slow_enemy_pickup()
+		"incendiary_shotgun":
+			instance_shotgun_shell_incendiary_pickup()
 			
 func instance_specific_pickup(pickup_scene: PackedScene) -> void:
 	var player_node = get_node("Player")
@@ -143,6 +151,12 @@ func instance_bullet_hell_pickup() -> void:
 	
 func instance_critical_chance_pickup() -> void:
 	instance_specific_pickup(critical_chance_pickup)
+	
+func instance_slow_enemy_pickup() -> void:
+	instance_specific_pickup(slow_enemy_pickup_scene)
+	
+func instance_shotgun_shell_incendiary_pickup() -> void:
+	instance_specific_pickup(shotgun_shell_incendiary_pickup)
 
 func create_navigation():
 	var navigation_region = NavigationRegion2D.new()
@@ -228,7 +242,7 @@ func get_other_portal_position(existing_position):
 	
 	return map[randi() % len(map)] * 16
 
-func instance_enemies(base_count: int = 5) -> void:
+func instance_enemies(base_count: int = 6) -> void:
 	var player_node = get_node("Player")
 	if not player_node:
 		return

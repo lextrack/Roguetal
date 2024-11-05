@@ -13,6 +13,19 @@ const HIT_SOUND_COOLDOWN = 0.1
 const DEATH_SOUND_COOLDOWN = 0.1
 const ATTACK_SOUND_COOLDOWN = 0.5
 
+var slow_effect_particles: GPUParticles2D
+var base_modulate: Color = Color(1, 1, 1, 1)
+var slow_tween: Tween
+
+var fire_damage = 3.0
+var fire_duration = 3.0
+var fire_tick_time = 0.3
+var is_burning = false
+var fire_particles: GPUParticles2D
+var fire_timer: Timer
+var fire_tick_timer: Timer
+var burn_tween: Tween
+
 var current_health
 var attack_cooldown = 0.0
 var path : Array = []
@@ -65,6 +78,7 @@ var max_allowed_speed = 110
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D if has_node("NavigationAgent2D") else null
 @onready var target = get_node("../Player")
+@onready var power_up_manager = target.get_node("PowerUpManager") if target else null
 @onready var hit_damage_sound: AudioStreamPlayer2D = $hit_damage_sound
 @onready var die_enemy_sound: AudioStreamPlayer2D = $die_enemy_sound
 @onready var die_sprite: Sprite2D = $Sprites/die_sprite
@@ -77,6 +91,7 @@ var max_allowed_speed = 110
 @onready var idle_sprite: Sprite2D = $Sprites/idle_sprite
 @onready var timer_direction: Timer = $timer_direction if has_node("timer_direction") else null
 @onready var attack_sound: AudioStreamPlayer2D = $attack_sound
+@onready var fire_particles_scene = preload("res://Entities/Scenes/FX/fire_particles.tscn")
 
 # Initialize the enemy, set up navigation and timers
 func _ready():
@@ -88,11 +103,27 @@ func _ready():
 	setup_timers()
 	setup_initial_state()
 	connect_signals()
+	setup_fire_system()
+	
+	if power_up_manager and not power_up_manager.is_connected("power_up_changed", Callable(self, "_on_power_up_changed")):
+		power_up_manager.connect("power_up_changed", Callable(self, "_on_power_up_changed"))
 
-func initialize_speed():
-	var variation_percent = randf_range(-speed_variation, speed_variation) / 100.0
-	speed = base_speed * (1 + variation_percent)
-	speed = min(speed, max_allowed_speed)
+func _on_power_up_changed(type: int, multiplier: float):
+	if type == PowerUpTypes.PowerUpType.ENEMY_SLOW:
+		update_speed_with_slow()
+		
+func setup_fire_system():
+	fire_timer = Timer.new()
+	fire_timer.one_shot = true
+	fire_timer.timeout.connect(stop_fire_effect)
+	add_child(fire_timer)
+	
+	fire_tick_timer = Timer.new()
+	fire_tick_timer.wait_time = fire_tick_time
+	fire_tick_timer.timeout.connect(apply_fire_damage)
+	add_child(fire_tick_timer)
+	
+	setup_fire_particles()
 
 func initialize_health():
 	current_health = max_health
@@ -151,34 +182,6 @@ func setup_initial_state():
 func connect_signals():
 	if timer_direction and not timer_direction.timeout.is_connected(_on_timer_direction_timeout):
 		timer_direction.timeout.connect(_on_timer_direction_timeout)
-		
-func update_sprite_visibility():
-	match current_animation_state:
-		animation_state.IDLE:
-			idle_sprite.show()
-			normal_sprite.hide()
-			attack_sprite.hide()
-			die_sprite.hide()
-		animation_state.WALK:
-			idle_sprite.hide()
-			normal_sprite.show()
-			attack_sprite.hide()
-			die_sprite.hide()
-		animation_state.ATTACK:
-			idle_sprite.hide()
-			normal_sprite.hide()
-			attack_sprite.show()
-			die_sprite.hide()
-		animation_state.DODGE:
-			idle_sprite.hide()
-			normal_sprite.show()
-			attack_sprite.hide()
-			die_sprite.hide()
-		animation_state.DEATH:
-			idle_sprite.hide()
-			normal_sprite.hide()
-			attack_sprite.hide()
-			die_sprite.show()
 
 # Verify if the enemy can attack the player (something in front of the enemy)
 func has_clear_shot() -> bool:
@@ -307,8 +310,7 @@ func handle_combat_movement(delta, distance_to_target, direction_to_target):
 	if should_dodge():
 		perform_dodge()
 		return
-	
-	# Movimiento normal de combate
+
 	update_strafe_direction()
 	var movement = calculate_movement_vector(distance_to_target, direction_to_target)
 	apply_smooth_movement(movement, distance_to_target, direction_to_target)
@@ -330,13 +332,10 @@ func perform_dodge():
 	execute_dodge_movement(dodge_direction, dodge_speed)
 	
 func transition_to_animation(new_state: animation_state) -> bool:
-	# No permitir cambios si está muerto excepto a muerte
 	if is_dead and new_state != animation_state.DEATH:
 		return false
 		
-	# Si es el mismo estado, verificar algunas condiciones especiales
 	if current_animation_state == new_state:
-		# Si estamos en WALK, asegurarse que la animación esté corriendo
 		if new_state == animation_state.WALK and not move_animation_enemy.is_playing():
 			move_animation_enemy.play("walk")
 		return true
@@ -346,12 +345,12 @@ func transition_to_animation(new_state: animation_state) -> bool:
 			return false
 			
 		animation_state.DODGE:
-			# Solo permitir muerte durante dodge
+
 			if new_state == animation_state.DEATH:
 				current_animation_state = new_state
 				update_sprite_visibility()
 				return true
-			# Esperar a que el dodge realmente termine
+
 			elif dodge_timer <= 0 and not is_dead:
 				current_animation_state = new_state
 				update_sprite_visibility()
@@ -360,13 +359,13 @@ func transition_to_animation(new_state: animation_state) -> bool:
 			return false
 			
 		animation_state.ATTACK:
-			# Permitir dodge o muerte durante ataque
+
 			if new_state in [animation_state.DEATH, animation_state.DODGE]:
 				current_animation_state = new_state
 				update_sprite_visibility()
 				_ensure_animation_playing(new_state)
 				return true
-			# Para otras transiciones, asegurar que el ataque terminó
+
 			elif not attack_animation_enemy.is_playing() and not is_attacking:
 				current_animation_state = new_state
 				update_sprite_visibility()
@@ -398,6 +397,34 @@ func _ensure_animation_playing(state: animation_state) -> void:
 		animation_state.DEATH:
 			stop_all_animations()
 			die_animation_enemy.play("dead")
+			
+func update_sprite_visibility():
+	match current_animation_state:
+		animation_state.IDLE:
+			idle_sprite.show()
+			normal_sprite.hide()
+			attack_sprite.hide()
+			die_sprite.hide()
+		animation_state.WALK:
+			idle_sprite.hide()
+			normal_sprite.show()
+			attack_sprite.hide()
+			die_sprite.hide()
+		animation_state.ATTACK:
+			idle_sprite.hide()
+			normal_sprite.hide()
+			attack_sprite.show()
+			die_sprite.hide()
+		animation_state.DODGE:
+			idle_sprite.hide()
+			normal_sprite.show()
+			attack_sprite.hide()
+			die_sprite.hide()
+		animation_state.DEATH:
+			idle_sprite.hide()
+			normal_sprite.hide()
+			attack_sprite.hide()
+			die_sprite.show()
 	
 func update_strafe_direction():
 	if not is_strafing:
@@ -786,23 +813,18 @@ func avoid_obstacles(direction):
 
 # Play movement animation based on direction
 func play_movement_animation(direction: Vector2):
-	# No interrumpir estados prioritarios
 	if current_animation_state in [animation_state.DODGE, animation_state.DEATH]:
 		return
 		
-	# Permitir transición desde ataque solo si realmente terminó
 	if current_animation_state == animation_state.ATTACK:
 		if not attack_animation_enemy.is_playing() and not is_attacking:
 			transition_to_animation(animation_state.WALK)
 	
-	# Manejar la transición entre movimiento e idle
 	if velocity.length() > 0:
 		if transition_to_animation(animation_state.WALK):
-			# Actualizar la dirección solo con cambios significativos
 			if abs(direction.x) > 0.1:
 				normal_sprite.flip_h = direction.x < 0
 	else:
-		# Solo ir a idle si no estamos atacando
 		if current_animation_state != animation_state.ATTACK:
 			transition_to_animation(animation_state.IDLE)
 
@@ -812,7 +834,6 @@ func play_attack_animation():
 		is_attacking = false
 		return
 	
-	# Asegurar que otras animaciones se detengan
 	stop_all_animations()
 	update_sprite_visibility()
 	
@@ -822,7 +843,6 @@ func play_attack_animation():
 	attack_animation_enemy.play("attack")
 	play_attack_sound()
 	
-	# Usar un temporizador más preciso para el final del ataque
 	var attack_duration = attack_animation_enemy.current_animation_length
 	var timer = get_tree().create_timer(attack_duration)
 	timer.timeout.connect(func():
@@ -845,6 +865,10 @@ func take_damage(damage: int, bullet = null):
 		current_health = max_health
 
 	current_health -= damage
+
+	if bullet and ("has_fire_effect" in bullet) and bullet.has_fire_effect:
+		apply_fire_effect()
+
 	if current_health <= 0:
 		current_health = 0
 		die()
@@ -928,6 +952,125 @@ func instance_ammo():
 		var ammo = ammo_scene.instantiate()
 		ammo.global_position = global_position
 		get_tree().root.call_deferred("add_child", ammo)
+		
+func setup_fire_particles():
+	if not fire_particles:
+		fire_particles = fire_particles_scene.instantiate()
+		add_child(fire_particles)
+		fire_particles.emitting = false
+
+func apply_fire_effect():
+	if is_dead:
+		return
+		
+	if burn_tween:
+		burn_tween.kill()
+	
+	is_burning = true
+	
+	fire_particles.emitting = true
+	burn_tween = create_tween()
+	burn_tween.tween_property(normal_sprite, "modulate",
+		Color(1.5, 0.7, 0.2), 0.3)
+	
+	fire_timer.start(fire_duration)
+	if not fire_tick_timer.is_stopped():
+		fire_tick_timer.stop()
+	fire_tick_timer.start()
+
+func apply_fire_damage():
+	if is_burning and not is_dead:
+		var burn_damage = fire_damage
+		
+		show_damage(burn_damage)
+		
+		current_health -= burn_damage
+		if current_health <= 0:
+			current_health = 0
+			die()
+		else:
+			var flash_tween = create_tween()
+			flash_tween.tween_property(normal_sprite, "modulate",
+				Color(2.0, 0.5, 0.0), 0.1)
+			flash_tween.tween_property(normal_sprite, "modulate",
+				Color(1.5, 0.7, 0.2), 0.2)
+
+func stop_fire_effect():
+	is_burning = false
+	fire_particles.emitting = false
+	fire_tick_timer.stop()
+	
+	if burn_tween:
+		burn_tween.kill()
+	burn_tween = create_tween()
+	burn_tween.tween_property(normal_sprite, "modulate",
+		Color(1, 1, 1), 0.3)
+
+func initialize_speed():
+	var variation_percent = randf_range(-speed_variation, speed_variation) / 100.0
+	speed = base_speed * (1 + variation_percent)
+	speed = min(speed, max_allowed_speed)
+	update_speed_with_slow()
+
+func update_speed_with_slow():
+	if power_up_manager:
+		var slow_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.ENEMY_SLOW)
+		speed = base_speed * slow_multiplier
+		
+		if slow_multiplier < 1.0:
+			apply_slow_effect()
+		else:
+			remove_slow_effect()
+
+func apply_slow_effect():
+	if not slow_effect_particles:
+		setup_slow_particles()
+	
+	if slow_tween:
+		slow_tween.kill()
+	
+	slow_tween = create_tween()
+	slow_tween.tween_property(normal_sprite, "modulate",
+		Color(0.7, 0.8, 1.0, 1.0), 0.3)
+	
+	slow_effect_particles.emitting = true
+
+func remove_slow_effect():
+	if slow_tween:
+		slow_tween.kill()
+	
+	slow_tween = create_tween()
+	slow_tween.tween_property(normal_sprite, "modulate",
+		base_modulate, 0.3)
+	
+	if slow_effect_particles:
+		slow_effect_particles.emitting = false
+
+func setup_slow_particles():
+	slow_effect_particles = GPUParticles2D.new()
+	add_child(slow_effect_particles)
+	
+	var particle_material = ParticleProcessMaterial.new()
+	particle_material.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
+	particle_material.emission_sphere_radius = 10.0
+	particle_material.particle_flag_disable_z = true
+	particle_material.gravity = Vector3(0, -20, 0)
+	particle_material.initial_velocity_min = 2.0
+	particle_material.initial_velocity_max = 5.0
+	particle_material.orbit_velocity_min = 0.0
+	particle_material.orbit_velocity_max = 0.0
+	particle_material.damping_min = 1.0
+	particle_material.damping_max = 2.0
+	particle_material.scale_min = 2.0
+	particle_material.scale_max = 4.0
+	particle_material.color = Color(0.7, 0.8, 1.0, 0.5)
+	
+	slow_effect_particles.process_material = particle_material
+	slow_effect_particles.amount = 15
+	slow_effect_particles.lifetime = 1.0
+	slow_effect_particles.explosiveness = 0.0
+	slow_effect_particles.randomness = 0.5
+	slow_effect_particles.fixed_fps = 30
 
 # Stop all animations
 func stop_all_animations():

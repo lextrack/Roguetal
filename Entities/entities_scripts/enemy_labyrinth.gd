@@ -11,6 +11,19 @@ const HIT_SOUND_COOLDOWN = 0.1
 const DEATH_SOUND_COOLDOWN = 0.1
 const ATTACK_SOUND_COOLDOWN = 0.7
 
+var slow_effect_particles: GPUParticles2D
+var base_modulate: Color = Color(1, 1, 1, 1)
+var slow_tween: Tween
+
+var fire_damage = 3.0
+var fire_duration = 3.0
+var fire_tick_time = 0.3
+var is_burning = false
+var fire_particles: GPUParticles2D
+var fire_timer: Timer
+var fire_tick_timer: Timer
+var burn_tween: Tween
+
 var current_health
 var attack_cooldown = 0.0
 var path : Array = []
@@ -39,6 +52,7 @@ var max_allowed_speed = 100 # Maximum allowed speed for any enemy
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D if has_node("NavigationAgent2D") else null
 @onready var target = get_node("../Player")
+@onready var power_up_manager = target.get_node("PowerUpManager") if target else null
 @onready var hit_damage_sound: AudioStreamPlayer2D = $hit_damage_sound
 @onready var die_enemy_sound: AudioStreamPlayer2D = $die_enemy_sound
 @onready var die_sprite: Sprite2D = $Sprites/die_sprite
@@ -51,6 +65,7 @@ var max_allowed_speed = 100 # Maximum allowed speed for any enemy
 @onready var idle_sprite: Sprite2D = $Sprites/idle_sprite
 @onready var timer_direction: Timer = $timer_direction if has_node("timer_direction") else null
 @onready var attack_sound: AudioStreamPlayer2D = $attack_sound
+@onready var fire_particles_scene = preload("res://Entities/Scenes/FX/fire_particles.tscn")
 
 # Initialize the enemy, set up navigation and timers
 func _ready():
@@ -62,11 +77,14 @@ func _ready():
 	setup_timers()
 	setup_initial_state()
 	connect_signals()
-
-func initialize_speed():
-	var variation_percent = randf_range(-speed_variation, speed_variation) / 100.0
-	speed = base_speed * (1 + variation_percent)
-	speed = min(speed, max_allowed_speed)
+	setup_fire_system()
+	
+	if power_up_manager and not power_up_manager.is_connected("power_up_changed", Callable(self, "_on_power_up_changed")):
+		power_up_manager.connect("power_up_changed", Callable(self, "_on_power_up_changed"))
+		
+func _on_power_up_changed(type: int, multiplier: float):
+	if type == PowerUpTypes.PowerUpType.ENEMY_SLOW:
+		update_speed_with_slow()
 
 func initialize_health():
 	current_health = max_health
@@ -192,7 +210,7 @@ func chase_state(delta):
 	if distance_to_target > chase_range * 0.7:
 		speed_multiplier = 1.2
 	elif distance_to_target < attack_range * 1.5:
-		speed_multiplier = 0.8 
+		speed_multiplier = 0.8
 		
 	if distance_to_target <= attack_range:
 		current_state = enemy_state.ATTACK
@@ -343,7 +361,6 @@ func play_movement_animation(direction):
 	if velocity.length() > 0:
 		current_animation_state = "move"
 		
-		# Determinar la animación basada en la dirección dominante
 		if abs(direction.x) > abs(direction.y):
 			if direction.x > 0:
 				if not move_animation_enemy.is_playing() or move_animation_enemy.current_animation != "move_right":
@@ -374,7 +391,6 @@ func play_attack_animation():
 	var direction = global_position.direction_to(target.global_position)
 	var animation_name = "attack_right"
 	
-	# Determinar la dirección del ataque
 	if abs(direction.x) > abs(direction.y):
 		animation_name = "attack_right" if direction.x > 0 else "attack_left"
 	else:
@@ -408,6 +424,11 @@ func take_damage(damage: int, bullet = null):
 		current_health = max_health
 
 	current_health -= damage
+
+	# Just for shotgun bullets
+	if bullet and ("has_fire_effect" in bullet) and bullet.has_fire_effect:
+		apply_fire_effect()
+
 	if current_health <= 0:
 		current_health = 0
 		die()
@@ -431,6 +452,10 @@ func show_damage(damage: int):
 	var damage_label_scene = preload("res://UI/ui_scenes/damage_label.tscn")
 	var damage_label = damage_label_scene.instantiate() as RichTextLabel
 	damage_label.text = str(damage)
+	
+	if is_burning:
+		damage_label.modulate = Color(1.5, 0.7, 0.2)
+	
 	damage_label.global_position = global_position + Vector2(0, -30)
 	get_tree().root.add_child(damage_label)
 
@@ -489,6 +514,138 @@ func instance_ammo():
 		var ammo = ammo_scene.instantiate()
 		ammo.global_position = global_position
 		get_tree().root.call_deferred("add_child", ammo)
+		
+func setup_fire_system():
+	fire_timer = Timer.new()
+	fire_timer.one_shot = true
+	fire_timer.timeout.connect(stop_fire_effect)
+	add_child(fire_timer)
+	
+	fire_tick_timer = Timer.new()
+	fire_tick_timer.wait_time = fire_tick_time
+	fire_tick_timer.timeout.connect(apply_fire_damage)
+	add_child(fire_tick_timer)
+	
+	setup_fire_particles()
+
+func setup_fire_particles():
+	if not fire_particles:
+		fire_particles = fire_particles_scene.instantiate()
+		add_child(fire_particles)
+		fire_particles.emitting = false
+
+func apply_fire_effect():
+	if is_dead:
+		return
+		
+	if burn_tween:
+		burn_tween.kill()
+	
+	is_burning = true
+	
+	fire_particles.emitting = true
+	burn_tween = create_tween()
+	burn_tween.tween_property(normal_sprite, "modulate",
+		Color(1.5, 0.7, 0.2), 0.3)
+	
+	fire_timer.start(fire_duration)
+	if not fire_tick_timer.is_stopped():
+		fire_tick_timer.stop()
+	fire_tick_timer.start()
+
+func apply_fire_damage():
+	if is_burning and not is_dead:
+		var burn_damage = fire_damage
+		
+		show_damage(burn_damage)
+		
+		current_health -= burn_damage
+		if current_health <= 0:
+			current_health = 0
+			die()
+		else:
+			var flash_tween = create_tween()
+			flash_tween.tween_property(normal_sprite, "modulate",
+				Color(2.0, 0.5, 0.0), 0.1)
+			flash_tween.tween_property(normal_sprite, "modulate",
+				Color(1.5, 0.7, 0.2), 0.2)
+
+func stop_fire_effect():
+	is_burning = false
+	fire_particles.emitting = false
+	fire_tick_timer.stop()
+	
+	if burn_tween:
+		burn_tween.kill()
+	burn_tween = create_tween()
+	burn_tween.tween_property(normal_sprite, "modulate",
+		Color(1, 1, 1), 0.3)
+		
+func initialize_speed():
+	var variation_percent = randf_range(-speed_variation, speed_variation) / 100.0
+	speed = base_speed * (1 + variation_percent)
+	speed = min(speed, max_allowed_speed)
+	update_speed_with_slow()
+
+func update_speed_with_slow():
+	if power_up_manager:
+		var slow_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.ENEMY_SLOW)
+		speed = base_speed * slow_multiplier
+		
+		if slow_multiplier < 1.0:
+			apply_slow_effect()
+		else:
+			remove_slow_effect()
+
+func apply_slow_effect():
+	if not slow_effect_particles:
+		setup_slow_particles()
+	
+	if slow_tween:
+		slow_tween.kill()
+	
+	slow_tween = create_tween()
+	slow_tween.tween_property(normal_sprite, "modulate",
+		Color(0.7, 0.8, 1.0, 1.0), 0.3)
+	
+	slow_effect_particles.emitting = true
+
+func remove_slow_effect():
+	if slow_tween:
+		slow_tween.kill()
+	
+	slow_tween = create_tween()
+	slow_tween.tween_property(normal_sprite, "modulate",
+		base_modulate, 0.3)
+	
+	if slow_effect_particles:
+		slow_effect_particles.emitting = false
+
+func setup_slow_particles():
+	slow_effect_particles = GPUParticles2D.new()
+	add_child(slow_effect_particles)
+	
+	var particle_material = ParticleProcessMaterial.new()
+	particle_material.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
+	particle_material.emission_sphere_radius = 10.0
+	particle_material.particle_flag_disable_z = true
+	particle_material.gravity = Vector3(0, -20, 0)
+	particle_material.initial_velocity_min = 2.0
+	particle_material.initial_velocity_max = 5.0
+	particle_material.orbit_velocity_min = 0.0
+	particle_material.orbit_velocity_max = 0.0
+	particle_material.damping_min = 1.0
+	particle_material.damping_max = 2.0
+	particle_material.scale_min = 2.0
+	particle_material.scale_max = 4.0
+	particle_material.color = Color(0.7, 0.8, 1.0, 0.5)
+	
+	slow_effect_particles.process_material = particle_material
+	slow_effect_particles.amount = 15
+	slow_effect_particles.lifetime = 1.0
+	slow_effect_particles.explosiveness = 0.0
+	slow_effect_particles.randomness = 0.5
+	slow_effect_particles.fixed_fps = 30
 
 # Stop all animations
 func stop_all_animations():

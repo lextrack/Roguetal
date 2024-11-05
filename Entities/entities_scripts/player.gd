@@ -44,10 +44,12 @@ const DEFAULT_SENSITIVITY = 1.0
 @onready var double_defense_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/double_defense_icon
 @onready var bullet_hell_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/bullet_hell_icon
 @onready var critical_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/critical_icon
+@onready var slow_enemies_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/slow_enemies_icon
 @onready var power_up_manager = $PowerUpManager
 @onready var point_light: PointLight2D = $PointLight2D
 @onready var audio_stream_weapon_switch: AudioStreamPlayer2D = $Sounds/AudioStreamWeaponSwitch
 @onready var smoke_particles_scene = preload("res://Entities/Scenes/FX/smoke_particles.tscn")
+@onready var shotgun_shell_incendiary_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/shotgun_shell_incendiary_icon
 
 var current_state = player_states.MOVE
 var heat_level = 0.0
@@ -94,6 +96,9 @@ func _ready() -> void:
 	
 	setup_bullet_hell_icon()
 	setup_double_defense_icon()
+	setup_critical_icon()
+	setup_shotgun_shell_incendiary_icon()
+	setup_slow_enemies_icon()
 	
 	setup_magnet_area()
 	add_to_group("player")
@@ -140,6 +145,10 @@ func _on_power_up_changed(type: int, multiplier: float) -> void:
 			update_bullet_hell_icon(multiplier)
 		PowerUpTypes.PowerUpType.CRITICAL_CHANCE:
 			update_critical_icon(multiplier)
+		PowerUpTypes.PowerUpType.ENEMY_SLOW:
+			update_slow_enemies_icon(multiplier)
+		PowerUpTypes.PowerUpType.SHOTGUN_FIRE:
+			update_shotgun_shell_incendiary_icon(multiplier)
 
 func update_double_defense_icon(multiplier: float):
 	if double_defense_icon:
@@ -180,6 +189,26 @@ func setup_critical_icon():
 func update_critical_icon(multiplier: float):
 	if critical_icon:
 		critical_icon.visible = multiplier > 1.0
+		
+func setup_slow_enemies_icon():
+	if slow_enemies_icon:
+		slow_enemies_icon.visible = false
+
+func update_slow_enemies_icon(multiplier: float):
+	if slow_enemies_icon:
+		slow_enemies_icon.visible = multiplier < 1.0
+		
+func setup_shotgun_shell_incendiary_icon():
+	if shotgun_shell_incendiary_icon:
+		shotgun_shell_incendiary_icon.visible = false
+	else:
+		print("Shotgun icon not found!")
+
+func update_shotgun_shell_incendiary_icon(multiplier: float):
+	if shotgun_shell_incendiary_icon:
+		shotgun_shell_incendiary_icon.visible = multiplier >= 1.0 
+	else:
+		print("Cannot update shotgun icon - node not found!")
 	
 func setup_magnet_area():
 	if not magnet_area:
@@ -513,9 +542,13 @@ func instance_bullet_hell(bullet_scene: PackedScene, spawn_position: Vector2, da
 func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_direction: Vector2, damage_multiplier: float) -> int:
 	var num_pellets = 4
 	
+	# Verificar críticos
 	var crit_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.CRITICAL_CHANCE)
 	var crit_chance = (crit_multiplier - 1.0) * 100
 	var is_critical = randf() * 100 <= crit_chance
+	
+	# Verificar efecto de fuego
+	var has_fire = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.SHOTGUN_FIRE) >= 1.0
 	
 	if is_critical:
 		Globals.camera.screen_shake(1.2, 0.2, 0.1)
@@ -528,6 +561,11 @@ func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_d
 				Color(2.0, 1.5, 0.0, 1.0), 0.1)
 			tween.tween_property(gun_sprite, "modulate",
 				Color(1.0, 1.0, 1.0, 0.2), 0.2)
+	
+	# Si tiene efecto de fuego, modificar el flash del disparo
+	if has_fire:
+		var current_weapon = weapons[current_weapon_index]
+		create_muzzle_flash(current_weapon, Color(1.5, 0.5, 0.2), 1.0)  # Flash naranja
 	
 	for i in range(num_pellets):
 		var bullet = bullet_scene.instantiate()
@@ -542,13 +580,46 @@ func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_d
 			bullet.base_speed = 250
 			bullet.speed_variation = 50
 		
+		# Aplicar efecto de fuego
+		if has_fire:
+			bullet.has_fire_effect = true
+			# Si es crítico + fuego, hacer un efecto más dramático
+			if is_critical:
+				bullet.modulate = Color(2.0, 0.5, 0.0)  # Naranja más brillante
+			else:
+				bullet.modulate = Color(1.5, 0.7, 0.2)  # Naranja normal
+		
 		bullet.damage = final_damage
 		bullet.direction = base_direction
 		bullet.global_position = spawn_position
 		bullet.start_delay_max = 0.05
 		get_tree().root.add_child(bullet)
 	
-	$Sounds/AudioStreamShotgunShot.play()
+	# Sonido especial si tiene fuego
+	if has_fire:
+		if is_critical:
+			# Sonido más intenso para crítico + fuego
+			$Sounds/AudioStreamShotgunShot.pitch_scale = 0.8
+			$Sounds/AudioStreamShotgunShot.volume_db += 2
+		else:
+			# Sonido normal pero con pitch más bajo para efecto de fuego
+			$Sounds/AudioStreamShotgunShot.pitch_scale = 0.9
+		$Sounds/AudioStreamShotgunShot.play()
+		
+		# Crear un timer para resetear el sonido
+		var reset_timer = Timer.new()
+		add_child(reset_timer)
+		reset_timer.wait_time = 0.1
+		reset_timer.one_shot = true
+		reset_timer.timeout.connect(func():
+			$Sounds/AudioStreamShotgunShot.pitch_scale = 1.0
+			$Sounds/AudioStreamShotgunShot.volume_db = 0
+			reset_timer.queue_free()
+		)
+		reset_timer.start()
+	else:
+		$Sounds/AudioStreamShotgunShot.play()
+	
 	return num_pellets
 
 func instance_single_bullet(bullet_scene: PackedScene, spawn_position: Vector2, direction: Vector2, damage_multiplier: float, bullet_type: String) -> int:
