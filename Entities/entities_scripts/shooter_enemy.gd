@@ -26,6 +26,7 @@ var fire_timer: Timer
 var fire_tick_timer: Timer
 var burn_tween: Tween
 
+var is_retreating = false
 var current_health
 var attack_cooldown = 0.0
 var path : Array = []
@@ -42,39 +43,52 @@ var is_strafing = false
 var strafe_direction = 1
 var last_strafe_change = 0.0
 var speed
-var max_allowed_speed = 110
+var max_allowed_speed = 120
 
-@export var base_speed = 90
-@export var optimal_attack_distance = 100.0
-@export var chase_range = 160.0
-@export var strafe_speed_multiplier = 0.45
-@export var dodge_cooldown = 2.8
-@export var dodge_chance = 0.2
-@export var dodge_duration = 0.3
-@export var dodge_speed_multiplier_normal = 1.1
-@export var dodge_speed_multiplier_bazooka = 1.0
-@export var max_shots_before_reposition = 4
-@export var reposition_distance = 35.0
-@export var optimal_distance_tolerance = 50.0
-@export var distance_adjustment_speed = 0.1
-@export var flank_distance = 70.0
-@export var projectile_detection_radius_bazooka = 110.0
-@export var projectile_detection_radius_normal = 80.0
-@export var base_damage = 0.25
-@export var max_accuracy_distance = 75.0
-@export var min_attack_distance = 60.0
-@export var miss_chance = 0.3  # 30% probability to miss the shot
-@export var base_miss_chance = 0.3
-@export var max_damage_variability = 0.1
-@export var speed_variation = 30 # The range of speed variation
-@export var max_health: float = 70.0 # The maximum health points of the enemy
-@export var attack_cooldown_time = 0.7 # Time (in seconds) between enemy attacks
-@export var obstacle_avoidance_range = 10.0 # Distance for detecting and avoiding obstacles
-@export var attack_damage = 0.25 # Damage dealt by the enemy in each attack
-@export var attack_range = 85.0 # Distance within which the enemy can attack the player
-@export var attack_damage_range = 30.0 # Range of variability in the enemy's attack damage
-@export var idle_time_min = 2.0 # Minimum time to stay in idle state
-@export var idle_time_max = 4.0 # Maximum time to stay in idle state
+# Movement and positioning variables
+@export var base_speed = 105                     # Base movement speed of the enemy
+@export var optimal_attack_distance = 90.0      # The ideal distance the enemy tries to maintain from the player
+@export var chase_range = 170.0                  # Maximum distance at which the enemy will chase the player
+@export var strafe_speed_multiplier = 0.35       # Speed multiplier when performing strafing movement
+@export var min_attack_distance = 6.0            # Minimum distance before enemy starts emergency retreat
+@export var obstacle_avoidance_range = 10.0      # Range for detecting and avoiding obstacles while moving
+
+# Dodge mechanics variables
+@export var dodge_cooldown = 1.5                 # Time (in seconds) between dodge attempts
+@export var dodge_chance = 0.8                   # Probability of performing a dodge when threatened
+@export var dodge_duration = 0.35                # Duration of the dodge movement
+@export var dodge_speed_multiplier_normal = 1.2  # Speed multiplier for dodging normal projectiles
+@export var dodge_speed_multiplier_bazooka = 1.1 # Speed multiplier for dodging bazooka projectiles
+
+# Combat positioning variables
+@export var max_shots_before_reposition = 4      # Number of shots before enemy tries to find new position
+@export var reposition_distance = 35.0           # Distance to move when repositioning
+@export var optimal_distance_tolerance = 30.0    # Acceptable range around optimal attack distance
+@export var distance_adjustment_speed = 0.1      # How quickly enemy adjusts its position
+@export var flank_distance = 70.0               # Distance to move when flanking the player
+
+# Projectile detection variables
+@export var projectile_detection_radius_bazooka = 110.0  # Range to detect incoming bazooka projectiles
+@export var projectile_detection_radius_normal = 80.0    # Range to detect other incoming projectiles
+
+# Combat and damage variables
+@export var base_damage = 0.2                   # Base damage dealt by attacks
+@export var max_accuracy_distance = 75.0         # Distance for maximum attack accuracy
+@export var miss_chance = 0.3                    # Base probability to miss an attack (30%)
+@export var base_miss_chance = 0.3               # Initial miss chance before modifiers
+@export var max_damage_variability = 0.1         # Maximum random variation in damage
+@export var attack_damage = 0.22                 # Base attack damage before modifiers
+@export var attack_range = 90.0                  # Maximum range at which enemy can attack
+@export var attack_damage_range = 40.0           # Range of random damage variation
+
+# Health and stats variables
+@export var max_health: float = 60.0             # Maximum health points of the enemy
+@export var speed_variation = 30                 # Range of random speed variation (in percentage)
+@export var attack_cooldown_time = 1.0           # Time between attacks (in seconds)
+
+# Idle state variables
+@export var idle_time_min = 1.0                  # Minimum duration of idle state
+@export var idle_time_max = 2.5                  # Maximum duration of idle state
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D if has_node("NavigationAgent2D") else null
 @onready var target = get_node("../Player")
@@ -183,7 +197,7 @@ func connect_signals():
 	if timer_direction and not timer_direction.timeout.is_connected(_on_timer_direction_timeout):
 		timer_direction.timeout.connect(_on_timer_direction_timeout)
 
-# Verify if the enemy can attack the player (something in front of the enemy)
+# Verify if the enemy can attack the player
 func has_clear_shot() -> bool:
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsRayQueryParameters2D.create(global_position, target.global_position)
@@ -196,6 +210,13 @@ func has_clear_shot() -> bool:
 func _physics_process(delta):
 	if is_dead:
 		return
+		
+	if is_attacking and not attack_animation_enemy.is_playing() and current_animation_state == animation_state.ATTACK:
+		is_attacking = false
+		transition_to_animation(animation_state.IDLE)
+	
+	if current_animation_state == animation_state.DODGE and dodge_timer <= 0:
+		transition_to_animation(animation_state.IDLE)
 	
 	attack_cooldown -= delta
 	
@@ -280,40 +301,150 @@ func attack_state(delta):
 	var distance_to_target = global_position.distance_to(target.global_position)
 	var direction_to_target = global_position.direction_to(target.global_position)
 
-	if distance_to_target < min_attack_distance:
-		velocity = -direction_to_target * speed
-		move_and_slide()
-		if transition_to_animation(animation_state.WALK):
-			play_movement_animation(-direction_to_target)
+	if distance_to_target < min_attack_distance * 0.7: 
+		perform_emergency_retreat(direction_to_target)
 	elif distance_to_target > attack_range:
 		transition_to_state(enemy_state.CHASE)
 	else:
-		handle_combat_movement(delta, distance_to_target, direction_to_target)
-		
-		if attack_cooldown <= 0 and has_clear_shot():
+		if can_perform_attack() and has_clear_shot():
 			perform_attack()
 			current_shots += 1
 			
 			if current_shots >= max_shots_before_reposition:
 				initiate_reposition()
 				current_shots = 0
+		else:
+			handle_combat_movement(delta, distance_to_target, direction_to_target)
 				
-func handle_combat_movement(delta, distance_to_target, direction_to_target):
-	dodge_timer = max(0, dodge_timer - delta)
-	
+func perform_emergency_retreat(direction_to_target: Vector2):
 	if is_attacking:
 		return
+	
+	var retreat_direction = -direction_to_target
+	var escape_direction = find_escape_direction(retreat_direction)
+	
+	velocity = escape_direction * (speed * 1.5)
+	move_and_slide()
+	
+	if current_animation_state not in [animation_state.DODGE, animation_state.DEATH, animation_state.ATTACK]:
+		if transition_to_animation(animation_state.WALK):
+			normal_sprite.flip_h = escape_direction.x < 0
+			
+func find_escape_direction(base_direction: Vector2) -> Vector2:
+	var space_state = get_world_2d().direct_space_state
+	var test_angles = [0, PI/6, -PI/6, PI/4, -PI/4]
+	
+	for angle in test_angles:
+		var test_direction = base_direction.rotated(angle)
+		var test_point = global_position + test_direction * (min_attack_distance * 0.5)
 		
-	if current_animation_state == animation_state.DODGE:
+		var query = PhysicsRayQueryParameters2D.create(
+			global_position,
+			test_point,
+			1,
+			[self] 
+		)
+		var result = space_state.intersect_ray(query)
+		
+		if not result:
+			return test_direction
+	
+	return base_direction
+				
+func find_escape_point(retreat_direction: Vector2) -> Vector2:
+	var test_points = []
+	var base_distance = optimal_attack_distance * 1.2
+	var space_state = get_world_2d().direct_space_state
+	
+	for angle in [-PI/4, 0, PI/4]:
+		var test_direction = retreat_direction.rotated(angle)
+		var test_point = global_position + test_direction * base_distance
+		
+		var query = PhysicsRayQueryParameters2D.create(
+			global_position,
+			test_point,
+			1, 
+			[self]
+		)
+		var result = space_state.intersect_ray(query)
+		
+		if not result: 
+			var distance_to_player = test_point.distance_to(target.global_position)
+			if distance_to_player >= optimal_attack_distance:
+				test_points.append(test_point)
+	
+	if test_points.size() > 0:
+		test_points.sort_custom(func(a, b):
+			return a.distance_to(target.global_position) > b.distance_to(target.global_position)
+		)
+		return test_points[0]
+	
+	return Vector2.ZERO
+
+func perform_tactical_retreat(direction_to_target: Vector2, distance_to_target: float):
+	var retreat_direction = -direction_to_target
+	
+	if not navigation_agent.is_target_reached():
+		var escape_point = await find_escape_point(retreat_direction)
+		if escape_point != Vector2.ZERO:
+			navigation_agent.target_position = escape_point
+	
+	if not navigation_agent.is_navigation_finished():
+		var next_path_position = navigation_agent.get_next_path_position()
+		var retreat_velocity = global_position.direction_to(next_path_position) * speed * 1.2
+		
+		velocity = retreat_velocity
+		move_and_slide()
+		
+		if transition_to_animation(animation_state.WALK):
+			play_movement_animation(retreat_velocity.normalized())
+	else:
+		velocity = retreat_direction * speed
+		move_and_slide()
+		
+		if transition_to_animation(animation_state.WALK):
+			play_movement_animation(retreat_direction)
+				
+func handle_combat_movement(delta, distance_to_target, direction_to_target):
+	if is_dead or not is_instance_valid(target):
 		return
+		
+	if is_attacking and not attack_animation_enemy.is_playing():
+		is_attacking = false
+		transition_to_animation(animation_state.IDLE)
+		
+	if current_animation_state == animation_state.DODGE and dodge_timer <= 0:
+		transition_to_animation(animation_state.IDLE)
+	
+	if (is_attacking and attack_animation_enemy.is_playing()) or \
+		(current_animation_state == animation_state.DODGE and dodge_timer > 0):
+			return
+	
+	dodge_timer = max(0, dodge_timer - delta)
 	
 	if should_dodge():
 		perform_dodge()
 		return
 
-	update_strafe_direction()
-	var movement = calculate_movement_vector(distance_to_target, direction_to_target)
-	apply_smooth_movement(movement, distance_to_target, direction_to_target)
+	var too_close = distance_to_target < min_attack_distance
+	var too_far = distance_to_target > optimal_attack_distance + optimal_distance_tolerance
+	var optimal_zone = not too_close and not too_far
+
+	if optimal_zone:
+		update_strafe_direction()
+		var movement = calculate_movement_vector(distance_to_target, direction_to_target)
+		apply_smooth_movement(movement)
+	elif too_close:
+		var retreat_strength = inverse_lerp(min_attack_distance * 0.7, min_attack_distance, distance_to_target)
+		var retreat_movement = -direction_to_target * speed * (1.0 - retreat_strength)
+		apply_smooth_movement(retreat_movement)
+	elif too_far:
+		var approach_movement = direction_to_target * speed * 0.5
+		apply_smooth_movement(approach_movement)
+	else:
+		velocity = Vector2.ZERO
+		if current_animation_state != animation_state.ATTACK:
+			transition_to_animation(animation_state.IDLE)
 		
 func perform_dodge():
 	var nearest_projectile = get_nearest_threatening_projectile()
@@ -335,49 +466,25 @@ func transition_to_animation(new_state: animation_state) -> bool:
 	if is_dead and new_state != animation_state.DEATH:
 		return false
 		
-	if current_animation_state == new_state:
-		if new_state == animation_state.WALK and not move_animation_enemy.is_playing():
-			move_animation_enemy.play("walk")
-		return true
-
 	match current_animation_state:
-		animation_state.DEATH:
-			return false
-			
-		animation_state.DODGE:
-
-			if new_state == animation_state.DEATH:
-				current_animation_state = new_state
-				update_sprite_visibility()
-				return true
-
-			elif dodge_timer <= 0 and not is_dead:
-				current_animation_state = new_state
-				update_sprite_visibility()
-				_ensure_animation_playing(new_state)
-				return true
-			return false
-			
 		animation_state.ATTACK:
+			if is_attacking and not attack_animation_enemy.is_playing():
+				is_attacking = false
+		animation_state.DODGE:
+			if dodge_timer <= 0:
+				dodge_timer = 0
+	
+	current_animation_state = new_state
+	update_sprite_visibility()
+	_ensure_animation_playing(new_state)
+	return true
+	
+func can_perform_attack() -> bool:
+	return not is_attacking and \
+		not attack_animation_enemy.is_playing() and \
+		current_animation_state != animation_state.DODGE and \
+		attack_cooldown <= 0
 
-			if new_state in [animation_state.DEATH, animation_state.DODGE]:
-				current_animation_state = new_state
-				update_sprite_visibility()
-				_ensure_animation_playing(new_state)
-				return true
-
-			elif not attack_animation_enemy.is_playing() and not is_attacking:
-				current_animation_state = new_state
-				update_sprite_visibility()
-				_ensure_animation_playing(new_state)
-				return true
-			return false
-			
-		_:
-			current_animation_state = new_state
-			update_sprite_visibility()
-			_ensure_animation_playing(new_state)
-			return true
 			
 func _ensure_animation_playing(state: animation_state) -> void:
 	match state:
@@ -431,34 +538,28 @@ func update_strafe_direction():
 		is_strafing = true
 		strafe_direction = 1 if randf() > 0.5 else -1
 		last_strafe_change = Time.get_ticks_msec() / 1000.0
-	elif Time.get_ticks_msec() / 1000.0 - last_strafe_change > 4.0:
-		if randf() > 0.4:
+	elif Time.get_ticks_msec() / 1000.0 - last_strafe_change > 2.0: 
+		var distance = global_position.distance_to(target.global_position)
+		var change_chance = inverse_lerp(min_attack_distance, optimal_attack_distance, distance)
+		if randf() > 0.6 + change_chance * 0.2:
 			strafe_direction *= -1
 		last_strafe_change = Time.get_ticks_msec() / 1000.0
 
 func calculate_movement_vector(distance_to_target, direction_to_target) -> Vector2:
 	var movement = Vector2.ZERO
 	
-	var distance_factor = clamp(distance_to_target / optimal_attack_distance, 0.2, 1.0)
-	var current_strafe_multiplier = strafe_speed_multiplier * distance_factor
-	
-	if distance_to_target < min_attack_distance * 1.5:
-		current_strafe_multiplier *= 0.5
-	
-	var strafe_vector = direction_to_target.rotated(PI/2) * strafe_direction
-	movement += strafe_vector * speed * current_strafe_multiplier
-	
-	if abs(distance_to_target - optimal_attack_distance) > optimal_distance_tolerance:
-		var distance_diff = distance_to_target - optimal_attack_distance
-		var adjustment = direction_to_target * distance_diff * distance_adjustment_speed
+	if distance_to_target >= min_attack_distance:
+		var distance_factor = smoothstep(min_attack_distance, optimal_attack_distance, distance_to_target)
+		var current_strafe_multiplier = strafe_speed_multiplier * distance_factor
 		
-		var distance_adjustment_factor = clamp(distance_to_target / optimal_attack_distance, 0.3, 1.0)
-		adjustment *= distance_adjustment_factor
+		var strafe_vector = direction_to_target.rotated(PI/2) * strafe_direction
+		movement += strafe_vector * speed * current_strafe_multiplier
 		
-		var max_adjustment = speed * (0.2 + distance_adjustment_factor * 0.2)
-		adjustment = adjustment.limit_length(max_adjustment)
-		
-		movement += adjustment
+		if abs(distance_to_target - optimal_attack_distance) > optimal_distance_tolerance:
+			var distance_diff = distance_to_target - optimal_attack_distance
+			var adjustment = direction_to_target * distance_diff * distance_adjustment_speed
+			adjustment *= distance_factor
+			movement += adjustment.limit_length(speed * 0.3)
 	
 	return movement
 
@@ -536,27 +637,19 @@ func calculate_threat_level(projectile_type: String, time_to_impact: float, dist
 		_:
 			return base_threat
 			
-func apply_smooth_movement(movement: Vector2, distance_to_target: float = 0.0, direction_to_target: Vector2 = Vector2.ZERO):
+func apply_smooth_movement(movement: Vector2):
 	movement = movement.limit_length(speed)
 	
-	var distance_based_smooth_factor = lerp(0.05, 0.08,
-		clamp(distance_to_target / optimal_attack_distance, 0.0, 1.0))
-	
 	if velocity.length() > 0:
-		velocity = velocity.lerp(movement, distance_based_smooth_factor)
+		velocity = velocity.lerp(movement, 0.1)
 	else:
-		var start_factor = lerp(0.5, 0.7,
-			clamp(distance_to_target / optimal_attack_distance, 0.0, 1.0))
-		velocity = movement * start_factor
+		velocity = movement * 0.5
 	
-	velocity = avoid_obstacles(velocity.normalized()) * speed
+	velocity = avoid_obstacles(velocity.normalized()) * min(speed, velocity.length())
 	move_and_slide()
 	
-	if current_animation_state not in [animation_state.DODGE, animation_state.ATTACK, animation_state.DEATH]:
-		var direction_threshold = lerp(12.0, 8.0,
-			clamp(distance_to_target / optimal_attack_distance, 0.0, 1.0))
-		if abs(velocity.x) > direction_threshold:
-			play_movement_animation(velocity.normalized())
+	if velocity.length() > 10.0:
+		play_movement_animation(velocity.normalized())
 
 func initiate_reposition():
 	if transition_to_state(enemy_state.REPOSITION):
@@ -722,6 +815,9 @@ func play_idle_animation():
 
 # Perform an attack on the player
 func perform_attack():
+	if is_attacking or attack_animation_enemy.is_playing():
+		return
+		
 	if not transition_to_animation(animation_state.ATTACK):
 		return
 		
@@ -762,7 +858,9 @@ func stop_attack_animation():
 	if attack_animation_enemy.is_playing():
 		attack_animation_enemy.stop()
 	is_attacking = false
-	transition_to_animation(animation_state.IDLE)
+	
+	if current_animation_state == animation_state.ATTACK:
+		transition_to_animation(animation_state.IDLE)
 
 # Move along the calculated path
 func move_along_path(delta):
@@ -813,14 +911,11 @@ func avoid_obstacles(direction):
 
 # Play movement animation based on direction
 func play_movement_animation(direction: Vector2):
-	if current_animation_state in [animation_state.DODGE, animation_state.DEATH]:
+	# No cambiar animación si estamos en estados prioritarios
+	if current_animation_state in [animation_state.DODGE, animation_state.DEATH, animation_state.ATTACK]:
 		return
-		
-	if current_animation_state == animation_state.ATTACK:
-		if not attack_animation_enemy.is_playing() and not is_attacking:
-			transition_to_animation(animation_state.WALK)
 	
-	if velocity.length() > 0:
+	if velocity.length() > 10.0:
 		if transition_to_animation(animation_state.WALK):
 			if abs(direction.x) > 0.1:
 				normal_sprite.flip_h = direction.x < 0
@@ -828,29 +923,32 @@ func play_movement_animation(direction: Vector2):
 		if current_animation_state != animation_state.ATTACK:
 			transition_to_animation(animation_state.IDLE)
 
-# Play attack animation based on direction to player
 func play_attack_animation():
-	if not is_instance_valid(target):
+	if not is_instance_valid(target) or is_dead:
 		is_attacking = false
+		stop_attack_animation()
 		return
 	
-	stop_all_animations()
+	move_animation_enemy.stop()
+	idle_animation_enemy.stop()
+	
 	update_sprite_visibility()
 	
 	var direction = global_position.direction_to(target.global_position)
 	attack_sprite.flip_h = direction.x < 0
 	
-	attack_animation_enemy.play("attack")
-	play_attack_sound()
+	if not attack_animation_enemy.is_playing():
+		attack_animation_enemy.play("attack")
+		play_attack_sound()
 	
-	var attack_duration = attack_animation_enemy.current_animation_length
-	var timer = get_tree().create_timer(attack_duration)
-	timer.timeout.connect(func():
-		if is_attacking and not is_dead:
+	var safety_timer = get_tree().create_timer(1.5)
+	safety_timer.timeout.connect(func():
+		if is_attacking and not attack_animation_enemy.is_playing():
 			is_attacking = false
-			if transition_to_animation(animation_state.IDLE):
-				update_sprite_visibility()
+			if not is_dead:
+				transition_to_animation(animation_state.IDLE)
 	)
+
 	
 func play_attack_sound():
 	if attack_sound and not attack_sound.playing:

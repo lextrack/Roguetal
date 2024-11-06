@@ -83,7 +83,7 @@ func instance_random_powerup() -> void:
 		{"name": "bullet_hell", "weight": 3},
 		{"name": "critical_chance", "weight": 15},
 		{"name": "slow_enemy", "weight": 10},
-		{"name": "incendiary_shotgun", "weight": 7}
+		{"name": "incendiary_shotgun", "weight": 8}
 	]
 	
 	var total_weight = 0
