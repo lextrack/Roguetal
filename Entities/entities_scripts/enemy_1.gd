@@ -210,7 +210,7 @@ func chase_state(delta):
 	if distance_to_target > chase_range * 0.7:
 		speed_multiplier = 1.2
 	elif distance_to_target < attack_range * 1.5:
-		speed_multiplier = 0.8
+		speed_multiplier = 0.6
 		
 	if distance_to_target <= attack_range:
 		current_state = enemy_state.ATTACK

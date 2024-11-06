@@ -1397,7 +1397,7 @@ position = Vector2(164, 62)
 
 [node name="CanvasInstructionsMainWorld" type="CanvasLayer" parent="." groups=["instruction_canvas"]]
 script = ExtResource("2_kpvk5")
-display_time = 5.0
+display_time = 4.0
 
 [node name="PanelInstructions" type="Panel" parent="CanvasInstructionsMainWorld"]
 anchors_preset = 3

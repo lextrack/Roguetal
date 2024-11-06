@@ -2825,7 +2825,7 @@ script = ExtResource("1_f0bfp")
 
 [node name="CanvasInstructionsDungeon2" type="CanvasLayer" parent="." groups=["instruction_canvas"]]
 script = SubResource("GDScript_t2pje")
-display_time = 5.0
+display_time = 4.0
 
 [node name="PanelInstructions" type="Panel" parent="CanvasInstructionsDungeon2"]
 anchors_preset = -1

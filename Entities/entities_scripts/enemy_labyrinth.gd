@@ -35,9 +35,9 @@ var path_update_timer : Timer
 var reposition_timer : Timer
 var idle_timer : Timer
 var speed # The actual speed of this enemy instance
-var max_allowed_speed = 100 # Maximum allowed speed for any enemy
+var max_allowed_speed = 110 # Maximum allowed speed for any enemy
 
-@export var base_speed = 95 # The base movement speed of the enemy
+@export var base_speed = 100 # The base movement speed of the enemy
 @export var speed_variation = 20 # The range of speed variation
 @export var max_health: float = 50.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.6 # Time (in seconds) between enemy attacks
@@ -210,7 +210,7 @@ func chase_state(delta):
 	if distance_to_target > chase_range * 0.7:
 		speed_multiplier = 1.2
 	elif distance_to_target < attack_range * 1.5:
-		speed_multiplier = 0.8
+		speed_multiplier = 0.6
 		
 	if distance_to_target <= attack_range:
 		current_state = enemy_state.ATTACK
