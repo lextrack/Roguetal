@@ -12,3 +12,5 @@ res://GlobalPowerUpState.gd
 res://global_power_up_types.gd
 res://UI/ui_scripts/stats_window.gd
 res://Levels/level_generator_scripts/walker_labyrinth.gd
+res://Dialogues/instructions.json
+res://Levels/Scenes/main_dungeon.tscn

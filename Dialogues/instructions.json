@@ -28,6 +28,15 @@
 				"texts": [
 					"Para [color=yellow]controlar[/color] y dirigir los disparos"
 				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/tab-key.png"
+				],
+				"texts": [
+					"Para ver las [color=yellow]estadísticas[/color]"
+				]
 			}
 		]
 	},
@@ -59,6 +68,15 @@
 				],
 				"texts": [
 					"To [color=yellow]control[/color] and direct the shots"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/tab-key.png"
+				],
+				"texts": [
+					"To check the [color=yellow]stats[/color]"
 				]
 			}
 		]
@@ -92,6 +110,15 @@
 				"texts": [
 					"[color=yellow]控制[/color]和瞄准射击"
 				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/tab-key.png"
+				],
+				"texts": [
+					"查看[color=yellow]数据[/color]"
+				]
 			}
 		]
 	},
@@ -123,6 +150,15 @@
 				],
 				"texts": [
 					"Para [color=yellow]controlar[/color] e direcionar os tiros"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/tab-key.png"
+				],
+				"texts": [
+					"Para verificar as [color=yellow]estatísticas[/color]"
 				]
 			}
 		]
@@ -156,8 +192,17 @@
 	   			"texts": [
 	   				"Aby [color=yellow]kontrolować[/color] i kierować strzałami"
 	   			]
-	   		}
-	   	]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/tab-key.png"
+				],
+				"texts": [
+					"Aby sprawdzić [color=yellow]statystyki[/color]"
+				]
+			}
+		]
 	},
 	"ja": {
 		"pages": [
@@ -187,6 +232,15 @@
 				],
 				"texts": [
 					"射撃を[color=yellow]操作[/color]して向きを変える"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/tab-key.png"
+				],
+				"texts": [
+					"[color=yellow]ステータス[/color]を確認する"
 				]
 			}
 		]
@@ -219,6 +273,15 @@
 				],
 				"texts": [
 					"Um die Schüsse zu [color=yellow]kontrollieren[/color] und zu lenken"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/tab-key.png"
+				],
+				"texts": [
+					"Um die [color=yellow]Statistiken[/color] zu überprüfen"
 				]
 			}
 		]
