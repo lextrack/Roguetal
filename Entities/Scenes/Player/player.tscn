@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://brms7i87pfawr"]
+[gd_scene load_steps=35 format=3 uid="uid://brms7i87pfawr"]
 
 [ext_resource type="Script" path="res://Entities/entities_scripts/player.gd" id="1_ukrib"]
 [ext_resource type="Shader" path="res://Shaders/hurt.gdshader" id="2_dwf4p"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://c41s3wtu5ym1u" path="res://SoundEffects/walking_sound1.ogg" id="8_01fvg"]
 [ext_resource type="Texture2D" uid="uid://bejn0okd6epu0" path="res://Sprites/shotgun_shell_incendiary.png" id="8_7iq56"]
 [ext_resource type="Texture2D" uid="uid://u0hyhwgouco1" path="res://Sprites/shotgun.png" id="9_pmxyk"]
+[ext_resource type="PackedScene" uid="uid://dk56cgyed6i0u" path="res://UI/ui_scenes/stats_window.tscn" id="9_q87gj"]
 [ext_resource type="Texture2D" uid="uid://dt4rbj4kc7lgp" path="res://Sprites/rocket-launch_sprite.png" id="9_rmb78"]
 [ext_resource type="AudioStream" uid="uid://bwk7dwlyljdul" path="res://SoundEffects/hurting_player.ogg" id="10_aj7pw"]
 [ext_resource type="AudioStream" uid="uid://chf2546e33apu" path="res://SoundEffects/AudioStreamM16Shot.ogg" id="10_emtum"]
@@ -249,7 +250,7 @@ texture = SubResource("GradientTexture2D_86cio")
 texture_scale = 2.0
 
 [node name="ControlPowerUpHud" type="Control" parent="." groups=["powerup_hud"]]
-z_index = 100
+z_index = 2
 texture_filter = 2
 layout_mode = 3
 anchors_preset = 8
@@ -258,9 +259,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -221.429
-offset_top = -77.1429
+offset_top = -64.2858
 offset_right = -174.429
-offset_bottom = -38.1429
+offset_bottom = -25.2858
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -437,6 +438,12 @@ libraries = {
 "": SubResource("AnimationLibrary_j2kxc")
 }
 autoplay = "Idle"
+
+[node name="StatsWindow" parent="." instance=ExtResource("9_q87gj")]
+offset_left = -175.714
+offset_top = 97.1429
+offset_right = -175.714
+offset_bottom = 97.1429
 
 [connection signal="timeout" from="Camera2D/camera_shake" to="Camera2D" method="_on_camera_shake_timeout"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
