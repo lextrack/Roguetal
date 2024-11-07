@@ -22,7 +22,7 @@ func walk(steps):
 	place_room(position)
 	
 	for step in steps:
-		if steps_since_turn >= 9: # Increase for longer straight sections
+		if steps_since_turn >= 8: # Increase for longer straight sections
 			change_direction()
 		if step():
 			step_history.append(position)

@@ -249,6 +249,13 @@ scale = Vector2(1, 1.02083)
 texture = SubResource("GradientTexture2D_86cio")
 texture_scale = 2.0
 
+[node name="StatsWindow" parent="." instance=ExtResource("9_q87gj")]
+z_index = 2
+offset_left = -530.0
+offset_top = 287.143
+offset_right = -530.0
+offset_bottom = 287.143
+
 [node name="ControlPowerUpHud" type="Control" parent="." groups=["powerup_hud"]]
 z_index = 2
 texture_filter = 2
@@ -258,10 +265,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -221.429
-offset_top = -64.2858
-offset_right = -174.429
-offset_bottom = -25.2858
+offset_left = -575.715
+offset_top = -132.857
+offset_right = -528.715
+offset_bottom = -93.8572
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -271,38 +278,38 @@ size_flags_vertical = 4
 position = Vector2(31.4286, 15.7143)
 
 [node name="double_damage_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
-position = Vector2(-24.1433, -8.14282)
-scale = Vector2(0.07, 0.07)
+position = Vector2(-94.5533, -38.5714)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("12_erptt")
 
-[node name="double_speed_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
-position = Vector2(-8.42871, -8.14282)
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("3_kwns6")
-
 [node name="double_defense_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
-position = Vector2(7.28589, -8.14282)
-scale = Vector2(0.07, 0.07)
+position = Vector2(-38.5712, -38.5714)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("6_7scbk")
 
+[node name="double_speed_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
+position = Vector2(17.1426, -38.5714)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_kwns6")
+
 [node name="critical_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
-position = Vector2(-23.7607, 4.60016)
-scale = Vector2(0.07, 0.07)
+position = Vector2(-94.2854, 2.85718)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("6_q1p7r")
 
 [node name="slow_enemies_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
-position = Vector2(-8.04663, 4.60016)
-scale = Vector2(0.07, 0.07)
+position = Vector2(-38.5712, 2.85712)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_xg6ym")
 
 [node name="shotgun_shell_incendiary_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
-position = Vector2(7.66797, 4.60016)
-scale = Vector2(0.07, 0.07)
+position = Vector2(17.1433, 2.85715)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("8_7iq56")
 
 [node name="bullet_hell_icon" type="Sprite2D" parent="ControlPowerUpHud/hud_powerup"]
-position = Vector2(-24.1431, 17.5714)
-scale = Vector2(0.07, 0.07)
+position = Vector2(-94.2854, 44.2858)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_him75")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -438,12 +445,6 @@ libraries = {
 "": SubResource("AnimationLibrary_j2kxc")
 }
 autoplay = "Idle"
-
-[node name="StatsWindow" parent="." instance=ExtResource("9_q87gj")]
-offset_left = -175.714
-offset_top = 97.1429
-offset_right = -175.714
-offset_bottom = 97.1429
 
 [connection signal="timeout" from="Camera2D/camera_shake" to="Camera2D" method="_on_camera_shake_timeout"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

@@ -14,7 +14,7 @@ var multipliers = {
 
 # Definimos los límites máximos para cada tipo de power-up
 const MAX_MULTIPLIERS = {
-	PowerUpTypes.PowerUpType.DAMAGE: 2.5,        # 250% daño máximo
+	PowerUpTypes.PowerUpType.DAMAGE: 3.0,        # 300% daño máximo
 	PowerUpTypes.PowerUpType.SPEED: 2.0,         # 200% velocidad máxima
 	PowerUpTypes.PowerUpType.DEFENSE: 3.0,       # 300% defensa máxima
 	PowerUpTypes.PowerUpType.BULLET_HELL: 1.0,   # Activado/Desactivado
@@ -40,10 +40,10 @@ func activate_power_up(type: PowerUpTypes.PowerUpType):
 		new_value = PowerUpTypes.get_base_multiplier(type)
 	elif type == PowerUpTypes.PowerUpType.ENEMY_SLOW:
 		new_value = multipliers[type] * PowerUpTypes.get_base_multiplier(type)
-		new_value = clamp(new_value, MAX_MULTIPLIERS[type], 1.0)  # Para ENEMY_SLOW, el mínimo es 0.3 y el máximo es 1.0
+		new_value = clamp(new_value, MAX_MULTIPLIERS[type], 1.0) 
 	else:
 		new_value = multipliers[type] * PowerUpTypes.get_base_multiplier(type)
-		new_value = min(new_value, MAX_MULTIPLIERS[type])  # Aplicamos el límite máximo
+		new_value = min(new_value, MAX_MULTIPLIERS[type])
 	
 	multipliers[type] = new_value
 	call_deferred("emit_signal", "power_up_changed", type, multipliers[type])

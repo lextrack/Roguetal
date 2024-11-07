@@ -1,3 +1,4 @@
+Node
 CanvasLayer
 AnimationPlayer
 VBoxContainer
@@ -12,4 +13,3 @@ Area2D
 GPUParticles2D
 HSlider
 RichTextLabel
-TileMapLayer

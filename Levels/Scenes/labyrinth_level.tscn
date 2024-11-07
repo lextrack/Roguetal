@@ -1581,7 +1581,7 @@ y_sort_enabled = true
 script = ExtResource("1_a3cw7")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-energy = 0.91
+energy = 0.95
 blend_mode = 1
 
 [node name="CanvasInstructionsLabyrinth" type="CanvasLayer" parent="." groups=["instruction_canvas"]]

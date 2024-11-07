@@ -25,7 +25,7 @@ const POWER_UP_BASE_MULTIPLIERS = {
 	PowerUpType.SPEED: 1.08,
 	PowerUpType.DEFENSE: 1.1,
 	PowerUpType.BULLET_HELL: 1.0,
-	PowerUpType.CRITICAL_CHANCE: 1.15,
+	PowerUpType.CRITICAL_CHANCE: 1.10,
 	PowerUpType.ENEMY_SLOW: 0.95,
 	PowerUpType.SHOTGUN_FIRE: 1.0
 }
