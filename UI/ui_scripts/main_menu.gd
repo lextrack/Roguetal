@@ -7,6 +7,7 @@ extends Control
 @onready var close_credits_button: Button = $CreditsPanel/CloseCreditsButton
 @onready var hover_sound: AudioStreamPlayer2D = $HoverSound
 @onready var options: Button = $VBoxContainer/Options
+@onready var stats: Button = $VBoxContainer/Stats
 
 var current_selection = 0
 var buttons = []
@@ -20,7 +21,7 @@ func _ready() -> void:
 	credits_panel.hide()
 	close_credits_button.connect("pressed", Callable(self, "_on_close_credits_pressed"))
 	
-	buttons = [play, options, credits, quit]
+	buttons = [play, options, stats, credits, quit]
 	
 	for button in buttons:
 		if button == null:
@@ -41,6 +42,7 @@ func _ready() -> void:
 func update_translations() -> void:
 	play.text = TranslationManager.get_text("play_button")
 	options.text = TranslationManager.get_text("options_button")
+	stats.text = TranslationManager.get_text("stats_button")  # Añade esta línea
 	credits.text = TranslationManager.get_text("credits_button")
 	quit.text = TranslationManager.get_text("quit_button")
 	close_credits_button.text = TranslationManager.get_text("close_credits_button")
@@ -70,8 +72,30 @@ func _on_loading_finished() -> void:
 func _on_credits_pressed() -> void:
 	animate_button(credits)
 	await get_tree().create_timer(0.2).timeout
+	# Preparar panel de créditos para la animación
+	credits_panel.scale = Vector2(0.8, 0.8)
+	credits_panel.modulate.a = 0
 	credits_panel.show()
+	animate_credits_panel()
 	credits_open = true
+
+func animate_credits_panel() -> void:
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_BACK)  # Puedes cambiar a TRANS_LINEAR si prefieres
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(credits_panel, "scale", Vector2(1.0, 1.0), 0.3)
+	tween.parallel().tween_property(credits_panel, "modulate:a", 1.0, 0.2)
+
+func close_credits() -> void:
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_BACK)
+	tween.set_ease(Tween.EASE_IN)
+	tween.tween_property(credits_panel, "scale", Vector2(0.8, 0.8), 0.2)
+	tween.parallel().tween_property(credits_panel, "modulate:a", 0.0, 0.2)
+	
+	await tween.finished
+	credits_panel.hide()
+	credits_open = false
 
 func _on_quit_pressed() -> void:
 	animate_button(quit)
@@ -87,10 +111,6 @@ func animate_button(button: Button) -> void:
 
 func _on_close_credits_pressed() -> void:
 	close_credits()
-
-func close_credits() -> void:
-	credits_panel.hide()
-	credits_open = false
 
 func handle_menu_navigation():
 	var old_selection = current_selection
@@ -138,5 +158,7 @@ func animate_options_menu() -> void:
 	tween.tween_property($OptionsMenu, "scale", Vector2(1.0, 1.0), 0.2)
 	tween.tween_property($OptionsMenu, "modulate:a", 1.0, 0.2)
 
-func _on_boton_guardar_pressed() -> void:
-	pass 
+func _on_stats_pressed() -> void:
+	animate_button(stats)
+	await get_tree().create_timer(0.3).timeout
+	get_tree().change_scene_to_file("res://UI/ui_scenes/stats_display.tscn")

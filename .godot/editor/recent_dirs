@@ -1,10 +1,10 @@
-res://Entities/entities_scripts
 res://UI/ui_scripts
 res://UI/ui_scenes
+res://
+res://Entities/entities_scripts
 res://Interactables/Scenes
 res://Entities/Scenes/FX
 res://Interactables/interatables_scripts
-res://
 res://Levels/level_generator_scripts
 res://Levels/Scenes
 C:/Users/ariel/OneDrive/Desktop

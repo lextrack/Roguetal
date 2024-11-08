@@ -151,6 +151,22 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
 theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
 text = "Options"
 
+[node name="Stats" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_ncx40")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
+theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_d0fhw")
+text = "Stats"
+
 [node name="Credits" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -270,5 +286,6 @@ layout_mode = 1
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/Stats" to="." method="_on_stats_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

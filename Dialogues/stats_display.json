@@ -1,0 +1,79 @@
+{
+	"es": {
+		"stats_title": "Estadísticas del Jugador",
+		"stats_button": "Estadísticas",
+		"back_button": "Volver",
+		"total_kills_label": "Kills Totales:",
+		"total_time_label": "Tiempo Total:",
+		"highest_streak_label": "Mejor Racha:",
+		"games_played_label": "Partidas Jugadas:",
+		"avg_time_label": "Tiempo Promedio:",
+		"avg_kills_label": "Promedio de Kills:"
+	},
+	"en": {
+		"stats_title": "Player Statistics",
+		"stats_button": "Statistics",
+		"back_button": "Back",
+		"total_kills_label": "Total Kills:",
+		"total_time_label": "Total Time:",
+		"highest_streak_label": "Highest Streak:",
+		"games_played_label": "Games Played:",
+		"avg_time_label": "Average Time:",
+		"avg_kills_label": "Average Kills:"
+	},
+	"zh": {
+		"stats_title": "玩家统计",
+		"stats_button": "统计",
+		"back_button": "返回",
+		"total_kills_label": "总击杀数:",
+		"total_time_label": "总游戏时间:",
+		"highest_streak_label": "最高连杀:",
+		"games_played_label": "游戏场次:",
+		"avg_time_label": "平均时间:",
+		"avg_kills_label": "平均击杀:"
+	},
+	"pt": {
+		"stats_title": "Estatísticas do Jogador",
+		"stats_button": "Estatísticas",
+		"back_button": "Voltar",
+		"total_kills_label": "Abates Totais:",
+		"total_time_label": "Tempo Total:",
+		"highest_streak_label": "Maior Sequência:",
+		"games_played_label": "Partidas Jogadas:",
+		"avg_time_label": "Tempo Médio:",
+		"avg_kills_label": "Média de Abates:"
+	},
+	"pl": {
+		"stats_title": "Statystyki Gracza",
+		"stats_button": "Statystyki",
+		"back_button": "Wróć",
+		"total_kills_label": "Całkowite Zabójstwa:",
+		"total_time_label": "Całkowity Czas:",
+		"highest_streak_label": "Najlepsza Seria:",
+		"games_played_label": "Rozegrane Gry:",
+		"avg_time_label": "Średni Czas:",
+		"avg_kills_label": "Średnie Zabójstwa:"
+	},
+	"ja": {
+		"stats_title": "プレイヤー統計",
+		"stats_button": "統計",
+		"back_button": "戻る",
+		"total_kills_label": "総キル数:",
+		"total_time_label": "総プレイ時間:",
+		"highest_streak_label": "最高連続キル:",
+		"games_played_label": "プレイ回数:",
+		"avg_time_label": "平均時間:",
+		"avg_kills_label": "平均キル数:"
+	},
+	"de": {
+		"stats_title": "Spielerstatistiken",
+		"stats_button": "Statistiken",
+		"back_button": "Zurück",
+		"total_kills_label": "Gesamte Kills:",
+		"total_time_label": "Gesamtzeit:",
+		"highest_streak_label": "Beste Serie:",
+		"games_played_label": "Gespielte Partien:",
+		"avg_time_label": "Durchschnittliche Zeit:",
+		"avg_kills_label": "Durchschnittliche Kills:"
+	}
+}

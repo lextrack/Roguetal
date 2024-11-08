@@ -109,3 +109,7 @@ func reset_animations():
 	kill_count_label.scale = Vector2(1, 1)
 	highest_streak_label.scale = Vector2(1, 1)
 	time_played_label.modulate.a = 0
+	
+func _exit_tree():
+	# Actualizar estadísticas antes de salir de la escena
+	StatsManager.update_session_stats()

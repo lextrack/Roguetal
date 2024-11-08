@@ -1,0 +1,139 @@
+[gd_scene load_steps=6 format=3 uid="uid://m5kt7g7dtvyw"]
+
+[ext_resource type="Script" path="res://UI/ui_scripts/stats_display.gd" id="1_xrskc"]
+[ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="2_efpxc"]
+[ext_resource type="AudioStream" uid="uid://cgr60uh2odmsm" path="res://SoundEffects/misc_01.ogg" id="2_wj2gf"]
+[ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_sx0jw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6wkxj"]
+bg_color = Color(0, 0.321569, 0.764706, 0.576471)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
+shadow_size = 5
+
+[node name="StatsDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xrskc")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6wkxj")
+
+[node name="StatsContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 35
+text = "Stats"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/PanelContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="StatsGrid" type="GridContainer" parent="MarginContainer/PanelContainer/StatsContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="TotalKillsLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 30
+text = "Total kills:"
+
+[node name="TotalKillsValue" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 30
+
+[node name="TotalTimeLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 30
+text = "Total Time:"
+
+[node name="TotalTimeValue" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 30
+
+[node name="HighestStreakLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 30
+text = "Highest Streak:"
+
+[node name="HighestStreakValue" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 30
+
+[node name="GamesPlayedLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 30
+text = "Matches Played:"
+
+[node name="GamesPlayedValue" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 30
+
+[node name="AvgTimeLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 30
+text = "Average Time:"
+
+[node name="AvgTimeValue" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 30
+
+[node name="AvgKillsLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 30
+text = "Average Kills:"
+
+[node name="AvgKillsValue" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 30
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_efpxc")
+theme_override_font_sizes/font_size = 25
+text = "Back"
+
+[node name="HoverSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_wj2gf")
+panning_strength = 0.0
+
+[node name="mouse_icon" parent="." instance=ExtResource("4_sx0jw")]
+
+[connection signal="pressed" from="MarginContainer/PanelContainer/StatsContainer/StatsGrid/BackButton" to="." method="_on_back_button_pressed"]

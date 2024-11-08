@@ -9,11 +9,9 @@ func _ready() -> void:
 	load_translations()
 
 func load_translations() -> void:
-	# Cargar el archivo JSON original del HUD
 	load_json_file("res://Dialogues/hud_texts.json")
-	
-	# Cargar el archivo JSON de las estadísticas
 	load_json_file("res://Dialogues/stats_menu.json")
+	load_json_file("res://Dialogues/stats_display.json")
 
 func load_json_file(path: String) -> void:
 	var json_file = FileAccess.open(path, FileAccess.READ)
@@ -21,7 +19,6 @@ func load_json_file(path: String) -> void:
 		var json_text = json_file.get_as_text()
 		var json = JSON.parse_string(json_text)
 		if json:
-			# Combinar las traducciones nuevas con las existentes
 			for language in json:
 				if not translations.has(language):
 					translations[language] = {}
