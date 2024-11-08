@@ -35,7 +35,7 @@ var path_update_timer : Timer
 var reposition_timer : Timer
 var idle_timer : Timer
 var speed # The actual speed of this enemy instance
-var max_allowed_speed = 100 # Maximum allowed speed for any enemy
+var max_allowed_speed = 115 # Maximum allowed speed for any enemy
 
 @export var base_speed = 95 # The base movement speed of the enemy
 @export var speed_variation = 20 # The range of speed variation

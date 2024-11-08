@@ -50,7 +50,7 @@ var max_allowed_speed = 120
 @export var optimal_attack_distance = 90.0      # The ideal distance the enemy tries to maintain from the player
 @export var chase_range = 170.0                  # Maximum distance at which the enemy will chase the player
 @export var strafe_speed_multiplier = 0.35       # Speed multiplier when performing strafing movement
-@export var min_attack_distance = 6.0            # Minimum distance before enemy starts emergency retreat
+@export var min_attack_distance = 10.0            # Minimum distance before enemy starts emergency retreat
 @export var obstacle_avoidance_range = 10.0      # Range for detecting and avoiding obstacles while moving
 
 # Dodge mechanics variables

@@ -34,7 +34,7 @@ width = 125
 height = 125
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.855204, 0.117647)
+fill_to = Vector2(0.837104, 0.126697)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7das3"]
 shader = ExtResource("2_dwf4p")
@@ -251,10 +251,10 @@ texture_scale = 2.0
 
 [node name="StatsWindow" parent="." instance=ExtResource("9_q87gj")]
 z_index = 2
-offset_left = -530.0
-offset_top = 287.143
-offset_right = -530.0
-offset_bottom = 287.143
+offset_left = -568.571
+offset_top = 281.429
+offset_right = -568.571
+offset_bottom = 281.429
 
 [node name="ControlPowerUpHud" type="Control" parent="." groups=["powerup_hud"]]
 z_index = 2
@@ -326,6 +326,8 @@ frame = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(15.7143, -1.42857)
 zoom = Vector2(4, 4)
+position_smoothing_speed = 10.0
+rotation_smoothing_speed = 10.0
 script = ExtResource("4_jek05")
 
 [node name="camera_shake" type="Timer" parent="Camera2D"]

@@ -239,7 +239,7 @@ func instance_shooter_enemy(base_count: int = 3) -> void:
 			var nav_agent = NavigationAgent2D.new()
 			enemy.add_child(nav_agent)
 			
-			enemy.base_speed = randf_range(90, 110)
+			enemy.base_speed = randf_range(90, 120)
 			enemy.speed_variation = randf_range(30, 50)
 			
 			enemy.position = world_position
@@ -290,7 +290,7 @@ func instance_enemies(base_count: int = 6) -> void:
 			enemy.add_child(nav_agent)
 			
 			# Set random base_speed and speed_variation for each enemy
-			enemy.base_speed = randf_range(70, 95)
+			enemy.base_speed = randf_range(85, 110)
 			enemy.speed_variation = randf_range(10, 20)
 			
 			enemy.position = world_position

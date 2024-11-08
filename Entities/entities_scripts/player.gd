@@ -106,47 +106,10 @@ func _ready() -> void:
 	power_up_manager_check()
 	light_disabled_by_timer = false
 	update_light_state()
+	display_HUD_while_using_directionalight()
 	
 	if point_light:
 		point_light.energy = 1.0
-		
-	var canvas_layer = CanvasLayer.new()
-	canvas_layer.name = "UILayer"
-	canvas_layer.layer = 1  # Asegura que esté por encima de todo
-	
-	# Obtener referencias a los nodos que queremos mover
-	var control_power_up_hud = $ControlPowerUpHud
-	var stats_window = $StatsWindow
-	
-	# Remover los nodos de su ubicación actual
-	# pero mantener una referencia a ellos
-	if control_power_up_hud:
-		control_power_up_hud.get_parent().remove_child(control_power_up_hud)
-	if stats_window:
-		stats_window.get_parent().remove_child(stats_window)
-	
-	# Añadir el CanvasLayer a la escena
-	add_child(canvas_layer)
-	
-	# Mover los nodos al CanvasLayer
-	if control_power_up_hud:
-		canvas_layer.add_child(control_power_up_hud)
-	if stats_window:
-		canvas_layer.add_child(stats_window)
-		
-	# Opcional: Asegurarse que los nodos UI ignoren la iluminación
-	if control_power_up_hud:
-		_set_node_light_mask_recursive(control_power_up_hud, 2)  # 2 es una máscara diferente
-	if stats_window:
-		_set_node_light_mask_recursive(stats_window, 2)
-
-# Función auxiliar para configurar la máscara de luz recursivamente
-func _set_node_light_mask_recursive(node: Node, mask: int) -> void:
-	if node is CanvasItem:
-		node.light_mask = mask
-	
-	for child in node.get_children():
-		_set_node_light_mask_recursive(child, mask)
 
 func _process(delta: float) -> void:
 	if player_data.health <= 0 and current_state != player_states.DEAD:
@@ -984,6 +947,38 @@ func enter_portal(portal_type: String = ""):
 		else:
 			if power_up_manager:
 				power_up_manager.handle_level_transition("main_dungeon")
+				
+func display_HUD_while_using_directionalight():
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.name = "UILayer"
+	canvas_layer.layer = 1 
+	
+	var control_power_up_hud = $ControlPowerUpHud
+	var stats_window = $StatsWindow
+	
+	if control_power_up_hud:
+		control_power_up_hud.get_parent().remove_child(control_power_up_hud)
+	if stats_window:
+		stats_window.get_parent().remove_child(stats_window)
+	
+	add_child(canvas_layer)
+	
+	if control_power_up_hud:
+		canvas_layer.add_child(control_power_up_hud)
+	if stats_window:
+		canvas_layer.add_child(stats_window)
+		
+	if control_power_up_hud:
+		_set_node_light_mask_recursive(control_power_up_hud, 2) 
+	if stats_window:
+		_set_node_light_mask_recursive(stats_window, 2)
+	
+func _set_node_light_mask_recursive(node: Node, mask: int) -> void:
+	if node is CanvasItem:
+		node.light_mask = mask
+	
+	for child in node.get_children():
+		_set_node_light_mask_recursive(child, mask)
 
 func exit_portal():
 	is_in_portal = false

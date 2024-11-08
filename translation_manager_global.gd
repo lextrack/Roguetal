@@ -9,14 +9,27 @@ func _ready() -> void:
 	load_translations()
 
 func load_translations() -> void:
-	var json_file = FileAccess.open("res://Dialogues/hud_texts.json", FileAccess.READ)
+	# Cargar el archivo JSON original del HUD
+	load_json_file("res://Dialogues/hud_texts.json")
+	
+	# Cargar el archivo JSON de las estadísticas
+	load_json_file("res://Dialogues/stats_menu.json")
+
+func load_json_file(path: String) -> void:
+	var json_file = FileAccess.open(path, FileAccess.READ)
 	if json_file:
 		var json_text = json_file.get_as_text()
 		var json = JSON.parse_string(json_text)
 		if json:
-			translations = json
+			# Combinar las traducciones nuevas con las existentes
+			for language in json:
+				if not translations.has(language):
+					translations[language] = {}
+				translations[language].merge(json[language])
+		else:
+			push_error("Failed to parse JSON file: " + path)
 	else:
-		print("Failed to load translations file")
+		push_error("Failed to load translations file: " + path)
 
 func get_text(key: String) -> String:
 	if translations.has(current_language) and translations[current_language].has(key):

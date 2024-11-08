@@ -2835,7 +2835,6 @@ libraries = {
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
 layer = 2
-visible = false
 
 [node name="pause_menu" parent="MenuLayer" instance=ExtResource("7_lufcb")]
 

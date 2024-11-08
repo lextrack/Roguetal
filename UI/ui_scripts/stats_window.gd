@@ -31,6 +31,8 @@ func _ready():
 		power_up_manager = player.power_up_manager
 		power_up_manager.connect("power_up_changed", _on_power_up_changed)
 		update_all_stats()
+		
+		TranslationManager.language_changed.connect(update_all_stats)
 
 func setup_animations():
 	var animation_lib = AnimationLibrary.new()
@@ -104,7 +106,7 @@ func update_stat_display(type: int, multiplier: float):
 		var label_settings = LabelSettings.new()
 		var font = load("res://Fonts/Pixel Azure Bonds.otf")
 		label_settings.font = font
-		label_settings.font_size = 11
+		label_settings.font_size = 14
 		label_settings.outline_size = 5
 		label_settings.outline_color = Color.BLACK
 		stat_label.label_settings = label_settings
@@ -138,30 +140,30 @@ func apply_value_change_effect(label: Label, old_value: float, new_value: float)
 func get_stat_name(type: int) -> String:
 	match type:
 		PowerUpTypes.PowerUpType.DAMAGE:
-			return "Damage"
+			return TranslationManager.get_text("stat_damage")
 		PowerUpTypes.PowerUpType.SPEED:
-			return "Speed"
+			return TranslationManager.get_text("stat_speed")
 		PowerUpTypes.PowerUpType.DEFENSE:
-			return "Defense"
+			return TranslationManager.get_text("stat_defense")
 		PowerUpTypes.PowerUpType.BULLET_HELL:
-			return "Bullet Hell"
+			return TranslationManager.get_text("stat_bullet_hell")
 		PowerUpTypes.PowerUpType.CRITICAL_CHANCE:
-			return "Crit Chance"
+			return TranslationManager.get_text("stat_crit_chance")
 		PowerUpTypes.PowerUpType.ENEMY_SLOW:
-			return "Enemy Slowdown"
+			return TranslationManager.get_text("stat_enemy_slow")
 		PowerUpTypes.PowerUpType.SHOTGUN_FIRE:
-			return "Fire Shells (shotgun)"
+			return TranslationManager.get_text("stat_shotgun_fire")
 		_:
-			return "Unknown"
+			return TranslationManager.get_text("stat_unknown")
 
 func format_stat_value(type: int, multiplier: float) -> String:
 	match type:
 		PowerUpTypes.PowerUpType.BULLET_HELL, PowerUpTypes.PowerUpType.SHOTGUN_FIRE:
-			var status = "Active" if multiplier >= 1.0 else "Inactive"
+			var status = TranslationManager.get_text("status_active") if multiplier >= 1.0 else TranslationManager.get_text("status_inactive")
 			return status
 		PowerUpTypes.PowerUpType.ENEMY_SLOW:
 			var value = str(round((1.0 - multiplier) * 100))
-			return value + "% slower"
+			return value + TranslationManager.get_text("stat_slower")
 		_:
 			var value = str(round((multiplier - 1.0) * 100))
-			return value + "% boost"
+			return value + TranslationManager.get_text("stat_boost")
