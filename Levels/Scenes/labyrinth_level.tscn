@@ -1640,6 +1640,7 @@ libraries = {
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
 layer = 2
+visible = false
 
 [node name="pause_menu" parent="MenuLayer" instance=ExtResource("2_mt8nt")]
 
@@ -1718,9 +1719,9 @@ theme_override_font_sizes/font_size = 17
 vertical_alignment = 1
 
 [node name="timer_countdown" type="Label" parent="HUD"]
-offset_left = 97.0
+offset_left = 94.0
 offset_top = 181.0
-offset_right = 137.0
+offset_right = 134.0
 offset_bottom = 205.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3

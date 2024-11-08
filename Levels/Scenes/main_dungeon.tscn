@@ -2907,15 +2907,6 @@ theme_override_font_sizes/font_size = 17
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="timer_countdown" type="Label" parent="HUD"]
-visible = false
-offset_left = 21.0
-offset_top = 211.0
-offset_right = 61.0
-offset_bottom = 234.0
-theme_override_fonts/font = ExtResource("2_cj7x4")
-vertical_alignment = 1
-
 [node name="background_stats" type="Panel" parent="HUD"]
 z_index = -1
 y_sort_enabled = true

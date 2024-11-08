@@ -218,15 +218,11 @@ const MAX_HEARTS = 4
 var previous_kill_count = 0
 var previous_highest_streak = 0
 
-@onready var timer_countdown_label: Label = $timer_countdown
-
 func _ready() -> void:
 	create_hearts()
 	time_played_label.modulate.a = 0
 	
 	var current_scene = get_tree().current_scene
-	if current_scene.name != \"labyrinth_level\":
-		timer_countdown_label.visible = false
 		
 	await get_tree().process_frame
 	TranslationManager.language_changed.connect(update_translations)
@@ -2949,16 +2945,6 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("2_66yo2")
 theme_override_font_sizes/font_size = 17
 horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="timer_countdown" type="Label" parent="HUD"]
-visible = false
-offset_left = 21.0
-offset_top = 211.0
-offset_right = 61.0
-offset_bottom = 234.0
-theme_override_fonts/font = ExtResource("2_66yo2")
-theme_override_font_sizes/font_size = 12
 vertical_alignment = 1
 
 [node name="background_stats" type="Panel" parent="HUD"]

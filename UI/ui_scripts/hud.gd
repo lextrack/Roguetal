@@ -14,15 +14,12 @@ const MAX_HEARTS = 4
 var previous_kill_count = 0
 var previous_highest_streak = 0
 
-@onready var timer_countdown_label: Label = $timer_countdown
 
 func _ready() -> void:
 	create_hearts()
 	time_played_label.modulate.a = 0
 	
 	var current_scene = get_tree().current_scene
-	if current_scene.name != "labyrinth_level":
-		timer_countdown_label.visible = false
 		
 	await get_tree().process_frame
 	TranslationManager.language_changed.connect(update_translations)
