@@ -24,12 +24,10 @@ const min_distance_from_player = 5
 @export var borders = Rect2(1, 1, 70, 50)
 
 func _ready() -> void:
-	# Called when the scene is ready, sets up the level, plays music
 	randomize()
 	generate_level()
 	
-	if not MusicDungeon.is_playing_level_music:
-		MusicDungeon.play_music_level()
+	MusicManager.ensure_music_playing()
 	MusicMainLevel.stop()
 	
 func _input(event: InputEvent) -> void:

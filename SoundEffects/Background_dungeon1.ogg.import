@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/Background_dungeon1.ogg-749191d8df09352048409
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0.0
 bpm=0.0
 beat_count=0

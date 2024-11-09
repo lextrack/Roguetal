@@ -20,6 +20,10 @@ config/icon="res://icon.png"
 
 Globals="*res://Global.gd"
 MusicDungeon="*res://SoundEffects/sound_scenes/music_dungeon.tscn"
+MusicDungeon2="*res://SoundEffects/sound_scenes/music_dungeon_2.tscn"
+MusicDungeon3="*res://SoundEffects/sound_scenes/music_dungeon_3.tscn"
+MusicDungeon4="*res://SoundEffects/sound_scenes/music_dungeon_4.tscn"
+MusicDungeon5="*res://SoundEffects/sound_scenes/music_dungeon_5.tscn"
 MusicMainLevel="*res://SoundEffects/sound_scenes/music_main_level.tscn"
 MusicMainMenu="*res://SoundEffects/sound_scenes/music_main_menu.tscn"
 GlobalPowerUpState="*res://GlobalPowerUpState.gd"
@@ -28,6 +32,7 @@ TranslationManager="*res://translation_manager_global.gd"
 Events="*res://events.gd"
 EnemyScalingManagerGlobal="*res://enemy_scaling_manager.gd"
 StatsManager="*res://stats_manager.gd"
+MusicManager="*res://MusicManager.gd"
 
 [display]
 

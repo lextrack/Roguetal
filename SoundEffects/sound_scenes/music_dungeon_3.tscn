@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckbguff24nu0t"]
+
+[ext_resource type="Script" path="res://SoundEffects/sound_scripts/music_dungeon_3.gd" id="1_gqimf"]
+[ext_resource type="AudioStream" uid="uid://c50sapxiyp2q2" path="res://SoundEffects/Background_dungeon3.ogg" id="1_uppum"]
+
+[node name="music_dungeon_3" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_uppum")
+panning_strength = 0.0
+script = ExtResource("1_gqimf")

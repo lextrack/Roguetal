@@ -20,7 +20,7 @@ const min_distance_from_player = 5
 @onready var critical_chance_pickup = preload("res://Interactables/Scenes/critical_chance_pickup.tscn")
 @onready var tilemap = $Tiles/TileMap
 
-@export var borders = Rect2(1, 1, 70, 50)
+@export var borders = Rect2(1, 1, 70, 55)
 
 @onready var timer_light_level: Timer = $timer_light_level
 @onready var player: CharacterBody2D = null
@@ -28,8 +28,9 @@ const min_distance_from_player = 5
 func _ready() -> void:
 	randomize()
 	generate_level()
-	if not MusicDungeon.is_playing_level_music:
-		MusicDungeon.play_music_level()
+	
+	MusicManager.ensure_music_playing()
+	
 	MusicMainLevel.stop()
 	
 	if get_tree().current_scene.name == "labyrinth_level":
