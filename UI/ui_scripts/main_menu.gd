@@ -8,6 +8,7 @@ extends Control
 @onready var hover_sound: AudioStreamPlayer2D = $HoverSound
 @onready var options: Button = $VBoxContainer/Options
 @onready var stats: Button = $VBoxContainer/Stats
+@onready var stats_menu: Control = $StatsDisplay
 
 var current_selection = 0
 var buttons = []
@@ -160,5 +161,5 @@ func animate_options_menu() -> void:
 
 func _on_stats_pressed() -> void:
 	animate_button(stats)
-	await get_tree().create_timer(0.3).timeout
-	get_tree().change_scene_to_file("res://UI/ui_scenes/stats_display.tscn")
+	await get_tree().create_timer(0.2).timeout
+	stats_menu.show_stats()

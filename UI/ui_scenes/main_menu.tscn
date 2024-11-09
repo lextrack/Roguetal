@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4lyw756xgim2"]
+[gd_scene load_steps=16 format=3 uid="uid://b4lyw756xgim2"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
 [ext_resource type="Texture2D" uid="uid://bmngqr3v0mh2a" path="res://Sprites/wallpaper_blue_character_5.jpg" id="2_kf4ov"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_ncx40"]
 [ext_resource type="PackedScene" uid="uid://rkamwmwfav1a" path="res://UI/ui_scenes/OptionsMenu.tscn" id="4_stn02"]
 [ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_wmwv3"]
+[ext_resource type="PackedScene" uid="uid://m5kt7g7dtvyw" path="res://UI/ui_scenes/stats_display.tscn" id="7_xtxkh"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtrft"]
 texture = ExtResource("2_kf4ov")
@@ -282,6 +283,9 @@ panning_strength = 0.0
 position = Vector2(686, 333)
 
 [node name="OptionsMenu" parent="." instance=ExtResource("4_stn02")]
+layout_mode = 1
+
+[node name="StatsDisplay" parent="." instance=ExtResource("7_xtxkh")]
 layout_mode = 1
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]

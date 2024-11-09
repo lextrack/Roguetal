@@ -1,4 +1,3 @@
-# stats_manager.gd
 extends Node
 
 const SAVE_FILE = "user://game_stats.save"
@@ -27,20 +26,16 @@ func load_stats():
 			stats = file.get_var()
 
 func update_session_stats():
-	# Actualizar estadísticas totales
 	stats.total_kills += player_data.kill_count
 	stats.total_time_played += player_data.time_played
 	
-	# Actualizar racha más alta
 	if player_data.highest_kill_streak > stats.highest_streak_ever:
 		stats.highest_streak_ever = player_data.highest_kill_streak
 	
-	# Actualizar contadores y promedios
 	stats.games_played += 1
 	stats.average_time_per_game = stats.total_time_played / stats.games_played
 	stats.average_kills_per_game = float(stats.total_kills) / stats.games_played
 	
-	# Guardar los cambios
 	save_stats()
 
 func get_formatted_stats() -> Dictionary:
@@ -54,7 +49,7 @@ func get_formatted_stats() -> Dictionary:
 	}
 
 func format_time(seconds: float) -> String:
-	var total_seconds = int(seconds)  # Convertir a int primero
+	var total_seconds = int(seconds)
 	var hours = total_seconds / 3600
 	var minutes = (total_seconds % 3600) / 60
 	var secs = total_seconds % 60
