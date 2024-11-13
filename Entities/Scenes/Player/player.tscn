@@ -24,12 +24,12 @@
 [ext_resource type="AudioStream" uid="uid://3dqerkqyurwc" path="res://SoundEffects/shotgun_shoot.ogg" id="16_2typd"]
 [ext_resource type="AudioStream" uid="uid://d15hst8pxxlu0" path="res://SoundEffects/switch_weapons.ogg" id="18_a0ygw"]
 
-[sub_resource type="Gradient" id="Gradient_62vgy"]
+[sub_resource type="Gradient" id="Gradient_ra04w"]
 offsets = PackedFloat32Array(0.23622, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_86cio"]
-gradient = SubResource("Gradient_62vgy")
+gradient = SubResource("Gradient_ra04w")
 width = 125
 height = 125
 fill = 1
