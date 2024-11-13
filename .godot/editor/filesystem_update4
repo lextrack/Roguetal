@@ -8,3 +8,5 @@ res://Entities/Scenes/Player/player.tscn
 res://Interactables/Scenes/exit_portal.tscn
 res://Interactables/Scenes/portal_dungeon.tscn
 res://Levels/Scenes/labyrinth_level.tscn
+res://UI/ui_scenes/mouse_icon.tscn
+res://Levels/level_generator_scripts/main_world.gd

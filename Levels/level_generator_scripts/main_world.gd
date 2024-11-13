@@ -4,5 +4,10 @@ extends Node2D
 
 func _ready() -> void:
 	MusicDungeon.stop_music()
+	MusicDungeon2.stop_music()
+	MusicDungeon3.stop_music()
+	MusicDungeon4.stop_music()
+	MusicDungeon5.stop_music()
+	
 	MusicMainMenu.stop_music()
 	MusicMainLevel.play_music_level()
