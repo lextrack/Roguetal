@@ -12,8 +12,12 @@ var buttons = []
 var is_menu_visible = false
 
 func _ready() -> void:
-	check_buttons_state()
+	add_to_group("pause_menu")
+	hide()
+	set_process_input(false)
+	set_process(false)
 	
+	check_buttons_state()
 	TranslationManager.language_changed.connect(update_translations)
 	update_translations()
 	
@@ -49,8 +53,6 @@ func update_translations() -> void:
 func _process(_delta: float) -> void:
 	if !options_menu.visible:
 		toggle_menu_pause()
-		if is_menu_visible and buttons.size() > 0:
-			handle_menu_navigation()
 
 func resume() -> void:
 	get_tree().paused = false
@@ -58,15 +60,14 @@ func resume() -> void:
 	is_menu_visible = false
 	options_menu.hide()
 	hide()
+	set_process_input(false)
+	set_process(false)
 
-func pause():
+func pause() -> void:
 	get_tree().paused = true
 	$animation_menu.play("blur")
 	is_menu_visible = true
 	show()
-	current_selection = 0
-	if buttons.size() > 0:
-		update_selection()
 
 func toggle_menu_pause() -> void:
 	if Input.is_action_just_pressed("esc"):
@@ -121,3 +122,8 @@ func _on_options_menu_visibility_changed() -> void:
 		current_selection = buttons.find(options_pause)
 		update_selection()
 		set_process(true)
+		
+func _input(event: InputEvent) -> void:
+	if is_menu_visible and !options_menu.visible:
+		if event is InputEventKey or event is InputEventJoypadButton:
+			handle_menu_navigation()

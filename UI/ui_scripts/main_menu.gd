@@ -17,6 +17,7 @@ var loading_screen_scene = preload("res://UI/ui_scenes/loading_screen.tscn")
 var loading_screen: CanvasLayer = null
 
 func _ready() -> void:
+	get_tree().paused = false 
 	$OptionsMenu.hide()
 	MusicMainMenu.play_music_level()
 	credits_panel.hide()

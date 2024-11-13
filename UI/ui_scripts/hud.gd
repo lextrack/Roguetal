@@ -111,5 +111,4 @@ func reset_animations():
 	time_played_label.modulate.a = 0
 	
 func _exit_tree():
-	# Actualizar estadísticas antes de salir de la escena
 	StatsManager.update_session_stats()

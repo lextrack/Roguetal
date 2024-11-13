@@ -1,8 +1,9 @@
-res://SoundEffects/sound_scenes
-res://SoundEffects/sound_scripts
+C:/C2_Roguelite/Export
 res://
 res://UI/ui_scripts
 res://UI/ui_scenes
+res://SoundEffects/sound_scenes
+res://SoundEffects/sound_scripts
 res://Entities/entities_scripts
 res://Interactables/Scenes
 res://Entities/Scenes/FX

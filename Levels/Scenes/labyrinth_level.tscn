@@ -1585,6 +1585,8 @@ energy = 0.95
 blend_mode = 1
 
 [node name="CanvasInstructionsLabyrinth" type="CanvasLayer" parent="." groups=["instruction_canvas"]]
+layer = -2
+visible = false
 script = ExtResource("3_ldgqx")
 display_time = 4.0
 
@@ -1639,7 +1641,7 @@ libraries = {
 }
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
-layer = 2
+layer = 3
 
 [node name="pause_menu" parent="MenuLayer" instance=ExtResource("2_mt8nt")]
 
@@ -1671,61 +1673,61 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="kill_count_label" type="Label" parent="HUD"]
-offset_left = 24.0
+offset_left = 26.0
 offset_top = 106.0
-offset_right = 64.0
-offset_bottom = 130.0
+offset_right = 66.0
+offset_bottom = 132.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("3_thoc2")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="highest_streak_label" type="Label" parent="HUD"]
-offset_left = 24.0
+offset_left = 26.0
 offset_top = 131.0
-offset_right = 64.0
-offset_bottom = 155.0
+offset_right = 66.0
+offset_bottom = 157.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("3_thoc2")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="time_played_label" type="Label" parent="HUD"]
-offset_left = 24.0
+offset_left = 26.0
 offset_top = 156.0
-offset_right = 64.0
-offset_bottom = 180.0
+offset_right = 66.0
+offset_bottom = 182.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("3_thoc2")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="countdown_warning" type="Label" parent="HUD"]
-offset_left = 24.0
+offset_left = 26.0
 offset_top = 181.0
-offset_right = 165.0
-offset_bottom = 205.0
+offset_right = 167.0
+offset_bottom = 207.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("3_thoc2")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 20
 vertical_alignment = 1
 
 [node name="timer_countdown" type="Label" parent="HUD"]
-offset_left = 94.0
+offset_left = 96.0
 offset_top = 181.0
-offset_right = 134.0
-offset_bottom = 205.0
+offset_right = 136.0
+offset_bottom = 207.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("3_thoc2")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1739,7 +1741,7 @@ anchor_right = 0.135
 anchor_bottom = 0.277
 offset_left = 3.242
 offset_top = -1.752
-offset_right = 6.59
+offset_right = 16.59
 offset_bottom = -3.73601
 theme_override_styles/panel = SubResource("StyleBoxFlat_5e0ll")
 

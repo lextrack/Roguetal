@@ -1396,6 +1396,8 @@ position = Vector2(225, 38)
 position = Vector2(164, 62)
 
 [node name="CanvasInstructionsMainWorld" type="CanvasLayer" parent="." groups=["instruction_canvas"]]
+layer = -2
+visible = false
 script = ExtResource("2_kpvk5")
 display_time = 4.0
 
@@ -1405,10 +1407,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -356.0
-offset_top = -119.0
-offset_right = -20.0
-offset_bottom = -13.0
+offset_left = -422.0
+offset_top = -697.0
+offset_right = -86.0
+offset_bottom = -591.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_v4kka")
@@ -1451,12 +1453,14 @@ libraries = {
 }
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
+layer = 3
 
 [node name="pause_menu" parent="MenuLayer" instance=ExtResource("10_k6uc6")]
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
 tile_set = SubResource("TileSet_63r5a")
+format = 2
 layer_0/y_sort_enabled = true
 
 [node name="Terrain" type="TileMapLayer" parent="TileMap"]

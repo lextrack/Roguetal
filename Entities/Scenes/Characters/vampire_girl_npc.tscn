@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://UI/ui_scripts/area_vampire_girl.gd" id="3_fvofm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2x2kd"]
-size = Vector2(42.8571, 70.7908)
+size = Vector2(42.8571, 81.6326)
 
 [sub_resource type="Animation" id="Animation_elxsj"]
 resource_name = "Idle"
@@ -46,19 +46,20 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3hgyq"]
-size = Vector2(45.2857, 42.8036)
+size = Vector2(53.2143, 32.6786)
 
 [node name="vampire_girl_npc" type="CharacterBody2D"]
+position = Vector2(1, 5)
 scale = Vector2(0.7, 0.7)
 
 [node name="vampire_girl_collider" type="CollisionShape2D" parent="."]
-position = Vector2(1.19209e-07, 18.3929)
+position = Vector2(1.19209e-07, 21.4286)
 scale = Vector2(0.600001, 0.56)
 shape = SubResource("RectangleShape2D_2x2kd")
 debug_color = Color(0.998176, 0.557226, 0.672339, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_1oje4")
 hframes = 5
 frame = 1
@@ -73,7 +74,7 @@ autoplay = "Idle"
 script = ExtResource("3_fvofm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="area_vampire_girl"]
-position = Vector2(0, 17.1161)
+position = Vector2(-0.892844, 14.9107)
 shape = SubResource("RectangleShape2D_3hgyq")
 
 [node name="PanelDialogue" type="Panel" parent="area_vampire_girl"]
@@ -85,10 +86,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -69.0
-offset_top = -79.0
-offset_right = 69.0
-offset_bottom = -8.0
+offset_left = -92.8571
+offset_top = -104.464
+offset_right = 95.1429
+offset_bottom = -5.46428
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -103,11 +104,11 @@ offset_top = -0.14286
 offset_right = 38.2451
 offset_bottom = 18.0691
 grow_horizontal = 2
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.4, 0.4)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/normal_font = ExtResource("3_c55m7")
-theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/normal_font_size = 20
 text = "Yayi"
 fit_content = true
 scroll_active = false
@@ -120,17 +121,17 @@ anchor_left = 0.014
 anchor_top = 0.141
 anchor_right = 1.0
 anchor_bottom = 0.986
-offset_left = 0.068
-offset_top = -0.0110006
-offset_right = 311.0
-offset_bottom = 139.994
+offset_left = -2.632
+offset_top = -1.959
+offset_right = 280.0
+offset_bottom = 132.386
 grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.3, 0.3)
+grow_vertical = 0
+scale = Vector2(0.4, 0.4)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/normal_font = ExtResource("3_c55m7")
-theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/normal_font_size = 20
 fit_content = true
 scroll_active = false
 scroll_following = true

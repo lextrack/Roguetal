@@ -31,9 +31,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -290.0
-offset_top = -165.0
+offset_top = -160.0
 offset_right = 290.0
-offset_bottom = 165.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -47,7 +47,7 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 text = "Stats"
 horizontal_alignment = 1
 
@@ -63,68 +63,68 @@ columns = 2
 [node name="TotalKillsLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 text = "Total kills:"
 
 [node name="TotalKillsValue" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 
 [node name="TotalTimeLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 text = "Total Time:"
 
 [node name="TotalTimeValue" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 
 [node name="HighestStreakLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 text = "Highest Streak:"
 
 [node name="HighestStreakValue" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 
 [node name="GamesPlayedLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 text = "Matches Played:"
 
 [node name="GamesPlayedValue" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 
 [node name="AvgTimeLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 text = "Average Time:"
 
 [node name="AvgTimeValue" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 
 [node name="AvgKillsLabel" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 text = "Average Kills:"
 
 [node name="AvgKillsValue" type="Label" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 visible = false
@@ -133,7 +133,7 @@ layout_mode = 2
 [node name="BackButton" type="Button" parent="MarginContainer/PanelContainer/StatsContainer/StatsGrid"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_efpxc")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 23
 text = "Back"
 
 [connection signal="pressed" from="MarginContainer/PanelContainer/StatsContainer/StatsGrid/BackButton" to="." method="_on_back_button_pressed"]

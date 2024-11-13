@@ -8,13 +8,12 @@ var showing_rare_dialogues = false
 var rare_dialogue_index = 0
 var tween: Tween
 
-# Constantes para las animaciones
 const ANIMATION_DURATION = 0.3
 const FLOAT_DISTANCE = 10.0
 const PANEL_START_SCALE = Vector2(0.8, 0.8)
 const PANEL_FINAL_SCALE = Vector2(1.0, 1.0)
 
-# Variable para mantener la posición base del panel
+var mobile_controls = null
 var panel_base_position: Vector2
 
 func _ready() -> void:
@@ -22,10 +21,8 @@ func _ready() -> void:
 	TranslationManager.language_changed.connect(load_dialogues)
 	load_dialogues()
 	
-	# Guardamos la posición inicial del panel
 	panel_base_position = $PanelDialogue.position
 	
-	# Configuración inicial del panel
 	$PanelDialogue.scale = PANEL_START_SCALE
 	$PanelDialogue.modulate.a = 0
 	hide_dialogue()
@@ -33,6 +30,13 @@ func _ready() -> void:
 	if Globals.has_shown_intro:
 		showing_rare_dialogues = true
 		dialogue_index = dialogue.size()
+		
+	if OS.get_name() == "Android":
+		await get_tree().create_timer(0.1).timeout  # Pequeña espera para asegurar que todo está listo
+		var player = get_tree().get_first_node_in_group("player")
+		if player and player.mobile_controls:
+			mobile_controls = player.mobile_controls
+			mobile_controls.connect("interact_button_pressed", Callable(self, "_on_interact_button_pressed"))
 
 func load_dialogues() -> void:
 	var file = FileAccess.open("res://Dialogues/dialogues.json", FileAccess.READ)
@@ -54,18 +58,26 @@ func load_dialogues() -> void:
 		print("Failed to open file")
 
 func _process(delta: float) -> void:
-	if player_in_range and Input.is_action_just_pressed("interact_player1"):
-		show_dialogue()
+	if player_in_range:
+		if OS.get_name() == "Android":
+			if mobile_controls and not mobile_controls.interact_button.visible:
+				mobile_controls.show_interact_button()
+		elif Input.is_action_just_pressed("interact_player1"):
+			show_dialogue()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		player_in_range = true
 		animate_panel_bounce()
+		if OS.get_name() == "Android" and mobile_controls:
+			mobile_controls.show_interact_button()
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		player_in_range = false
 		hide_dialogue()
+		if OS.get_name() == "Android" and mobile_controls:
+			mobile_controls.hide_interact_button()
 
 func show_current_dialogue() -> void:
 	if showing_rare_dialogues:
@@ -112,7 +124,6 @@ func hide_dialogue():
 	if tween:
 		tween.kill()
 	
-	# Resetear la posición del panel a la base antes de animar
 	$PanelDialogue.position = panel_base_position
 	
 	tween = create_tween().set_parallel()
@@ -121,7 +132,6 @@ func hide_dialogue():
 	tween.tween_property($PanelDialogue, "scale", PANEL_START_SCALE, ANIMATION_DURATION)
 	tween.chain().tween_callback(func(): 
 		$PanelDialogue.visible = false
-		# Asegurarnos de que el panel vuelve a su posición base
 		$PanelDialogue.position = panel_base_position
 	)
 
@@ -129,7 +139,6 @@ func animate_dialogue_show(next_text: String):
 	if tween:
 		tween.kill()
 	
-	# Resetear a la posición base antes de comenzar la animación
 	$PanelDialogue.position = panel_base_position + Vector2(0, FLOAT_DISTANCE)
 	$PanelDialogue.scale = PANEL_START_SCALE
 	$PanelDialogue.modulate.a = 0
@@ -150,3 +159,7 @@ func animate_panel_bounce():
 	tween = create_tween().set_parallel()
 	tween.tween_property($PanelDialogue, "scale", PANEL_FINAL_SCALE * 1.1, 0.1)
 	tween.chain().tween_property($PanelDialogue, "scale", PANEL_FINAL_SCALE, 0.1)
+	
+func _on_interact_button_pressed() -> void:
+	if player_in_range:
+		show_dialogue()

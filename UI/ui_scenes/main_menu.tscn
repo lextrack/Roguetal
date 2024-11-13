@@ -1,11 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://b4lyw756xgim2"]
+[gd_scene load_steps=15 format=3 uid="uid://b4lyw756xgim2"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
 [ext_resource type="Texture2D" uid="uid://bmngqr3v0mh2a" path="res://Sprites/wallpaper_blue_character_5.jpg" id="2_kf4ov"]
 [ext_resource type="AudioStream" uid="uid://cgr60uh2odmsm" path="res://SoundEffects/misc_01.ogg" id="3_c65tl"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_ncx40"]
 [ext_resource type="PackedScene" uid="uid://rkamwmwfav1a" path="res://UI/ui_scenes/OptionsMenu.tscn" id="4_stn02"]
-[ext_resource type="PackedScene" uid="uid://c06a4jq71ysuh" path="res://UI/ui_scenes/mouse_icon.tscn" id="4_wmwv3"]
 [ext_resource type="PackedScene" uid="uid://m5kt7g7dtvyw" path="res://UI/ui_scenes/stats_display.tscn" id="7_xtxkh"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtrft"]
@@ -113,10 +112,10 @@ anchor_left = 0.023
 anchor_top = 0.687
 anchor_right = 0.211
 anchor_bottom = 0.931
-offset_left = 0.581997
-offset_top = 0.383972
-offset_right = -0.226013
-offset_bottom = -0.00805664
+offset_left = 23.582
+offset_top = -147.616
+offset_right = 22.774
+offset_bottom = -0.00811768
 grow_vertical = 0
 theme_override_constants/separation = 20
 
@@ -129,7 +128,7 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 40
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
@@ -145,7 +144,7 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 40
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
@@ -161,7 +160,7 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 40
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
@@ -177,7 +176,7 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 40
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
@@ -193,7 +192,7 @@ theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.93408, 0.93408, 0.93408, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 40
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
 theme_override_styles/hover = SubResource("StyleBoxFlat_atj17")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yw7y1")
@@ -236,7 +235,7 @@ text = "[color=crimson]SOUND[/color]
 klankbeeld, Lamp_, szegvari, newlocknew, SoundEffectsFactory, PK9 Sound Effect, el_boss, rubberduck, Mobeyee Sounds, IgnasD, Jamius, AbuNijmeh, JoseIgnacioTriay, toxicwafflezz, SoundsForHim, twisterman, hz37, Emmraan, AlexGrohl,AllWorldMusic.
 
 [color=crimson]ART[/color]
-Luck (main character), Szadi art, Freepik, DinosoftLabs, surang, kiranshastry, bharat icons, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Fuzzee, Chris Yang, Nikita Golubev, fightswithbears, 3dvaultz, Fupi, max.icons, AntumDeluge, Penusbmicm, wanicon, Daniel ceha.
+Luck (main character), Szadi art, Freepik, DinosoftLabs, surang, kiranshastry, bharat icons, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Fuzzee, Chris Yang, Nikita Golubev, fightswithbears, 3dvaultz, Fupi, max.icons, AntumDeluge, Penusbmicm, wanicon, Daniel ceha, Hannemann.
 
 [color=crimson]ADDITIONAL RESOURCES[/color]
 Flaticon for the awesome icons.
@@ -269,24 +268,21 @@ offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("3_ncx40")
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 18
 text = "Author: Ariel Alejandro Muñoz (Lextrack)"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="HoverSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_c65tl")
-volume_db = 1.0
-panning_strength = 0.0
-
-[node name="mouse_icon" parent="." instance=ExtResource("4_wmwv3")]
-position = Vector2(686, 333)
 
 [node name="OptionsMenu" parent="." instance=ExtResource("4_stn02")]
 layout_mode = 1
 
 [node name="StatsDisplay" parent="." instance=ExtResource("7_xtxkh")]
 layout_mode = 1
+
+[node name="HoverSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_c65tl")
+volume_db = 1.0
+panning_strength = 0.0
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]

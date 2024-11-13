@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://dshr8u3mysecc" path="res://SoundEffects/41529__jamius__potiondrinklong.ogg" id="3_esy4l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j3lmu"]
-size = Vector2(16, 20)
+size = Vector2(10, 18)
 
 [sub_resource type="Animation" id="Animation_uu5ow"]
 resource_name = "Active"
@@ -50,7 +50,7 @@ _data = {
 script = ExtResource("1_xwtwb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_scpl5")
 hframes = 6
 vframes = 10
