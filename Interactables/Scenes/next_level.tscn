@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cv5d2ekgwqmnj"]
+[gd_scene load_steps=10 format=3 uid="uid://cv5d2ekgwqmnj"]
 
 [ext_resource type="Script" path="res://Interactables/interatables_scripts/next_level.gd" id="1_ftpgl"]
 [ext_resource type="Texture2D" uid="uid://dhxmg1ldnp8gr" path="res://Sprites/portalsSpriteSheet.png" id="2_cffwr"]
@@ -47,6 +47,18 @@ _data = {
 radius = 6.0
 height = 22.0
 
+[sub_resource type="Gradient" id="Gradient_62vgy"]
+offsets = PackedFloat32Array(0.23622, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lcy7e"]
+gradient = SubResource("Gradient_62vgy")
+width = 68
+height = 120
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.543, 0.03)
+
 [node name="next_level" type="Area2D"]
 position = Vector2(-7, -25)
 collision_layer = 128
@@ -74,6 +86,12 @@ shape = SubResource("CapsuleShape2D_bljux")
 position = Vector2(7, 12)
 stream = ExtResource("3_non56")
 volume_db = 2.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(7, 12)
+scale = Vector2(1, 1.02083)
+texture = SubResource("GradientTexture2D_lcy7e")
+texture_scale = 0.2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
