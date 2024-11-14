@@ -39,7 +39,7 @@ var max_allowed_speed = 115 # Maximum allowed speed for any enemy
 
 @export var base_speed = 100 # The base movement speed of the enemy
 @export var speed_variation = 20 # The range of speed variation
-@export var max_health: float = 50.0 # The maximum health points of the enemy
+@export var max_health: float = 45.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.6 # Time (in seconds) between enemy attacks
 @export var chase_range = 160.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 5.0 # Distance for detecting and avoiding obstacles

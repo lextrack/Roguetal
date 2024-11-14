@@ -285,5 +285,87 @@
 				]
 			}
 		]
+	},
+	"fr": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_r2.png",
+					"res://UI/images_instructions/mouse_click.png",
+					"res://UI/images_instructions/space.png"
+				],
+				"texts": [
+					"Pour [color=red]tirer[/color] sur les ennemis"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l1.png",
+					"res://UI/images_instructions/letter-c.png"
+				],
+				"texts": [
+					"Pour [color=yellow]changer[/color] d'armes"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_r0.png",
+					"res://UI/images_instructions/mouse_move.png"
+				],
+				"texts": [
+					"Pour [color=yellow]contrôler[/color] et diriger les tirs"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/tab-key.png"
+				],
+				"texts": [
+					"Pour vérifier les [color=yellow]statistiques[/color]"
+				]
+			}
+		]
+	},
+	"it": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_r2.png",
+					"res://UI/images_instructions/mouse_click.png",
+					"res://UI/images_instructions/space.png"
+				],
+				"texts": [
+					"Per [color=red]sparare[/color] ai nemici"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l1.png",
+					"res://UI/images_instructions/letter-c.png"
+				],
+				"texts": [
+					"Per [color=yellow]cambiare[/color] le armi"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_r0.png",
+					"res://UI/images_instructions/mouse_move.png"
+				],
+				"texts": [
+					"Per [color=yellow]controllare[/color] e dirigere gli spari"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/tab-key.png"
+				],
+				"texts": [
+					"Per controllare le [color=yellow]statistiche[/color]"
+				]
+			}
+		]
 	}
  }

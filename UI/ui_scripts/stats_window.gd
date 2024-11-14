@@ -106,7 +106,7 @@ func update_stat_display(type: int, multiplier: float):
 		var label_settings = LabelSettings.new()
 		var font = load("res://Fonts/Pixel Azure Bonds.otf")
 		label_settings.font = font
-		label_settings.font_size = 14
+		label_settings.font_size = 17
 		label_settings.outline_size = 5
 		label_settings.outline_color = Color.BLACK
 		stat_label.label_settings = label_settings

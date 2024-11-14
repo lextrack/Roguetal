@@ -252,9 +252,9 @@ texture_scale = 2.0
 [node name="StatsWindow" parent="." instance=ExtResource("9_q87gj")]
 z_index = 2
 offset_left = -568.571
-offset_top = 281.429
+offset_top = 264.286
 offset_right = -568.571
-offset_bottom = 281.429
+offset_bottom = 264.286
 
 [node name="ControlPowerUpHud" type="Control" parent="." groups=["powerup_hud"]]
 z_index = 2

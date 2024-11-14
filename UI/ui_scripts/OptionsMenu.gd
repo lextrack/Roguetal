@@ -303,7 +303,9 @@ func _on_language_button_pressed() -> void:
 		"zh": "pt",
 		"pt": "ja",
 		"ja": "de",
-		"de": "en"
+		"de": "fr",
+		"fr": "it",
+		"it": "en"
 	}
 	
 	var next_language = language_rotation.get(TranslationManager.current_language, "en")
