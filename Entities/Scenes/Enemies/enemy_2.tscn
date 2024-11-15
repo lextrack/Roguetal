@@ -301,7 +301,7 @@ size = Vector2(10.0412, 26.1538)
 size = Vector2(168.047, 120.71)
 
 [node name="enemy_1" type="CharacterBody2D" groups=["enemy"]]
-z_index = 1
+z_index = 2
 y_sort_enabled = true
 scale = Vector2(0.75, 0.75)
 collision_layer = 32

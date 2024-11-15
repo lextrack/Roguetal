@@ -60,7 +60,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.543, 0.03)
 
 [node name="next_level" type="Area2D"]
-z_index = 3
+z_index = 2
 position = Vector2(-7, -25)
 collision_layer = 128
 script = ExtResource("1_ftpgl")
