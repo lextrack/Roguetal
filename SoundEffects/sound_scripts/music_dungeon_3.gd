@@ -2,7 +2,10 @@ extends AudioStreamPlayer2D
 
 var is_playing_level_music = false
 
-func play_music(volume = -5.0):
+func _ready():
+	bus = "Music"
+
+func play_music(volume = -2.0):
 	if stream == null:
 		return
 	

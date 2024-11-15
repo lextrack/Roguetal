@@ -116,6 +116,16 @@ horizontal_alignment = 1
 visible = false
 layout_mode = 2
 
+[node name="music_volume_label" type="Label" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_344qp")
+theme_override_font_sizes/font_size = 30
+text = "Music"
+horizontal_alignment = 1
+
+[node name="MusicVolumeSlider" type="HSlider" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
+
 [node name="FullscreenCheck" type="CheckBox" parent="PanelOpciones/VBoxContainer"]
 visible = false
 layout_mode = 2
