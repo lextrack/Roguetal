@@ -287,5 +287,49 @@
 			"Zunächst scheint es, als würde die Schrotflinte nicht vom Mehr-Schaden-Power-up profitieren, aber es wirkt sich aus, warte nur ab.",
 			"Ich habe Kräfte und du siehst aus wie jemand, der nicht weiß, wie man mit Waffen umgeht, also bekommst du jedes Mal, wenn du stirbst, automatisch ein paar Kugeln."
 		]
+	},
+	"it": {
+		"introductory_dialogues": [
+			"Ehi, bentornato.",
+			"Per iniziare la battaglia, entra in quel portale laggiù.",
+			"All'interno del dungeon ci sono due portali.",
+			"Uno blu per tornare qui e uno rosso per passare al livello successivo e continuare a uccidere i nemici."
+		],
+		"rare_dialogues": [
+			"A volte mi chiedo se la foresta sia viva.",
+			"Se hai più di 25 uccisioni, il robot armato ti temerà e la probabilità di essere colpito da un proiettile diminuirà.",
+			"Hai visto quella strana creatura?",
+			"Continua a muoverti; è l'unica cosa che conta quando sei nei dungeon.",
+			"Quante uccisioni devi fare perché i robot ti temano segretamente e riducano la probabilità di spararti? Più di 25.",
+			"I robot armati hanno il 30% di probabilità di mancare il colpo ma si muovono più velocemente e in modo erratico. Tuttavia, se riesci a fare diverse uccisioni, ti temeranno e la loro probabilità di colpirti con i loro colpi diminuirà.",
+			"Blu = uscita. Rosso = continua a combattere.",
+			"Hai mai letto le istruzioni in basso a destra dello schermo?",
+			"A volte i proiettili rimbalzano sulla pistola degli orchi... non ha nulla a che fare con un problema di collisioni o altro.",
+			"Ti sei mai chiesto cosa ci sia oltre questa foresta?",
+			"Non tutti i giorni si trova un avventuriero in questi luoghi solitari.",
+			"Dicono che ci sia un antico incantesimo nascosto in questi... Nah, sto scherzando. In questo posto ci sono solo portali. Questo è tutto.",
+			"L'ultimo sciocco che è venuto qui non sapeva come usare il lanciarazzi.",
+			"Non sottovalutare mai il potere di un fiore nella foresta; potrebbe contenere più magia di quanto immagini.",
+			"Questa è una brutta copia di qualsiasi roguelite che hai mai giocato.",
+			"Spero che non ti aspetti nulla di speciale qui. L'unica cosa che troverai è una perdita di tempo.",
+			"Un coraggioso avventuriero! O solo un altro idiota che finirà morto, abbattuto dai goblin nelle profondità del dungeon",
+			"A volte, quando il vento soffia nel modo giusto, puoi sentire... assolutamente nulla. Il suono di sottofondo dovrebbe essere migliorato!",
+			"Tre armi sono sufficienti!",
+			"Cambia le armi premendo LB sul controller o C sulla tastiera.",
+			"Aspetta, stai ancora leggendo questo? Devi proprio amare i dialoghi... dialoghi sfocati.",
+			"Gli orchi fanno danno da contatto, cercherei di stare lontano da loro.",
+			"Trova e combina i power up per dare varietà al gameplay!",
+			"Camminare in diagonale ti dà più velocità, come in System Shook 2 o Thief.",
+			"Alt+F4 apre la console dei comandi",
+			"Buona fortuna con il cattivo design 🥱",
+			"Sono solo io, o quell'albero si è appena mosso?",
+			"Bruh.",
+			"I power up sono accumulabili, quindi cerca di raccoglierne il più possibile",
+			"Livelli bui? Tu brilli, amico. Ma tic-tac, il tempo sta scadendo! Cerca di scappare usando il portale rosso. C'è una sorpresa, però.",
+			"Forse non ci credi ma se scappi, eviti la maggior parte degli scontri con i nemici, tranne il danno da contatto.",
+			"Ci credi che qualcuno ha detto che la sua serie di uccisioni più alta era 666? Io non sono mai andato oltre 100, beh una volta, ero ubriaco e in trance e ho superato di poco i 100.",
+			"All'inizio sembra che il fucile a pompa non benefici del power up del danno maggiore, ma sta avendo effetto, aspetta e vedrai.",
+			"Ho dei poteri e tu sembri qualcuno che non sa maneggiare le armi, quindi ogni volta che muori, riceverai automaticamente alcuni proiettili."
+		]
 	}
 }

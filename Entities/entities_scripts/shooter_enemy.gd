@@ -82,7 +82,7 @@ var max_allowed_speed = 120
 @export var attack_damage_range = 40.0           # Range of random damage variation
 
 # Health and stats variables
-@export var max_health: float = 60.0             # Maximum health points of the enemy
+@export var max_health: float = 55.0             # Maximum health points of the enemy
 @export var speed_variation = 30                 # Range of random speed variation (in percentage)
 @export var attack_cooldown_time = 1.0           # Time between attacks (in seconds)
 

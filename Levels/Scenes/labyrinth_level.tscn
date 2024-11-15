@@ -1581,7 +1581,7 @@ y_sort_enabled = true
 script = ExtResource("1_a3cw7")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-energy = 0.95
+energy = 0.94
 blend_mode = 1
 
 [node name="CanvasInstructionsLabyrinth" type="CanvasLayer" parent="." groups=["instruction_canvas"]]
@@ -1720,9 +1720,9 @@ theme_override_font_sizes/font_size = 20
 vertical_alignment = 1
 
 [node name="timer_countdown" type="Label" parent="HUD"]
-offset_left = 96.0
+offset_left = 129.0
 offset_top = 181.0
-offset_right = 136.0
+offset_right = 176.0
 offset_bottom = 207.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3

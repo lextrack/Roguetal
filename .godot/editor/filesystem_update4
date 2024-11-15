@@ -4,3 +4,4 @@ res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
 res://Shaders/flash_shader.gdshader
 res://Interactables/Scenes/exit_portal.tscn
+res://Levels/Scenes/labyrinth_level.tscn

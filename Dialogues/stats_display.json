@@ -75,5 +75,27 @@
 		"games_played_label": "Besuche im Verlies:",
 		"avg_time_label": "Durchschnittliche Zeit:",
 		"avg_kills_label": "Durchschnittliche Kills:"
+	},
+	"fr": {
+		"stats_title": "Statistiques du joueur",
+		"stats_button": "Statistiques",
+		"back_button": "Retour",
+		"total_kills_label": "Total des victimes :",
+		"total_time_label": "Temps total :",
+		"highest_streak_label": "Plus longue série :",
+		"games_played_label": "Visites du donjon :",
+		"avg_time_label": "Temps moyen :",
+		"avg_kills_label": "Moyenne de victimes :"
+	},
+	"it": {
+		"stats_title": "Statistiche giocatore",
+		"stats_button": "Statistiche",
+		"back_button": "Indietro",
+		"total_kills_label": "Uccisioni totali:",
+		"total_time_label": "Tempo totale:",
+		"highest_streak_label": "Serie più alta:",
+		"games_played_label": "Visite al dungeon:",
+		"avg_time_label": "Tempo medio:",
+		"avg_kills_label": "Uccisioni medie:"
 	}
 }

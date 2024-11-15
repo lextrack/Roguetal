@@ -215,5 +215,67 @@
 				]
 			}
 		]
+	},
+	"fr": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l0.png",
+					"res://UI/images_instructions/wasd.png"
+				],
+				"texts": [
+					"Déplacez et contrôlez le personnage"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_01a.png",
+					"res://UI/images_instructions/letter-e.png"
+				],
+				"texts": [
+					"[color=yellow]Parlez[/color] avec les gens"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/letter-esc.png"
+				],
+				"texts": [
+					"[color=yellow]Mettez en pause[/color] le jeu si vous vous ennuyez"
+				]
+			}
+		]
+	},
+	"it": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l0.png",
+					"res://UI/images_instructions/wasd.png"
+				],
+				"texts": [
+					"Muovi e controlla il personaggio"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_01a.png",
+					"res://UI/images_instructions/letter-e.png"
+				],
+				"texts": [
+					"[color=yellow]Parla[/color] con le persone"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/letter-esc.png"
+				],
+				"texts": [
+					"[color=yellow]Metti in pausa[/color] il gioco se ti annoi"
+				]
+			}
+		]
 	}
 }
