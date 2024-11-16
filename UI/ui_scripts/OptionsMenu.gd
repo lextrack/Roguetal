@@ -344,7 +344,7 @@ func update_language_button_text() -> void:
 	options_menu.text = TranslationManager.get_text("options_menu")
 	_update_volume_label(volumen_slider.value)
 	_update_sensitivity_label(mouse_sensitivity_slider.value)
-	_update_music_volume_label(music_volume_slider.value)  # Añadir esta línea
+	_update_music_volume_label(music_volume_slider.value)
 	button_save.text = TranslationManager.get_text("button_save")
 	button_cancel.text = TranslationManager.get_text("button_cancel")
 

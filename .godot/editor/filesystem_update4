@@ -17,3 +17,5 @@ res://SoundEffects/sound_scenes/music_main_level.tscn
 res://UI/ui_scenes/main_menu.tscn
 res://SoundEffects/sound_scenes/music_dungeon.tscn
 res://SoundEffects/sound_scripts/music_dungeon.gd
+res://UI/ui_scenes/pause_menu.tscn
+res://UI/ui_scripts/pause_menu.gd

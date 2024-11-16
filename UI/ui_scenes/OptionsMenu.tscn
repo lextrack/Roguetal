@@ -101,7 +101,17 @@ horizontal_alignment = 1
 
 [node name="VolumenSlider" type="HSlider" parent="PanelOpciones/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 1
+
+[node name="music_volume_label" type="Label" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_344qp")
+theme_override_font_sizes/font_size = 30
+text = "Music"
+horizontal_alignment = 1
+
+[node name="MusicVolumeSlider" type="HSlider" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
 
 [node name="mouse_sensitivity_label" type="Label" parent="PanelOpciones/VBoxContainer"]
 layout_mode = 2
@@ -112,16 +122,6 @@ text = "Mouse sensitivity"
 horizontal_alignment = 1
 
 [node name="MouseSensitivitySlider" type="HSlider" parent="PanelOpciones/VBoxContainer"]
-layout_mode = 2
-
-[node name="music_volume_label" type="Label" parent="PanelOpciones/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_344qp")
-theme_override_font_sizes/font_size = 30
-text = "Music"
-horizontal_alignment = 1
-
-[node name="MusicVolumeSlider" type="HSlider" parent="PanelOpciones/VBoxContainer"]
 layout_mode = 2
 
 [node name="FullscreenCheck" type="CheckBox" parent="PanelOpciones/VBoxContainer"]
