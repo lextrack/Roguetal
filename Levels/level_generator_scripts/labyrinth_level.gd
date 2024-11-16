@@ -31,8 +31,6 @@ func _ready() -> void:
 	
 	MusicManager.ensure_music_playing()
 	
-	MusicMainLevel.stop()
-	
 	if get_tree().current_scene.name == "labyrinth_level":
 		await get_tree().process_frame
 		

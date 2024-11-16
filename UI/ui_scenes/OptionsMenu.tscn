@@ -223,6 +223,9 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_55sfx")
 theme_override_styles/normal = SubResource("StyleBoxFlat_gdsst")
 text = "Cancel"
 
+[node name="music_volume_label2" type="Label" parent="PanelOpciones/VBoxContainer"]
+layout_mode = 2
+
 [connection signal="pressed" from="PanelOpciones/VBoxContainer/ResolutionOption" to="." method="_on_resolution_option_pressed"]
 [connection signal="pressed" from="PanelOpciones/VBoxContainer/LanguageButton" to="." method="_on_language_button_pressed"]
 [connection signal="pressed" from="PanelOpciones/VBoxContainer/VBoxContainer/button_save" to="." method="_on_button_save_pressed"]

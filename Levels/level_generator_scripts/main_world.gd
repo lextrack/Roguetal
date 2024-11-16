@@ -3,11 +3,4 @@ extends Node2D
 @onready var dungeon_portal = preload("res://Interactables/Scenes/portal_dungeon.tscn")
 
 func _ready() -> void:
-	MusicDungeon.stop_music()
-	MusicDungeon2.stop_music()
-	MusicDungeon3.stop_music()
-	MusicDungeon4.stop_music()
-	MusicDungeon5.stop_music()
-	
-	MusicMainMenu.stop_music()
-	MusicMainLevel.play_music_level()
+	MusicManager.play_main_level_music()

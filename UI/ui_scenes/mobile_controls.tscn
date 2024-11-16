@@ -31,7 +31,7 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("2_hukf6")
 
 [node name="Base" type="TextureRect" parent="MovementStick"]
-modulate = Color(0, 0.321569, 0.764706, 0.784314)
+modulate = Color(0, 0.316667, 0.76, 0.784314)
 self_modulate = Color(1, 1, 1, 0.431373)
 layout_mode = 1
 offset_right = 300.0
@@ -40,7 +40,8 @@ texture = ExtResource("1_o27es")
 stretch_mode = 3
 
 [node name="Stick" type="TextureRect" parent="MovementStick/Base"]
-self_modulate = Color(1, 1, 1, 0.431373)
+modulate = Color(0, 0.383333, 1, 0.784314)
+self_modulate = Color(1, 1, 1, 0.392157)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -84,7 +85,8 @@ texture = ExtResource("6_vadwq")
 stretch_mode = 3
 
 [node name="Stick" type="TextureRect" parent="AimStick/Base"]
-self_modulate = Color(1, 1, 1, 0.431373)
+modulate = Color(1, 0, 0.0666666, 0.784314)
+self_modulate = Color(1, 1, 1, 0.392157)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

@@ -6,6 +6,7 @@ extends Control
 @onready var panel_container: Panel = $PanelContainer
 @onready var options_menu: Control = $OptionsMenu
 @onready var buttons_container = $PanelContainer/VBoxContainer
+@onready var main_menu_button: Button = $PanelContainer/VBoxContainer/MainMenu
 
 var current_selection = 0
 var buttons = []
@@ -35,6 +36,11 @@ func check_buttons_state():
 	else:
 		push_error("The button Options was not found.")
 	
+	if main_menu_button != null:
+		buttons.append(main_menu_button)
+	else:
+		push_error("The button MainMenu was not found.")
+		
 	if quit_button != null:
 		buttons.append(quit_button)
 	else:
@@ -48,6 +54,7 @@ func check_buttons_state():
 func update_translations() -> void:
 	resume_button.text = TranslationManager.get_text("resume_button")
 	options_pause.text = TranslationManager.get_text("options_pause")
+	main_menu_button.text = TranslationManager.get_text("main_menu_button")
 	quit_button.text = TranslationManager.get_text("quit_button_pause")
 
 func _process(_delta: float) -> void:
@@ -127,3 +134,7 @@ func _input(event: InputEvent) -> void:
 	if is_menu_visible and !options_menu.visible:
 		if event is InputEventKey or event is InputEventJoypadButton:
 			handle_menu_navigation()
+
+func _on_main_menu_pressed() -> void:
+	resume()
+	get_tree().change_scene_to_file("res://UI/ui_scenes/main_menu.tscn")
