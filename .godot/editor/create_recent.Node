@@ -1,7 +1,8 @@
+HSlider
+Label
 AudioStreamPlayer2D
 Button
 HSeparator
-Label
 GridContainer
 VBoxContainer
 PanelContainer

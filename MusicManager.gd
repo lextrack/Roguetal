@@ -2,8 +2,15 @@ extends Node
 
 var music_tracks = []
 var current_music = null
+var music_volume = 1.0
 
 func _ready():
+	if AudioServer.get_bus_index("Music") == -1:
+		AudioServer.add_bus(-1)
+		AudioServer.set_bus_name(AudioServer.get_bus_count() - 1, "Music")
+
+	set_music_volume(music_volume)
+	
 	music_tracks = [
 		MusicDungeon,
 		MusicDungeon2,
@@ -13,6 +20,7 @@ func _ready():
 	
 	for track in music_tracks:
 		track.finished.connect(_on_music_finished.bind(track))
+		track.bus = "Music"
 
 func _on_music_finished(music_that_finished):
 	var available_tracks = music_tracks.duplicate()
@@ -40,3 +48,11 @@ func stop_all_music():
 	for track in music_tracks:
 		track.stop_music()
 	current_music = null
+
+func set_music_volume(value: float):
+	music_volume = value
+	var db = linear_to_db(value)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), db)
+
+func get_music_volume() -> float:
+	return music_volume

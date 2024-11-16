@@ -13,6 +13,8 @@ extends Control
 @onready var button_cancel: Button = $PanelOpciones/VBoxContainer/VBoxContainer/button_cancel
 @onready var mouse_sensitivity_label: Label = $PanelOpciones/VBoxContainer/mouse_sensitivity_label
 @onready var mouse_sensitivity_slider: HSlider = $PanelOpciones/VBoxContainer/MouseSensitivitySlider
+@onready var music_volume_slider = $PanelOpciones/VBoxContainer/MusicVolumeSlider
+@onready var music_volume_label = $PanelOpciones/VBoxContainer/music_volume_label
 
 var initial_settings = {}
 var has_unsaved_changes = false
@@ -32,6 +34,7 @@ func _ready():
 		return
 	
 	_setup_volume_slider()
+	_setup_music_volume_slider()
 	_setup_mouse_sensitivity_slider()
 	_setup_resolution_option()
 	_connect_signals()
@@ -41,6 +44,7 @@ func _ready():
 	
 	focusable_elements = [
 		volumen_slider,
+		music_volume_slider,
 		mouse_sensitivity_slider,
 		fullscreen_check,
 		powerup_hud_check,
@@ -58,6 +62,20 @@ func _ready():
 	hide()
 	
 	visibility_changed.connect(_on_visibility_changed)
+	
+func _setup_music_volume_slider() -> void:
+	music_volume_slider.min_value = 0.0
+	music_volume_slider.max_value = 1.0
+	music_volume_slider.step = 0.1
+	music_volume_slider.value_changed.connect(_update_music_volume_label)
+	music_volume_slider.value_changed.connect(_on_music_volume_changed)
+
+func _update_music_volume_label(value: float) -> void:
+	music_volume_label.text = TranslationManager.get_text("music_volume_label") + " " + str(int(value * 100)) + "%"
+
+func _on_music_volume_changed(value: float) -> void:
+	MusicManager.set_music_volume(value)
+	_on_setting_changed()
 	
 func _setup_mouse_sensitivity_slider() -> void:
 	mouse_sensitivity_slider.min_value = 0.1
@@ -242,6 +260,7 @@ func _store_initial_settings() -> void:
 	if volumen_slider and fullscreen_check and powerup_hud_check and mouse_sensitivity_slider:
 		initial_settings = {
 			"volumen": volumen_slider.value,
+			"music_volume": music_volume_slider.value,
 			"mouse_sensitivity": mouse_sensitivity_slider.value,
 			"fullscreen": fullscreen_check.button_pressed,
 			"resolution": current_resolution_index,
@@ -256,6 +275,7 @@ func _check_for_changes() -> bool:
 		
 	return (
 		initial_settings["volumen"] != volumen_slider.value or
+		initial_settings["music_volume"] != music_volume_slider.value or
 		initial_settings["mouse_sensitivity"] != mouse_sensitivity_slider.value or
 		initial_settings["fullscreen"] != fullscreen_check.button_pressed or
 		initial_settings["resolution"] != current_resolution_index or
@@ -324,6 +344,7 @@ func update_language_button_text() -> void:
 	options_menu.text = TranslationManager.get_text("options_menu")
 	_update_volume_label(volumen_slider.value)
 	_update_sensitivity_label(mouse_sensitivity_slider.value)
+	_update_music_volume_label(music_volume_slider.value)  # Añadir esta línea
 	button_save.text = TranslationManager.get_text("button_save")
 	button_cancel.text = TranslationManager.get_text("button_cancel")
 
@@ -342,6 +363,7 @@ func save_config() -> void:
 	var config = ConfigFile.new()
 	
 	config.set_value("audio", "volumen", volumen_slider.value)
+	config.set_value("audio", "music_volume", music_volume_slider.value)
 	config.set_value("controls", "mouse_sensitivity", mouse_sensitivity_slider.value)
 	config.set_value("video", "fullscreen", fullscreen_check.button_pressed)
 	config.set_value("video", "resolution_index", current_resolution_index)
@@ -381,6 +403,11 @@ func _apply_config(config: ConfigFile) -> void:
 		var show_instructions = config.get_value("interface", "instructions", true)
 		instructions_check.button_pressed = show_instructions
 		_on_instructions_toggled(show_instructions)
+		
+	if music_volume_slider:
+		var music_vol = config.get_value("audio", "music_volume", 1.0)
+		music_volume_slider.value = music_vol
+		_on_music_volume_changed(music_vol)
 	
 	if fullscreen_check:
 		var fs = config.get_value("video", "fullscreen", false)
@@ -432,6 +459,10 @@ func _apply_default_config() -> void:
 	if volumen_slider:
 		volumen_slider.value = 1.0
 		_on_volumen_slider_value_changed(1.0)
+		
+	if music_volume_slider:
+		music_volume_slider.value = 0.5
+		_on_music_volume_changed(0.5)
 		
 	if mouse_sensitivity_slider:
 		mouse_sensitivity_slider.value = 1.0

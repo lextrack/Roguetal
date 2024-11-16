@@ -312,7 +312,7 @@ func dead() -> void:
 		audio_stream_dead_player.play()
 		$player_animation.play("Dead")
 
-		player_data.ammo += 50
+		player_data.ammo += 30
 		player_data.kill_count = 0
 		player_data.reset_kill_streak()
 		

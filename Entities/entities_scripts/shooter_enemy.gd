@@ -48,7 +48,7 @@ var max_allowed_speed = 120
 # Movement and positioning variables
 @export var base_speed = 105                     # Base movement speed of the enemy
 @export var optimal_attack_distance = 90.0      # The ideal distance the enemy tries to maintain from the player
-@export var chase_range = 170.0                  # Maximum distance at which the enemy will chase the player
+@export var chase_range = 180.0                  # Maximum distance at which the enemy will chase the player
 @export var strafe_speed_multiplier = 0.35       # Speed multiplier when performing strafing movement
 @export var min_attack_distance = 10.0            # Minimum distance before enemy starts emergency retreat
 @export var obstacle_avoidance_range = 10.0      # Range for detecting and avoiding obstacles while moving
@@ -62,7 +62,7 @@ var max_allowed_speed = 120
 
 # Combat positioning variables
 @export var max_shots_before_reposition = 4      # Number of shots before enemy tries to find new position
-@export var reposition_distance = 35.0           # Distance to move when repositioning
+@export var reposition_distance = 30.0           # Distance to move when repositioning
 @export var optimal_distance_tolerance = 30.0    # Acceptable range around optimal attack distance
 @export var distance_adjustment_speed = 0.1      # How quickly enemy adjusts its position
 @export var flank_distance = 70.0               # Distance to move when flanking the player
@@ -77,7 +77,7 @@ var max_allowed_speed = 120
 @export var miss_chance = 0.3                    # Base probability to miss an attack (30%)
 @export var base_miss_chance = 0.3               # Initial miss chance before modifiers
 @export var max_damage_variability = 0.1         # Maximum random variation in damage
-@export var attack_damage = 0.22                 # Base attack damage before modifiers
+@export var attack_damage = 0.2                  # Base attack damage before modifiers
 @export var attack_range = 90.0                  # Maximum range at which enemy can attack
 @export var attack_damage_range = 40.0           # Range of random damage variation
 
