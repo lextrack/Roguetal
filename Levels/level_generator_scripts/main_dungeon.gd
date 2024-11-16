@@ -28,7 +28,6 @@ func _ready() -> void:
 	generate_level()
 	
 	MusicManager.ensure_music_playing()
-	MusicMainLevel.stop()
 	
 func _input(event: InputEvent) -> void:
 	# Detects input events, restarts level if necessary

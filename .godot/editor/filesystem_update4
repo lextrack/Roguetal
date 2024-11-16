@@ -9,3 +9,11 @@ res://Dialogues/hud_texts.json
 res://SoundEffects/sound_scripts/music_main_level.gd
 res://UI/ui_scripts/OptionsMenu.gd
 res://MusicManager.gd
+res://Levels/level_generator_scripts/main_dungeon.gd
+res://Levels/level_generator_scripts/main_world.gd
+res://Levels/level_generator_scripts/labyrinth_level.gd
+res://UI/ui_scripts/main_menu.gd
+res://SoundEffects/sound_scenes/music_main_level.tscn
+res://UI/ui_scenes/main_menu.tscn
+res://SoundEffects/sound_scenes/music_dungeon.tscn
+res://SoundEffects/sound_scripts/music_dungeon.gd

@@ -18,7 +18,7 @@ var loading_screen: CanvasLayer = null
 
 func _ready() -> void:
 	$OptionsMenu.hide()
-	MusicMainMenu.play_music_level()
+	MusicManager.play_main_menu_music()
 	credits_panel.hide()
 	close_credits_button.connect("pressed", Callable(self, "_on_close_credits_pressed"))
 	
