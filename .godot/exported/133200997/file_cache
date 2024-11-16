@@ -45,4 +45,4 @@ res://SoundEffects/sound_scenes/music_dungeon_4.tscn::9990682f6b70759257dc62e74a
 res://SoundEffects/sound_scenes/music_dungeon_5.tscn::5aa0336755e6a89279390d6a838b48ce::1731778133::res://.godot/exported/133200997/export-42364979625517b90a129258a9c1e96d-music_dungeon_5.scn
 res://UI/ui_scenes/OptionsMenu.tscn::6111935af67f0baeea33cf1fff5a08cd::1731784908::res://.godot/exported/133200997/export-ee0435775b61afd18bc5f635c6aec1af-OptionsMenu.scn
 res://UI/ui_scenes/stats_display.tscn::b8cb27e32a72200f2db121e7828f31a1::1731778133::res://.godot/exported/133200997/export-2a6e244d49aff1901dcfbcdec9793830-stats_display.scn
-res://UI/ui_scenes/stats_window.tscn::41f2364f2a714da2d3c8547e7d8d6b93::1731785800::res://.godot/exported/133200997/export-8ae2723b34df6fb508a6b2894b5074ac-stats_window.scn
+res://UI/ui_scenes/stats_window.tscn::41f2364f2a714da2d3c8547e7d8d6b93::1731785840::res://.godot/exported/133200997/export-8ae2723b34df6fb508a6b2894b5074ac-stats_window.scn
