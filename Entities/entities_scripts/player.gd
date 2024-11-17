@@ -528,15 +528,64 @@ func instance_bullet():
 			
 func instance_bullet_hell(bullet_scene: PackedScene, spawn_position: Vector2, damage_multiplier: float) -> int:
 	var num_bullets = 5
+	
+	var has_fire = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.SHOTGUN_FIRE) >= 1.0
+	var current_weapon = weapons[current_weapon_index]
+	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
+	
+	# Verificar críticos
+	var crit_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.CRITICAL_CHANCE)
+	var crit_chance = (crit_multiplier - 1.0) * 100
+	var is_critical = randf() * 100 <= crit_chance
+	
+	# Si tiene efecto de fuego y es escopeta, modificar el flash del disparo
+	if has_fire and bullet_type == "shotgun":
+		create_muzzle_flash(current_weapon, Color(1.5, 0.5, 0.2), 1.0)  # Flash naranja
+	
 	for i in range(num_bullets):
 		var angle = 2 * PI * i / num_bullets
 		var direction = Vector2(cos(angle), sin(angle))
 		
 		var bullet = bullet_scene.instantiate()
-		bullet.damage = weapon_damage[weapons[current_weapon_index].get_meta("bullet_type", "bazooka")] * damage_multiplier
+		var final_damage = weapon_damage[bullet_type] * damage_multiplier
+		
+		# Aplicar crítico si corresponde
+		if is_critical:
+			final_damage *= 2.0
+			apply_critical_effect(bullet, bullet_type)
+		
+		# Aplicar efecto de fuego si es escopeta
+		if has_fire and bullet_type == "shotgun":
+			bullet.has_fire_effect = true
+			if is_critical:
+				bullet.modulate = Color(2.0, 0.5, 0.0)  # Naranja más brillante
+			else:
+				bullet.modulate = Color(1.5, 0.7, 0.2)  # Naranja normal
+		
+		bullet.damage = final_damage
 		bullet.direction = direction
 		bullet.global_position = spawn_position
 		get_tree().root.add_child(bullet)
+	
+	# Efectos de sonido especiales para escopeta con fuego
+	if has_fire and bullet_type == "shotgun":
+		if is_critical:
+			$Sounds/AudioStreamShotgunShot.pitch_scale = 0.8
+			$Sounds/AudioStreamShotgunShot.volume_db += 2
+		else:
+			$Sounds/AudioStreamShotgunShot.pitch_scale = 0.9
+		$Sounds/AudioStreamShotgunShot.play()
+		
+		var reset_timer = Timer.new()
+		add_child(reset_timer)
+		reset_timer.wait_time = 0.1
+		reset_timer.one_shot = true
+		reset_timer.timeout.connect(func():
+			$Sounds/AudioStreamShotgunShot.pitch_scale = 1.0
+			$Sounds/AudioStreamShotgunShot.volume_db = 0
+			reset_timer.queue_free()
+		)
+		reset_timer.start()
 	
 	return num_bullets
 	
@@ -951,7 +1000,7 @@ func enter_portal(portal_type: String = ""):
 func display_HUD_while_using_directionalight():
 	var canvas_layer = CanvasLayer.new()
 	canvas_layer.name = "UILayer"
-	canvas_layer.layer = 1 
+	canvas_layer.layer = 1
 	
 	var control_power_up_hud = $ControlPowerUpHud
 	var stats_window = $StatsWindow
@@ -969,7 +1018,7 @@ func display_HUD_while_using_directionalight():
 		canvas_layer.add_child(stats_window)
 		
 	if control_power_up_hud:
-		_set_node_light_mask_recursive(control_power_up_hud, 2) 
+		_set_node_light_mask_recursive(control_power_up_hud, 2)
 	if stats_window:
 		_set_node_light_mask_recursive(stats_window, 2)
 	

@@ -12,7 +12,6 @@ var multipliers = {
 	PowerUpTypes.PowerUpType.SHOTGUN_FIRE: 0.0
 }
 
-# Definimos los límites máximos para cada tipo de power-up
 const MAX_MULTIPLIERS = {
 	PowerUpTypes.PowerUpType.DAMAGE: 3.0,        # 300% daño máximo
 	PowerUpTypes.PowerUpType.SPEED: 2.0,         # 200% velocidad máxima
