@@ -3,6 +3,7 @@ res://Entities/entities_scripts/player.gd
 res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
 res://Shaders/flash_shader.gdshader
-res://GlobalPowerUpState.gd
 res://Levels/Scenes/labyrinth_level.tscn
-res://Levels/level_generator_scripts/labyrinth_level.gd
+res://Levels/Scenes/main_dungeon.tscn
+res://Entities/entities_scripts/bullet_1.gd
+res://Entities/entities_scripts/shooter_enemy.gd
