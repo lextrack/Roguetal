@@ -72,12 +72,12 @@ var max_allowed_speed = 120
 @export var projectile_detection_radius_normal = 95.0    # Range to detect other incoming projectiles
 
 # Combat and damage variables
-@export var base_damage = 0.15                   # Base damage dealt by attacks
+@export var base_damage = 0.18                   # Base damage dealt by attacks
 @export var max_accuracy_distance = 100.0         # Distance for maximum attack accuracy
 @export var miss_chance = 0.3                    # Base probability to miss an attack (30%)
 @export var base_miss_chance = 0.3               # Initial miss chance before modifiers
 @export var max_damage_variability = 0.1         # Maximum random variation in damage
-@export var attack_damage = 0.15                  # Base attack damage before modifiers
+@export var attack_damage = 0.18                  # Base attack damage before modifiers
 @export var attack_range = 90.0                  # Maximum range at which enemy can attack
 @export var attack_damage_range = 40.0           # Range of random damage variation
 
@@ -928,13 +928,12 @@ func play_attack_animation():
 				transition_to_animation(animation_state.IDLE)
 	)
 
-	
 func play_attack_sound():
 	if attack_sound and not attack_sound.playing:
 		attack_sound.play()
 
 # Handle taking damage
-func take_damage(damage: int, bullet = null):
+func take_damage(damage: float, bullet = null):
 	if is_dead:
 		return
 
@@ -956,6 +955,18 @@ func take_damage(damage: int, bullet = null):
 	
 	if bullet:
 		bullet.queue_free()
+		
+# Show damage number when hit
+func show_damage(damage: float):
+	var damage_label_scene = preload("res://UI/ui_scenes/damage_label.tscn")
+	var damage_label = damage_label_scene.instantiate() as RichTextLabel
+	damage_label.text = str(snappedf(damage, 0.1))
+	
+	if is_burning:
+		damage_label.modulate = Color(1.5, 0.7, 0.2)
+		
+	damage_label.global_position = global_position + Vector2(0, -30)
+	get_tree().root.add_child(damage_label)
 
 # Play hit sound with cooldown
 func play_hit_sound():
@@ -963,14 +974,6 @@ func play_hit_sound():
 	if current_time - last_hit_sound_time > HIT_SOUND_COOLDOWN:
 		hit_damage_sound.play()
 		last_hit_sound_time = current_time
-
-# Show damage number when hit
-func show_damage(damage: int):
-	var damage_label_scene = preload("res://UI/ui_scenes/damage_label.tscn")
-	var damage_label = damage_label_scene.instantiate() as RichTextLabel
-	damage_label.text = str(damage)
-	damage_label.global_position = global_position + Vector2(0, -30)
-	get_tree().root.add_child(damage_label)
 
 # Handle enemy death
 func die():

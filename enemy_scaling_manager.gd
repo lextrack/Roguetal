@@ -14,8 +14,8 @@ var base_shooter_enemies: int = 3
 
 # Scaling configuration
 var scaling_factor: float = 0.20
-var max_normal_enemies: int = 32
-var max_shooter_enemies: int = 18
+var max_normal_enemies: int = 40
+var max_shooter_enemies: int = 22
 var min_increase: int = 2
 
 func increment_difficulty(level_path: String) -> void:

@@ -659,7 +659,8 @@ func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_d
 	
 	for i in range(num_pellets):
 		var bullet = bullet_scene.instantiate()
-		var final_damage = weapon_damage["shotgun"] * damage_multiplier
+		var base_damage = float(weapon_damage["shotgun"])
+		var final_damage = base_damage * damage_multiplier
 		
 		if is_critical:
 			final_damage *= 2.0
@@ -713,7 +714,9 @@ func instance_single_bullet(bullet_scene: PackedScene, spawn_position: Vector2, 
 	var crit_chance = (crit_multiplier - 1.0) * 100
 	var is_critical = randf() * 100 <= crit_chance
 	
-	var final_damage = weapon_damage[bullet_type] * damage_multiplier
+	var base_damage = float(weapon_damage[bullet_type])
+	var final_damage = base_damage * damage_multiplier
+	
 	if is_critical:
 		final_damage *= 2.0
 		apply_critical_effect(bullet, bullet_type)

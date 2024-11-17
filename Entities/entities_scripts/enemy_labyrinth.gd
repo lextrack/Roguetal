@@ -37,11 +37,11 @@ var idle_timer : Timer
 var speed # The actual speed of this enemy instance
 var max_allowed_speed = 115 # Maximum allowed speed for any enemy
 
-@export var base_speed = 100 # The base movement speed of the enemy
+@export var base_speed = 95 # The base movement speed of the enemy
 @export var speed_variation = 20 # The range of speed variation
-@export var max_health: float = 45.0 # The maximum health points of the enemy
+@export var max_health: float = 40.0 # The maximum health points of the enemy
 @export var attack_cooldown_time = 0.6 # Time (in seconds) between enemy attacks
-@export var chase_range = 160.0 # Distance at which the enemy starts to chase the player
+@export var chase_range = 170.0 # Distance at which the enemy starts to chase the player
 @export var obstacle_avoidance_range = 5.0 # Distance for detecting and avoiding obstacles
 @export var reposition_distance = 30.0 # Distance the enemy moves to reposition during combat
 @export var attack_damage = 0.15 # Damage dealt by the enemy in each attack
@@ -414,9 +414,14 @@ func play_attack_sound():
 		if attack_sound:
 			attack_sound.play()
 		last_attack_sound_time = current_time
+		
+# Take damage when hit by a bullet
+func _on_hitbox_area_entered(area: Area2D):
+	if area.is_in_group("Bullet"):
+		take_damage(area.damage, area)
 
 # Handle taking damage
-func take_damage(damage: int, bullet = null):
+func take_damage(damage: float, bullet = null):
 	if is_dead:
 		return
 
@@ -425,7 +430,6 @@ func take_damage(damage: int, bullet = null):
 
 	current_health -= damage
 
-	# Just for shotgun bullets
 	if bullet and ("has_fire_effect" in bullet) and bullet.has_fire_effect:
 		apply_fire_effect()
 
@@ -439,6 +443,73 @@ func take_damage(damage: int, bullet = null):
 	
 	if bullet:
 		bullet.queue_free()
+		
+# Show damage number when hit
+func show_damage(damage: float):
+	var damage_label_scene = preload("res://UI/ui_scenes/damage_label.tscn")
+	var damage_label = damage_label_scene.instantiate() as RichTextLabel
+	damage_label.text = str(snappedf(damage, 0.1))
+	
+	if is_burning:
+		damage_label.modulate = Color(1.5, 0.7, 0.2)
+		
+	damage_label.global_position = global_position + Vector2(0, -30)
+	get_tree().root.add_child(damage_label)
+	
+func setup_fire_system():
+	fire_timer = Timer.new()
+	fire_timer.one_shot = true
+	fire_timer.timeout.connect(stop_fire_effect)
+	add_child(fire_timer)
+	
+	fire_tick_timer = Timer.new()
+	fire_tick_timer.wait_time = fire_tick_time
+	fire_tick_timer.timeout.connect(apply_fire_damage)
+	add_child(fire_tick_timer)
+	
+	setup_fire_particles()
+
+func setup_fire_particles():
+	if not fire_particles:
+		fire_particles = fire_particles_scene.instantiate()
+		add_child(fire_particles)
+		fire_particles.emitting = false
+
+func apply_fire_effect():
+	if is_dead:
+		return
+		
+	if burn_tween:
+		burn_tween.kill()
+	
+	is_burning = true
+	
+	fire_particles.emitting = true
+	burn_tween = create_tween()
+	burn_tween.tween_property(normal_sprite, "modulate",
+		Color(1.5, 0.7, 0.2), 0.3)
+	
+	fire_timer.start(fire_duration)
+	if not fire_tick_timer.is_stopped():
+		fire_tick_timer.stop()
+	fire_tick_timer.start()
+
+func apply_fire_damage():
+	if is_burning and not is_dead:
+		var burn_damage = fire_damage
+		
+		show_damage(burn_damage)
+		
+		current_health -= burn_damage
+		if current_health <= 0:
+			current_health = 0
+			die()
+		else:
+			var flash_tween = create_tween()
+			flash_tween.tween_property(normal_sprite, "modulate",
+				Color(2.0, 0.5, 0.0), 0.1)
+			flash_tween.tween_property(normal_sprite, "modulate",
+				Color(1.5, 0.7, 0.2), 0.2)
 
 # Play hit sound with cooldown
 func play_hit_sound():
@@ -446,18 +517,6 @@ func play_hit_sound():
 	if current_time - last_hit_sound_time > HIT_SOUND_COOLDOWN:
 		hit_damage_sound.play()
 		last_hit_sound_time = current_time
-
-# Show damage number when hit
-func show_damage(damage: int):
-	var damage_label_scene = preload("res://UI/ui_scenes/damage_label.tscn")
-	var damage_label = damage_label_scene.instantiate() as RichTextLabel
-	damage_label.text = str(damage)
-	
-	if is_burning:
-		damage_label.modulate = Color(1.5, 0.7, 0.2)
-	
-	damage_label.global_position = global_position + Vector2(0, -30)
-	get_tree().root.add_child(damage_label)
 
 # Handle enemy death
 func die():
@@ -515,61 +574,6 @@ func instance_ammo():
 		ammo.global_position = global_position
 		get_tree().root.call_deferred("add_child", ammo)
 		
-func setup_fire_system():
-	fire_timer = Timer.new()
-	fire_timer.one_shot = true
-	fire_timer.timeout.connect(stop_fire_effect)
-	add_child(fire_timer)
-	
-	fire_tick_timer = Timer.new()
-	fire_tick_timer.wait_time = fire_tick_time
-	fire_tick_timer.timeout.connect(apply_fire_damage)
-	add_child(fire_tick_timer)
-	
-	setup_fire_particles()
-
-func setup_fire_particles():
-	if not fire_particles:
-		fire_particles = fire_particles_scene.instantiate()
-		add_child(fire_particles)
-		fire_particles.emitting = false
-
-func apply_fire_effect():
-	if is_dead:
-		return
-		
-	if burn_tween:
-		burn_tween.kill()
-	
-	is_burning = true
-	
-	fire_particles.emitting = true
-	burn_tween = create_tween()
-	burn_tween.tween_property(normal_sprite, "modulate",
-		Color(1.5, 0.7, 0.2), 0.3)
-	
-	fire_timer.start(fire_duration)
-	if not fire_tick_timer.is_stopped():
-		fire_tick_timer.stop()
-	fire_tick_timer.start()
-
-func apply_fire_damage():
-	if is_burning and not is_dead:
-		var burn_damage = fire_damage
-		
-		show_damage(burn_damage)
-		
-		current_health -= burn_damage
-		if current_health <= 0:
-			current_health = 0
-			die()
-		else:
-			var flash_tween = create_tween()
-			flash_tween.tween_property(normal_sprite, "modulate",
-				Color(2.0, 0.5, 0.0), 0.1)
-			flash_tween.tween_property(normal_sprite, "modulate",
-				Color(1.5, 0.7, 0.2), 0.2)
-
 func stop_fire_effect():
 	is_burning = false
 	fire_particles.emitting = false
@@ -658,8 +662,4 @@ func stop_all_animations():
 func _on_chase_box_area_entered(area: Area2D):
 	if area.is_in_group("follow"):
 		current_state = enemy_state.CHASE
-
-# Take damage when hit by a bullet
-func _on_hitbox_area_entered(area: Area2D):
-	if area.is_in_group("Bullet"):
-		take_damage(area.damage, area)
+		
