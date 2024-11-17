@@ -2,7 +2,7 @@ extends CanvasLayer
 
 const HEART_ROW_SIZE = 8
 const HEART_OFFSET = 16
-const MAX_HEARTS = 5
+const MAX_HEARTS = 4
 
 @onready var heart_container = $heart
 @onready var heart_texture = $heart.texture

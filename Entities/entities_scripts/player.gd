@@ -897,8 +897,8 @@ func take_damage(damage: float):
 				
 func increase_health(amount: int) -> void:
 	player_data.health += amount
-	if player_data.health > 5:
-		player_data.health = 5
+	if player_data.health > 4:
+		player_data.health = 4
 
 func stop_all_attractions():
 	var ammo_items = get_tree().get_nodes_in_group("ammo")
