@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b4lyw756xgim2"]
+[gd_scene load_steps=19 format=3 uid="uid://b4lyw756xgim2"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
 [ext_resource type="Texture2D" uid="uid://bmngqr3v0mh2a" path="res://Sprites/wallpaper_blue_character_5.jpg" id="2_kf4ov"]
@@ -69,8 +69,42 @@ shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
 shadow_size = 3
 anti_aliasing_size = 2.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5uur"]
-bg_color = Color(0.099986, 0.099986, 0.099986, 0.945098)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nnvcs"]
+bg_color = Color(0, 0.321569, 0.764706, 0.705882)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bopee"]
+bg_color = Color(0.458405, 0.458405, 0.458405, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eikba"]
+bg_color = Color(0.458405, 0.458405, 0.458405, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lcb0y"]
+bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
+shadow_size = 3
+anti_aliasing_size = 2.0
 
 [node name="main_menu" type="Control"]
 layout_mode = 3
@@ -213,7 +247,7 @@ offset_right = 0.123901
 offset_bottom = -0.0800781
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_w5uur")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nnvcs")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CreditsPanel"]
 layout_mode = 1
@@ -236,14 +270,14 @@ text = "[color=crimson]SOUND[/color]
 klankbeeld, Lamp_, szegvari, newlocknew, SoundEffectsFactory, PK9 Sound Effect, el_boss, rubberduck, Mobeyee Sounds, IgnasD, Jamius, AbuNijmeh, JoseIgnacioTriay, toxicwafflezz, SoundsForHim, twisterman, hz37, Emmraan, AlexGrohl, AllWorldMusic, pborel.
 
 [color=crimson]ART[/color]
-Luck (main character), Szadi art, Freepik, DinosoftLabs, surang, kiranshastry, bharat icons, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Fuzzee, Chris Yang, Nikita Golubev, fightswithbears, 3dvaultz, Fupi, max.icons, AntumDeluge, Penusbmicm, wanicon, Daniel ceha.
+Luck (main character), Szadi art, Freepik, DinosoftLabs, surang, kiranshastry, bharat icons, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Fuzzee, Chris Yang, Nikita Golubev, fightswithbears, 3dvaultz, Fupi, max.icons, AntumDeluge, Penusbmicm, wanicon, Daniel ceha, Hannemann.
 
 [color=crimson]ADDITIONAL RESOURCES[/color]
 Flaticon for the awesome icons.
 Jean Vermeersch for his knowledge.
 Pixel Sagas for creating the Pixel Azure Bonds font.
 Most of the artists come from OpenGameArt, Flaticon and itch.io.
-Music and sound effect came from Freesound and Pixabay."
+Most of the music and sound effect came from Freesound and Pixabay."
 
 [node name="CloseCreditsButton" type="Button" parent="CreditsPanel"]
 layout_mode = 1
@@ -258,6 +292,10 @@ offset_right = 0.327759
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_ncx40")
 theme_override_font_sizes/font_size = 20
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_r2pej")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bopee")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eikba")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lcb0y")
 text = "Close"
 
 [node name="Author" type="Label" parent="."]
@@ -284,9 +322,11 @@ panning_strength = 0.0
 position = Vector2(686, 333)
 
 [node name="OptionsMenu" parent="." instance=ExtResource("4_stn02")]
+visible = false
 layout_mode = 1
 
 [node name="StatsDisplay" parent="." instance=ExtResource("7_xtxkh")]
+visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]

@@ -1718,15 +1718,15 @@ theme_override_font_sizes/font_size = 18
 vertical_alignment = 1
 
 [node name="timer_countdown" type="Label" parent="HUD"]
-offset_left = 118.0
+offset_left = 114.0
 offset_top = 180.0
-offset_right = 158.0
+offset_right = 154.0
 offset_bottom = 206.0
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("3_thoc2")
 theme_override_font_sizes/font_size = 18
-horizontal_alignment = 1
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="background_stats" type="Panel" parent="HUD"]

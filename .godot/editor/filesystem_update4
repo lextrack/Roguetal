@@ -1,11 +1,5 @@
-res://Levels/Scenes/labyrinth_level.tscn
+res://UI/ui_scenes/main_menu.tscn
 res://Entities/entities_scripts/player.gd
 res://Shaders/hurt.gdshader
 res://UI/ui_shaders/pause_menu.gdshader
 res://Shaders/flash_shader.gdshader
-res://Entities/entities_scripts/player_data.gd
-res://Entities/Scenes/Player/player.tscn
-res://UI/ui_scripts/hud.gd
-res://UI/ui_scripts/hud_labyrinth.gd
-res://Interactables/interatables_scripts/health_pickup.gd
-res://Levels/Scenes/main_dungeon.tscn
