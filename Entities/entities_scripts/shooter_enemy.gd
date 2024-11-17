@@ -46,12 +46,12 @@ var speed
 var max_allowed_speed = 120
 
 # Movement and positioning variables
-@export var base_speed = 110                    # Base movement speed of the enemy
-@export var optimal_attack_distance = 90.0      # The ideal distance the enemy tries to maintain from the player
-@export var chase_range = 180.0                 # Maximum distance at which the enemy will chase the player
-@export var strafe_speed_multiplier = 0.35      # Speed multiplier when performing strafing movement
-@export var min_attack_distance = 10.0          # Minimum distance before enemy starts emergency retreat
-@export var obstacle_avoidance_range = 10.0     # Range for detecting and avoiding obstacles while moving
+@export var base_speed = 100                     # Base movement speed of the enemy
+@export var optimal_attack_distance = 100.0      # The ideal distance the enemy tries to maintain from the player
+@export var chase_range = 200.0                  # Maximum distance at which the enemy will chase the player
+@export var strafe_speed_multiplier = 0.4       # Speed multiplier when performing strafing movement
+@export var min_attack_distance = 10.0            # Minimum distance before enemy starts emergency retreat
+@export var obstacle_avoidance_range = 15.0      # Range for detecting and avoiding obstacles while moving
 
 # Dodge mechanics variables
 @export var dodge_cooldown = 1.5                 # Time (in seconds) between dodge attempts
@@ -62,22 +62,22 @@ var max_allowed_speed = 120
 
 # Combat positioning variables
 @export var max_shots_before_reposition = 4      # Number of shots before enemy tries to find new position
-@export var reposition_distance = 30.0           # Distance to move when repositioning
-@export var optimal_distance_tolerance = 30.0    # Acceptable range around optimal attack distance
+@export var reposition_distance = 35.0           # Distance to move when repositioning
+@export var optimal_distance_tolerance = 40.0    # Acceptable range around optimal attack distance
 @export var distance_adjustment_speed = 0.1      # How quickly enemy adjusts its position
-@export var flank_distance = 70.0                # Distance to move when flanking the player
+@export var flank_distance = 70.0               # Distance to move when flanking the player
 
 # Projectile detection variables
-@export var projectile_detection_radius_bazooka = 110.0  # Range to detect incoming bazooka projectiles
-@export var projectile_detection_radius_normal = 80.0    # Range to detect other incoming projectiles
+@export var projectile_detection_radius_bazooka = 120.0  # Range to detect incoming bazooka projectiles
+@export var projectile_detection_radius_normal = 95.0    # Range to detect other incoming projectiles
 
 # Combat and damage variables
-@export var base_damage = 0.2                   # Base damage dealt by attacks
-@export var max_accuracy_distance = 75.0         # Distance for maximum attack accuracy
+@export var base_damage = 0.15                   # Base damage dealt by attacks
+@export var max_accuracy_distance = 100.0         # Distance for maximum attack accuracy
 @export var miss_chance = 0.3                    # Base probability to miss an attack (30%)
 @export var base_miss_chance = 0.3               # Initial miss chance before modifiers
 @export var max_damage_variability = 0.1         # Maximum random variation in damage
-@export var attack_damage = 0.2                 # Base attack damage before modifiers
+@export var attack_damage = 0.15                  # Base attack damage before modifiers
 @export var attack_range = 90.0                  # Maximum range at which enemy can attack
 @export var attack_damage_range = 40.0           # Range of random damage variation
 
@@ -277,18 +277,22 @@ func chase_state(delta):
 	
 	if distance_to_target <= attack_range:
 		current_state = enemy_state.ATTACK
-	elif distance_to_target > chase_range:
-		find_scent_trail()
 	else:
+
 		last_known_player_position = target.global_position
 		navigation_agent.target_position = last_known_player_position
 		
-	if not navigation_agent.is_navigation_finished() and not is_attacking:
-		var direction = global_position.direction_to(navigation_agent.get_next_path_position())
-		direction = avoid_obstacles(direction)
-		velocity = direction * speed
-		move_and_slide()
-		play_movement_animation(direction)
+		if not navigation_agent.is_navigation_finished() and not is_attacking:
+			var direction = global_position.direction_to(navigation_agent.get_next_path_position())
+			direction = avoid_obstacles(direction)
+
+			var chase_speed = speed
+			if distance_to_target > chase_range * 1.5:
+				chase_speed *= 1.3 
+			
+			velocity = direction * chase_speed
+			move_and_slide()
+			play_movement_animation(direction)
 
 # Attack state: enemy attacks the player when in range
 func attack_state(delta):
@@ -301,9 +305,9 @@ func attack_state(delta):
 	var distance_to_target = global_position.distance_to(target.global_position)
 	var direction_to_target = global_position.direction_to(target.global_position)
 
-	if distance_to_target < min_attack_distance * 0.7: 
+	if distance_to_target < min_attack_distance * 0.7:
 		perform_emergency_retreat(direction_to_target)
-	elif distance_to_target > attack_range:
+	elif distance_to_target > attack_range * 1.5:
 		transition_to_state(enemy_state.CHASE)
 	else:
 		if can_perform_attack() and has_clear_shot():
@@ -911,7 +915,6 @@ func avoid_obstacles(direction):
 
 # Play movement animation based on direction
 func play_movement_animation(direction: Vector2):
-	# No cambiar animación si estamos en estados prioritarios
 	if current_animation_state in [animation_state.DODGE, animation_state.DEATH, animation_state.ATTACK]:
 		return
 	
@@ -1186,3 +1189,4 @@ func _on_chase_box_area_entered(area: Area2D):
 func _on_hitbox_area_entered(area: Area2D):
 	if area.is_in_group("Bullet"):
 		take_damage(area.damage, area)
+		

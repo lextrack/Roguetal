@@ -118,6 +118,7 @@ layout_mode = 2
 
 [node name="music_volume_label" type="Label" parent="PanelOpciones/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30
 text = "Music"

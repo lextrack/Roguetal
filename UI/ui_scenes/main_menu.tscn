@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4lyw756xgim2"]
+[gd_scene load_steps=19 format=3 uid="uid://b4lyw756xgim2"]
 
 [ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
 [ext_resource type="Texture2D" uid="uid://bmngqr3v0mh2a" path="res://Sprites/wallpaper_blue_character_5.jpg" id="2_kf4ov"]
@@ -68,8 +68,51 @@ shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
 shadow_size = 3
 anti_aliasing_size = 2.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5uur"]
-bg_color = Color(0.099986, 0.099986, 0.099986, 0.945098)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6yad7"]
+bg_color = Color(0, 0.316667, 0.76, 0.705882)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0.0392157, 0.0392157, 0.0392157, 0.431373)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kha6v"]
+bg_color = Color(0.458405, 0.458405, 0.458405, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1lvps"]
+bg_color = Color(0.458405, 0.458405, 0.458405, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i7owd"]
+bg_color = Color(0.458405, 0.458405, 0.458405, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.629675, 0.629675, 0.629675, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ryay"]
+bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.631373, 0.631373, 0.631373, 0.627451)
+shadow_size = 3
+anti_aliasing_size = 2.0
 
 [node name="main_menu" type="Control"]
 layout_mode = 3
@@ -212,7 +255,7 @@ offset_right = 0.123901
 offset_bottom = -0.0800781
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_w5uur")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6yad7")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CreditsPanel"]
 layout_mode = 1
@@ -257,6 +300,10 @@ offset_right = 0.327759
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_ncx40")
 theme_override_font_sizes/font_size = 20
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_kha6v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1lvps")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i7owd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3ryay")
 text = "Close"
 
 [node name="Author" type="Label" parent="."]
@@ -275,9 +322,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="OptionsMenu" parent="." instance=ExtResource("4_stn02")]
+visible = false
 layout_mode = 1
 
 [node name="StatsDisplay" parent="." instance=ExtResource("7_xtxkh")]
+visible = false
 layout_mode = 1
 
 [node name="HoverSound" type="AudioStreamPlayer2D" parent="."]

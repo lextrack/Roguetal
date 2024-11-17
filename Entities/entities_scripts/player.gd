@@ -576,15 +576,59 @@ func instance_bullet():
 			
 func instance_bullet_hell(bullet_scene: PackedScene, spawn_position: Vector2, damage_multiplier: float) -> int:
 	var num_bullets = 5
+	
+	var has_fire = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.SHOTGUN_FIRE) >= 1.0
+	var current_weapon = weapons[current_weapon_index]
+	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
+	
+	var crit_multiplier = power_up_manager.get_multiplier(PowerUpTypes.PowerUpType.CRITICAL_CHANCE)
+	var crit_chance = (crit_multiplier - 1.0) * 100
+	var is_critical = randf() * 100 <= crit_chance
+	
+	if has_fire and bullet_type == "shotgun":
+		create_muzzle_flash(current_weapon, Color(1.5, 0.5, 0.2), 1.0)
+	
 	for i in range(num_bullets):
 		var angle = 2 * PI * i / num_bullets
 		var direction = Vector2(cos(angle), sin(angle))
 		
 		var bullet = bullet_scene.instantiate()
-		bullet.damage = weapon_damage[weapons[current_weapon_index].get_meta("bullet_type", "bazooka")] * damage_multiplier
+		var final_damage = weapon_damage[bullet_type] * damage_multiplier
+		
+		if is_critical:
+			final_damage *= 2.0
+			apply_critical_effect(bullet, bullet_type)
+		
+		if has_fire and bullet_type == "shotgun":
+			bullet.has_fire_effect = true
+			if is_critical:
+				bullet.modulate = Color(2.0, 0.5, 0.0)
+			else:
+				bullet.modulate = Color(1.5, 0.7, 0.2)
+		
+		bullet.damage = final_damage
 		bullet.direction = direction
 		bullet.global_position = spawn_position
 		get_tree().root.add_child(bullet)
+	
+	if has_fire and bullet_type == "shotgun":
+		if is_critical:
+			$Sounds/AudioStreamShotgunShot.pitch_scale = 0.8
+			$Sounds/AudioStreamShotgunShot.volume_db += 2
+		else:
+			$Sounds/AudioStreamShotgunShot.pitch_scale = 0.9
+		$Sounds/AudioStreamShotgunShot.play()
+		
+		var reset_timer = Timer.new()
+		add_child(reset_timer)
+		reset_timer.wait_time = 0.1
+		reset_timer.one_shot = true
+		reset_timer.timeout.connect(func():
+			$Sounds/AudioStreamShotgunShot.pitch_scale = 1.0
+			$Sounds/AudioStreamShotgunShot.volume_db = 0
+			reset_timer.queue_free()
+		)
+		reset_timer.start()
 	
 	return num_bullets
 	
