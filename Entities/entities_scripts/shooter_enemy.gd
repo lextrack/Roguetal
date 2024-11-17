@@ -48,7 +48,7 @@ var max_allowed_speed = 120
 # Movement and positioning variables
 @export var base_speed = 100                     # Base movement speed of the enemy
 @export var optimal_attack_distance = 100.0      # The ideal distance the enemy tries to maintain from the player
-@export var chase_range = 200.0                  # Maximum distance at which the enemy will chase the player
+@export var chase_range = 190.0                  # Maximum distance at which the enemy will chase the player
 @export var strafe_speed_multiplier = 0.4       # Speed multiplier when performing strafing movement
 @export var min_attack_distance = 10.0            # Minimum distance before enemy starts emergency retreat
 @export var obstacle_avoidance_range = 15.0      # Range for detecting and avoiding obstacles while moving
@@ -57,8 +57,8 @@ var max_allowed_speed = 120
 @export var dodge_cooldown = 1.5                 # Time (in seconds) between dodge attempts
 @export var dodge_chance = 0.8                   # Probability of performing a dodge when threatened
 @export var dodge_duration = 0.35                # Duration of the dodge movement
-@export var dodge_speed_multiplier_normal = 1.2  # Speed multiplier for dodging normal projectiles
-@export var dodge_speed_multiplier_bazooka = 1.1 # Speed multiplier for dodging bazooka projectiles
+@export var dodge_speed_multiplier_normal = 1.1  # Speed multiplier for dodging normal projectiles
+@export var dodge_speed_multiplier_bazooka = 1.2 # Speed multiplier for dodging bazooka projectiles
 
 # Combat positioning variables
 @export var max_shots_before_reposition = 4      # Number of shots before enemy tries to find new position
@@ -275,24 +275,24 @@ func chase_state(delta):
 
 	var distance_to_target = global_position.distance_to(target.global_position)
 	
-	if distance_to_target <= attack_range:
+	if distance_to_target <= attack_range and has_clear_shot():
 		current_state = enemy_state.ATTACK
-	else:
+		return
+	
+	last_known_player_position = target.global_position
+	navigation_agent.target_position = last_known_player_position
+	
+	if not navigation_agent.is_navigation_finished():
+		var direction = global_position.direction_to(navigation_agent.get_next_path_position())
+		direction = avoid_obstacles(direction)
 
-		last_known_player_position = target.global_position
-		navigation_agent.target_position = last_known_player_position
+		var chase_speed = speed
+		if distance_to_target > chase_range * 1.5:
+			chase_speed *= 1.3
 		
-		if not navigation_agent.is_navigation_finished() and not is_attacking:
-			var direction = global_position.direction_to(navigation_agent.get_next_path_position())
-			direction = avoid_obstacles(direction)
-
-			var chase_speed = speed
-			if distance_to_target > chase_range * 1.5:
-				chase_speed *= 1.3 
-			
-			velocity = direction * chase_speed
-			move_and_slide()
-			play_movement_animation(direction)
+		velocity = direction * chase_speed
+		move_and_slide()
+		play_movement_animation(direction)
 
 # Attack state: enemy attacks the player when in range
 func attack_state(delta):
@@ -307,9 +307,11 @@ func attack_state(delta):
 
 	if distance_to_target < min_attack_distance * 0.7:
 		perform_emergency_retreat(direction_to_target)
-	elif distance_to_target > attack_range * 1.5:
+	elif distance_to_target > attack_range * 1.2:
 		transition_to_state(enemy_state.CHASE)
 	else:
+		handle_combat_movement(delta, distance_to_target, direction_to_target)
+		
 		if can_perform_attack() and has_clear_shot():
 			perform_attack()
 			current_shots += 1
@@ -317,8 +319,6 @@ func attack_state(delta):
 			if current_shots >= max_shots_before_reposition:
 				initiate_reposition()
 				current_shots = 0
-		else:
-			handle_combat_movement(delta, distance_to_target, direction_to_target)
 				
 func perform_emergency_retreat(direction_to_target: Vector2):
 	if is_attacking:
@@ -346,7 +346,7 @@ func find_escape_direction(base_direction: Vector2) -> Vector2:
 			global_position,
 			test_point,
 			1,
-			[self] 
+			[self]
 		)
 		var result = space_state.intersect_ray(query)
 		
@@ -367,12 +367,12 @@ func find_escape_point(retreat_direction: Vector2) -> Vector2:
 		var query = PhysicsRayQueryParameters2D.create(
 			global_position,
 			test_point,
-			1, 
+			1,
 			[self]
 		)
 		var result = space_state.intersect_ray(query)
 		
-		if not result: 
+		if not result:
 			var distance_to_player = test_point.distance_to(target.global_position)
 			if distance_to_player >= optimal_attack_distance:
 				test_points.append(test_point)
@@ -488,7 +488,6 @@ func can_perform_attack() -> bool:
 		not attack_animation_enemy.is_playing() and \
 		current_animation_state != animation_state.DODGE and \
 		attack_cooldown <= 0
-
 			
 func _ensure_animation_playing(state: animation_state) -> void:
 	match state:
@@ -508,41 +507,13 @@ func _ensure_animation_playing(state: animation_state) -> void:
 		animation_state.DEATH:
 			stop_all_animations()
 			die_animation_enemy.play("dead")
-			
-func update_sprite_visibility():
-	match current_animation_state:
-		animation_state.IDLE:
-			idle_sprite.show()
-			normal_sprite.hide()
-			attack_sprite.hide()
-			die_sprite.hide()
-		animation_state.WALK:
-			idle_sprite.hide()
-			normal_sprite.show()
-			attack_sprite.hide()
-			die_sprite.hide()
-		animation_state.ATTACK:
-			idle_sprite.hide()
-			normal_sprite.hide()
-			attack_sprite.show()
-			die_sprite.hide()
-		animation_state.DODGE:
-			idle_sprite.hide()
-			normal_sprite.show()
-			attack_sprite.hide()
-			die_sprite.hide()
-		animation_state.DEATH:
-			idle_sprite.hide()
-			normal_sprite.hide()
-			attack_sprite.hide()
-			die_sprite.show()
 	
 func update_strafe_direction():
 	if not is_strafing:
 		is_strafing = true
 		strafe_direction = 1 if randf() > 0.5 else -1
 		last_strafe_change = Time.get_ticks_msec() / 1000.0
-	elif Time.get_ticks_msec() / 1000.0 - last_strafe_change > 2.0: 
+	elif Time.get_ticks_msec() / 1000.0 - last_strafe_change > 2.0:
 		var distance = global_position.distance_to(target.global_position)
 		var change_chance = inverse_lerp(min_attack_distance, optimal_attack_distance, distance)
 		if randf() > 0.6 + change_chance * 0.2:
@@ -577,6 +548,10 @@ func is_projectile_threatening(projectile: Node2D) -> bool:
 	
 	if projectile_type == "shotgun":
 		return is_in_shotgun_spread(projectile)
+	elif projectile_type == "m16":
+		return dist_to_projectile < 75.0
+	elif projectile_type == "bazooka":
+		return dist_to_projectile < 100.0
 	
 	var projectile_velocity = projectile.velocity if "velocity" in projectile else Vector2.ZERO
 	if projectile_velocity == Vector2.ZERO:
@@ -585,7 +560,7 @@ func is_projectile_threatening(projectile: Node2D) -> bool:
 	var time_to_impact = predict_time_to_impact(projectile)
 	var threat_level = calculate_threat_level(projectile_type, time_to_impact, dist_to_projectile)
 	
-	return threat_level > 0.7
+	return threat_level > 0.5
 	
 func is_in_shotgun_spread(projectile: Node2D) -> bool:
 	var dist_to_projectile = global_position.distance_to(projectile.global_position)
@@ -619,14 +594,19 @@ func get_projectile_type(projectile: Node2D) -> String:
 func predict_time_to_impact(projectile: Node2D) -> float:
 	var projectile_velocity = projectile.velocity if "velocity" in projectile else Vector2.ZERO
 	var relative_position = projectile.global_position - global_position
-	var speed = projectile_velocity.length()
+	var relative_velocity = projectile_velocity - velocity
 	
-	if speed == 0:
+	if relative_velocity.length() == 0:
 		return INF
 		
-	var relative_velocity = projectile_velocity - velocity
-	var prediction = relative_position.length() / relative_velocity.length()
-	return prediction * (1.0 + randf_range(-0.1, 0.1))
+	var time = relative_position.length() / relative_velocity.length()
+	match get_projectile_type(projectile):
+		"bazooka":
+			return time * 0.8
+		"m16":
+			return time * 0.9
+		_:
+			return time
 
 func calculate_threat_level(projectile_type: String, time_to_impact: float, distance: float) -> float:
 	var base_threat = 1.0 - (time_to_impact / 1.0)
@@ -635,9 +615,9 @@ func calculate_threat_level(projectile_type: String, time_to_impact: float, dist
 		"bazooka":
 			return base_threat * 1.4
 		"shotgun":
-			return base_threat * 0.7
+			return base_threat * 1.2
 		"m16":
-			return base_threat * 1.6
+			return base_threat * 1.0
 		_:
 			return base_threat
 			
@@ -668,17 +648,13 @@ func should_dodge() -> bool:
 		return false
 		
 	var nearby_projectiles = get_tree().get_nodes_in_group("player_projectiles")
-	var threat_count = 0
 	
 	for projectile in nearby_projectiles:
 		if is_projectile_threatening(projectile):
-			threat_count += 1
-			if threat_count > 1:
-				return randf() < dodge_chance * 1.5
 			return randf() < dodge_chance
 			
 	return false
-	
+
 func calculate_optimal_dodge_direction(projectile: Node2D) -> Vector2:
 	var to_projectile = projectile.global_position - global_position
 	var projectile_velocity = projectile.velocity if "velocity" in projectile else Vector2.ZERO
@@ -1172,6 +1148,34 @@ func setup_slow_particles():
 	slow_effect_particles.explosiveness = 0.0
 	slow_effect_particles.randomness = 0.5
 	slow_effect_particles.fixed_fps = 30
+	
+func update_sprite_visibility():
+	match current_animation_state:
+		animation_state.IDLE:
+			idle_sprite.show()
+			normal_sprite.hide()
+			attack_sprite.hide()
+			die_sprite.hide()
+		animation_state.WALK:
+			idle_sprite.hide()
+			normal_sprite.show()
+			attack_sprite.hide()
+			die_sprite.hide()
+		animation_state.ATTACK:
+			idle_sprite.hide()
+			normal_sprite.hide()
+			attack_sprite.show()
+			die_sprite.hide()
+		animation_state.DODGE:
+			idle_sprite.hide()
+			normal_sprite.show()
+			attack_sprite.hide()
+			die_sprite.hide()
+		animation_state.DEATH:
+			idle_sprite.hide()
+			normal_sprite.hide()
+			attack_sprite.hide()
+			die_sprite.show()
 
 # Stop all animations
 func stop_all_animations():

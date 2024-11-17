@@ -670,14 +670,12 @@ func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_d
 			bullet.base_speed = 250
 			bullet.speed_variation = 50
 		
-		# Aplicar efecto de fuego
 		if has_fire:
 			bullet.has_fire_effect = true
-			# Si es crítico + fuego, hacer un efecto más dramático
 			if is_critical:
-				bullet.modulate = Color(2.0, 0.5, 0.0)  # Naranja más brillante
+				bullet.modulate = Color(2.0, 0.5, 0.0)
 			else:
-				bullet.modulate = Color(1.5, 0.7, 0.2)  # Naranja normal
+				bullet.modulate = Color(1.5, 0.7, 0.2) 
 		
 		bullet.damage = final_damage
 		bullet.direction = base_direction
@@ -693,7 +691,6 @@ func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_d
 			$Sounds/AudioStreamShotgunShot.pitch_scale = 0.9
 		$Sounds/AudioStreamShotgunShot.play()
 		
-		# Crear un timer para resetear el sonido
 		var reset_timer = Timer.new()
 		add_child(reset_timer)
 		reset_timer.wait_time = 0.1
