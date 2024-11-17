@@ -13,13 +13,13 @@ var multipliers = {
 }
 
 const MAX_MULTIPLIERS = {
-	PowerUpTypes.PowerUpType.DAMAGE: 3.0,        # 300% daño máximo
-	PowerUpTypes.PowerUpType.SPEED: 2.0,         # 200% velocidad máxima
-	PowerUpTypes.PowerUpType.DEFENSE: 3.0,       # 300% defensa máxima
-	PowerUpTypes.PowerUpType.BULLET_HELL: 1.0,   # Activado/Desactivado
-	PowerUpTypes.PowerUpType.CRITICAL_CHANCE: 2.0, # 200% prob. crítico máximo
-	PowerUpTypes.PowerUpType.ENEMY_SLOW: 0.3,    # 30% velocidad enemiga mínima
-	PowerUpTypes.PowerUpType.SHOTGUN_FIRE: 1.0   # Activado/Desactivado
+	PowerUpTypes.PowerUpType.DAMAGE: 3.0,
+	PowerUpTypes.PowerUpType.SPEED: 2.0,
+	PowerUpTypes.PowerUpType.DEFENSE: 1.8,
+	PowerUpTypes.PowerUpType.BULLET_HELL: 1.0, 
+	PowerUpTypes.PowerUpType.CRITICAL_CHANCE: 2.0,
+	PowerUpTypes.PowerUpType.ENEMY_SLOW: 0.3, 
+	PowerUpTypes.PowerUpType.SHOTGUN_FIRE: 1.0
 }
 
 func reset_power_ups():
