@@ -7,25 +7,20 @@ var player_in_range = false
 var showing_rare_dialogues = false
 var rare_dialogue_index = 0
 var tween: Tween
+var panel_base_position: Vector2
 
-# Constantes para las animaciones
 const ANIMATION_DURATION = 0.3
 const FLOAT_DISTANCE = 10.0
 const PANEL_START_SCALE = Vector2(0.8, 0.8)
 const PANEL_FINAL_SCALE = Vector2(1.0, 1.0)
-
-# Variable para mantener la posición base del panel
-var panel_base_position: Vector2
 
 func _ready() -> void:
 	randomize()
 	TranslationManager.language_changed.connect(load_dialogues)
 	load_dialogues()
 	
-	# Guardamos la posición inicial del panel
 	panel_base_position = $PanelDialogue.position
 	
-	# Configuración inicial del panel
 	$PanelDialogue.scale = PANEL_START_SCALE
 	$PanelDialogue.modulate.a = 0
 	hide_dialogue()
@@ -112,7 +107,6 @@ func hide_dialogue():
 	if tween:
 		tween.kill()
 	
-	# Resetear la posición del panel a la base antes de animar
 	$PanelDialogue.position = panel_base_position
 	
 	tween = create_tween().set_parallel()
@@ -121,7 +115,6 @@ func hide_dialogue():
 	tween.tween_property($PanelDialogue, "scale", PANEL_START_SCALE, ANIMATION_DURATION)
 	tween.chain().tween_callback(func(): 
 		$PanelDialogue.visible = false
-		# Asegurarnos de que el panel vuelve a su posición base
 		$PanelDialogue.position = panel_base_position
 	)
 
@@ -129,7 +122,6 @@ func animate_dialogue_show(next_text: String):
 	if tween:
 		tween.kill()
 	
-	# Resetear a la posición base antes de comenzar la animación
 	$PanelDialogue.position = panel_base_position + Vector2(0, FLOAT_DISTANCE)
 	$PanelDialogue.scale = PANEL_START_SCALE
 	$PanelDialogue.modulate.a = 0

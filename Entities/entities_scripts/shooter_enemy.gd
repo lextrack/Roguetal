@@ -915,7 +915,6 @@ func avoid_obstacles(direction):
 
 # Play movement animation based on direction
 func play_movement_animation(direction: Vector2):
-	# No cambiar animación si estamos en estados prioritarios
 	if current_animation_state in [animation_state.DODGE, animation_state.DEATH, animation_state.ATTACK]:
 		return
 	

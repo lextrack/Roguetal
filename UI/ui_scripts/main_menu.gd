@@ -43,7 +43,7 @@ func _ready() -> void:
 func update_translations() -> void:
 	play.text = TranslationManager.get_text("play_button")
 	options.text = TranslationManager.get_text("options_button")
-	stats.text = TranslationManager.get_text("stats_button")  # Añade esta línea
+	stats.text = TranslationManager.get_text("stats_button")
 	credits.text = TranslationManager.get_text("credits_button")
 	quit.text = TranslationManager.get_text("quit_button")
 	close_credits_button.text = TranslationManager.get_text("close_credits_button")
@@ -73,7 +73,6 @@ func _on_loading_finished() -> void:
 func _on_credits_pressed() -> void:
 	animate_button(credits)
 	await get_tree().create_timer(0.2).timeout
-	# Preparar panel de créditos para la animación
 	credits_panel.scale = Vector2(0.8, 0.8)
 	credits_panel.modulate.a = 0
 	credits_panel.show()
@@ -82,7 +81,7 @@ func _on_credits_pressed() -> void:
 
 func animate_credits_panel() -> void:
 	var tween = create_tween()
-	tween.set_trans(Tween.TRANS_BACK)  # Puedes cambiar a TRANS_LINEAR si prefieres
+	tween.set_trans(Tween.TRANS_BACK)
 	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(credits_panel, "scale", Vector2(1.0, 1.0), 0.3)
 	tween.parallel().tween_property(credits_panel, "modulate:a", 1.0, 0.2)

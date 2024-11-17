@@ -7,3 +7,14 @@ res://Levels/Scenes/labyrinth_level.tscn
 res://Levels/Scenes/main_dungeon.tscn
 res://Entities/entities_scripts/bullet_1.gd
 res://Entities/entities_scripts/shooter_enemy.gd
+res://UI/ui_scripts/hud.gd
+res://UI/ui_scripts/hud_labyrinth.gd
+res://Entities/entities_scripts/player_data.gd
+res://Interactables/interatables_scripts/health_pickup.gd
+res://Levels/level_generator_scripts/labyrinth_level.gd
+res://Interactables/interatables_scripts/critical_chance_pickup.gd
+res://UI/ui_scripts/area_vampire_girl.gd
+res://Interactables/interatables_scripts/next_level.gd
+res://UI/ui_scripts/mouse_icon.gd
+res://UI/ui_scripts/main_menu.gd
+res://events.gd

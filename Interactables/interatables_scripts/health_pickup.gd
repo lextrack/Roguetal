@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var health_increase = 4
+@export var health_increase = 5
 @onready var pickup_object: AudioStreamPlayer2D = $pickup_object
 
 func _ready() -> void:

@@ -26,7 +26,6 @@ func _ready() -> void:
 	var current_scene = get_tree().current_scene.scene_file_path
 	if current_scene in level_visits:
 		level_visits[current_scene] += 1
-		# Usar el nombre del autoload en lugar de la ruta del archivo
 		EnemyScalingManagerGlobal.increment_difficulty(current_scene)
 		print("Actual scene: ", current_scene)
 		print_visit_stats()
@@ -42,7 +41,6 @@ func _on_body_entered(body: Node2D) -> void:
 		if selected_level != last_level:
 			last_level = selected_level
 			level_visits[selected_level] += 1
-			# Usar el nombre del autoload en lugar de la ruta del archivo
 			EnemyScalingManagerGlobal.increment_difficulty(selected_level)
 			print("Changing to the scene: ", selected_level)
 			print_visit_stats()

@@ -1,6 +1,7 @@
 extends Area2D
 
-@export var vertical_offset: float = 10.0  # Ajusta este valor para mover el cursor arriba/abajo
+@export var vertical_offset: float = 10.0
+
 var is_using_gamepad = false
 var initial_mouse_pos = Vector2.ZERO
 var target_position = Vector2.ZERO
@@ -22,8 +23,7 @@ func _process(delta: float) -> void:
 		
 		var mouse_movement = current_mouse_pos - target_position
 		target_position += mouse_movement * mouse_sensitivity
-		
-		# Aplicamos el offset vertical a la posición final
+
 		global_position = target_position + Vector2(0, vertical_offset)
 	else:
 		visible = false

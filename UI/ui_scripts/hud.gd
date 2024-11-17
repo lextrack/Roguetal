@@ -2,7 +2,7 @@ extends CanvasLayer
 
 const HEART_ROW_SIZE = 8
 const HEART_OFFSET = 16
-const MAX_HEARTS = 4
+const MAX_HEARTS = 5
 
 @onready var heart_container = $heart
 @onready var heart_texture = $heart.texture
@@ -111,5 +111,4 @@ func reset_animations():
 	time_played_label.modulate.a = 0
 	
 func _exit_tree():
-	# Actualizar estadísticas antes de salir de la escena
 	StatsManager.update_session_stats()

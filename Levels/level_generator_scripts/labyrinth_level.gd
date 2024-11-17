@@ -59,7 +59,6 @@ func _on_next_level_portal_body_entered(body: Node2D) -> void:
 		timer_light_level.stop()
 		
 func generate_level() -> void:
-	# Generates the entire level including map, player, enemies, and pickups
 	walker = Walker_room.new(Vector2(25,25), borders)
 	map = walker.walk(700)
 	clear_and_set_tiles()
