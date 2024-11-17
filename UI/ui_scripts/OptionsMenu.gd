@@ -124,7 +124,9 @@ func handle_menu_navigation() -> void:
 		match current_selection:
 			0:  # Volumen Slider
 				volumen_slider.value -= volumen_slider.step
-			1:  # Mouse Sensitivity Slider
+			1:  # Music Volume Slider
+				music_volume_slider.value -= music_volume_slider.step
+			2:  # Mouse Sensitivity Slider
 				mouse_sensitivity_slider.value -= mouse_sensitivity_slider.step
 			4:  # Resolution Option
 				current_resolution_index = (current_resolution_index - 1 + available_resolutions.size()) % available_resolutions.size()
@@ -135,7 +137,9 @@ func handle_menu_navigation() -> void:
 		match current_selection:
 			0:  # Volumen Slider
 				volumen_slider.value += volumen_slider.step
-			1:  # Mouse Sensitivity Slider
+			1:  # Music Volume Slider
+				music_volume_slider.value += music_volume_slider.step
+			2:  # Mouse Sensitivity Slider
 				mouse_sensitivity_slider.value += mouse_sensitivity_slider.step
 			4:  # Resolution Option
 				current_resolution_index = (current_resolution_index + 1) % available_resolutions.size()
