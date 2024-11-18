@@ -36,6 +36,7 @@ Events="*res://events.gd"
 EnemyScalingManagerGlobal="*res://enemy_scaling_manager.gd"
 StatsManager="*res://stats_manager.gd"
 MusicManager="*res://MusicManager.gd"
+GameManager="*res://GameManager.gd"
 
 [display]
 
