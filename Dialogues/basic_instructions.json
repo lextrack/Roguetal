@@ -277,5 +277,36 @@
 				]
 			}
 		]
+	},
+	"ko": {
+		"pages": [
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_l0.png",
+					"res://UI/images_instructions/wasd.png"
+				],
+				"texts": [
+					"캐릭터 이동 및 조작"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_01a.png",
+					"res://UI/images_instructions/letter-e.png"
+				],
+				"texts": [
+					"[color=yellow]대화하기[/color]"
+				]
+			},
+			{
+				"images": [
+					"res://UI/images_instructions/btn_xb_11.png",
+					"res://UI/images_instructions/letter-esc.png"
+				],
+				"texts": [
+					"지루하면 게임을 [color=yellow]일시정지[/color]하세요"
+				]
+			}
+		]
 	}
 }

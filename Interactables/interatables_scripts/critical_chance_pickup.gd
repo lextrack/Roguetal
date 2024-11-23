@@ -30,4 +30,4 @@ func create_pickup_effect():
 	effect.queue_free()
 
 func _on_area_entered(area: Area2D) -> void:
-	pass # Replace with function body.
+	pass

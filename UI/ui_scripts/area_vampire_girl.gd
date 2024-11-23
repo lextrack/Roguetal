@@ -32,7 +32,7 @@ func _ready() -> void:
 		dialogue_index = dialogue.size()
 		
 	if OS.get_name() == "Android":
-		await get_tree().create_timer(0.1).timeout  # Pequeña espera para asegurar que todo está listo
+		await get_tree().create_timer(0.1).timeout
 		var player = get_tree().get_first_node_in_group("player")
 		if player and player.mobile_controls:
 			mobile_controls = player.mobile_controls

@@ -28,6 +28,5 @@ func create_pickup_effect():
 	await get_tree().create_timer(effect.lifetime).timeout
 	effect.queue_free()
 
-
 func _on_area_entered(area: Area2D) -> void:
 	pass

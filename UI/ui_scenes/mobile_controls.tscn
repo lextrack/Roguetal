@@ -32,7 +32,7 @@ script = ExtResource("2_hukf6")
 
 [node name="Base" type="TextureRect" parent="MovementStick"]
 modulate = Color(0, 0.316667, 0.76, 0.764706)
-self_modulate = Color(1, 1, 1, 0.392157)
+self_modulate = Color(1, 1, 1, 0.431373)
 layout_mode = 1
 offset_right = 300.0
 offset_bottom = 300.0
@@ -41,7 +41,7 @@ stretch_mode = 3
 
 [node name="Stick" type="TextureRect" parent="MovementStick/Base"]
 modulate = Color(0, 0.316667, 0.76, 0.784314)
-self_modulate = Color(1, 1, 1, 0.392157)
+self_modulate = Color(1, 1, 1, 0.431373)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -77,7 +77,7 @@ script = ExtResource("5_kflyv")
 
 [node name="Base" type="TextureRect" parent="AimStick"]
 modulate = Color(1, 0.32, 0.365333, 0.764706)
-self_modulate = Color(1, 1, 1, 0.392157)
+self_modulate = Color(1, 1, 1, 0.431373)
 layout_mode = 1
 offset_right = 300.0
 offset_bottom = 300.0
@@ -86,7 +86,7 @@ stretch_mode = 3
 
 [node name="Stick" type="TextureRect" parent="AimStick/Base"]
 modulate = Color(1, 0, 0.0666666, 0.784314)
-self_modulate = Color(1, 1, 1, 0.392157)
+self_modulate = Color(1, 1, 1, 0.431373)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -102,7 +102,7 @@ grow_vertical = 2
 texture = ExtResource("2_x4p27")
 
 [node name="PauseButton" type="TextureButton" parent="."]
-self_modulate = Color(1, 1, 1, 0.392157)
+self_modulate = Color(1, 1, 1, 0.431373)
 texture_filter = 2
 anchors_preset = 1
 anchor_left = 1.0
@@ -118,7 +118,7 @@ stretch_mode = 0
 script = ExtResource("7_s2xfd")
 
 [node name="WeaponSwitchButton" type="TextureButton" parent="."]
-self_modulate = Color(1, 1, 1, 0.392157)
+self_modulate = Color(1, 1, 1, 0.431373)
 texture_filter = 2
 anchors_preset = 1
 anchor_left = 1.0
@@ -134,7 +134,7 @@ stretch_mode = 0
 script = ExtResource("7_s2xfd")
 
 [node name="StatsButton" type="TextureButton" parent="."]
-self_modulate = Color(1, 1, 1, 0.392157)
+self_modulate = Color(1, 1, 1, 0.431373)
 texture_filter = 2
 anchors_preset = 1
 anchor_left = 1.0
@@ -149,7 +149,7 @@ texture_pressed = ExtResource("6_yekg7")
 script = ExtResource("7_s2xfd")
 
 [node name="InteractButton" type="TextureButton" parent="."]
-self_modulate = Color(1, 1, 1, 0.392157)
+self_modulate = Color(1, 1, 1, 0.431373)
 texture_filter = 2
 anchors_preset = 3
 anchor_left = 1.0

@@ -22,7 +22,6 @@ func _ready() -> void:
 	base_radius = base.size.x * 0.5
 	stick_offset = stick.size * 0.5
 	set_process_input(true)
-
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	
 func _input(event: InputEvent) -> void:

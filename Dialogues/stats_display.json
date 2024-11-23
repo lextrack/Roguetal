@@ -97,5 +97,16 @@
 		"games_played_label": "Visite al dungeon:",
 		"avg_time_label": "Tempo medio:",
 		"avg_kills_label": "Uccisioni medie:"
+	},
+	"ko": {
+		"stats_title": "플레이어 통계",
+		"stats_button": "통계",
+		"back_button": "뒤로",
+		"total_kills_label": "총 처치:",
+		"total_time_label": "총 플레이 시간:",
+		"highest_streak_label": "최고 연속 처치:",
+		"games_played_label": "던전 방문 횟수:",
+		"avg_time_label": "평균 시간:",
+		"avg_kills_label": "평균 처치:"
 	}
 }

@@ -339,7 +339,6 @@ func movement(delta: float) -> void:
 		return
 	
 	if not is_mobile:
-		# Entrada de PC existente
 		input_movement = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
 	if input_movement != Vector2.ZERO:
@@ -368,7 +367,6 @@ func display_HUD_while_using_directionalight():
 	var control_power_up_hud = $ControlPowerUpHud
 	var stats_window = $StatsWindow
 	
-	# Guardar referencias antes de mover los nodos
 	var stored_stats_window = stats_window
 	
 	if control_power_up_hud:
@@ -388,9 +386,8 @@ func display_HUD_while_using_directionalight():
 	if stored_stats_window:
 		_set_node_light_mask_recursive(stored_stats_window, 2)
 		
-	# Actualizar la referencia al StatsWindow después de moverlo
 	if is_mobile:
-		await get_tree().create_timer(0.1).timeout  # Pequeña espera para asegurar que todo está configurado
+		await get_tree().create_timer(0.1).timeout
 		var stats_window_path = "UILayer/StatsWindow"
 		if has_node(stats_window_path):
 			stats_window = get_node(stats_window_path)
@@ -784,7 +781,6 @@ func bullet_type_shooting(delta: float):
 	var current_weapon = weapons[current_weapon_index]
 	var bullet_type = current_weapon.get_meta("bullet_type", "bazooka")
 	
-	# Manejo del sobrecalentamiento
 	if is_overheated:
 		overheat_timer -= delta
 		if overheat_timer <= 0:
@@ -795,7 +791,6 @@ func bullet_type_shooting(delta: float):
 	
 	update_weapon_heat_effect(current_weapon, heat_level / MAX_HEAT)
 	
-	# Condición de disparo modificada para soportar tanto móvil como PC
 	var should_shoot = (is_mobile and is_shooting) or (not is_mobile and Input.is_action_pressed("ui_shoot"))
 	
 	if not is_overheated and should_shoot and player_data.ammo > 0 and weapons_container.visible:
@@ -804,7 +799,6 @@ func bullet_type_shooting(delta: float):
 			var bullets_fired = instance_bullet()
 			player_data.ammo -= bullets_fired
 			
-			# Añadir calor según el tipo de arma
 			match bullet_type:
 				"bazooka":
 					add_heat(20)
@@ -813,17 +807,15 @@ func bullet_type_shooting(delta: float):
 				"m16":
 					add_heat(5)
 			
-			# Verificar munición
 			if player_data.ammo < 0:
 				player_data.ammo = 0
 			
-			# Establecer el tiempo de espera entre disparos
 			match bullet_type:
 				"m16":
 					shoot_timer = rapid_shoot_delay
 				"shotgun":
 					shoot_timer = 1.0
-				_: # bazooka y otros
+				_: # bazooka and others
 					shoot_timer = bazooka_shoot_delay
 
 func add_heat(amount: float):
