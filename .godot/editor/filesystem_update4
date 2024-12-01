@@ -1,0 +1,14 @@
+res://UI/ui_scenes/stats_display.tscn
+res://Entities/entities_scripts/player.gd
+res://Shaders/hurt.gdshader
+res://UI/ui_shaders/pause_menu.gdshader
+res://Shaders/flash_shader.gdshader
+res://Dialogues/basic_instructions.json
+res://UI/ui_scripts/OptionsMenu.gd
+res://Dialogues/dialogues.json
+res://Dialogues/hud_texts.json
+res://Dialogues/instructions.json
+res://Dialogues/stats_display.json
+res://Dialogues/stats_menu.json
+res://Dialogues/tips.json
+res://Entities/Scenes/Player/player.tscn

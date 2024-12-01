@@ -124,5 +124,19 @@
 		"status_inactive": "×",
 		"stat_slower": "↓",
 		"stat_boost": "↑"
+	},
+	"ko": {
+		"stat_damage": "⚔️ 공격",
+		"stat_speed": "⚡ 속도", 
+		"stat_defense": "🛡️ 방어",
+		"stat_bullet_hell": "☄️ 탄막",
+		"stat_crit_chance": "✨ 치명",
+		"stat_enemy_slow": "🕸️ 둔화", 
+		"stat_shotgun_fire": "🔥 화샷",
+		"stat_unknown": "❔",
+		"status_active": "✓",
+		"status_inactive": "×",
+		"stat_slower": "↓",
+		"stat_boost": "↑"
 	}
 }

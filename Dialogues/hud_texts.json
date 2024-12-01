@@ -230,5 +230,31 @@
 		"powerup_hud_check": "Mostra HUD power-up",
 		"instructions_check": "Mostra istruzioni",
 		"mouse_sensitivity_label": "Sensibilità mouse"
+	},
+	"ko": {
+		"kills_text": "처치: {0}",
+		"time_text": "시간: {0}",
+		"highest_streak_text": "연속 처치: {0}",
+		"countdown_warning_text": "빛:",
+		"play_button": "시작",
+		"credits_button": "크레딧",
+		"quit_button": "종료",
+		"language_button": "한국어",
+		"close_credits_button": "닫기",
+		"resume_button": "계속하기",
+		"quit_button_pause": "종료",
+		"options_button": "설정",
+		"main_menu_button": "메인 메뉴",
+		"fullscreen_check": "전체화면",
+		"options_menu": "설정 메뉴",
+		"options_pause": "설정",
+		"volume_label_game": "볼륨 설정",
+		"volume_label_game": "게임 볼륨",
+		"music_volume_label": "음악 볼륨",
+		"button_save": "저장",
+		"button_cancel": "취소",
+		"powerup_hud_check": "파워업 HUD 표시",
+		"instructions_check": "설명 표시",
+		"mouse_sensitivity_label": "마우스 감도"
 	}
 }

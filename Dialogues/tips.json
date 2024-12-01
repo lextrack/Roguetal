@@ -132,5 +132,20 @@
 			"Caricamento gioco... e contemplazione dell'esistenza",
 			"Quanta acqua ti serve al giorno? Circa 15.5 tazze. Tazze piccole."
 		]
+	},
+	"ko": {
+		"tips": [
+			"안녕하세요, 저는 로딩 화면이에요.",
+			"포기하지 마세요, 파워업을 사용하세요!",
+			"죽지 마세요. 건강에 해로워요.",
+			"가끔은 눈을 깜빡이는 것을 잊지 마세요.",
+			"팁: 이기는 게 지는 것보다 좋아요. 하지만 여기서는 둘 다 얻을 수 없죠.",
+			"알고 계셨나요? 케이크는 거짓말이에요.",
+			"이 게임의 레벨처럼 무작위 팁이에요.",
+			"Loading... Cargando... Laden... 加载中... Carregando... Ładowanie... Chargement... Caricamento... 読み込み中... 로딩중...",
+			"팁: 물은 젖어있고, 불은 뜨거워요.",
+			"게임 로딩 중... 그리고 존재의 의미를 고민하는 중...",
+			"하루에 물을 얼마나 마셔야 할까요? 약 15.5컵이요. 작은 컵으로요."
+		]
 	}
 }
