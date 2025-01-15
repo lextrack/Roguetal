@@ -1,6 +1,6 @@
 res://Entities/Scenes/Bullets/bullet_1.tscn::1f95d6a137b2ee23d069bfaca664eebf::1734994894::res://.godot/exported/133200997/export-cff516c18f0aed3e1ebb266c5eb4fc83-bullet_1.scn
 res://Entities/Scenes/Bullets/bullet_rapid.tscn::37c06cc93c81ad8f85e2581edea52079::1734994894::res://.godot/exported/133200997/export-cf33d76faf68d2503270a856b3c01831-bullet_rapid.scn
-res://Entities/Scenes/Characters/vampire_girl_npc.tscn::ed2370239e86bed7414aa29a20c1cc1f::1734994894::res://.godot/exported/133200997/export-cb2ac230393aebaa8bd7dc2041f2fe59-vampire_girl_npc.scn
+res://Entities/Scenes/Characters/vampire_girl_npc.tscn::caebee23c58d243538d95bfeedef8f28::1736982683::res://.godot/exported/133200997/export-cb2ac230393aebaa8bd7dc2041f2fe59-vampire_girl_npc.scn
 res://Entities/Scenes/Enemies/enemy_1.tscn::683a53fe1ffa0df840a235d4e986a6dc::1734994894::res://.godot/exported/133200997/export-b6fe25f89bd0e32fe3656b10e8e00bb5-enemy_1.scn
 res://Entities/Scenes/Enemies/enemy_2.tscn::cbb6fdfc085e71d87803cb453db3c447::1734994894::res://.godot/exported/133200997/export-596a57bf1794852ed498645ed95f1d20-enemy_2.scn
 res://Entities/Scenes/Enemies/enemy_labyrinth.tscn::52dcf5cae44d572e78644748f54910d6::1734994894::res://.godot/exported/133200997/export-10a2f3103d045c4ecbe26ab8b31a9b65-enemy_labyrinth.scn
@@ -24,7 +24,7 @@ res://SoundEffects/sound_scenes/music_main_level.tscn::9d0713c18d20550840f4f25ee
 res://SoundEffects/sound_scenes/music_main_menu.tscn::98c54b64280161c8cb53b05d980628f7::1734994894::res://.godot/exported/133200997/export-b33b171fd8d4579a055dc09bb8bb493d-music_main_menu.scn
 res://UI/ui_scenes/damage_label.tscn::0d101da3a8b2168aceecde6e93eda0ce::1734994894::res://.godot/exported/133200997/export-11a8e8d1fea7f4b55ed570dff58795fd-damage_label.scn
 res://UI/ui_scenes/loading_screen.tscn::7fa49acf7c0465c4946841acf898a5d8::1734994894::res://.godot/exported/133200997/export-d99c1f8285224e16c2900048eaede01a-loading_screen.scn
-res://UI/ui_scenes/main_menu.tscn::435027051f1d23b2c19bf24821aab9cf::1734994894::res://.godot/exported/133200997/export-26952b5dde36398d84b71b66824f8290-main_menu.scn
+res://UI/ui_scenes/main_menu.tscn::e1022a0492b8e91df7806507466c7734::1736982799::res://.godot/exported/133200997/export-26952b5dde36398d84b71b66824f8290-main_menu.scn
 res://UI/ui_scenes/mouse_icon.tscn::9022d0d2787f4905146695d8b645a8c0::1734994894::res://.godot/exported/133200997/export-547ec8fde2ad34b7dd2570fd5d4c38b5-mouse_icon.scn
 res://UI/ui_scenes/pause_menu.tscn::d82e3d0131312287c35476429fb260a7::1734994894::res://.godot/exported/133200997/export-3af9a7254570c91a677cd9a631c4eaa4-pause_menu.scn
 res://Entities/Scenes/Bullets/bullet_shotgun.tscn::d8e8d0a5dc3c64981e7853699c3d727b::1734994894::res://.godot/exported/133200997/export-05bee6b6be0affd73984e6687cc4cb78-bullet_shotgun.scn
@@ -44,6 +44,6 @@ res://SoundEffects/sound_scenes/music_dungeon_3.tscn::49c496d390f90e5741a5cc19da
 res://SoundEffects/sound_scenes/music_dungeon_4.tscn::9990682f6b70759257dc62e74a9839ff::1734994894::res://.godot/exported/133200997/export-e16fad5c392e7fbbe350f26ba6c5032c-music_dungeon_4.scn
 res://SoundEffects/sound_scenes/music_dungeon_5.tscn::5aa0336755e6a89279390d6a838b48ce::1734994894::res://.godot/exported/133200997/export-42364979625517b90a129258a9c1e96d-music_dungeon_5.scn
 res://UI/ui_scenes/OptionsMenu.tscn::fa93b1ee3bb7ac9db5d0a4c9cf8f71b9::1734994894::res://.godot/exported/133200997/export-ee0435775b61afd18bc5f635c6aec1af-OptionsMenu.scn
-res://UI/ui_scenes/mobile_controls.tscn::983e3ccda6669db0e3ecbe250c235ae2::1736809168::res://.godot/exported/133200997/export-80a96e012fde74f61ff83cc6b2460ee4-mobile_controls.scn
+res://UI/ui_scenes/mobile_controls.tscn::54c4b17a5c11b3a8da77e55e9653291d::1736896421::res://.godot/exported/133200997/export-80a96e012fde74f61ff83cc6b2460ee4-mobile_controls.scn
 res://UI/ui_scenes/stats_display.tscn::b8681c16853742e96c460350840e7ca5::1734994894::res://.godot/exported/133200997/export-2a6e244d49aff1901dcfbcdec9793830-stats_display.scn
-res://UI/ui_scenes/stats_window.tscn::ef2e7b7995e6b0e9c6e811202530de66::1734994894::res://.godot/exported/133200997/export-8ae2723b34df6fb508a6b2894b5074ac-stats_window.scn
+res://UI/ui_scenes/stats_window.tscn::221af0840539394d4a01c609624ed66b::1736896501::res://.godot/exported/133200997/export-8ae2723b34df6fb508a6b2894b5074ac-stats_window.scn

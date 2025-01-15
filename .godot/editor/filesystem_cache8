@@ -1,9 +1,9 @@
 fc8a56933c4b1c8d796fdb8f7a9f9475
-::res://::1736895653
+::res://::1736983026
 backgroundAndroid.png::CompressedTexture2D::7230623103992901770::1734994894::1734994966::1::::<><>::
 enemy_scaling_manager.gd::GDScript::-1::1734994894::0::1::::EnemyScalingManager<>Node<>::
 events.gd::GDScript::-1::1734994894::0::1::::<>Node<>::
-export_presets.cfg::TextFile::-1::1736809595::0::1::::<><>::
+export_presets.cfg::TextFile::-1::1736982849::0::1::::<><>::
 foregroundAndroid.png::CompressedTexture2D::6703919377577591614::1734994894::1734994966::1::::<><>::
 Global.gd::GDScript::-1::1734994894::0::1::::<>Node<>::
 GlobalPowerUpState.gd::GDScript::-1::1734994894::0::1::::<>Node<>::
@@ -16,7 +16,6 @@ MultiTouchButton.gd::GDScript::-1::1734994894::0::1::::<>TextureButton<>::
 MusicManager.gd::GDScript::-1::1734994894::0::1::::<>Node<>::
 stats_manager.gd::GDScript::-1::1734994894::0::1::::<>Node<>::
 translation_manager_global.gd::GDScript::-1::1734994894::0::1::::<>Node<>::
-::res://android/::1734995160
 ::res://AndroidKeyC2/::1734994894
 credenciales.txt::TextFile::-1::1734994894::0::1::::<><>::
 ::res://Dialogues/::1734994894
@@ -28,7 +27,7 @@ stats_display.json::JSON::-1::1734994894::0::1::::<><>::
 stats_menu.json::JSON::-1::1734994894::0::1::::<><>::
 tips.json::JSON::-1::1734994894::0::1::::<><>::
 ::res://Entities/::1734994894
-::res://Entities/entities_scripts/::1736809168
+::res://Entities/entities_scripts/::1736982524
 bullet_1.gd::GDScript::-1::1734994894::0::1::::<>Area2D<>::
 bullet_rapid.gd::GDScript::-1::1734994894::0::1::::<>Area2D<>::
 bullet_shotgun.gd::GDScript::-1::1734994894::0::1::::<>Area2D<>::
@@ -37,7 +36,7 @@ enemy_1.gd::GDScript::-1::1734994894::0::1::::<>CharacterBody2D<>::
 enemy_labyrinth.gd::GDScript::-1::1734994894::0::1::::<>CharacterBody2D<>::
 fx_missile_effect.gd::GDScript::-1::1734994894::0::1::::<>Node2D<>::
 fx_rapid_bullet.gd::GDScript::-1::1734994894::0::1::::<>Node2D<>::
-player.gd::GDScript::-1::1736809168::0::1::::<>CharacterBody2D<>::
+player.gd::GDScript::-1::1736982524::0::1::::<>CharacterBody2D<>::
 player_data.gd::GDScript::-1::1734994894::0::1::::player_data<>Node<>::
 power_up_manager.gd::GDScript::-1::1734994894::0::1::::<>Node<>::
 scent_trail.gd::GDScript::-1::1734994894::0::1::::<>Area2D<>::
@@ -48,8 +47,8 @@ smoke_particles.gd::GDScript::-1::1734994894::0::1::::<>GPUParticles2D<>::
 bullet_1.tscn::PackedScene::6170524362523569253::1734994894::0::1::::<><>::res://Entities/entities_scripts/bullet_1.gd<>uid://djk815us8x8va::::res://Sprites/bullet_missile.png<>uid://nqrkco01hlp2::::res://SoundEffects/impact_bazooka.ogg
 bullet_rapid.tscn::PackedScene::7120295165616131457::1734994894::0::1::::<><>::res://Entities/entities_scripts/bullet_rapid.gd<>uid://cav73d1mdwdop::::res://Sprites/bullet_rapid.png<>uid://cugdfuci0psae::::res://SoundEffects/impact_rapid_bullet_2.ogg
 bullet_shotgun.tscn::PackedScene::2791286005903740124::1734994894::0::1::::<><>::res://Entities/entities_scripts/bullet_shotgun.gd<>uid://bo5raso18t0i8::::res://Sprites/shotgun_bullet.png<>uid://o0wtnet6lm8j::::res://SoundEffects/shotgun_impact.ogg
-::res://Entities/Scenes/Characters/::1734994894
-vampire_girl_npc.tscn::PackedScene::1952202456771866409::1734994894::0::1::::<><>::uid://ct5agvxkjvs0x::::res://Sprites/Vampire_Girl/Idle.png<>uid://cdun1b3gdci6e::::res://Fonts/Pixel Azure Bonds.otf<>res://UI/ui_scripts/area_vampire_girl.gd
+::res://Entities/Scenes/Characters/::1736982683
+vampire_girl_npc.tscn::PackedScene::1952202456771866409::1736982683::0::1::::<><>::uid://ct5agvxkjvs0x::::res://Sprites/Vampire_Girl/Idle.png<>uid://cdun1b3gdci6e::::res://Fonts/Pixel Azure Bonds.otf<>res://UI/ui_scripts/area_vampire_girl.gd
 ::res://Entities/Scenes/Enemies/::1734994894
 enemy_1.tscn::PackedScene::5575961064560448726::1734994894::0::1::::<><>::res://Entities/entities_scripts/enemy_1.gd<>uid://duj4wedhxeg3w::::res://Sprites/orc3_run_full.png<>uid://b71v7llfhuluo::::res://Sprites/orc3_death_full.png<>uid://ch1gxwwlpqohp::::res://SoundEffects/Hit_bullet_damage.ogg<>uid://de5u1e46i3340::::res://SoundEffects/goblin_die_01.ogg<>uid://70j6ljal86e1::::res://Sprites/orc3_idle_full.png<>uid://cu4oksmcjsijq::::res://Sprites/orc3_attack_full.png<>uid://bk1547daqeme5::::res://SoundEffects/blade_02.ogg
 enemy_2.tscn::PackedScene::3187718928013188064::1734994894::0::1::::<><>::res://Entities/entities_scripts/enemy_1.gd<>uid://jhnrsdmhw6n5::::res://Sprites/orc1_run_full.png<>uid://ch1gxwwlpqohp::::res://SoundEffects/Hit_bullet_damage.ogg<>uid://djy3oqt1sw414::::res://Sprites/orc1_death_full.png<>uid://da7pd82lmu4o3::::res://Sprites/orc1_attack_full.png<>uid://de5u1e46i3340::::res://SoundEffects/goblin_die_01.ogg<>uid://7qceacpux5bo::::res://Sprites/orc1_idle_full.png<>uid://bk1547daqeme5::::res://SoundEffects/blade_02.ogg
@@ -107,9 +106,9 @@ labyrinth_level.tscn::PackedScene::1588280250402421082::1734994894::0::1::::<><>
 main_dungeon.tscn::PackedScene::7409020938614328237::1734994894::0::1::::<><>::res://Levels/level_generator_scripts/main_dungeon.gd<>res://UI/ui_scripts/hud.gd<>uid://csx15aryqogte::::res://Sprites/HeartSpriteSheet.png<>uid://cdun1b3gdci6e::::res://Fonts/Pixel Azure Bonds.otf<>uid://c38bl01vdy0k6::::res://Sprites/complex_tilemap_16px.png<>uid://dwphcmpag53is::::res://Sprites/ammo_ui.png<>uid://02ay4cfoeh8i::::res://Sprites/mainlevbuild.png<>uid://dqmd7bql1ldc::::res://UI/ui_scenes/pause_menu.tscn<>uid://c1df3if3xydge::::res://Sprites/snow.png<>uid://dtp1c1nysvom3::::res://Sprites/Ice and snow tileset-Sheet-Sheet.png
 main_dungeon_2.tscn::PackedScene::1171794042280500754::1734994894::0::1::::<><>::res://Levels/level_generator_scripts/main_dungeon.gd<>uid://cdun1b3gdci6e::::res://Fonts/Pixel Azure Bonds.otf<>uid://dqmd7bql1ldc::::res://UI/ui_scenes/pause_menu.tscn<>uid://csx15aryqogte::::res://Sprites/HeartSpriteSheet.png<>uid://dwphcmpag53is::::res://Sprites/ammo_ui.png<>uid://02ay4cfoeh8i::::res://Sprites/mainlevbuild.png<>uid://l85tm3xdtcna::::res://Sprites/Main_dungeon brick level.png
 main_world.tscn::PackedScene::49683991250003105::1734994894::0::1::::<><>::uid://bm2ssab3dj3sq::::res://Sprites/forest_/forest_.png<>res://Levels/level_generator_scripts/main_world.gd<>uid://02ay4cfoeh8i::::res://Sprites/mainlevbuild.png<>res://UI/ui_scripts/canvas_instructions.gd<>uid://brms7i87pfawr::::res://Entities/Scenes/Player/player.tscn<>uid://wtleq1220l72::::res://Sprites/forest_/forest_ [resources].png<>uid://cdun1b3gdci6e::::res://Fonts/Pixel Azure Bonds.otf<>uid://dx7jg2bjpfbq8::::res://Sprites/Tree_SpriteSheet.png<>uid://22wqvtgu2aej::::res://Entities/Scenes/Characters/vampire_girl_npc.tscn<>uid://bly15dxgkrppy::::res://Interactables/Scenes/portal_dungeon.tscn<>uid://dqmd7bql1ldc::::res://UI/ui_scenes/pause_menu.tscn
-::res://Shaders/::1736809616
-flash_shader.gdshader::Shader::-1::1736809616::0::1::::<><>::
-hurt.gdshader::Shader::-1::1736809616::0::1::::<><>::
+::res://Shaders/::1736982993
+flash_shader.gdshader::Shader::-1::1736982993::0::1::::<><>::
+hurt.gdshader::Shader::-1::1736982993::0::1::::<><>::
 ::res://SoundEffects/::1734994967
 41529__jamius__potiondrinklong.ogg::AudioStreamOggVorbis::8438204095217731814::1734994894::1734994966::1::::<><>::
 150838__toxicwafflezz__bullet_impact_2.wav::AudioStreamWAV::6627764005177335303::1734994894::1734994967::1::::<><>::
@@ -269,16 +268,16 @@ space.png::CompressedTexture2D::1645889628980695157::1734994894::1734994966::1::
 tab-key.png::CompressedTexture2D::3408276530592767628::1734994894::1734994966::1::::<><>::
 tiempo-rapido.png::CompressedTexture2D::2688508527673293971::1734994894::1734994966::1::::<><>::
 wasd.png::CompressedTexture2D::8553210399880826508::1734994894::1734994966::1::::<><>::
-::res://UI/ui_scenes/::1736809168
+::res://UI/ui_scenes/::1736982799
 damage_label.tscn::PackedScene::6546214409384761181::1734994894::0::1::::<><>::res://UI/ui_scripts/damage_label.gd
 loading_screen.tscn::PackedScene::4956820563251859053::1734994894::0::1::::<><>::res://UI/ui_scripts/loading_screen.gd<>uid://dj5a2auu0yfsy::::res://Sprites/wallpaper_blue_character_3.jpg<>uid://cdun1b3gdci6e::::res://Fonts/Pixel Azure Bonds.otf<>uid://2smyrybdaiac::::res://Sprites/load.png
-main_menu.tscn::PackedScene::4446103528313817043::1734994894::0::1::::<><>::res://UI/ui_scripts/main_menu.gd<>uid://bmngqr3v0mh2a::::res://Sprites/wallpaper_blue_character_5.jpg<>uid://cgr60uh2odmsm::::res://SoundEffects/misc_01.ogg<>uid://cdun1b3gdci6e::::res://Fonts/Pixel Azure Bonds.otf<>uid://rkamwmwfav1a::::res://UI/ui_scenes/OptionsMenu.tscn<>uid://m5kt7g7dtvyw::::res://UI/ui_scenes/stats_display.tscn
-mobile_controls.tscn::PackedScene::8516394598124409568::1736809168::0::1::::<><>::res://UI/ui_scripts/mobile_controls.gd<>uid://bkp2j3u1sqyu1::::res://UI/VirtualJoystickPack/Joystick.png<>res://UI/ui_scripts/movement_stick.gd<>uid://g4olpe163bdl::::res://UI/VirtualJoystickPack/SmallHandleFilled.png<>res://UI/ui_scripts/aim_stick.gd<>uid://bm26ogws73dcn::::res://UI/VirtualJoystickPack/JoystickSplitted.png<>uid://byfof8pe0iykl::::res://UI/VirtualJoystickPack/settings.png<>uid://bcs3nq073hut1::::res://UI/VirtualJoystickPack/SmallHandleFilledGrey.png<>res://MultiTouchButton.gd<>uid://lsybb4xr41tp::::res://UI/VirtualJoystickPack/change_weapon.png<>uid://bi4m8txccsxx1::::res://UI/VirtualJoystickPack/stats_info.png<>uid://c6vxrh7orgk4u::::res://UI/VirtualJoystickPack/interact.png
+main_menu.tscn::PackedScene::4446103528313817043::1736982799::0::1::::<><>::res://UI/ui_scripts/main_menu.gd<>uid://bmngqr3v0mh2a::::res://Sprites/wallpaper_blue_character_5.jpg<>uid://cgr60uh2odmsm::::res://SoundEffects/misc_01.ogg<>uid://cdun1b3gdci6e::::res://Fonts/Pixel Azure Bonds.otf<>uid://rkamwmwfav1a::::res://UI/ui_scenes/OptionsMenu.tscn<>uid://m5kt7g7dtvyw::::res://UI/ui_scenes/stats_display.tscn
+mobile_controls.tscn::PackedScene::8516394598124409568::1736896421::0::1::::<><>::res://UI/ui_scripts/mobile_controls.gd<>uid://bkp2j3u1sqyu1::::res://UI/VirtualJoystickPack/Joystick.png<>res://UI/ui_scripts/movement_stick.gd<>uid://g4olpe163bdl::::res://UI/VirtualJoystickPack/SmallHandleFilled.png<>res://UI/ui_scripts/aim_stick.gd<>uid://bm26ogws73dcn::::res://UI/VirtualJoystickPack/JoystickSplitted.png<>uid://byfof8pe0iykl::::res://UI/VirtualJoystickPack/settings.png<>uid://bcs3nq073hut1::::res://UI/VirtualJoystickPack/SmallHandleFilledGrey.png<>res://MultiTouchButton.gd<>uid://lsybb4xr41tp::::res://UI/VirtualJoystickPack/change_weapon.png<>uid://bi4m8txccsxx1::::res://UI/VirtualJoystickPack/stats_info.png<>uid://c6vxrh7orgk4u::::res://UI/VirtualJoystickPack/interact.png
 mouse_icon.tscn::PackedScene::6591610455652771799::1734994894::0::1::::<><>::res://UI/ui_scripts/mouse_icon.gd<>uid://cqimj2xm3hby3::::res://Sprites/animated_crosshair_cursor_pack.png
 OptionsMenu.tscn::PackedScene::1213876723971649368::1734994894::0::1::::<><>::res://UI/ui_scripts/OptionsMenu.gd<>uid://cdun1b3gdci6e::::res://Fonts/Pixel Azure Bonds.otf
 pause_menu.tscn::PackedScene::244332219308676052::1734994894::0::1::::<><>::res://UI/ui_scripts/pause_menu.gd<>res://UI/ui_shaders/pause_menu.gdshader<>uid://cdun1b3gdci6e::::res://Fonts/Pixel Azure Bonds.otf<>uid://rkamwmwfav1a::::res://UI/ui_scenes/OptionsMenu.tscn
 stats_display.tscn::PackedScene::904840247764785122::1734994894::0::1::::<><>::res://UI/ui_scripts/stats_display.gd<>uid://cdun1b3gdci6e::::res://Fonts/Pixel Azure Bonds.otf
-stats_window.tscn::PackedScene::7924967970847376558::1734994894::0::1::::<><>::res://UI/ui_scripts/stats_window.gd
+stats_window.tscn::PackedScene::7924967970847376558::1736896501::0::1::::<><>::res://UI/ui_scripts/stats_window.gd
 ::res://UI/ui_scripts/::1734994894
 aim_stick.gd::GDScript::-1::1734994894::0::1::::<>Control<>::
 area_vampire_girl.gd::GDScript::-1::1734994894::0::1::::<>Area2D<>::
@@ -302,8 +301,8 @@ stats_button.gd::GDScript::-1::1734994894::0::1::::<>TextureButton<>::
 stats_display.gd::GDScript::-1::1734994894::0::1::::<>Control<>::
 stats_window.gd::GDScript::-1::1734994894::0::1::::<>Control<>::
 weapon_switch_button.gd::GDScript::-1::1734994894::0::1::::<>TextureButton<>::
-::res://UI/ui_shaders/::1736809616
-pause_menu.gdshader::Shader::-1::1736809616::0::1::::<><>::
+::res://UI/ui_shaders/::1736982993
+pause_menu.gdshader::Shader::-1::1736982993::0::1::::<><>::
 ::res://UI/VirtualJoystickPack/::1734994966
 change_weapon.png::CompressedTexture2D::810695171603313429::1734994894::1734994966::1::::<><>::
 interact.png::CompressedTexture2D::6993474720086727574::1734994894::1734994966::1::::<><>::
