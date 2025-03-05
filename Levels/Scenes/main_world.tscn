@@ -1,9 +1,9 @@
 [gd_scene load_steps=22 format=4 uid="uid://ycj2atvct18"]
 
 [ext_resource type="Texture2D" uid="uid://bm2ssab3dj3sq" path="res://Sprites/forest_/forest_.png" id="1_h6qfo"]
-[ext_resource type="Script" path="res://Levels/level_generator_scripts/main_world.gd" id="1_m8i3a"]
+[ext_resource type="Script" uid="uid://e2aqkxoljhmf" path="res://Levels/level_generator_scripts/main_world.gd" id="1_m8i3a"]
 [ext_resource type="Texture2D" uid="uid://02ay4cfoeh8i" path="res://Sprites/mainlevbuild.png" id="2_c3nwk"]
-[ext_resource type="Script" path="res://UI/ui_scripts/canvas_instructions.gd" id="2_kpvk5"]
+[ext_resource type="Script" uid="uid://b55rvc5677qt7" path="res://UI/ui_scripts/canvas_instructions.gd" id="2_kpvk5"]
 [ext_resource type="PackedScene" uid="uid://brms7i87pfawr" path="res://Entities/Scenes/Player/player.tscn" id="2_yswwr"]
 [ext_resource type="Texture2D" uid="uid://wtleq1220l72" path="res://Sprites/forest_/forest_ [resources].png" id="4_kpqyi"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="5_ft5ih"]
@@ -94,9 +94,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xbyae"]
 _data = {
-"RESET": SubResource("Animation_mfy05"),
-"fade_in": SubResource("Animation_8dwdq"),
-"fade_out": SubResource("Animation_vwc4g")
+&"RESET": SubResource("Animation_mfy05"),
+&"fade_in": SubResource("Animation_8dwdq"),
+&"fade_out": SubResource("Animation_vwc4g")
 }
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pqkf4"]

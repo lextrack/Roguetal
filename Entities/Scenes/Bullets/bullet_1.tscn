@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ct6bvt0jbc3hh"]
 
-[ext_resource type="Script" path="res://Entities/entities_scripts/bullet_1.gd" id="1_w6bhc"]
+[ext_resource type="Script" uid="uid://b5r17v4rnxwip" path="res://Entities/entities_scripts/bullet_1.gd" id="1_w6bhc"]
 [ext_resource type="Texture2D" uid="uid://djk815us8x8va" path="res://Sprites/bullet_missile.png" id="2_gtkaa"]
 [ext_resource type="AudioStream" uid="uid://nqrkco01hlp2" path="res://SoundEffects/impact_bazooka.ogg" id="3_8skf3"]
 

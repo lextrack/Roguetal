@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dr1o2sxyrdcm2"]
 
-[ext_resource type="Script" path="res://Entities/entities_scripts/scent_trail.gd" id="1_amqwu"]
+[ext_resource type="Script" uid="uid://cudcwilbgq6yf" path="res://Entities/entities_scripts/scent_trail.gd" id="1_amqwu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_asipo"]
 size = Vector2(23.3333, 23.3334)

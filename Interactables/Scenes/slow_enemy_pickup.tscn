@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://b03afsbs3lbf8"]
 
-[ext_resource type="Script" path="res://Interactables/interatables_scripts/slow_enemy_pickup.gd" id="1_l8v0n"]
+[ext_resource type="Script" uid="uid://ckyy1h8yu56im" path="res://Interactables/interatables_scripts/slow_enemy_pickup.gd" id="1_l8v0n"]
 [ext_resource type="Texture2D" uid="uid://devncfpf0c8l7" path="res://Sprites/Ready Potion I.png" id="1_td67w"]
 [ext_resource type="AudioStream" uid="uid://dshr8u3mysecc" path="res://SoundEffects/41529__jamius__potiondrinklong.ogg" id="2_ek8ja"]
 
@@ -42,8 +42,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6exwg"]
 _data = {
-"RESET": SubResource("Animation_7x2t1"),
-"active": SubResource("Animation_sr1fb")
+&"RESET": SubResource("Animation_7x2t1"),
+&"active": SubResource("Animation_sr1fb")
 }
 
 [node name="slow_enemy_pickup" type="Area2D"]

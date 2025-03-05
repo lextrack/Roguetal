@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://b4lyw756xgim2"]
 
-[ext_resource type="Script" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
+[ext_resource type="Script" uid="uid://d3rpjwba8a2vd" path="res://UI/ui_scripts/main_menu.gd" id="1_mpwpq"]
 [ext_resource type="Texture2D" uid="uid://bmngqr3v0mh2a" path="res://Sprites/wallpaper_blue_character_5.jpg" id="2_kf4ov"]
 [ext_resource type="AudioStream" uid="uid://cgr60uh2odmsm" path="res://SoundEffects/misc_01.ogg" id="3_c65tl"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_ncx40"]

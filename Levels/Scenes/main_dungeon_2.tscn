@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://qxvjn3o53fdy"]
 
-[ext_resource type="Script" path="res://Levels/level_generator_scripts/main_dungeon.gd" id="1_f0bfp"]
+[ext_resource type="Script" uid="uid://bu82pm3vloh3x" path="res://Levels/level_generator_scripts/main_dungeon.gd" id="1_f0bfp"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="2_66yo2"]
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="2_qreqx"]
 [ext_resource type="Texture2D" uid="uid://csx15aryqogte" path="res://Sprites/HeartSpriteSheet.png" id="4_f56xk"]
@@ -196,9 +196,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xbyae"]
 _data = {
-"RESET": SubResource("Animation_mfy05"),
-"fade_in": SubResource("Animation_8dwdq"),
-"fade_out": SubResource("Animation_vwc4g")
+&"RESET": SubResource("Animation_mfy05"),
+&"fade_in": SubResource("Animation_8dwdq"),
+&"fade_out": SubResource("Animation_vwc4g")
 }
 
 [sub_resource type="GDScript" id="GDScript_8ahdx"]

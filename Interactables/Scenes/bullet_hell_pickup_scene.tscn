@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dxytnewiwcp7r"]
 
-[ext_resource type="Script" path="res://Interactables/interatables_scripts/bullet_hell_pickup_scene.gd" id="1_bm5jj"]
+[ext_resource type="Script" uid="uid://og483ujieeue" path="res://Interactables/interatables_scripts/bullet_hell_pickup_scene.gd" id="1_bm5jj"]
 [ext_resource type="Texture2D" uid="uid://devncfpf0c8l7" path="res://Sprites/Ready Potion I.png" id="2_5vmpi"]
 [ext_resource type="AudioStream" uid="uid://dshr8u3mysecc" path="res://SoundEffects/41529__jamius__potiondrinklong.ogg" id="2_mxvtm"]
 
@@ -42,8 +42,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gyy8e"]
 _data = {
-"Active": SubResource("Animation_rggef"),
-"RESET": SubResource("Animation_kdyql")
+&"Active": SubResource("Animation_rggef"),
+&"RESET": SubResource("Animation_kdyql")
 }
 
 [node name="bullet_hell_pickup_scene" type="Area2D"]

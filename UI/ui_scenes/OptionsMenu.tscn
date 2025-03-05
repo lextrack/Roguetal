@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://rkamwmwfav1a"]
 
-[ext_resource type="Script" path="res://UI/ui_scripts/OptionsMenu.gd" id="1_6nbto"]
+[ext_resource type="Script" uid="uid://ddl11bafqjmkx" path="res://UI/ui_scripts/OptionsMenu.gd" id="1_6nbto"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="2_344qp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mocei"]

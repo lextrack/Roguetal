@@ -304,20 +304,22 @@ func _on_volumen_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), db)
 	_on_setting_changed()
 
-func _on_fullscreen_check_toggled(button_pressed: bool) -> void:
-	if button_pressed:
+func _apply_resolution() -> void:
+	var current_res = available_resolutions[current_resolution_index]
+	if fullscreen_check.button_pressed:
 		get_window().mode = Window.MODE_FULLSCREEN
 	else:
 		get_window().mode = Window.MODE_WINDOWED
-		var current_res = available_resolutions[current_resolution_index]
 		get_window().size = current_res
-
 		var screen_size = DisplayServer.screen_get_size()
 		get_window().position = Vector2i(
 			(screen_size.x - current_res.x) / 2,
 			(screen_size.y - current_res.y) / 2
 		)
 	_on_setting_changed()
+
+func _on_fullscreen_check_toggled(button_pressed: bool) -> void:
+	_apply_resolution()
 
 func _on_language_button_pressed() -> void:
 	# Always finish in ENGLISH (to a new language replace the final EN)

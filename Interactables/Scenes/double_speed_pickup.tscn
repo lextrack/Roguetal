@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c3kixadnq4q77"]
 
-[ext_resource type="Script" path="res://Interactables/interatables_scripts/double_speed_pickup.gd" id="1_xwtwb"]
+[ext_resource type="Script" uid="uid://bdo7n8k6ra8up" path="res://Interactables/interatables_scripts/double_speed_pickup.gd" id="1_xwtwb"]
 [ext_resource type="Texture2D" uid="uid://devncfpf0c8l7" path="res://Sprites/Ready Potion I.png" id="2_scpl5"]
 [ext_resource type="AudioStream" uid="uid://dshr8u3mysecc" path="res://SoundEffects/41529__jamius__potiondrinklong.ogg" id="3_esy4l"]
 
@@ -42,8 +42,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mx0uo"]
 _data = {
-"Active": SubResource("Animation_uu5ow"),
-"RESET": SubResource("Animation_popx8")
+&"Active": SubResource("Animation_uu5ow"),
+&"RESET": SubResource("Animation_popx8")
 }
 
 [node name="double_speed_pickup" type="Area2D"]

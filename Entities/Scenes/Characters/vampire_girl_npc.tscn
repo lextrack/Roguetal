@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ct5agvxkjvs0x" path="res://Sprites/Vampire_Girl/Idle.png" id="2_1oje4"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_c55m7"]
-[ext_resource type="Script" path="res://UI/ui_scripts/area_vampire_girl.gd" id="3_fvofm"]
+[ext_resource type="Script" uid="uid://dye4fhgnsedpx" path="res://UI/ui_scripts/area_vampire_girl.gd" id="3_fvofm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2x2kd"]
 size = Vector2(42.8571, 70.7908)
@@ -41,8 +41,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qiiap"]
 _data = {
-"Idle": SubResource("Animation_elxsj"),
-"RESET": SubResource("Animation_a6ouf")
+&"Idle": SubResource("Animation_elxsj"),
+&"RESET": SubResource("Animation_a6ouf")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3hgyq"]

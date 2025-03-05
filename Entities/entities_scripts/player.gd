@@ -51,6 +51,7 @@ const DEFAULT_SENSITIVITY = 1.0
 @onready var smoke_particles_scene = preload("res://Entities/Scenes/FX/smoke_particles.tscn")
 @onready var shotgun_shell_incendiary_icon: Sprite2D = $ControlPowerUpHud/hud_powerup/shotgun_shell_incendiary_icon
 
+var is_waiting_for_death_animation: bool = false
 var current_state = player_states.MOVE
 var heat_level = 0.0
 var is_overheated = false
@@ -110,6 +111,8 @@ func _ready() -> void:
 	
 	if point_light:
 		point_light.energy = 1.0
+		
+	$Sprite2D.material.set_shader_parameter("flash_modifier", 0.0)
 
 func _process(delta: float) -> void:
 	if player_data.health <= 0 and current_state != player_states.DEAD:
@@ -297,6 +300,7 @@ func update_weapon_flip() -> void:
 func dead() -> void:
 	if not is_dead:
 		is_dead = true
+		is_waiting_for_death_animation = true
 		
 		var current_scene = get_tree().current_scene.scene_file_path
 		EnemyScalingManagerGlobal.register_player_death(current_scene)
@@ -611,7 +615,6 @@ func instance_shotgun(bullet_scene: PackedScene, spawn_position: Vector2, base_d
 	
 	for i in range(num_pellets):
 		var bullet = bullet_scene.instantiate()
-		# Convertir el daño base a float explícitamente
 		var base_damage = float(weapon_damage["shotgun"])
 		var final_damage = base_damage * damage_multiplier
 		
@@ -667,7 +670,6 @@ func instance_single_bullet(bullet_scene: PackedScene, spawn_position: Vector2, 
 	var crit_chance = (crit_multiplier - 1.0) * 100
 	var is_critical = randf() * 100 <= crit_chance
 	
-	# Convertir el daño base a float explícitamente y aplicar el multiplicador
 	var base_damage = float(weapon_damage[bullet_type])
 	var final_damage = base_damage * damage_multiplier
 	
@@ -963,7 +965,14 @@ func enable_light() -> void:
 		light_disabled_by_timer = false
 		
 func enter_portal(portal_type: String = ""):
+	if is_dead:
+		return
+	
 	is_in_portal = true
+	
+	if is_flashing:
+		$Sprite2D.material.set_shader_parameter("flash_modifier", 0.0)
+		is_flashing = false
 	
 	if light_transition_tween and light_transition_tween.is_valid():
 		light_transition_tween.kill()
@@ -987,6 +996,17 @@ func enter_portal(portal_type: String = ""):
 		else:
 			if power_up_manager:
 				power_up_manager.handle_level_transition("main_dungeon")
+				
+func handle_portal_transition():
+	var current_scene = get_tree().current_scene
+	var dungeon_levels = ["main_dungeon", "main_dungeon_2", "labyrinth_level"]
+	
+	if current_scene.name in dungeon_levels:
+		if power_up_manager:
+			power_up_manager.handle_level_transition(current_scene.name)
+	else:
+		if power_up_manager:
+			power_up_manager.handle_level_transition("main_dungeon")
 				
 func display_HUD_while_using_directionalight():
 	var canvas_layer = CanvasLayer.new()
@@ -1046,12 +1066,18 @@ func flash_damage():
 
 func _on_anim_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Dead":
+		is_waiting_for_death_animation = false
+		
 		var highest_streak = player_data.highest_kill_streak
 		player_data.reset_stats()
 		player_data.highest_kill_streak = highest_streak
 		if power_up_manager:
 			power_up_manager.reset_power_ups()
-		get_tree().reload_current_scene()
+		
+		if is_in_portal:
+			handle_portal_transition()
+		else:
+			get_tree().reload_current_scene()
 
 func _on_trail_timer_timeout() -> void:
 	instance_trail()

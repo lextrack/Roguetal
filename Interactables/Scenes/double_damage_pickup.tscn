@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bkpicddwv1jq1"]
 
-[ext_resource type="Script" path="res://Interactables/interatables_scripts/double_damage_pickup.gd" id="1_4jai0"]
+[ext_resource type="Script" uid="uid://bbi4lhkhb6cs5" path="res://Interactables/interatables_scripts/double_damage_pickup.gd" id="1_4jai0"]
 [ext_resource type="Texture2D" uid="uid://devncfpf0c8l7" path="res://Sprites/Ready Potion I.png" id="1_iqrsg"]
 [ext_resource type="AudioStream" uid="uid://dshr8u3mysecc" path="res://SoundEffects/41529__jamius__potiondrinklong.ogg" id="3_gpffi"]
 
@@ -42,8 +42,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1tcfs"]
 _data = {
-"Active": SubResource("Animation_0750w"),
-"RESET": SubResource("Animation_3coec")
+&"Active": SubResource("Animation_0750w"),
+&"RESET": SubResource("Animation_3coec")
 }
 
 [node name="double_damage_pickup" type="Area2D"]

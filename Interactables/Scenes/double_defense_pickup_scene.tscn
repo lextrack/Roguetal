@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bns7xrluv8s61"]
 
 [ext_resource type="Texture2D" uid="uid://devncfpf0c8l7" path="res://Sprites/Ready Potion I.png" id="1_56h3a"]
-[ext_resource type="Script" path="res://Interactables/interatables_scripts/double_defense_pickup_scene.gd" id="1_jneof"]
+[ext_resource type="Script" uid="uid://d32au6pkra48h" path="res://Interactables/interatables_scripts/double_defense_pickup_scene.gd" id="1_jneof"]
 [ext_resource type="AudioStream" uid="uid://dshr8u3mysecc" path="res://SoundEffects/41529__jamius__potiondrinklong.ogg" id="2_ckvql"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j0af2"]
@@ -42,8 +42,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mr3yl"]
 _data = {
-"Active": SubResource("Animation_4xgev"),
-"RESET": SubResource("Animation_27mc8")
+&"Active": SubResource("Animation_4xgev"),
+&"RESET": SubResource("Animation_27mc8")
 }
 
 [node name="double_defense_pickup_scene" type="Area2D"]
