@@ -1635,7 +1635,7 @@ drag_and_drop_selection_enabled = false
 
 [node name="AnimationPanel" type="AnimationPlayer" parent="CanvasInstructionsLabyrinth/PanelInstructions"]
 libraries = {
-"": SubResource("AnimationLibrary_xbyae")
+&"": SubResource("AnimationLibrary_xbyae")
 }
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]

@@ -475,10 +475,13 @@ func setup_fire_particles():
 		add_child(fire_particles)
 		fire_particles.emitting = false
 
+		var point_light = fire_particles.get_node("PointLight2D")
+		point_light.enabled = false
+
 func apply_fire_effect():
 	if is_dead:
 		return
-		
+	
 	if burn_tween:
 		burn_tween.kill()
 	
@@ -486,13 +489,15 @@ func apply_fire_effect():
 	
 	fire_particles.emitting = true
 	burn_tween = create_tween()
-	burn_tween.tween_property(normal_sprite, "modulate",
-		Color(1.5, 0.7, 0.2), 0.3)
+	burn_tween.tween_property(normal_sprite, "modulate", Color(1.5, 0.7, 0.2), 0.3)
 	
 	fire_timer.start(fire_duration)
 	if not fire_tick_timer.is_stopped():
 		fire_tick_timer.stop()
 	fire_tick_timer.start()
+
+	var point_light = fire_particles.get_node("PointLight2D")
+	point_light.enabled = true
 
 func apply_fire_damage():
 	if is_burning and not is_dead:
@@ -577,13 +582,18 @@ func instance_ammo():
 func stop_fire_effect():
 	is_burning = false
 	fire_particles.emitting = false
-	fire_tick_timer.stop()
-	
+
+	# Desactivar la luz del PointLight2D cuando el fuego termine
+	var point_light = fire_particles.get_node("PointLight2D")
+	point_light.enabled = false
+
+	# Si hay un 'burn_tween', cancelamos su ejecución y luego creamos uno nuevo para restaurar el color
 	if burn_tween:
 		burn_tween.kill()
+
 	burn_tween = create_tween()
-	burn_tween.tween_property(normal_sprite, "modulate",
-		Color(1, 1, 1), 0.3)
+	burn_tween.tween_property(normal_sprite, "modulate", Color(1, 1, 1), 0.3)  # Regresar al color normal
+
 		
 func initialize_speed():
 	var variation_percent = randf_range(-speed_variation, speed_variation) / 100.0

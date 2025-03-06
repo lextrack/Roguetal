@@ -136,7 +136,7 @@ offset_top = 0.335999
 offset_right = -6.496
 offset_bottom = 0.295998
 theme_override_fonts/font = ExtResource("3_ncx40")
-text = "1.0.0.3"
+text = "1.0.0.4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -270,7 +270,7 @@ text = "[color=crimson]SOUND[/color]
 klankbeeld, Lamp_, szegvari, newlocknew, SoundEffectsFactory, PK9 Sound Effect, el_boss, rubberduck, Mobeyee Sounds, IgnasD, Jamius, AbuNijmeh, JoseIgnacioTriay, toxicwafflezz, SoundsForHim, twisterman, hz37, Emmraan, AlexGrohl, AllWorldMusic, pborel.
 
 [color=crimson]ART[/color]
-Luck (main character), Szadi art, Freepik, Vexnar, DinosoftLabs, surang, kiranshastry, bharat icons, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Fuzzee, Chris Yang, Nikita Golubev, fightswithbears, 3dvaultz, Fupi, max.icons, AntumDeluge, Penusbmicm, wanicon, Daniel ceha, Hannemann.
+Luck (main character), Szadi art, Vexnar, DinosoftLabs, surang, kiranshastry, bharat icons, analogStudios_, Craftpix, Lammrenz, HorusKDI, thomaswp, FNkqrsho, gamjutsu, Jestan, RodHakGames, bluecarrot16, JoesAlotofthings, shohanur.rahman13, Pixel Perfect, Fuzzee, Chris Yang, Nikita Golubev, fightswithbears, 3dvaultz, Fupi, max.icons, AntumDeluge, Penusbmicm, wanicon, Daniel ceha, Hannemann.
 
 [color=crimson]ADDITIONAL RESOURCES[/color]
 Flaticon for the awesome icons.
