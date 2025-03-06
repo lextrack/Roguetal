@@ -126,93 +126,6 @@ func _process(delta: float) -> void:
 		movement(delta)
 		bullet_type_shooting(delta)
 		handle_weapon_switch()
-		
-func power_up_manager_check() -> void:
-	if power_up_manager:
-		power_up_manager.connect("power_up_changed", Callable(self, "_on_power_up_changed"))
-	else:
-		push_error("PowerUpManager not found.")
-
-	for type in PowerUpTypes.PowerUpType.values():
-		_on_power_up_changed(type, power_up_manager.get_multiplier(type))
-
-func _on_power_up_changed(type: int, multiplier: float) -> void:
-	match type:
-		PowerUpTypes.PowerUpType.DAMAGE:
-			update_double_damage_icon(multiplier)
-		PowerUpTypes.PowerUpType.SPEED:
-			speed = base_speed * multiplier
-			update_double_speed_icon(multiplier)
-		PowerUpTypes.PowerUpType.DEFENSE:
-			update_double_defense_icon(multiplier)
-		PowerUpTypes.PowerUpType.BULLET_HELL:
-			update_bullet_hell_icon(multiplier)
-		PowerUpTypes.PowerUpType.CRITICAL_CHANCE:
-			update_critical_icon(multiplier)
-		PowerUpTypes.PowerUpType.ENEMY_SLOW:
-			update_slow_enemies_icon(multiplier)
-		PowerUpTypes.PowerUpType.SHOTGUN_FIRE:
-			update_shotgun_shell_incendiary_icon(multiplier)
-
-func update_double_defense_icon(multiplier: float):
-	if double_defense_icon:
-		double_defense_icon.visible = multiplier > 1.0
-
-func update_double_damage_icon(multiplier: float):
-	if double_damage_icon:
-		double_damage_icon.visible = multiplier > 1.0
-
-func update_double_speed_icon(multiplier: float):
-	if double_speed_icon:
-		double_speed_icon.visible = multiplier > 1.0
-
-func update_bullet_hell_icon(multiplier: float):
-	if bullet_hell_icon:
-		bullet_hell_icon.visible = multiplier >= 1.0
-
-func setup_double_defense_icon():
-	if double_defense_icon:
-		double_defense_icon.visible = false
-
-func setup_double_damage_icon():
-	if double_damage_icon:
-		double_damage_icon.visible = false
-
-func setup_double_speed_icon():
-	if double_speed_icon:
-		double_speed_icon.visible = false
-
-func setup_bullet_hell_icon():
-	if bullet_hell_icon:
-		bullet_hell_icon.visible = false
-		
-func setup_critical_icon():
-	if critical_icon:
-		critical_icon.visible = false
-
-func update_critical_icon(multiplier: float):
-	if critical_icon:
-		critical_icon.visible = multiplier > 1.0
-		
-func setup_slow_enemies_icon():
-	if slow_enemies_icon:
-		slow_enemies_icon.visible = false
-
-func update_slow_enemies_icon(multiplier: float):
-	if slow_enemies_icon:
-		slow_enemies_icon.visible = multiplier < 1.0
-		
-func setup_shotgun_shell_incendiary_icon():
-	if shotgun_shell_incendiary_icon:
-		shotgun_shell_incendiary_icon.visible = false
-	else:
-		print("Shotgun icon not found!")
-
-func update_shotgun_shell_incendiary_icon(multiplier: float):
-	if shotgun_shell_incendiary_icon:
-		shotgun_shell_incendiary_icon.visible = multiplier >= 1.0
-	else:
-		print("Cannot update shotgun icon - node not found!")
 	
 func setup_magnet_area():
 	if not magnet_area:
@@ -1078,6 +991,93 @@ func _on_anim_animation_finished(anim_name: StringName) -> void:
 			handle_portal_transition()
 		else:
 			get_tree().reload_current_scene()
+			
+func power_up_manager_check() -> void:
+	if power_up_manager:
+		power_up_manager.connect("power_up_changed", Callable(self, "_on_power_up_changed"))
+	else:
+		push_error("PowerUpManager not found.")
+
+	for type in PowerUpTypes.PowerUpType.values():
+		_on_power_up_changed(type, power_up_manager.get_multiplier(type))
+
+func _on_power_up_changed(type: int, multiplier: float) -> void:
+	match type:
+		PowerUpTypes.PowerUpType.DAMAGE:
+			update_double_damage_icon(multiplier)
+		PowerUpTypes.PowerUpType.SPEED:
+			speed = base_speed * multiplier
+			update_double_speed_icon(multiplier)
+		PowerUpTypes.PowerUpType.DEFENSE:
+			update_double_defense_icon(multiplier)
+		PowerUpTypes.PowerUpType.BULLET_HELL:
+			update_bullet_hell_icon(multiplier)
+		PowerUpTypes.PowerUpType.CRITICAL_CHANCE:
+			update_critical_icon(multiplier)
+		PowerUpTypes.PowerUpType.ENEMY_SLOW:
+			update_slow_enemies_icon(multiplier)
+		PowerUpTypes.PowerUpType.SHOTGUN_FIRE:
+			update_shotgun_shell_incendiary_icon(multiplier)
+
+func update_double_defense_icon(multiplier: float):
+	if double_defense_icon:
+		double_defense_icon.visible = multiplier > 1.0
+
+func update_double_damage_icon(multiplier: float):
+	if double_damage_icon:
+		double_damage_icon.visible = multiplier > 1.0
+
+func update_double_speed_icon(multiplier: float):
+	if double_speed_icon:
+		double_speed_icon.visible = multiplier > 1.0
+
+func update_bullet_hell_icon(multiplier: float):
+	if bullet_hell_icon:
+		bullet_hell_icon.visible = multiplier >= 1.0
+
+func setup_double_defense_icon():
+	if double_defense_icon:
+		double_defense_icon.visible = false
+
+func setup_double_damage_icon():
+	if double_damage_icon:
+		double_damage_icon.visible = false
+
+func setup_double_speed_icon():
+	if double_speed_icon:
+		double_speed_icon.visible = false
+
+func setup_bullet_hell_icon():
+	if bullet_hell_icon:
+		bullet_hell_icon.visible = false
+		
+func setup_critical_icon():
+	if critical_icon:
+		critical_icon.visible = false
+
+func update_critical_icon(multiplier: float):
+	if critical_icon:
+		critical_icon.visible = multiplier > 1.0
+		
+func setup_slow_enemies_icon():
+	if slow_enemies_icon:
+		slow_enemies_icon.visible = false
+
+func update_slow_enemies_icon(multiplier: float):
+	if slow_enemies_icon:
+		slow_enemies_icon.visible = multiplier < 1.0
+		
+func setup_shotgun_shell_incendiary_icon():
+	if shotgun_shell_incendiary_icon:
+		shotgun_shell_incendiary_icon.visible = false
+	else:
+		print("Shotgun icon not found!")
+
+func update_shotgun_shell_incendiary_icon(multiplier: float):
+	if shotgun_shell_incendiary_icon:
+		shotgun_shell_incendiary_icon.visible = multiplier >= 1.0
+	else:
+		print("Cannot update shotgun icon - node not found!")
 
 func _on_trail_timer_timeout() -> void:
 	instance_trail()

@@ -583,16 +583,14 @@ func stop_fire_effect():
 	is_burning = false
 	fire_particles.emitting = false
 
-	# Desactivar la luz del PointLight2D cuando el fuego termine
 	var point_light = fire_particles.get_node("PointLight2D")
 	point_light.enabled = false
 
-	# Si hay un 'burn_tween', cancelamos su ejecución y luego creamos uno nuevo para restaurar el color
 	if burn_tween:
 		burn_tween.kill()
 
 	burn_tween = create_tween()
-	burn_tween.tween_property(normal_sprite, "modulate", Color(1, 1, 1), 0.3)  # Regresar al color normal
+	burn_tween.tween_property(normal_sprite, "modulate", Color(1, 1, 1), 0.3) 
 
 		
 func initialize_speed():
