@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c06a4jq71ysuh"]
 
-[ext_resource type="Script" path="res://UI/ui_scripts/mouse_icon.gd" id="1_gfa47"]
+[ext_resource type="Script" uid="uid://csfiy4ag4fte1" path="res://UI/ui_scripts/mouse_icon.gd" id="1_gfa47"]
 [ext_resource type="Texture2D" uid="uid://cqimj2xm3hby3" path="res://Sprites/animated_crosshair_cursor_pack.png" id="2_7eo57"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x0jx2"]
@@ -40,8 +40,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_46c5w"]
 _data = {
-"Active": SubResource("Animation_cf85t"),
-"RESET": SubResource("Animation_6uok3")
+&"Active": SubResource("Animation_cf85t"),
+&"RESET": SubResource("Animation_6uok3")
 }
 
 [node name="mouse_icon" type="Area2D"]

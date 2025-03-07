@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=4 uid="uid://xa8fpdcdv3ey"]
 
-[ext_resource type="Script" path="res://Entities/entities_scripts/shooter_enemy.gd" id="1_6gja7"]
+[ext_resource type="Script" uid="uid://ct2tcb0v87wpj" path="res://Entities/entities_scripts/shooter_enemy.gd" id="1_6gja7"]
 [ext_resource type="Texture2D" uid="uid://w22yvhconwry" path="res://Sprites/shooter_enemy/move with FX.png" id="2_n4i3e"]
 [ext_resource type="Texture2D" uid="uid://csxmpq5ph1qcf" path="res://Sprites/shooter_enemy/death.png" id="3_o5hpl"]
 [ext_resource type="Texture2D" uid="uid://bh4l6eipj240p" path="res://Sprites/shooter_enemy/shoot with FX.png" id="4_t4ygh"]
@@ -43,8 +43,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8r0fx"]
 _data = {
-"RESET": SubResource("Animation_s1xue"),
-"walk": SubResource("Animation_j6qgj")
+&"RESET": SubResource("Animation_s1xue"),
+&"walk": SubResource("Animation_j6qgj")
 }
 
 [sub_resource type="Animation" id="Animation_rb1vr"]
@@ -81,8 +81,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_be2o2"]
 _data = {
-"RESET": SubResource("Animation_rb1vr"),
-"dead": SubResource("Animation_llbt1")
+&"RESET": SubResource("Animation_rb1vr"),
+&"dead": SubResource("Animation_llbt1")
 }
 
 [sub_resource type="Animation" id="Animation_ok4b0"]
@@ -119,8 +119,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_si2ay"]
 _data = {
-"RESET": SubResource("Animation_ok4b0"),
-"attack": SubResource("Animation_m0cxn")
+&"RESET": SubResource("Animation_ok4b0"),
+&"attack": SubResource("Animation_m0cxn")
 }
 
 [sub_resource type="Animation" id="Animation_wiely"]
@@ -158,8 +158,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nfqe2"]
 _data = {
-"RESET": SubResource("Animation_wiely"),
-"idle": SubResource("Animation_l3n0k")
+&"RESET": SubResource("Animation_wiely"),
+&"idle": SubResource("Animation_l3n0k")
 }
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_dy3ke"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dwnagf1j6o10k"]
 
-[ext_resource type="Script" path="res://SoundEffects/sound_scripts/music_dungeon_4.gd" id="1_plsco"]
+[ext_resource type="Script" uid="uid://bkgvcgi8t36gn" path="res://SoundEffects/sound_scripts/music_dungeon_4.gd" id="1_plsco"]
 [ext_resource type="AudioStream" uid="uid://bq6derawh8ewv" path="res://SoundEffects/Background_dungeon4.ogg" id="1_vr4r3"]
 
 [node name="music_dungeon_4" type="AudioStreamPlayer2D"]

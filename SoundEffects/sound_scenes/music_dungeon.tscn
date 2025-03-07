@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ccc1r7w118ct0"]
 
 [ext_resource type="AudioStream" uid="uid://6r75c2kbktfx" path="res://SoundEffects/Background_dungeon1.ogg" id="1_p5kjf"]
-[ext_resource type="Script" path="res://SoundEffects/sound_scripts/music_dungeon.gd" id="1_wpufu"]
+[ext_resource type="Script" uid="uid://e44lsgyv81o6" path="res://SoundEffects/sound_scripts/music_dungeon.gd" id="1_wpufu"]
 
 [node name="music_dungeon" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_p5kjf")

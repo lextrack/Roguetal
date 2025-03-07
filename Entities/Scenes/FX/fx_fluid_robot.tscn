@@ -36,8 +36,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bjifw"]
 _data = {
-"RESET": SubResource("Animation_pry0o"),
-"active": SubResource("Animation_p2yfh")
+&"RESET": SubResource("Animation_pry0o"),
+&"active": SubResource("Animation_p2yfh")
 }
 
 [node name="fx_blood" type="Node2D"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c0jbgvkxqfwlh"]
 
-[ext_resource type="Script" path="res://UI/ui_scripts/damage_label.gd" id="1_0rh81"]
+[ext_resource type="Script" uid="uid://2mo7m7s8bv02" path="res://UI/ui_scripts/damage_label.gd" id="1_0rh81"]
 
 [node name="damage_label" type="RichTextLabel"]
 z_index = 50

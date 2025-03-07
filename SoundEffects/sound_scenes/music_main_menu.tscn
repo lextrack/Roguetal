@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cw62mqif5hv0s"]
 
 [ext_resource type="AudioStream" uid="uid://dfeuehm0pir8r" path="res://SoundEffects/193349__klankbeeld__horror-ambience-53-sabt-mat-capella-ducis.ogg" id="1_am670"]
-[ext_resource type="Script" path="res://SoundEffects/sound_scripts/music_main_menu.gd" id="2_eou3r"]
+[ext_resource type="Script" uid="uid://bvp5jgpmekf5k" path="res://SoundEffects/sound_scripts/music_main_menu.gd" id="2_eou3r"]
 
 [node name="music_main_menu" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_am670")

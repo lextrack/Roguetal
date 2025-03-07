@@ -2,6 +2,7 @@ extends Area2D
 
 @onready var portal_enter_sound: AudioStreamPlayer2D = $portal_enter_sound
 @onready var loading_screen: PackedScene = preload("res://UI/ui_scenes/loading_screen.tscn")
+@onready var point_light: PointLight2D = $PointLight2D  # Asegúrate de tener un nodo PointLight2D como hijo del portal
 
 const LEVELS = [
 	"res://Levels/Scenes/main_dungeon.tscn",
@@ -26,10 +27,11 @@ func _ready() -> void:
 	var current_scene = get_tree().current_scene.scene_file_path
 	if current_scene in level_visits:
 		level_visits[current_scene] += 1
-		# Usar el nombre del autoload en lugar de la ruta del archivo
 		EnemyScalingManagerGlobal.increment_difficulty(current_scene)
 		print("Actual scene: ", current_scene)
 		print_visit_stats()
+
+	point_light.visible = current_scene == "res://Levels/Scenes/labyrinth_level.tscn"
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -42,7 +44,6 @@ func _on_body_entered(body: Node2D) -> void:
 		if selected_level != last_level:
 			last_level = selected_level
 			level_visits[selected_level] += 1
-			# Usar el nombre del autoload en lugar de la ruta del archivo
 			EnemyScalingManagerGlobal.increment_difficulty(selected_level)
 			print("Changing to the scene: ", selected_level)
 			print_visit_stats()

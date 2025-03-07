@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=3 uid="uid://dtln1lvtopxam"]
 
-[ext_resource type="Script" path="res://UI/ui_scripts/mobile_controls.gd" id="1_6a0fu"]
+[ext_resource type="Script" uid="uid://vyshdasjjutb" path="res://UI/ui_scripts/mobile_controls.gd" id="1_6a0fu"]
 [ext_resource type="Texture2D" uid="uid://bkp2j3u1sqyu1" path="res://UI/VirtualJoystickPack/Joystick.png" id="1_o27es"]
-[ext_resource type="Script" path="res://UI/ui_scripts/movement_stick.gd" id="2_hukf6"]
+[ext_resource type="Script" uid="uid://cp2chlku1fmiu" path="res://UI/ui_scripts/movement_stick.gd" id="2_hukf6"]
 [ext_resource type="Texture2D" uid="uid://g4olpe163bdl" path="res://UI/VirtualJoystickPack/SmallHandleFilled.png" id="2_x4p27"]
-[ext_resource type="Script" path="res://UI/ui_scripts/aim_stick.gd" id="5_kflyv"]
+[ext_resource type="Script" uid="uid://y071iu2d1dow" path="res://UI/ui_scripts/aim_stick.gd" id="5_kflyv"]
 [ext_resource type="Texture2D" uid="uid://bm26ogws73dcn" path="res://UI/VirtualJoystickPack/JoystickSplitted.png" id="6_vadwq"]
 [ext_resource type="Texture2D" uid="uid://byfof8pe0iykl" path="res://UI/VirtualJoystickPack/settings.png" id="6_x6vej"]
 [ext_resource type="Texture2D" uid="uid://bcs3nq073hut1" path="res://UI/VirtualJoystickPack/SmallHandleFilledGrey.png" id="6_yekg7"]
-[ext_resource type="Script" path="res://MultiTouchButton.gd" id="7_s2xfd"]
+[ext_resource type="Script" uid="uid://bxkcngfv7kflp" path="res://MultiTouchButton.gd" id="7_s2xfd"]
 [ext_resource type="Texture2D" uid="uid://lsybb4xr41tp" path="res://UI/VirtualJoystickPack/change_weapon.png" id="8_xya7a"]
 [ext_resource type="Texture2D" uid="uid://bi4m8txccsxx1" path="res://UI/VirtualJoystickPack/stats_info.png" id="10_ntrvj"]
 [ext_resource type="Texture2D" uid="uid://c6vxrh7orgk4u" path="res://UI/VirtualJoystickPack/interact.png" id="11_lr127"]
@@ -32,7 +32,7 @@ script = ExtResource("2_hukf6")
 
 [node name="Base" type="TextureRect" parent="MovementStick"]
 modulate = Color(0, 0.316667, 0.76, 0.764706)
-self_modulate = Color(1, 1, 1, 0.45098)
+self_modulate = Color(1, 1, 1, 0.490196)
 layout_mode = 1
 offset_right = 300.0
 offset_bottom = 300.0
@@ -41,7 +41,7 @@ stretch_mode = 3
 
 [node name="Stick" type="TextureRect" parent="MovementStick/Base"]
 modulate = Color(0, 0.316667, 0.76, 0.784314)
-self_modulate = Color(1, 1, 1, 0.45098)
+self_modulate = Color(1, 1, 1, 0.490196)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -64,9 +64,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -271.0
+offset_left = -281.0
 offset_top = -283.0
-offset_right = -231.0
+offset_right = -241.0
 offset_bottom = -243.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -77,7 +77,7 @@ script = ExtResource("5_kflyv")
 
 [node name="Base" type="TextureRect" parent="AimStick"]
 modulate = Color(1, 0.32, 0.365333, 0.764706)
-self_modulate = Color(1, 1, 1, 0.45098)
+self_modulate = Color(1, 1, 1, 0.490196)
 layout_mode = 1
 offset_right = 300.0
 offset_bottom = 300.0
@@ -86,7 +86,7 @@ stretch_mode = 3
 
 [node name="Stick" type="TextureRect" parent="AimStick/Base"]
 modulate = Color(1, 0.32, 0.365333, 0.764706)
-self_modulate = Color(1, 1, 1, 0.45098)
+self_modulate = Color(1, 1, 1, 0.490196)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -102,15 +102,15 @@ grow_vertical = 2
 texture = ExtResource("2_x4p27")
 
 [node name="PauseButton" type="TextureButton" parent="."]
-self_modulate = Color(1, 1, 1, 0.45098)
+self_modulate = Color(1, 1, 1, 0.490196)
 texture_filter = 2
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -117.0
-offset_top = 16.0
-offset_right = -17.0
-offset_bottom = 116.0
+offset_left = -123.0
+offset_top = 19.0
+offset_right = -23.0
+offset_bottom = 119.0
 grow_horizontal = 0
 texture_normal = ExtResource("6_x6vej")
 texture_pressed = ExtResource("6_yekg7")
@@ -118,15 +118,15 @@ stretch_mode = 0
 script = ExtResource("7_s2xfd")
 
 [node name="WeaponSwitchButton" type="TextureButton" parent="."]
-self_modulate = Color(1, 1, 1, 0.45098)
+self_modulate = Color(1, 1, 1, 0.490196)
 texture_filter = 2
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -374.0
-offset_top = 415.0
-offset_right = -274.0
-offset_bottom = 515.0
+offset_left = -384.0
+offset_top = 414.0
+offset_right = -284.0
+offset_bottom = 514.0
 grow_horizontal = 0
 texture_normal = ExtResource("8_xya7a")
 texture_pressed = ExtResource("6_yekg7")
@@ -134,32 +134,32 @@ stretch_mode = 0
 script = ExtResource("7_s2xfd")
 
 [node name="StatsButton" type="TextureButton" parent="."]
-self_modulate = Color(1, 1, 1, 0.45098)
+self_modulate = Color(1, 1, 1, 0.490196)
 texture_filter = 2
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -417.0
-offset_top = 538.0
-offset_right = -317.0
-offset_bottom = 638.0
+offset_left = -427.0
+offset_top = 537.0
+offset_right = -327.0
+offset_bottom = 637.0
 grow_horizontal = 0
 texture_normal = ExtResource("10_ntrvj")
 texture_pressed = ExtResource("6_yekg7")
 script = ExtResource("7_s2xfd")
 
 [node name="InteractButton" type="TextureButton" parent="."]
-self_modulate = Color(1, 1, 1, 0.45098)
+self_modulate = Color(1, 1, 1, 0.490196)
 texture_filter = 2
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -374.0
-offset_top = -103.0
-offset_right = -274.0
-offset_bottom = -3.0
+offset_left = -384.0
+offset_top = -104.0
+offset_right = -284.0
+offset_bottom = -4.0
 grow_horizontal = 0
 grow_vertical = 0
 texture_normal = ExtResource("11_lr127")

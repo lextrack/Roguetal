@@ -316,7 +316,7 @@ func _on_fullscreen_check_toggled(button_pressed: bool) -> void:
 	_on_setting_changed()
 
 func _on_language_button_pressed() -> void:
-	# Always finish in ENGLISH (to a new language replace the final EN)
+	# Always finish in ENGLISH (to add a new language replace the final EN)
 	var language_rotation = {
 		"en": "es",
 		"es": "zh",
@@ -442,7 +442,7 @@ func _apply_config(config: ConfigFile) -> void:
 
 func _apply_default_config() -> void:
 	if resolution_option:
-		current_resolution_index = 0
+		current_resolution_index = 2
 		_update_resolution_button_text()
 	
 	if fullscreen_check:

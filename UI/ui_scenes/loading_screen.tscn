@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ccved0yflp1jl"]
 
-[ext_resource type="Script" path="res://UI/ui_scripts/loading_screen.gd" id="1_a7ce3"]
+[ext_resource type="Script" uid="uid://cx833fdmpkicb" path="res://UI/ui_scripts/loading_screen.gd" id="1_a7ce3"]
 [ext_resource type="Texture2D" uid="uid://dj5a2auu0yfsy" path="res://Sprites/wallpaper_blue_character_3.jpg" id="2_h3wj7"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_ivg02"]
 [ext_resource type="Texture2D" uid="uid://2smyrybdaiac" path="res://Sprites/load.png" id="3_p1yny"]

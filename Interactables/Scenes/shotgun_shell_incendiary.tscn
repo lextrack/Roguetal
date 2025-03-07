@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://tgk6ft411cc7"]
 
-[ext_resource type="Script" path="res://Interactables/Scenes/shotgun_shell_incendiary.gd" id="1_1dqig"]
+[ext_resource type="Script" uid="uid://c75ldflflyitl" path="res://Interactables/Scenes/shotgun_shell_incendiary.gd" id="1_1dqig"]
 [ext_resource type="Texture2D" uid="uid://devncfpf0c8l7" path="res://Sprites/Ready Potion I.png" id="1_ujsvv"]
 [ext_resource type="AudioStream" uid="uid://dshr8u3mysecc" path="res://SoundEffects/41529__jamius__potiondrinklong.ogg" id="2_3rqmt"]
 
@@ -41,8 +41,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j6rq0"]
 _data = {
-"RESET": SubResource("Animation_u1mp0"),
-"active": SubResource("Animation_g8ac1")
+&"RESET": SubResource("Animation_u1mp0"),
+&"active": SubResource("Animation_g8ac1")
 }
 
 [node name="shotgun_shell_incendiary" type="Area2D"]

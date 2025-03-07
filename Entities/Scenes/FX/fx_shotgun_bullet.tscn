@@ -45,8 +45,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x4oik"]
 _data = {
-"Active": SubResource("Animation_yu1hk"),
-"RESET": SubResource("Animation_wray4")
+&"Active": SubResource("Animation_yu1hk"),
+&"RESET": SubResource("Animation_wray4")
 }
 
 [node name="fx_shotgun_bullet" type="Node2D"]

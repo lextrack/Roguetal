@@ -72,12 +72,12 @@ var max_allowed_speed = 120
 @export var projectile_detection_radius_normal = 95.0    # Range to detect other incoming projectiles
 
 # Combat and damage variables
-@export var base_damage = 0.18                   # Base damage dealt by attacks
+@export var base_damage = 0.20                   # Base damage dealt by attacks
 @export var max_accuracy_distance = 100.0         # Distance for maximum attack accuracy
 @export var miss_chance = 0.3                    # Base probability to miss an attack (30%)
 @export var base_miss_chance = 0.3               # Initial miss chance before modifiers
 @export var max_damage_variability = 0.1         # Maximum random variation in damage
-@export var attack_damage = 0.18                  # Base attack damage before modifiers
+@export var attack_damage = 0.19                  # Base attack damage before modifiers
 @export var attack_range = 90.0                  # Maximum range at which enemy can attack
 @export var attack_damage_range = 40.0           # Range of random damage variation
 
@@ -928,6 +928,7 @@ func play_attack_animation():
 				transition_to_animation(animation_state.IDLE)
 	)
 
+	
 func play_attack_sound():
 	if attack_sound and not attack_sound.playing:
 		attack_sound.play()
@@ -1039,10 +1040,13 @@ func setup_fire_particles():
 		add_child(fire_particles)
 		fire_particles.emitting = false
 
+		var point_light = fire_particles.get_node("PointLight2D")
+		point_light.enabled = false
+
 func apply_fire_effect():
 	if is_dead:
 		return
-		
+	
 	if burn_tween:
 		burn_tween.kill()
 	
@@ -1050,13 +1054,15 @@ func apply_fire_effect():
 	
 	fire_particles.emitting = true
 	burn_tween = create_tween()
-	burn_tween.tween_property(normal_sprite, "modulate",
-		Color(1.5, 0.7, 0.2), 0.3)
+	burn_tween.tween_property(normal_sprite, "modulate", Color(1.5, 0.7, 0.2), 0.3)
 	
 	fire_timer.start(fire_duration)
 	if not fire_tick_timer.is_stopped():
 		fire_tick_timer.stop()
 	fire_tick_timer.start()
+
+	var point_light = fire_particles.get_node("PointLight2D")
+	point_light.enabled = true
 
 func apply_fire_damage():
 	if is_burning and not is_dead:
@@ -1078,13 +1084,15 @@ func apply_fire_damage():
 func stop_fire_effect():
 	is_burning = false
 	fire_particles.emitting = false
-	fire_tick_timer.stop()
-	
+
+	var point_light = fire_particles.get_node("PointLight2D")
+	point_light.enabled = false
+
 	if burn_tween:
 		burn_tween.kill()
+
 	burn_tween = create_tween()
-	burn_tween.tween_property(normal_sprite, "modulate",
-		Color(1, 1, 1), 0.3)
+	burn_tween.tween_property(normal_sprite, "modulate", Color(1, 1, 1), 0.3) 
 
 func initialize_speed():
 	var variation_percent = randf_range(-speed_variation, speed_variation) / 100.0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dvvwvuwv8b4p5"]
 
-[ext_resource type="Script" path="res://Interactables/interatables_scripts/health_pickup.gd" id="1_4e3fp"]
+[ext_resource type="Script" uid="uid://dfkj1adhgcp8d" path="res://Interactables/interatables_scripts/health_pickup.gd" id="1_4e3fp"]
 [ext_resource type="Texture2D" uid="uid://drwjcknf34x5e" path="res://Sprites/Heart_Animation.png" id="2_dtcyc"]
 [ext_resource type="AudioStream" uid="uid://ctqttxk85lbl" path="res://SoundEffects/pickup_object_sound.ogg" id="3_b655e"]
 
@@ -42,8 +42,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l161v"]
 _data = {
-"Active": SubResource("Animation_laecc"),
-"RESET": SubResource("Animation_qp3be")
+&"Active": SubResource("Animation_laecc"),
+&"RESET": SubResource("Animation_qp3be")
 }
 
 [node name="health_pickup" type="Area2D"]

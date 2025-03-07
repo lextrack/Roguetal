@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://chxwhjyu5ejto"]
 
 [ext_resource type="Texture2D" uid="uid://384hhaplsemm" path="res://Sprites/Impact005Red .png" id="1_lyjv8"]
-[ext_resource type="Script" path="res://Entities/entities_scripts/fx_rapid_bullet.gd" id="1_nf2hx"]
+[ext_resource type="Script" uid="uid://boslu7gyjhvlg" path="res://Entities/entities_scripts/fx_rapid_bullet.gd" id="1_nf2hx"]
 
 [sub_resource type="Animation" id="Animation_yu1hk"]
 resource_name = "Active"
@@ -37,8 +37,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x4oik"]
 _data = {
-"Active": SubResource("Animation_yu1hk"),
-"RESET": SubResource("Animation_wray4")
+&"Active": SubResource("Animation_yu1hk"),
+&"RESET": SubResource("Animation_wray4")
 }
 
 [node name="fx_rapid_bullet" type="Node2D"]

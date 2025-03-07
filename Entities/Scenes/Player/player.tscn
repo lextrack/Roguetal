@@ -1,10 +1,10 @@
 [gd_scene load_steps=34 format=3 uid="uid://brms7i87pfawr"]
 
-[ext_resource type="Script" path="res://Entities/entities_scripts/player.gd" id="1_ukrib"]
-[ext_resource type="Shader" path="res://Shaders/hurt.gdshader" id="2_dwf4p"]
+[ext_resource type="Script" uid="uid://cic527pcdi2vy" path="res://Entities/entities_scripts/player.gd" id="1_ukrib"]
+[ext_resource type="Shader" uid="uid://c7tai2lg08u1i" path="res://Shaders/hurt.gdshader" id="2_dwf4p"]
 [ext_resource type="Texture2D" uid="uid://p75nbpxlt3c7" path="res://Sprites/speed_pickup.png" id="3_kwns6"]
 [ext_resource type="Texture2D" uid="uid://d0xm4ir8srq7n" path="res://Sprites/satiro-Sheet v1.1.png" id="3_vnj0r"]
-[ext_resource type="Script" path="res://Entities/entities_scripts/camera.gd" id="4_jek05"]
+[ext_resource type="Script" uid="uid://d3alse5u754rb" path="res://Entities/entities_scripts/camera.gd" id="4_jek05"]
 [ext_resource type="Texture2D" uid="uid://by0g6raqjex4v" path="res://Sprites/bullet_hell_icon.png" id="5_him75"]
 [ext_resource type="Texture2D" uid="uid://dxisc7j5t2hmw" path="res://Sprites/double_defense_icon.png" id="6_7scbk"]
 [ext_resource type="Texture2D" uid="uid://cm8gumdynsn3t" path="res://Sprites/critical.png" id="6_q1p7r"]
@@ -19,7 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://bwk7dwlyljdul" path="res://SoundEffects/hurting_player.ogg" id="10_aj7pw"]
 [ext_resource type="AudioStream" uid="uid://chf2546e33apu" path="res://SoundEffects/AudioStreamM16Shot.ogg" id="10_emtum"]
 [ext_resource type="Texture2D" uid="uid://ippgb3ck7201" path="res://Sprites/ddamage_pickup.png" id="12_erptt"]
-[ext_resource type="Script" path="res://Entities/entities_scripts/power_up_manager.gd" id="14_o2miv"]
+[ext_resource type="Script" uid="uid://cp4kvdcb6pp8m" path="res://Entities/entities_scripts/power_up_manager.gd" id="14_o2miv"]
 [ext_resource type="AudioStream" uid="uid://3dqerkqyurwc" path="res://SoundEffects/shotgun_shoot.ogg" id="16_2typd"]
 [ext_resource type="AudioStream" uid="uid://d15hst8pxxlu0" path="res://SoundEffects/switch_weapons.ogg" id="18_a0ygw"]
 
@@ -227,10 +227,10 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j2kxc"]
 _data = {
-"Dead": SubResource("Animation_646v8"),
-"Idle": SubResource("Animation_7ibwv"),
-"Move": SubResource("Animation_g02t7"),
-"RESET": SubResource("Animation_h3ykm")
+&"Dead": SubResource("Animation_646v8"),
+&"Idle": SubResource("Animation_7ibwv"),
+&"Move": SubResource("Animation_g02t7"),
+&"RESET": SubResource("Animation_h3ykm")
 }
 
 [node name="Player" type="CharacterBody2D"]
@@ -440,7 +440,7 @@ autostart = true
 
 [node name="player_animation" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_j2kxc")
+&"": SubResource("AnimationLibrary_j2kxc")
 }
 autoplay = "Idle"
 

@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="Roguetal"
-config/version="1.0.0.3"
+config/version="1.0.0.4"
 run/main_scene="res://UI/ui_scenes/main_menu.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="res://logo.png"
 config/icon="res://icon.png"

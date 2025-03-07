@@ -1,13 +1,13 @@
 [gd_scene load_steps=20 format=3 uid="uid://wvm0jxlv3xug"]
 
-[ext_resource type="Script" path="res://Levels/level_generator_scripts/labyrinth_level.gd" id="1_a3cw7"]
+[ext_resource type="Script" uid="uid://x108q8rt7lih" path="res://Levels/level_generator_scripts/labyrinth_level.gd" id="1_a3cw7"]
 [ext_resource type="Texture2D" uid="uid://b5twfi1wno2qw" path="res://Sprites/labyrinth_tilemap.png" id="1_we10i"]
 [ext_resource type="PackedScene" uid="uid://dqmd7bql1ldc" path="res://UI/ui_scenes/pause_menu.tscn" id="2_mt8nt"]
-[ext_resource type="Script" path="res://UI/ui_scripts/canvas_instructions_labyrinth.gd" id="3_ldgqx"]
+[ext_resource type="Script" uid="uid://c8nj8y6px5t8f" path="res://UI/ui_scripts/canvas_instructions_labyrinth.gd" id="3_ldgqx"]
 [ext_resource type="FontFile" uid="uid://cdun1b3gdci6e" path="res://Fonts/Pixel Azure Bonds.otf" id="3_thoc2"]
 [ext_resource type="Texture2D" uid="uid://csx15aryqogte" path="res://Sprites/HeartSpriteSheet.png" id="4_qqmdy"]
 [ext_resource type="Texture2D" uid="uid://dwphcmpag53is" path="res://Sprites/ammo_ui.png" id="5_im8i4"]
-[ext_resource type="Script" path="res://UI/ui_scripts/hud_labyrinth.gd" id="5_u8cql"]
+[ext_resource type="Script" uid="uid://dqgjju7qbw2p0" path="res://UI/ui_scripts/hud_labyrinth.gd" id="5_u8cql"]
 [ext_resource type="Texture2D" uid="uid://02ay4cfoeh8i" path="res://Sprites/mainlevbuild.png" id="7_7o254"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl5p6"]
@@ -92,9 +92,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xbyae"]
 _data = {
-"RESET": SubResource("Animation_mfy05"),
-"fade_in": SubResource("Animation_8dwdq"),
-"fade_out": SubResource("Animation_vwc4g")
+&"RESET": SubResource("Animation_mfy05"),
+&"fade_in": SubResource("Animation_8dwdq"),
+&"fade_out": SubResource("Animation_vwc4g")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5e0ll"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://lu6byijexn48"]
 
-[ext_resource type="Script" path="res://Interactables/interatables_scripts/exit_portal.gd" id="1_0msi0"]
+[ext_resource type="Script" uid="uid://d1fqs13ji0lyv" path="res://Interactables/interatables_scripts/exit_portal.gd" id="1_0msi0"]
 [ext_resource type="Texture2D" uid="uid://dhxmg1ldnp8gr" path="res://Sprites/portalsSpriteSheet.png" id="2_qmlc1"]
 [ext_resource type="AudioStream" uid="uid://dekxnve04erbs" path="res://SoundEffects/portal_effect.ogg" id="3_jfsrs"]
 
@@ -39,8 +39,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2w36l"]
 _data = {
-"Active": SubResource("Animation_fbjjo"),
-"RESET": SubResource("Animation_upgt8")
+&"Active": SubResource("Animation_fbjjo"),
+&"RESET": SubResource("Animation_upgt8")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_luqk0"]

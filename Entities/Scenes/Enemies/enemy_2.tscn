@@ -1,6 +1,6 @@
 [gd_scene load_steps=31 format=3 uid="uid://blofjamcfsd6w"]
 
-[ext_resource type="Script" path="res://Entities/entities_scripts/enemy_1.gd" id="1_sm0wu"]
+[ext_resource type="Script" uid="uid://dhru5m78nd8fk" path="res://Entities/entities_scripts/enemy_1.gd" id="1_sm0wu"]
 [ext_resource type="Texture2D" uid="uid://jhnrsdmhw6n5" path="res://Sprites/orc1_run_full.png" id="2_dqu1u"]
 [ext_resource type="AudioStream" uid="uid://ch1gxwwlpqohp" path="res://SoundEffects/Hit_bullet_damage.ogg" id="3_khll3"]
 [ext_resource type="Texture2D" uid="uid://djy3oqt1sw414" path="res://Sprites/orc1_death_full.png" id="3_psgng"]
@@ -100,11 +100,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8r0fx"]
 _data = {
-"RESET": SubResource("Animation_s1xue"),
-"move_down": SubResource("Animation_nx7c6"),
-"move_left": SubResource("Animation_tk37g"),
-"move_right": SubResource("Animation_vbwjg"),
-"move_up": SubResource("Animation_20cgi")
+&"RESET": SubResource("Animation_s1xue"),
+&"move_down": SubResource("Animation_nx7c6"),
+&"move_left": SubResource("Animation_tk37g"),
+&"move_right": SubResource("Animation_vbwjg"),
+&"move_up": SubResource("Animation_20cgi")
 }
 
 [sub_resource type="Animation" id="Animation_rb1vr"]
@@ -141,8 +141,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_be2o2"]
 _data = {
-"RESET": SubResource("Animation_rb1vr"),
-"dead": SubResource("Animation_llbt1")
+&"RESET": SubResource("Animation_rb1vr"),
+&"dead": SubResource("Animation_llbt1")
 }
 
 [sub_resource type="Animation" id="Animation_ok4b0"]
@@ -247,12 +247,12 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_si2ay"]
 _data = {
-"RESET": SubResource("Animation_ok4b0"),
-"attack": SubResource("Animation_m0cxn"),
-"attack_down": SubResource("Animation_7028p"),
-"attack_left": SubResource("Animation_vixdq"),
-"attack_right": SubResource("Animation_jy8o1"),
-"attack_up": SubResource("Animation_tp6a2")
+&"RESET": SubResource("Animation_ok4b0"),
+&"attack": SubResource("Animation_m0cxn"),
+&"attack_down": SubResource("Animation_7028p"),
+&"attack_left": SubResource("Animation_vixdq"),
+&"attack_right": SubResource("Animation_jy8o1"),
+&"attack_up": SubResource("Animation_tp6a2")
 }
 
 [sub_resource type="Animation" id="Animation_wiely"]
@@ -290,8 +290,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nfqe2"]
 _data = {
-"RESET": SubResource("Animation_wiely"),
-"idle": SubResource("Animation_l3n0k")
+&"RESET": SubResource("Animation_wiely"),
+&"idle": SubResource("Animation_l3n0k")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5xl2"]
