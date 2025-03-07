@@ -72,12 +72,12 @@ var max_allowed_speed = 120
 @export var projectile_detection_radius_normal = 95.0    # Range to detect other incoming projectiles
 
 # Combat and damage variables
-@export var base_damage = 0.18                   # Base damage dealt by attacks
+@export var base_damage = 0.20                   # Base damage dealt by attacks
 @export var max_accuracy_distance = 100.0         # Distance for maximum attack accuracy
 @export var miss_chance = 0.3                    # Base probability to miss an attack (30%)
 @export var base_miss_chance = 0.3               # Initial miss chance before modifiers
 @export var max_damage_variability = 0.1         # Maximum random variation in damage
-@export var attack_damage = 0.18                  # Base attack damage before modifiers
+@export var attack_damage = 0.19                  # Base attack damage before modifiers
 @export var attack_range = 90.0                  # Maximum range at which enemy can attack
 @export var attack_damage_range = 40.0           # Range of random damage variation
 
