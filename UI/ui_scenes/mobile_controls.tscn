@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bm26ogws73dcn" path="res://UI/VirtualJoystickPack/JoystickSplitted.png" id="6_vadwq"]
 [ext_resource type="Texture2D" uid="uid://byfof8pe0iykl" path="res://UI/VirtualJoystickPack/settings.png" id="6_x6vej"]
 [ext_resource type="Texture2D" uid="uid://bcs3nq073hut1" path="res://UI/VirtualJoystickPack/SmallHandleFilledGrey.png" id="6_yekg7"]
-[ext_resource type="Script" uid="uid://bxkcngfv7kflp" path="res://MultiTouchButton.gd" id="7_s2xfd"]
+[ext_resource type="Script" uid="uid://bxkcngfv7kflp" path="res://GlobalScripts/MultiTouchButton.gd" id="7_s2xfd"]
 [ext_resource type="Texture2D" uid="uid://lsybb4xr41tp" path="res://UI/VirtualJoystickPack/change_weapon.png" id="8_xya7a"]
 [ext_resource type="Texture2D" uid="uid://bi4m8txccsxx1" path="res://UI/VirtualJoystickPack/stats_info.png" id="10_ntrvj"]
 [ext_resource type="Texture2D" uid="uid://c6vxrh7orgk4u" path="res://UI/VirtualJoystickPack/interact.png" id="11_lr127"]
@@ -23,9 +23,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 95.0
-offset_top = -283.0
+offset_top = -282.0
 offset_right = 135.0
-offset_bottom = -243.0
+offset_bottom = -242.0
 grow_vertical = 0
 scale = Vector2(0.7, 0.7)
 script = ExtResource("2_hukf6")
@@ -64,10 +64,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -281.0
-offset_top = -283.0
-offset_right = -241.0
-offset_bottom = -243.0
+offset_left = -299.0
+offset_top = -282.0
+offset_right = -259.0
+offset_bottom = -242.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.7, 0.7)
@@ -123,9 +123,9 @@ texture_filter = 2
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -384.0
+offset_left = -385.0
 offset_top = 414.0
-offset_right = -284.0
+offset_right = -285.0
 offset_bottom = 514.0
 grow_horizontal = 0
 texture_normal = ExtResource("8_xya7a")
@@ -139,9 +139,9 @@ texture_filter = 2
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -427.0
+offset_left = -428.0
 offset_top = 537.0
-offset_right = -327.0
+offset_right = -328.0
 offset_bottom = 637.0
 grow_horizontal = 0
 texture_normal = ExtResource("10_ntrvj")
@@ -156,9 +156,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -384.0
+offset_left = -385.0
 offset_top = -104.0
-offset_right = -284.0
+offset_right = -285.0
 offset_bottom = -4.0
 grow_horizontal = 0
 grow_vertical = 0

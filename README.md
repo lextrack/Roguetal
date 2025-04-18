@@ -37,11 +37,15 @@ This repository contains the complete source code for the game:
 - **`android` branch**: The same game but using virtual joysticks for Android and minor changes in the UI and sprites
 
 ```
-Dialogues: Includes texts for instructions, menus, and dialogues in JSON format
+CredentialsExport: Contains keystore and credentials to sign the APK.
+
+Dialogues: Includes texts for instructions, menus, and dialogues in JSON format.
 
 Entities: Contains scripts and scenes for the player, bullets, enemies, and some effects.
 
 Fonts: The font used by the game.
+
+GlobalScripts: Contains scripts that handle global events (translations, porwer ups, etc).
 
 Interactables: Contains scripts and scenes for power-ups, ammo, and portals.
 
@@ -68,7 +72,7 @@ UI: Contains scripts and scenes related to the game's HUD.
 - Storage: 200 MB available space
 
 **Android Version:**
-- Android 7.0 or higher
+- Android 8.0 or higher
 - 200 MB free storage
 
 ## For the development I used
@@ -92,6 +96,38 @@ UI: Contains scripts and scenes related to the game's HUD.
 2. Open Godot Engine
 3. Import the project by selecting the folder where you cloned the repository
 4. You're ready to explore and modify the game!
+
+¡Claro! Aquí te dejo una sección que puedes agregar al final del README, justo antes de la despedida. Está explicada de forma clara y directa para que cualquier persona que quiera exportar entienda qué hacer, tanto en Android como en PC:
+
+---
+
+## ⚠️ Export Notes
+
+### 📱 Android Export (Release)
+If you want to export the game as a **release APK**, make sure to:
+
+1. Go to **Project > Export > Android**.
+2. Scroll to the **"Keystore"** section.
+3. Select the keystore file:  
+   `CredentialsExport/c2roguelite.keystore`
+4. Enter the keystore **user** and **password**, both of which are found in the file:  
+   `CredentialsExport/credentials.txt`
+
+Without this configuration, the release export won't be properly signed and may not install on devices. You can create your own keystore if you want.
+
+---
+
+### 💻 PC Export (Windows Icon Issue)
+To correctly use the **custom icon** included in the project when exporting for Windows:
+
+1. Open **Editor Settings** in Godot.
+2. Go to **Export > Windows**.
+3. In the **rcedit path**, set the correct path. For example:  
+   `C:/Roguetal/PC/Roguetal/rcedit-x64.exe`
+
+> Note: `rcedit-x64.exe` is located in the root of the project. Make sure the path is correct or the icon won’t apply on exported builds.
+
+---
 
 ## Contact & Social
 - Developer: Lextrack Studios

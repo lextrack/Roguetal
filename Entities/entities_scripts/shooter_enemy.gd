@@ -1140,7 +1140,7 @@ func setup_slow_particles():
 	
 	var particle_material = ParticleProcessMaterial.new()
 	particle_material.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
-	particle_material.emission_sphere_radius = 10.0
+	particle_material.emission_sphere_radius = 8.0
 	particle_material.particle_flag_disable_z = true
 	particle_material.gravity = Vector3(0, -20, 0)
 	particle_material.initial_velocity_min = 2.0
@@ -1154,7 +1154,7 @@ func setup_slow_particles():
 	particle_material.color = Color(0.7, 0.8, 1.0, 0.5)
 	
 	slow_effect_particles.process_material = particle_material
-	slow_effect_particles.amount = 15
+	slow_effect_particles.amount = 8
 	slow_effect_particles.lifetime = 1.0
 	slow_effect_particles.explosiveness = 0.0
 	slow_effect_particles.randomness = 0.5

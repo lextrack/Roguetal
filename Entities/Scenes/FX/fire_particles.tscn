@@ -32,7 +32,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.862385, 0.110092)
 
 [node name="fire_particles" type="GPUParticles2D"]
-amount = 16
+amount = 6
 lifetime = 0.5
 randomness = 0.5
 process_material = SubResource("ParticleProcessMaterial_x8f13")
