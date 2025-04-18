@@ -3,4 +3,5 @@
 [ext_resource type="Script" uid="uid://sqnpb7a3gcbv" path="res://Entities/entities_scripts/smoke_particles.gd" id="1_sjtst"]
 
 [node name="smoke_particles" type="GPUParticles2D"]
+amount = 5
 script = ExtResource("1_sjtst")

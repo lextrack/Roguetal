@@ -32,7 +32,6 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.854701, 0.128205)
 
 [node name="fire_particles" type="GPUParticles2D"]
-amount = 16
 lifetime = 0.6
 interp_to_end = 0.091
 randomness = 0.5

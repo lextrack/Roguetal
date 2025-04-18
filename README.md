@@ -43,6 +43,8 @@ Entities: Contains scripts and scenes for the player, bullets, enemies, and some
 
 Fonts: The font used by the game.
 
+GlobasScripts: Contains scripts that handle global events (translations, porwer ups, etc).
+
 Interactables: Contains scripts and scenes for power-ups, ammo, and portals.
 
 Levels: Contains scripts and scenes related to the game levels.
@@ -68,7 +70,7 @@ UI: Contains scripts and scenes related to the game's HUD.
 - Storage: 200 MB available space
 
 **Android Version:**
-- Android 7.0 or higher
+- Android 8.0 or higher
 - 200 MB free storage
 
 ## For the development I used

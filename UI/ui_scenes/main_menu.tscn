@@ -136,7 +136,7 @@ offset_top = 0.335999
 offset_right = -6.496
 offset_bottom = 0.295998
 theme_override_fonts/font = ExtResource("3_ncx40")
-text = "1.0.0.4"
+text = "1.0.0.5"
 horizontal_alignment = 1
 vertical_alignment = 1
 

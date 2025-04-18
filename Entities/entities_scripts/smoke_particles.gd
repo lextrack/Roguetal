@@ -1,12 +1,11 @@
 extends GPUParticles2D
 
 func _ready():
-	# Detectar si estamos en un nivel oscuro
 	var is_dark_level = get_tree().current_scene.name == "labyrinth_level"
 	
 	emitting = true
 	one_shot = false
-	amount = 12
+	amount = 5
 	lifetime = 0.8
 	
 	var particles_material = ParticleProcessMaterial.new()
@@ -19,21 +18,18 @@ func _ready():
 	particles_material.scale_min = 0.4
 	particles_material.scale_max = 0.8
 	
-	# Ajustar color según el nivel
 	if is_dark_level:
-		# En niveles oscuros: humo más brillante y visible
 		particles_material.color = Color(1.0, 1.0, 1.0, 0.5)
 		var gradient = create_color_ramp(
-			Color(1.0, 1.0, 1.0, 0.7),  # Más brillante
-			Color(0.8, 0.8, 0.8, 0.0)   # Desvanecimiento suave
+			Color(1.0, 1.0, 1.0, 0.7),
+			Color(0.8, 0.8, 0.8, 0.0)
 		)
 		particles_material.color_ramp = gradient
 	else:
-		# En niveles iluminados: humo más oscuro y sutil
-		particles_material.color = Color(0.6, 0.6, 0.6, 0.3)
+		particles_material.color = Color(0.9, 0.9, 0.9, 0.5)
 		var gradient = create_color_ramp(
-			Color(0.7, 0.7, 0.7, 0.5),  # Más oscuro
-			Color(0.5, 0.5, 0.5, 0.0)   # Desvanecimiento más marcado
+			Color(0.9, 0.9, 0.9, 0.6),
+			Color(0.7, 0.7, 0.7, 0.0)
 		)
 		particles_material.color_ramp = gradient
 	
