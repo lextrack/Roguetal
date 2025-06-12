@@ -21,14 +21,23 @@ func _init(starting_position, new_border) -> void:
 func walk(steps):
 	place_room(position)
 	
-	for step in steps:
-		if steps_since_turn >= 8: # Increase for longer straight sections
+	var step_count = 0
+	while step_count < steps:
+		if steps_since_turn >= 8:
 			change_direction()
+		
 		if step():
 			step_history.append(position)
+			step_count += 1
 		else:
 			change_direction()
+			
+			if !step():
+				if step_history.size() > 1:
+					position = step_history[randi() % step_history.size()]
+					
 	return step_history.reduce(func(accum, item): return accum if item in accum else accum + [item], [])
+
 	
 func step() -> bool:
 	var target_position = position + direction
@@ -70,12 +79,21 @@ func create_room(room_pos, size):
 	return {position = room_pos, size = size}
 	
 func place_room(room_pos: Vector2) -> void:
-	var size = Vector2(randi() % 5 + 3, randi() % 5 + 3) # Larger rooms
+	# Make rooms more varied in size
+	var size = Vector2(randi() % 6 + 4, randi() % 6 + 4)
 	var top_left_corner = (room_pos - size / 2).floor()
+	
+	# Skip if room would be too close to another or out of bounds
 	if is_too_close(room_pos) or not is_room_within_bounds(top_left_corner, size):
 		return
+		
+	# Add some randomness to room placement
+	if randf() > 0.7:  # 30% chance to skip room creation for more variety
+		return
+		
 	rooms.append(create_room(room_pos, size))
 	mark_room_on_history(top_left_corner, size)
+
 
 func is_room_within_bounds(top_left_corner: Vector2, size: Vector2) -> bool:
 	for y in range(size.y):

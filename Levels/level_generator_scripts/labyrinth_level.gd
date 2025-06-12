@@ -203,9 +203,11 @@ func clear_and_set_tiles() -> void:
 	for tile in all_cells:
 		if !map.has(Vector2(tile.x, tile.y)):
 			using_cells.append(tile)
-			
+	
 	tilemap.set_cells_terrain_connect(ground_layer, using_cells, ground_layer, ground_layer, false)
-	tilemap.set_cells_terrain_path(ground_layer, using_cells, ground_layer, ground_layer, false)
+	
+	# Skip this
+	# tilemap.set_cells_terrain_path(ground_layer, using_cells, ground_layer, ground_layer, false)
 
 func instance_player() -> void:
 	var player_instance = player_scene.instantiate()
@@ -246,32 +248,32 @@ func instance_enemies(base_count: int = 6) -> void:
 		return
 
 	var player_position = tilemap.local_to_map(player_node.position)
-	var attempts = 0
-	var max_attempts = 500
-	var enemies_spawned = 0
+	var spawn_points = []
+	
+	for i in range(30):
+		var random_position = map[randi() % len(map)]
+		if random_position.distance_to(player_position) >= min_distance_from_player:
+			spawn_points.append(random_position)
+	
+	if spawn_points.size() < 3:
+		for i in range(3):
+			spawn_points.append(map[randi() % len(map)])
 	
 	var total_enemies_to_spawn = randi_range(base_count, base_count + 3)
-	
-	while enemies_spawned < total_enemies_to_spawn and attempts < max_attempts:
-		var random_position = map[randi() % len(map)]
-		var world_position = tilemap.map_to_local(random_position)
+	for i in range(min(total_enemies_to_spawn, spawn_points.size())):
+		var enemy = enemy_labyrinth.instantiate()
 		
-		if random_position.distance_to(player_position) >= min_distance_from_player:
-			var enemy = enemy_labyrinth.instantiate()
-			
-			var nav_agent = NavigationAgent2D.new()
-			enemy.add_child(nav_agent)
-			
-			enemy.base_speed = randf_range(85, 110)
-			enemy.speed_variation = randf_range(20, 30)
-			
-			enemy.position = world_position
-			add_child(enemy)
-			enemies_spawned += 1
+		var nav_agent = NavigationAgent2D.new()
+		enemy.add_child(nav_agent)
 		
-		attempts += 1
+		enemy.base_speed = randf_range(85, 110)
+		enemy.speed_variation = randf_range(20, 30)
+		enemy.max_health = randf_range(35, 45)
+		
+		enemy.position = tilemap.map_to_local(spawn_points[i])
+		add_child(enemy)
 	
-	print("Spawned enemies: ", enemies_spawned)
+	print("Spawned enemies: ", min(total_enemies_to_spawn, spawn_points.size()))
 
 func is_tile_occupied(tile_pos: Vector2) -> bool:
 	var cell_coords = tilemap.local_to_map(tile_pos)

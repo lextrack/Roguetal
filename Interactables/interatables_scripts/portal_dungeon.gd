@@ -32,7 +32,7 @@ func select_random_level() -> String:
 	return selected_level
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
+	if body.is_in_group("player") and not body.is_dead and not body.is_waiting_for_death_animation:
 		body.enter_portal()
 		enter_portal_sound.play()
 		await enter_portal_sound.finished
@@ -44,5 +44,5 @@ func _on_body_entered(body: Node2D) -> void:
 		loading_instance.load_scene(selected_level)
 
 func _on_body_exited(body: Node2D) -> void:
-	if body.name == "Player":
+	if body.is_in_group("player"):
 		body.exit_portal()

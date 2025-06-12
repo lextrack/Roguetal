@@ -31,7 +31,7 @@ func _ready() -> void:
 		print_visit_stats()
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and not body.is_dead and not body.is_waiting_for_death_animation:
 		body.enter_portal("next_level")
 		portal_enter_sound.play()
 		await portal_enter_sound.finished
@@ -73,3 +73,4 @@ func print_visit_stats() -> void:
 	for level in level_visits:
 		print("%s: %d visits" % [level.get_file(), level_visits[level]])
 	print("")
+	

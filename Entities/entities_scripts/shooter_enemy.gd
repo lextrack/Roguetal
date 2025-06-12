@@ -275,22 +275,24 @@ func chase_state(delta):
 
 	var distance_to_target = global_position.distance_to(target.global_position)
 	
+	var speed_multiplier = 1.0
+	if distance_to_target > chase_range * 0.7:
+		speed_multiplier = 1.2
+	elif distance_to_target < attack_range * 1.5:
+		speed_multiplier = 0.6
+		
 	if distance_to_target <= attack_range and has_clear_shot():
 		current_state = enemy_state.ATTACK
-		return
-	
-	last_known_player_position = target.global_position
-	navigation_agent.target_position = last_known_player_position
-	
-	if not navigation_agent.is_navigation_finished():
+	elif distance_to_target > chase_range:
+		find_scent_trail()
+	else:
+		last_known_player_position = target.global_position
+		navigation_agent.target_position = last_known_player_position
+		
+	if not navigation_agent.is_navigation_finished() and not is_attacking:
 		var direction = global_position.direction_to(navigation_agent.get_next_path_position())
 		direction = avoid_obstacles(direction)
-
-		var chase_speed = speed
-		if distance_to_target > chase_range * 1.5:
-			chase_speed *= 1.3
-		
-		velocity = direction * chase_speed
+		velocity = direction * speed * speed_multiplier
 		move_and_slide()
 		play_movement_animation(direction)
 
@@ -1094,6 +1096,7 @@ func stop_fire_effect():
 	burn_tween = create_tween()
 	burn_tween.tween_property(normal_sprite, "modulate", Color(1, 1, 1), 0.3) 
 
+		
 func initialize_speed():
 	var variation_percent = randf_range(-speed_variation, speed_variation) / 100.0
 	speed = base_speed * (1 + variation_percent)
@@ -1204,3 +1207,4 @@ func _on_chase_box_area_entered(area: Area2D):
 func _on_hitbox_area_entered(area: Area2D):
 	if area.is_in_group("Bullet"):
 		take_damage(area.damage, area)
+		

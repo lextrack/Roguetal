@@ -1089,3 +1089,4 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 
 func _on_hitbox_area_exited(area: Area2D) -> void:
 	pass
+	

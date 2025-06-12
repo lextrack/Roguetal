@@ -154,9 +154,9 @@ alignment = 1
 [node name="ResolutionOption" type="Button" parent="PanelOpciones/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30
@@ -170,9 +170,9 @@ autowrap_mode = 3
 [node name="LanguageButton" type="Button" parent="PanelOpciones/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30
@@ -191,9 +191,9 @@ theme_override_constants/separation = 15
 [node name="button_save" type="Button" parent="PanelOpciones/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30
@@ -206,9 +206,9 @@ text = "Save"
 [node name="button_cancel" type="Button" parent="PanelOpciones/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
-theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_focus_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_colors/font_pressed_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_344qp")
 theme_override_font_sizes/font_size = 30

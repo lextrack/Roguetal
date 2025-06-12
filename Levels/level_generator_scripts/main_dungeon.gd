@@ -169,7 +169,6 @@ func instance_health_pickup() -> void:
 		attempts += 1
 
 func clear_and_set_tiles() -> void:
-	# Clears the existing tiles and sets the new tiles based on the map
 	var using_cells: Array = []
 	var all_cells: Array = tilemap.get_used_cells(ground_layer)
 	tilemap.clear()
@@ -178,9 +177,10 @@ func clear_and_set_tiles() -> void:
 	for tile in all_cells:
 		if !map.has(Vector2(tile.x, tile.y)):
 			using_cells.append(tile)
-			
 	tilemap.set_cells_terrain_connect(ground_layer, using_cells, ground_layer, ground_layer, false)
-	tilemap.set_cells_terrain_path(ground_layer, using_cells, ground_layer, ground_layer, false)
+	
+	# Skip this
+	# tilemap.set_cells_terrain_path(ground_layer, using_cells, ground_layer, ground_layer, false)
 
 func instance_player():
 	# Instantiates the player at the starting position
