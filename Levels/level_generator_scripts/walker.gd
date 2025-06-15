@@ -21,14 +21,25 @@ func _init(starting_position, new_border) -> void:
 func walk(steps):
 	place_room(position)
 	
-	for step in steps:
-		if steps_since_turn >= 10: # Increase for longer straight sections
+	var step_count = 0
+	while step_count < steps:
+		if steps_since_turn >= 10:
 			change_direction()
+		
 		if step():
 			step_history.append(position)
+			step_count += 1
 		else:
+			# If we can't step, try changing direction instead of getting stuck
 			change_direction()
+			
+			# If we're still stuck after trying all directions, teleport to a random existing point
+			if !step():
+				if step_history.size() > 1:
+					position = step_history[randi() % step_history.size()]
+					
 	return step_history.reduce(func(accum, item): return accum if item in accum else accum + [item], [])
+
 	
 func step() -> bool:
 	var target_position = position + direction

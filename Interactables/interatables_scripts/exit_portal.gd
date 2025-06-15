@@ -1,17 +1,13 @@
 extends Area2D
 
 @onready var portal_enter_sound: AudioStreamPlayer2D = $portal_enter_sound
-@onready var point_light: PointLight2D = $PointLight2D
 
 func _ready() -> void:
 	if not is_connected("body_entered", Callable(self, "_on_body_entered")):
 		connect("body_entered", Callable(self, "_on_body_entered"))
 
-	var current_scene = get_tree().current_scene.scene_file_path
-	point_light.visible = current_scene == "res://Levels/Scenes/labyrinth_level.tscn"
-
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and not body.is_dead and not body.is_waiting_for_death_animation:
 		body.enter_portal("exit_portal")
 		portal_enter_sound.play()
 		await portal_enter_sound.finished
@@ -23,3 +19,4 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		body.exit_portal()
+		

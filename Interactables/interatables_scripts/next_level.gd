@@ -2,7 +2,6 @@ extends Area2D
 
 @onready var portal_enter_sound: AudioStreamPlayer2D = $portal_enter_sound
 @onready var loading_screen: PackedScene = preload("res://UI/ui_scenes/loading_screen.tscn")
-@onready var point_light: PointLight2D = $PointLight2D  # Asegúrate de tener un nodo PointLight2D como hijo del portal
 
 const LEVELS = [
 	"res://Levels/Scenes/main_dungeon.tscn",
@@ -31,10 +30,8 @@ func _ready() -> void:
 		print("Actual scene: ", current_scene)
 		print_visit_stats()
 
-	point_light.visible = current_scene == "res://Levels/Scenes/labyrinth_level.tscn"
-
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and not body.is_dead and not body.is_waiting_for_death_animation:
 		body.enter_portal("next_level")
 		portal_enter_sound.play()
 		await portal_enter_sound.finished
@@ -76,3 +73,4 @@ func print_visit_stats() -> void:
 	for level in level_visits:
 		print("%s: %d visits" % [level.get_file(), level_visits[level]])
 	print("")
+	

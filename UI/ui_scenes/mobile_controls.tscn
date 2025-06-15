@@ -149,7 +149,7 @@ texture_pressed = ExtResource("6_yekg7")
 script = ExtResource("7_s2xfd")
 
 [node name="InteractButton" type="TextureButton" parent="."]
-self_modulate = Color(1, 1, 1, 0.490196)
+self_modulate = Color(0, 0.4, 0.760784, 0.705882)
 texture_filter = 2
 anchors_preset = 3
 anchor_left = 1.0
