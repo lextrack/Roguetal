@@ -95,9 +95,6 @@ UI: Contains scripts and scenes related to the game's HUD.
 2. Open Godot Engine
 3. Import the project by selecting the folder where you cloned the repository
 4. You're ready to explore and modify the game!
-
-¡Claro! Aquí te dejo una sección que puedes agregar al final del README, justo antes de la despedida. Está explicada de forma clara y directa para que cualquier persona que quiera exportar entienda qué hacer, tanto en Android como en PC:
-
 ---
 
 ## ⚠️ Export Notes
@@ -136,3 +133,4 @@ To correctly use the **custom icon** included in the project when exporting for 
 ---
 
 Thank you for your interest in this project. I hope you enjoy playing it as much as I enjoyed creating it!
+
