@@ -1447,7 +1447,7 @@ drag_and_drop_selection_enabled = false
 
 [node name="AnimationPanel" type="AnimationPlayer" parent="CanvasInstructionsMainWorld/PanelInstructions"]
 libraries = {
-"": SubResource("AnimationLibrary_xbyae")
+&"": SubResource("AnimationLibrary_xbyae")
 }
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
@@ -1457,6 +1457,7 @@ libraries = {
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
 tile_set = SubResource("TileSet_63r5a")
+format = 2
 layer_0/y_sort_enabled = true
 
 [node name="Terrain" type="TileMapLayer" parent="TileMap"]

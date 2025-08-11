@@ -23,10 +23,11 @@ var focusable_elements = []
 var current_resolution_index: int = 0
 
 var available_resolutions = [
-	Vector2i(1920, 1080),
-	Vector2i(1600, 900),
 	Vector2i(1366, 768),
-	Vector2i(1280, 720)
+	Vector2i(1600, 900),
+	Vector2i(1920, 1080),
+	Vector2i(2560, 1440),
+	Vector2i(3840, 2160)
 ]
 
 func _ready():
@@ -448,7 +449,7 @@ func _apply_config(config: ConfigFile) -> void:
 
 func _apply_default_config() -> void:
 	if resolution_option:
-		current_resolution_index = 0
+		current_resolution_index = 2
 		_update_resolution_button_text()
 	
 	if fullscreen_check:

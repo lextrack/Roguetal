@@ -65,7 +65,7 @@ frame = 1
 
 [node name="animation_vampire_girl" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_qiiap")
+&"": SubResource("AnimationLibrary_qiiap")
 }
 autoplay = "Idle"
 
