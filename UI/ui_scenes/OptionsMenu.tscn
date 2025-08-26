@@ -152,7 +152,6 @@ text = "Show Instructions"
 alignment = 1
 
 [node name="ResolutionOption" type="Button" parent="PanelOpciones/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.933333, 0.933333, 0.933333, 1)
 theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
