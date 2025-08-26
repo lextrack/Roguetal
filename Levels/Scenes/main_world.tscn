@@ -1390,7 +1390,7 @@ script = ExtResource("1_m8i3a")
 [node name="Characters" type="Node" parent="."]
 
 [node name="vampire_girl_npc" parent="Characters" instance=ExtResource("8_1gq4h")]
-position = Vector2(225, 38)
+position = Vector2(204, 55)
 
 [node name="Player" parent="Characters" instance=ExtResource("2_yswwr")]
 position = Vector2(164, 62)
