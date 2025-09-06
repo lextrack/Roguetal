@@ -18,11 +18,6 @@ The game is completely free to play and available on:
   <img src="https://static.itch.io/images/badge-color.svg" width="200" />
 </a>
 
-<a href="https://play.google.com/store/apps/details?id=com.lextrack.roguetal" target="_blank">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width="200" />
-</a>
-
-
 ## Screenshots
 <div align="center">
   <img src="Captures\1.png" alt="Android version" width="400"/>
@@ -133,4 +128,3 @@ To correctly use the **custom icon** included in the project when exporting for 
 ---
 
 Thank you for your interest in this project. I hope you enjoy playing it as much as I enjoyed creating it!
-
