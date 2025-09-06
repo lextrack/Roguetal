@@ -18,11 +18,6 @@ The game is completely free to play and available on:
   <img src="https://static.itch.io/images/badge-color.svg" width="200" />
 </a>
 
-<a href="https://play.google.com/store/apps/details?id=com.lextrack.roguetal" target="_blank">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width="200" />
-</a>
-
-
 ## Screenshots
 <div align="center">
   <img src="Captures\1.png" alt="Android version" width="400"/>
@@ -37,7 +32,6 @@ This repository contains the complete source code for the game:
 - **`android` branch**: The same game but using virtual joysticks for Android and minor changes in the UI and sprites
 
 ```
-CredentialsExport: Contains keystore and credentials to sign the APK.
 
 Dialogues: Includes texts for instructions, menus, and dialogues in JSON format.
 
@@ -96,9 +90,6 @@ UI: Contains scripts and scenes related to the game's HUD.
 2. Open Godot Engine
 3. Import the project by selecting the folder where you cloned the repository
 4. You're ready to explore and modify the game!
-
-¡Claro! Aquí te dejo una sección que puedes agregar al final del README, justo antes de la despedida. Está explicada de forma clara y directa para que cualquier persona que quiera exportar entienda qué hacer, tanto en Android como en PC:
-
 ---
 
 ## ⚠️ Export Notes
@@ -137,3 +128,4 @@ To correctly use the **custom icon** included in the project when exporting for 
 ---
 
 Thank you for your interest in this project. I hope you enjoy playing it as much as I enjoyed creating it!
+
